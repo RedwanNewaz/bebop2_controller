@@ -1,0 +1,5 @@
+<launch>
+
+    <node pkg="rosbag" type="play"  name="rosbag_play" args="--clock /home/roboticslab/catkin_ws/bags/exp2.bag"/>
+
+</launch>

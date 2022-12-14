@@ -85,3 +85,7 @@ FieldLocation StateEstimation::transformToGlobalFrame(const tf::Transform &tagTr
     return tagStateObs;
 }
 
+FieldLocation StateEstimation::getPosition() {
+    return robot_position_;
+}
+

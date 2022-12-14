@@ -13,18 +13,24 @@ namespace bebop2{
     enum ButtonState{
         EMERGENCY = 0,
         TAKEOFF,
-        LAND
+        LAND,
+        HOVER,
+        CONTROL
     };
     class JoystickController {
     public:
         JoystickController();
         void joystick_callback(const sensor_msgs::Joy::ConstPtr& msg);
-    private:
+
+    protected:
         ButtonState buttonState_;
         ros::NodeHandle nh_;
         ros::Subscriber joystick_sub_;
         ros::Publisher drone_takeoff_pub_,  drone_land_pub_;
         std::mutex mu_;
+
+    private:
+        double step_incr_, dead_zone_;
     };
 }
 

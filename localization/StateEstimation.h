@@ -20,6 +20,8 @@ class StateEstimation: public std::enable_shared_from_this<StateEstimation>{
 public:
     StateEstimation();
 
+    FieldLocation getPosition();
+
 
 private:
     ros::NodeHandle nh_;
@@ -39,5 +41,7 @@ protected:
 
 };
 
+
+typedef std::shared_ptr<StateEstimation> StatePtr;
 
 #endif //BEBOP2_CONTROLLER_STATEESTIMATION_H

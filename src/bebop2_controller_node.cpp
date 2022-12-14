@@ -20,7 +20,8 @@ int main(int argc, char* argv[])
     StateEstimation stateEstimation;
 
 
-    ros::spin();
+    ros::MultiThreadedSpinner spinner(2);
+    spinner.spin();
 
     return 0;
 }

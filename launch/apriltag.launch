@@ -17,14 +17,16 @@
         <param name="queue_size" type="int" value="$(arg queue_size)" />
 
         <!-- load parameters (incl. tag family, tags, etc.) -->
-        <rosparam command="load" file="$(find bebop_controller)/config/settings.yaml"/>
-        <rosparam command="load" file="$(find bebop_controller)/config/tags.yaml"/>
+        <rosparam command="load" file="$(find bebop2_controller)/config/settings.yaml"/>
+        <rosparam command="load" file="$(find bebop2_controller)/config/tags.yaml"/>
     </node>
 
 
-    <node pkg="rviz" type="rviz" name="tagView" args="-d /home/roboticslab/catkin_ws/src/bebop_controller/config/tag.rviz" />
+    <node pkg="rviz" type="rviz" name="tagView" args="-d  $(find bebop2_controller)/config/tag.rviz" />
 
-    <node pkg="bebop2_controller" type="bebop2_controller_node" name="bebop2_controller" output="screen" />
+    <node pkg="bebop2_controller" type="bebop2_controller_node" name="bebop2_controller" output="screen" >
+        <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
+    </node>
 
     <!--    static frames-->
     <include file="$(find bebop2_controller)/launch/static_frames.launch" />

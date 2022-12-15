@@ -14,7 +14,7 @@ namespace bebop2 {
 
     void ControlViz::set_marker_from_pose(const tf::Transform &pose, visualization_msgs::Marker &msg) {
         msg.header.frame_id = "map";
-        msg.ns = "robotTarget";
+        msg.ns = "target";
         msg.header.stamp = ros::Time::now();
         msg.action = visualization_msgs::Marker::ADD;
         msg.type = visualization_msgs::Marker::SPHERE;
@@ -87,6 +87,7 @@ namespace bebop2 {
 
         visualization_msgs::Marker msg;
         set_marker_from_pose(pose, msg);
+        msg.ns = "drone";
         msg.mesh_resource = "package://bebop2_controller/config/bebop.dae";
         msg.mesh_use_embedded_materials = true;
 

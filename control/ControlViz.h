@@ -21,6 +21,7 @@ namespace bebop2 {
     class ControlViz {
     public:
         explicit ControlViz( ros::NodeHandle &nh);
+        void setDrone(const tf::Transform& pose);
         void update(const tf::Transform& pose, const MARKER_COLOR& color);
 
     private:

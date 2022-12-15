@@ -9,6 +9,7 @@ bebop2::JoystickController::JoystickController() {
     joystick_sub_ = nh_.subscribe("/joy", 10, &bebop2::JoystickController::joystick_callback, this);
     drone_takeoff_pub_ = nh_.advertise<std_msgs::Empty>("", 1);
     drone_land_pub_ = nh_.advertise<std_msgs::Empty>("", 1);
+    cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/bebop/cmd_vel", 1);
     viz_ = std::make_unique<ControlViz>(nh_);
     buttonState_ = ENGAGE;
 }
@@ -59,4 +60,19 @@ void bebop2::JoystickController::update_setpoint_viz(const tf::Transform &pose) 
         case CONTROL: viz_->update(pose, CYAN);   break;
         case LAND:    viz_->update(pose, RED);    break;
     }
+}
+
+void bebop2::JoystickController::publish_cmd_vel(const std::vector<double> &U) {
+
+    assert(U.size() == 4 && "4 commands must be sent");
+    geometry_msgs::Twist msg;
+
+    msg.linear.x  = U[0];
+    msg.linear.y  = U[1];
+    msg.linear.z  = U[2];
+    msg.angular.z = U[3];
+    cmd_vel_pub_.publish(msg);
+
+
+
 }

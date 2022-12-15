@@ -82,4 +82,17 @@ namespace bebop2 {
         pub_marker_.publish(msg);
 
     }
+
+    void ControlViz::setDrone(const tf::Transform &pose) {
+
+        visualization_msgs::Marker msg;
+        set_marker_from_pose(pose, msg);
+        msg.mesh_resource = "package://bebop2_controller/config/bebop.dae";
+        msg.mesh_use_embedded_materials = true;
+
+//        set_marker_color(color, msg);
+
+        pub_marker_.publish(msg);
+
+    }
 } // bebop2

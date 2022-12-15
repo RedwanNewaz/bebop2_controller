@@ -9,6 +9,8 @@
 #include "std_msgs/Empty.h"
 #include <mutex>
 #include <memory>
+#include <geometry_msgs/Twist.h>
+#include <cassert>
 #include "ControlViz.h"
 
 namespace bebop2{
@@ -28,12 +30,14 @@ namespace bebop2{
         ButtonState buttonState_;
         ros::NodeHandle nh_;
         ros::Subscriber joystick_sub_;
-        ros::Publisher drone_takeoff_pub_,  drone_land_pub_;
+        ros::Publisher drone_takeoff_pub_,  drone_land_pub_, cmd_vel_pub_;
         std::mutex mu_;
+        std::unique_ptr<ControlViz> viz_;
 
         virtual void update_set_point(double dx, double dy, double dz) = 0;
         void update_setpoint_viz(const tf::Transform& pose);
 
+        void publish_cmd_vel(const std::vector<double>&U);
 
     private:
         const float STEP_INCR = 0.01;
@@ -41,7 +45,7 @@ namespace bebop2{
         const int X_AXIS_INDEX = 3;
         const int Y_AXIS_INDEX = 4;
         const int Z_AXIS_INDEX = 1;
-        std::unique_ptr<ControlViz> viz_;
+
         void set_goalpoint(const std::vector<float>& axes);
 
     };

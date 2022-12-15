@@ -22,21 +22,30 @@ void bebop2::PositionController::control_loop(const ros::TimerEvent &event) {
     if (current.tagName.empty())
         return;
 
+
     if(buttonState_ == ENGAGE)
     {
+        // set setpoint at current position
         setPoints_ = current;
         update_set_point(0, 0, 0);
     }
 
     if(buttonState_ == CONTROL)
     {
+        // actively control position
         std::vector<double>X{current.x,current.y,current.z,0}, Xg{setPoints_.x,setPoints_.y,setPoints_.z,0.0}, U(NUM_CONTROLLER);
         if(!compute_control(X, Xg, m_quadController, U))
         {
             ROS_INFO("[PositionController] vx = %lf, vy = %lf, vz = %lf", U[0], U[1], U[2]);
+            publish_cmd_vel(U);
         }
 
     }
+
+    // show drone state
+    tf::Transform transform;
+    transform.setOrigin(tf::Vector3(current.x, current.y, current.z));
+    viz_->setDrone(transform);
 
 
 

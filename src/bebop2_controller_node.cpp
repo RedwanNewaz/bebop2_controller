@@ -5,8 +5,8 @@
 
 #include <iostream>
 
-#include "../control/JoystickController.h"
 #include "../localization/StateEstimation.h"
+#include "../control/PositionController.h"
 
 
 int main(int argc, char* argv[])
@@ -14,10 +14,9 @@ int main(int argc, char* argv[])
     ros::init(argc, argv, "bebop2_controller");
     ROS_INFO("BEBOP2 CONTROLLER INITIALIZED!");
 
+    auto state = std::make_shared<StateEstimation>();
+    bebop2::PositionController positionController(state);
 
-
-    bebop2::JoystickController controller;
-    StateEstimation stateEstimation;
 
 
     ros::MultiThreadedSpinner spinner(2);

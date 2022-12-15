@@ -4,7 +4,9 @@
 
 #include "PositionController.h"
 
-bebop2::PositionController::PositionController(const StatePtr &stateEstimation) : stateEstimation_(stateEstimation) {
+#include <utility>
+
+bebop2::PositionController::PositionController( std::shared_ptr<StateEstimation> stateEstimation) : stateEstimation_(std::move(stateEstimation)) {
     timer_ = nh_.createTimer(ros::Duration(0.03), &bebop2::PositionController::control_loop, this);
 }
 
@@ -14,12 +16,21 @@ void bebop2::PositionController::control_loop(const ros::TimerEvent &event) {
     if (current.tagName.empty())
         return;
 
-    if(buttonState_ != CONTROL)
+    if(buttonState_ == ENGAGE)
         setPoints_ = current;
 
-    if(buttonState_ == HOVER)
-    {
-        ROS_INFO_STREAM("Hovering Mode Selected");
-        buttonState_ = CONTROL;
-    }
+
+
+}
+
+void bebop2::PositionController::update_set_point(double dx, double dy, double dz) {
+
+    if(setPoints_.tagName.empty())
+        return;
+    FieldLocation incr{"setpoint", dx, dy, dz};
+    setPoints_ = setPoints_ + incr;
+
+    tf::Transform transform;
+    transform.setOrigin(tf::Vector3(setPoints_.x, setPoints_.y, setPoints_.z));
+
 }

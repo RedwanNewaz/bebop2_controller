@@ -16,7 +16,7 @@
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
 
-class StateEstimation: public std::enable_shared_from_this<StateEstimation>{
+class StateEstimation{
 public:
     StateEstimation();
 
@@ -42,6 +42,6 @@ protected:
 };
 
 
-typedef std::shared_ptr<StateEstimation> StatePtr;
+
 
 #endif //BEBOP2_CONTROLLER_STATEESTIMATION_H

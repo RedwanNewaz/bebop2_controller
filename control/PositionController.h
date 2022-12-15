@@ -11,15 +11,17 @@ namespace bebop2
 {
     class PositionController : public JoystickController{
     public:
-        explicit PositionController(const StatePtr &stateEstimation);
+        explicit PositionController(std::shared_ptr<StateEstimation> stateEstimation);
 
     private:
-        StatePtr stateEstimation_;
+        std::shared_ptr<StateEstimation> stateEstimation_;
         FieldLocation setPoints_;
         ros::Timer timer_;
 
     protected:
         void control_loop(const ros::TimerEvent& event);
+
+        void update_set_point(double dx, double dy, double dz) override;
     };
 
 }

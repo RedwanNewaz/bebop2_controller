@@ -51,7 +51,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(${PROJECT_NAME}_node src/bebop2_controller_node.cpp control/JoystickController.cpp control/JoystickController.h localization/StateEstimation.cpp localization/StateEstimation.h include/bebop2_controller/robot_defs.h control/PositionController.cpp control/PositionController.h)
+ add_executable(${PROJECT_NAME}_node src/bebop2_controller_node.cpp control/JoystickController.cpp control/JoystickController.h localization/StateEstimation.cpp localization/StateEstimation.h include/bebop2_controller/robot_defs.h control/PositionController.cpp control/PositionController.h control/ControlViz.cpp control/ControlViz.h)
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(${PROJECT_NAME}_node

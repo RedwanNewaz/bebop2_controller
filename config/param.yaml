@@ -1,7 +1,31 @@
+# make sure you define tag index before defining tag coordinates
 apriltags: [2, 4, 7]
 
+# the program will look for the tag index first to read each tag coordinate
 tag2: [5, 0, 0.95]
 tag4: [5, -2.05, 0.95]
 tag7: [5, -1.13, 0.95]
 
+# complimentary filter gain. Higher value slower update, less noisy
 alpha: 0.99
+
+#   linear.x  (+)      Translate forward
+#             (-)      Translate backward
+#   linear.y  (+)      Translate to left -> (NEGATIVE gain)
+#             (-)      Translate to right
+#   linear.z  (+)      Ascend
+#             (-)      Descend
+#   angular.z (+)      Rotate counter clockwise -> (NEGATIVE gain)
+#             (-)      Rotate clockwise
+
+pid_gains: [
+  0.1, 0, 0,
+ -0.1, 0, 0,
+  0.1, 0, 0,
+  0.0, 0, 0
+]
+
+# set the control loop duration default 30 Hz -> 0.03
+dt: 0.03
+# set hovering region
+goal_thres: 0.2

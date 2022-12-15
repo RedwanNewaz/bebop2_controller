@@ -12,6 +12,7 @@ bebop2::JoystickController::JoystickController() {
     cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/bebop/cmd_vel", 1);
     viz_ = std::make_unique<ControlViz>(nh_);
     buttonState_ = ENGAGE;
+    joystick_timer_ = nh_.createTimer(ros::Duration(0.05), &bebop2::JoystickController::joystick_timer_callback, this);
 }
 
 void bebop2::JoystickController::joystick_callback(const sensor_msgs::Joy::ConstPtr &msg) {
@@ -26,14 +27,15 @@ void bebop2::JoystickController::joystick_callback(const sensor_msgs::Joy::Const
         switch (buttonState_) {
             case TAKEOFF: {
                 drone_takeoff_pub_.publish(empty); ROS_INFO("[Button] pressed = %d -> TAKE OFF", buttonState_);break;
-                buttonState_ = IDLE;
+                buttonState_ = ENGAGE;
             }
             case LAND: drone_land_pub_.publish(empty); ROS_INFO("[Button] pressed = %d -> LAND", buttonState_); break;
         }
     }
-
+    axes_values_.clear();
+    std::copy(msg->axes.begin(), msg->axes.end(), std::back_inserter(axes_values_));
     // get axis
-    set_goalpoint(msg->axes);
+//    set_goalpoint(msg->axes);
 
 
 }
@@ -48,7 +50,7 @@ void bebop2::JoystickController::set_goalpoint(const std::vector<float> &axes) {
     float dz = filter(axes[Z_AXIS_INDEX]);
     float dx = filter(axes[X_AXIS_INDEX]);
     float dy = filter(axes[Y_AXIS_INDEX]);
-    update_set_point(dx, -dy, dz);
+    update_set_point(dx, dy, dz);
 
 }
 
@@ -75,4 +77,10 @@ void bebop2::JoystickController::publish_cmd_vel(const std::vector<double> &U) {
 
 
 
+}
+
+void bebop2::JoystickController::joystick_timer_callback(const ros::TimerEvent &event) {
+    if(axes_values_.empty())
+        return;
+    set_goalpoint(axes_values_);
 }

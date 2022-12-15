@@ -38,13 +38,16 @@ namespace bebop2{
         void update_setpoint_viz(const tf::Transform& pose);
 
         void publish_cmd_vel(const std::vector<double>&U);
+        void joystick_timer_callback(const ros::TimerEvent& event);
 
     private:
-        const float STEP_INCR = 0.01;
+        const float STEP_INCR = 0.02;
         const float DEAD_ZONE = 0.3;
         const int X_AXIS_INDEX = 3;
-        const int Y_AXIS_INDEX = 4;
-        const int Z_AXIS_INDEX = 1;
+        const int Y_AXIS_INDEX = 2;
+        const int Z_AXIS_INDEX = 5;
+        std::vector<float>axes_values_;
+        ros::Timer joystick_timer_;
 
         void set_goalpoint(const std::vector<float>& axes);
 

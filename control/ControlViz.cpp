@@ -17,7 +17,7 @@ namespace bebop2 {
         msg.ns = "target";
         msg.header.stamp = ros::Time::now();
         msg.action = visualization_msgs::Marker::ADD;
-        msg.type = visualization_msgs::Marker::SPHERE;
+
 
         msg.scale.x = 0.35;
         msg.scale.y = 0.35;
@@ -40,34 +40,42 @@ namespace bebop2 {
         switch (color) {
             case RED:
             {
-                msg.color.a = 0.75;
+                msg.color.a = 0.5;
                 msg.color.r = 1;
                 break;
             }
             case GREEN:
             {
-                msg.color.a = 0.75;
+                msg.color.a = 0.5;
                 msg.color.g = 1;
                 break;
             }
             case BLUE:
             {
-                msg.color.a = 0.75;
+                msg.color.a = 0.5;
                 msg.color.b = 1;
                 break;
             }
             case YELLOW:
             {
-                msg.color.a = 0.75;
+                msg.color.a = 0.5;
                 msg.color.r = 1;
                 msg.color.g = 1;
                 break;
             }
             case CYAN:
             {
-                msg.color.a = 0.75;
+                msg.color.a = 0.5;
                 msg.color.b = 1;
                 msg.color.g = 1;
+                break;
+            }
+            case GRAY:
+            {
+                msg.color.a = 0.5;
+                msg.color.r = 0.67;
+                msg.color.b = 0.67;
+                msg.color.g = 0.67;
                 break;
             }
         }
@@ -78,6 +86,7 @@ namespace bebop2 {
         visualization_msgs::Marker msg;
         set_marker_from_pose(pose, msg);
         set_marker_color(color, msg);
+        msg.type = visualization_msgs::Marker::SPHERE;
 
         pub_marker_.publish(msg);
 
@@ -88,10 +97,14 @@ namespace bebop2 {
         visualization_msgs::Marker msg;
         set_marker_from_pose(pose, msg);
         msg.ns = "drone";
+        msg.type = visualization_msgs::Marker::MESH_RESOURCE;
         msg.mesh_resource = "package://bebop2_controller/config/bebop.dae";
-        msg.mesh_use_embedded_materials = true;
+//        msg.mesh_use_embedded_materials = true;
+        msg.scale.x = msg.scale.y = msg.scale.z = 0.001;
 
-//        set_marker_color(color, msg);
+        set_marker_color(GRAY, msg);
+        msg.color.a = 1.0;
+        msg.id = 101;
 
         pub_marker_.publish(msg);
 

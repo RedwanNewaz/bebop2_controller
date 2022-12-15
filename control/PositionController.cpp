@@ -34,7 +34,7 @@ void bebop2::PositionController::control_loop(const ros::TimerEvent &event) {
     {
         // actively control position
         std::vector<double>X{current.x,current.y,current.z,0}, Xg{setPoints_.x,setPoints_.y,setPoints_.z,0.0}, U(NUM_CONTROLLER);
-        if(!compute_control(X, Xg, m_quadController, U))
+        if(compute_control(X, Xg, m_quadController, U))
         {
             ROS_INFO("[PositionController] vx = %lf, vy = %lf, vz = %lf", U[0], U[1], U[2]);
             publish_cmd_vel(U);
@@ -45,6 +45,7 @@ void bebop2::PositionController::control_loop(const ros::TimerEvent &event) {
     // show drone state
     tf::Transform transform;
     transform.setOrigin(tf::Vector3(current.x, current.y, current.z));
+    transform.setRotation(tf::Quaternion(0, 0, 0, 1));
     viz_->setDrone(transform);
 
 
@@ -60,6 +61,7 @@ void bebop2::PositionController::update_set_point(double dx, double dy, double d
 
     tf::Transform transform;
     transform.setOrigin(tf::Vector3(setPoints_.x, setPoints_.y, setPoints_.z));
+    transform.setRotation(tf::Quaternion(0, 0, 0, 1));
     update_setpoint_viz(transform);
 }
 
@@ -92,6 +94,7 @@ bool bebop2::PositionController::compute_control(const std::vector<double> &X, c
         return false;
     }
     for (int i = 0; i < NUM_CONTROLLER; ++i) {
+//        ROS_INFO("[PositionController]: control axis = %d setpoint = %lf X = %lf", i, setPoints[i], X[i] );
         control[i] = controller[i].calculate(setPoints[i], X[i]);
     }
     return true;

@@ -7,6 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /Image1
+        - /Marker1
       Splitter Ratio: 0.5
     Tree Height: 357
   - Class: rviz/Selection
@@ -103,6 +104,15 @@ Visualization Manager:
       Transport Hint: raw
       Unreliable: false
       Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /bebop2/goal
+      Name: Marker
+      Namespaces:
+        drone: true
+        target: true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -131,7 +141,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 14.920001983642578
+      Distance: 9.245092391967773
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -139,17 +149,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.5147196054458618
-        Y: -0.31293416023254395
-        Z: -1.9378122091293335
+        X: 1.644089937210083
+        Y: -0.10054454207420349
+        Z: -1.0800566673278809
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8553979396820068
+      Pitch: 0.9753978252410889
       Target Frame: <Fixed Frame>
-      Yaw: 5.783586502075195
+      Yaw: 3.0654239654541016
     Saved: ~
 Window Geometry:
   Displays:

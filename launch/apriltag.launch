@@ -29,7 +29,7 @@
     </node>
 
     <!--    static frames-->
-    <include file="$(find bebop2_controller)/launch/static_frames.launch" />
+    <include file="$(find bebop2_controller)/launch/bebop_frames.launch" />
 
 
 

@@ -66,7 +66,7 @@ void StateEstimation::apriltag_callback(const apriltag_ros::AprilTagDetectionArr
         globalCoord.setOrigin(tf::Vector3(robot_position_.x, robot_position_.y, robot_position_.z));
         globalCoord.setRotation(tf::Quaternion(0, 0, 0, 1));
         br_.sendTransform(tf::StampedTransform(globalCoord, ros::Time::now(), "map", "robot"));
-        ROS_INFO_STREAM(robot_position_);
+//        ROS_INFO_STREAM(robot_position_);
     }
 }
 

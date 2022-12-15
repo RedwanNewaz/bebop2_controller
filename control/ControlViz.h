@@ -15,7 +15,8 @@ namespace bebop2 {
         GREEN,
         BLUE,
         CYAN,
-        YELLOW
+        YELLOW,
+        GRAY
     };
 
     class ControlViz {

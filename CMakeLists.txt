@@ -20,7 +20,8 @@ find_package(catkin REQUIRED COMPONENTS
   tf
 
 )
-
+#add_subdirectory(control/LQR)
+#add_subdirectory(control/PID)
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -47,11 +48,14 @@ include_directories(
  include
   ${catkin_INCLUDE_DIRS}
 )
-
+set(SOURCE_FILES
+    src/bebop2_controller_node.cpp control/JoystickController.cpp control/JoystickController.h localization/StateEstimation.cpp localization/StateEstimation.h include/bebop2_controller/robot_defs.h control/PositionController.cpp control/PositionController.h control/ControlViz.cpp control/ControlViz.h
+    control/PID/PID.h control/PID/PID.cpp
+        )
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(${PROJECT_NAME}_node src/bebop2_controller_node.cpp control/JoystickController.cpp control/JoystickController.h localization/StateEstimation.cpp localization/StateEstimation.h include/bebop2_controller/robot_defs.h control/PositionController.cpp control/PositionController.h)
+ add_executable(${PROJECT_NAME}_node ${SOURCE_FILES})
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(${PROJECT_NAME}_node

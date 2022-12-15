@@ -7,8 +7,8 @@
 bebop2::JoystickController::JoystickController() {
 
     joystick_sub_ = nh_.subscribe("/joy", 10, &bebop2::JoystickController::joystick_callback, this);
-    drone_takeoff_pub_ = nh_.advertise<std_msgs::Empty>("", 1);
-    drone_land_pub_ = nh_.advertise<std_msgs::Empty>("", 1);
+    drone_takeoff_pub_ = nh_.advertise<std_msgs::Empty>("/bebop/takeoff", 1);
+    drone_land_pub_ = nh_.advertise<std_msgs::Empty>("/bebop/land", 1);
     cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/bebop/cmd_vel", 1);
     viz_ = std::make_unique<ControlViz>(nh_);
     buttonState_ = ENGAGE;

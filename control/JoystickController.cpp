@@ -53,6 +53,7 @@ void bebop2::JoystickController::set_goalpoint(const std::vector<float> &axes) {
 
 void bebop2::JoystickController::update_setpoint_viz(const tf::Transform &pose) {
     switch (buttonState_) {
+        case TAKEOFF: viz_->update(pose, GREEN); break;
         case IDLE:    viz_->update(pose, BLUE); break;
         case ENGAGE:  viz_->update(pose, YELLOW);  break;
         case CONTROL: viz_->update(pose, CYAN);   break;

@@ -17,7 +17,10 @@ void bebop2::PositionController::control_loop(const ros::TimerEvent &event) {
         return;
 
     if(buttonState_ == ENGAGE)
+    {
         setPoints_ = current;
+        update_set_point(0, 0, 0);
+    }
 
 
 
@@ -32,5 +35,5 @@ void bebop2::PositionController::update_set_point(double dx, double dy, double d
 
     tf::Transform transform;
     transform.setOrigin(tf::Vector3(setPoints_.x, setPoints_.y, setPoints_.z));
-
+    update_setpoint_viz(transform);
 }

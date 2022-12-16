@@ -17,7 +17,7 @@ namespace bebop2
         explicit QuadController(const StateFunc &mGetState) : ControllerBase(mGetState) {
             std::vector<double> gains;
             ros::param::get("~pid_gains", gains);
-            assert(gains.size() == 3 * 4 && "inaccurate PID gains");
+            assert(gains.size() == NUM_GAINS * NUM_CONTROLLER && "inaccurate PID gains");
             set_gains(gains, quadController_);
         }
 

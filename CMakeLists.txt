@@ -49,9 +49,9 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 set(SOURCE_FILES
-    src/bebop2_controller_node.cpp control/JoystickController.cpp control/JoystickController.h localization/StateEstimation.cpp localization/StateEstimation.h include/bebop2_controller/robot_defs.h control/PositionController.cpp control/PositionController.h control/ControlViz.cpp control/ControlViz.h
+    src/bebop2_controller_node.cpp localization/StateEstimation.cpp localization/StateEstimation.h include/bebop2_controller/robot_defs.h control/ControlViz.cpp control/ControlViz.h
     control/PID/PID.h control/PID/PID.cpp
-        )
+        control/ControllerBase.cpp control/ControllerBase.h)
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide

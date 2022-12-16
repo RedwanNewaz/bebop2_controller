@@ -24,9 +24,6 @@
 
     <node pkg="rviz" type="rviz" name="tagView" args="-d  $(find bebop2_controller)/config/tag.rviz" />
 
-    <node pkg="bebop2_controller" type="bebop2_controller_node" name="bebop2_controller" output="screen" >
-        <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
-    </node>
 
     <!--    static frames-->
     <include file="$(find bebop2_controller)/launch/bebop_frames.launch" />

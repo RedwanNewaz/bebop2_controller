@@ -1,8 +1,13 @@
 <launch>
 
-<!--    <node pkg="rosbag" type="play"  name="rosbag_play" args="&#45;&#45;clock /home/roboticslab/catkin_ws/bags/exp2.bag"/>-->
+    <group ns="bebop">
+        <node pkg="bebop2_controller" type="bebop2_controller_node" name="bebop2_controller" output="screen" >
+            <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
+        </node>
+    </group>
 
     <node pkg="joy" type="joy_node" name="joy_node" />
     <include file="$(find bebop_tools)/launch/bebop_nodelet_iv.launch" />
+    <!--    <node pkg="rosbag" type="play"  name="rosbag_play" args="&#45;&#45;clock /home/roboticslab/catkin_ws/bags/exp2.bag"/>-->
 
 </launch>

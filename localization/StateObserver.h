@@ -16,7 +16,7 @@ namespace bebop2 {
     class StateObserver {
     public:
         explicit StateObserver(std::shared_ptr<Filter>& filter, std::shared_ptr<Sensor> &sensor);
-        std::vector<double> get_state();
+        void operator()(std::vector<double>& result);
 
 
 

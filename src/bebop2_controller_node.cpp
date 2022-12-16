@@ -5,7 +5,6 @@
 
 #include <iostream>
 
-#include "../localization/StateEstimation.h"
 #include "../control/PID/PID.h"
 #include "../control/ControllerBase.h"
 #include "../control/ControllerBase.cpp"

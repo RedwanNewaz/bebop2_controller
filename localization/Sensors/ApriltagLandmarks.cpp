@@ -67,10 +67,9 @@ void ApriltagLandmarks::publish_tf(const std::vector<double> &state) {
 //        ROS_INFO_STREAM(robot_position_);
 }
 
-std::vector<double> ApriltagLandmarks::get_observations() {
-    auto obs = measurements_.front();
+void ApriltagLandmarks::operator()(std::vector<double>& result){
+    result = measurements_.front();
     measurements_.pop();
-    return obs;
 }
 
 bool ApriltagLandmarks::empty() {

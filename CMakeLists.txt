@@ -49,7 +49,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 set(SOURCE_FILES
-    src/bebop2_controller_node.cpp localization/StateEstimation.cpp localization/StateEstimation.h include/bebop2_controller/robot_defs.h control/ControlViz.cpp control/ControlViz.h
+    src/bebop2_controller_node.cpp include/bebop2_controller/robot_defs.h control/ControlViz.cpp control/ControlViz.h
     control/PID/PID.h control/PID/PID.cpp
         control/ControllerBase.cpp control/ControllerBase.h localization/StateObserver.cpp localization/StateObserver.h localization/Filters/ComplementaryFilter.h localization/Sensors/ApriltagLandmarks.cpp localization/Sensors/ApriltagLandmarks.h)
 ## Declare a C++ executable

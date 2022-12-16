@@ -107,7 +107,8 @@ namespace bebop2
 
     template<class Sensor, class Filter>
     void ControllerBase<Sensor, Filter>::control_loop(const ros::TimerEvent &event) {
-        auto state = m_get_state->get_state();
+        std::vector<double> state;
+        m_get_state->operator()(state);
 //        ROS_INFO_STREAM("[ControllerBase] state size" << state.size());
         if(state.empty())
             return;

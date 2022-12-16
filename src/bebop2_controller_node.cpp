@@ -77,11 +77,11 @@ int main(int argc, char* argv[])
 
 
     bebop2::QuadController<ApriltagLandmarks, ComplementaryFilter> controller(stateObserver, nh);
-//    ros::AsyncSpinner spinner(4);
-//    spinner.start();
-//    ros::waitForShutdown();
+    ros::AsyncSpinner spinner(4);
+    spinner.start();
+    ros::waitForShutdown();
 
-    ros::MultiThreadedSpinner spinner(2);
-    spinner.spin();
+//    ros::MultiThreadedSpinner spinner(2);
+//    spinner.spin();
     return 0;
 }

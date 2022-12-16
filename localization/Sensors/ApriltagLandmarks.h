@@ -18,7 +18,7 @@
 class ApriltagLandmarks {
 
 public:
-    ApriltagLandmarks();
+    ApriltagLandmarks(ros::NodeHandle& nh);
     void publish_tf(const std::vector<double>& state);
     std::vector<double> get_observations();
     bool empty();

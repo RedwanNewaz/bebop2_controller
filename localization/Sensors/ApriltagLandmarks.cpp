@@ -4,7 +4,8 @@
 
 #include "ApriltagLandmarks.h"
 
-ApriltagLandmarks::ApriltagLandmarks() {
+ApriltagLandmarks::ApriltagLandmarks(ros::NodeHandle& nh): nh_(nh) {
+
 
     std::vector<int>tagIds;
     ros::param::get("~apriltags", tagIds);
@@ -18,15 +19,16 @@ ApriltagLandmarks::ApriltagLandmarks() {
         landmarks_[tag_name] = tagTransform;
     }
 
-    apriltagSub_ = nh_.subscribe("tag_detections", 1, &ApriltagLandmarks::apriltag_callback, this);
-
+    apriltagSub_ = nh_.subscribe("/tag_detections", 1, &ApriltagLandmarks::apriltag_callback, this);
+    ROS_INFO_STREAM("[ApriltagLandmarks] initialized");
 }
 
 
 
 void
-ApriltagLandmarks::apriltag_callback(const apriltag_ros::AprilTagDetectionArray_<std::allocator<void>>::ConstPtr &msg) {
+ApriltagLandmarks::apriltag_callback(const apriltag_ros::AprilTagDetectionArray::ConstPtr &msg) {
 
+//    ROS_INFO_STREAM(*msg);
     for(auto detection: msg->detections)
     {
         std::string tagName = "tag" + std::to_string(detection.id[0]);
@@ -36,6 +38,7 @@ ApriltagLandmarks::apriltag_callback(const apriltag_ros::AprilTagDetectionArray_
         tagTransform.setRotation(tf::Quaternion(pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w));
         auto position = transformToGlobalFrame(tagTransform, tagName);
         measurements_.push({position.x, position.y, position.z, 0});
+//        ROS_INFO_STREAM("[ApriltagLandmarks] mes size" << measurements_.size());
     }
 
 }

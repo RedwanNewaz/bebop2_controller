@@ -6,8 +6,8 @@
         </node>
     </group>
 
-    <node pkg="joy" type="joy_node" name="joy_node" />
-    <include file="$(find bebop_tools)/launch/bebop_nodelet_iv.launch" />
-    <!--    <node pkg="rosbag" type="play"  name="rosbag_play" args="&#45;&#45;clock /home/roboticslab/catkin_ws/bags/exp2.bag"/>-->
+<!--    <node pkg="joy" type="joy_node" name="joy_node" />-->
+<!--    <include file="$(find bebop_tools)/launch/bebop_nodelet_iv.launch" />-->
+        <node pkg="rosbag" type="play"  name="rosbag_play" args="--clock /home/redwan/catkin_ws/bags/exp2.bag"/>
 
 </launch>

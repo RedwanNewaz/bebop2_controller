@@ -26,6 +26,9 @@
 #include <algorithm>
 #include "ControlViz.h"
 
+#include "../localization/StateObserver.h"
+#include "../localization/StateObserver.cpp"
+
 namespace bebop2
 {
     const float STEP_INCR = 0.02;
@@ -34,14 +37,16 @@ namespace bebop2
     const int Y_AXIS_INDEX = 2;
     const int Z_AXIS_INDEX = 5;
     const int NUM_CONTROLS = 4;
-    using StateFunc = std::function<std::vector<double>(void)>;
 
-    class ControllerBase : std::enable_shared_from_this<ControllerBase>{
 
-        using ControllerPtr = std::shared_ptr<ControllerBase>;
+
+    template<class Sensor, class Filter>
+    class ControllerBase{
     public:
-        ControllerBase(StateFunc mGetState);
-        ControllerPtr get_ptr();
+
+
+        explicit ControllerBase(StatePtr<Sensor, Filter> mGetState, ros::NodeHandle& nh);
+
 
     private:
         std::vector<float>axes_values_;
@@ -63,7 +68,7 @@ namespace bebop2
         }m_buttonState;
 
         // this function will give robot state
-        StateFunc m_get_state;
+        StatePtr<Sensor, Filter> m_get_state;
 
         // controller param
         double m_dt; // sample time

@@ -30,6 +30,8 @@ namespace bebop2 {
             m_state = m_filter->update(obs);
         }
 
+        m_sensor.publish_tf(m_state);
+
     }
 
 

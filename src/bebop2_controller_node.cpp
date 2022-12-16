@@ -18,11 +18,11 @@ namespace bebop2
             std::vector<double> gains;
             ros::param::get("~pid_gains", gains);
             assert(gains.size() == NUM_GAINS * NUM_CONTROLLER && "inaccurate PID gains");
-            set_gains(gains, quadController_);
+            set_gains(gains, _quadController);
         }
 
     private:
-        bebop2::PID quadController_[NUM_CONTROLLER];
+        bebop2::PID _quadController[NUM_CONTROLLER];
         void set_gains(const std::vector<double> &gains, bebop2::PID *controller) {
             const double MAX_OUT = 1;
             const double MIN_OUT = -1;
@@ -38,7 +38,7 @@ namespace bebop2
             std::lock_guard<std::mutex> lk(m_mu);
             for (int i = 0; i < NUM_CONTROLLER; ++i) {
                 //        ROS_INFO("[PositionController]: control axis = %d setpoint = %lf X = %lf", i, setPoints[i], X[i] );
-                control[i] = quadController_[i].calculate(setPoints[i], X[i]);
+                control[i] = _quadController[i].calculate(setPoints[i], X[i]);
             }
         }
 

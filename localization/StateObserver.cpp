@@ -25,7 +25,6 @@ namespace bebop2 {
     void StateObserver<Sensor, Filter>::update_state() {
         while (!m_sensor->empty())
         {
-//            auto obs = *m_sensor();
             std::vector<double> obs;
             m_sensor->operator()(obs);
             if(!m_initialized)

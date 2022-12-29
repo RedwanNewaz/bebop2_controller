@@ -13,7 +13,7 @@
 
 using namespace std;
 
-void ParticleFilter::init(double x, double y, double z, double theta, const std::vector<double>& std) {
+void ParticleFilter::init(const std::vector<double>& x0, const std::vector<double>& std) {
     // Set the number of particles. Initialize all particles to first position (based on estimates of
     //   x, y, theta and their uncertainties from GPS) and all weights to 1.
     // Add random Gaussian noise to each particle.
@@ -29,10 +29,10 @@ void ParticleFilter::init(double x, double y, double z, double theta, const std:
     std_theta = std[3];
 
     // Normal distribution for x, y and theta
-    normal_distribution<double> dist_x(x, std_x); // mean is centered around the new measurement
-    normal_distribution<double> dist_y(y, std_y);
-    normal_distribution<double> dist_z(z, std_z);
-    normal_distribution<double> dist_theta(theta, std_theta);
+    normal_distribution<double> dist_x(x0[0], std_x); // mean is centered around the new measurement
+    normal_distribution<double> dist_y(x0[1], std_y);
+    normal_distribution<double> dist_z(x0[2], std_z);
+    normal_distribution<double> dist_theta(x0[3], std_theta);
 
     default_random_engine gen; //http://www.cplusplus.com/reference/random/default_random_engine/
 
@@ -207,8 +207,8 @@ void ParticleFilter::resample() {
         resampled_particles.push_back(particles[distribution(gen)]);
     }
 
-    particles = resampled_particles;
-
+//    particles = resampled_particles;
+    std::copy(resampled_particles.begin(), resampled_particles.end(), particles.begin());
 }
 
 void ParticleFilter::write(std::string filename) {
@@ -224,11 +224,22 @@ void ParticleFilter::write(std::string filename) {
 void ParticleFilter::update(const std::vector<double>& obs, std::vector<double>& result) {
 
     assert(initialized() && "particle filter is not initialized");
+    assert(obs.size() >= 3 && "observation vector must be greater than 3");
 
     std::vector<LandmarkObs> noisy_observations;
-    for (int i = 0; i < tagMap_.landmark_list.size(); ++i) {
-        noisy_observations.push_back({i, tagMap_.landmark_list[i].x_d - obs[0], tagMap_.landmark_list[i].y_d - obs[1], tagMap_.landmark_list[i].z_d - obs[2]});
+    int count = 0;
+    for (const auto& landmark: tagMap_.landmark_list) {
+       std::vector<double> landmarkVec{landmark.x_d, landmark.y_d, landmark.z_d};
+       std::vector<double> rel_obs(obs.size() + 1);
+
+       rel_obs[0] = count++;
+       int i = 0;
+       std::transform(landmarkVec.begin(), landmarkVec.end(), rel_obs.begin() + 1,[&](double v){ return v - obs[i++];});
+       noisy_observations.push_back({(int)rel_obs[0], rel_obs[1], rel_obs[2], rel_obs[3]});
     }
+
+
+
 
 
     // Predict the vehicle's next state (noiseless).
@@ -244,7 +255,7 @@ void ParticleFilter::update(const std::vector<double>& obs, std::vector<double>&
     prediction(delta_t, sigma_pos_, cmd_);
 
     // Update the weights and resample
-    double sensor_range = 5; // Sensor range [m]
+    double sensor_range = 15; // Sensor range [m]
 
 
     updateWeights(sensor_range, sigma_pos_, noisy_observations, tagMap_);
@@ -255,8 +266,9 @@ void ParticleFilter::update(const std::vector<double>& obs, std::vector<double>&
     int countParticles = 0;
     for(const auto&p : particles)
     {
-        if(p.weight < 1e-6)
+        if(p.weight < 1e-3)
             continue;
+
 
         result[0] += p.x;
         result[1] += p.y;
@@ -265,9 +277,20 @@ void ParticleFilter::update(const std::vector<double>& obs, std::vector<double>&
         ++countParticles;
     }
 
+
+
     countParticles = (countParticles == 0) ? 1 : countParticles;
     std::transform(result.begin(), result.end(), result.begin(), [&countParticles](double p){ return p /(double) countParticles;});
 
+    if(countParticles > 1)
+    {
+        xEst_.clear();
+        std::copy(result.begin(), result.end(), std::back_inserter(xEst_));
+    }
+}
+
+void ParticleFilter::operator()(std::vector<double> &state) {
+    std::copy(xEst_.begin(), xEst_.end(), state.begin());
 
 }
 

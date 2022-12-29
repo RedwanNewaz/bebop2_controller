@@ -11,7 +11,7 @@
 #include <utility>
 #include <vector>
 #include <numeric>
-#include "helper.h"
+#include "../include/helper.h"
 #include <Eigen/Dense>
 
 
@@ -131,6 +131,7 @@ class ParticleFilter {
     Twist * cmd_;
     std::vector<Mvn*> mvn_;
     std::vector<double> sigma_pos_;
+    std::vector<double> xEst_;
 
 
 
@@ -143,9 +144,9 @@ public:
 
     // Constructor
     // @param M Number of particles
-    ParticleFilter(int num_particles, const TagMap&  tagMap, double delta_t = 0.03) :
+    ParticleFilter(int num_particles, const TagMap&  tagMap, double delta_t) :
     num_particles(num_particles), tagMap_(tagMap), is_initialized(false), delta_t(0.03) {}
-
+    void operator()(std::vector<double>& state);
     // Destructor
     ~ParticleFilter() {
 
@@ -170,7 +171,7 @@ public:
      * @param std[] Array of dimension 3 [standard deviation of x [m], standard deviation of y [m]
      *   standard deviation of yaw [rad]]
      */
-    void init(double x, double y, double z, double theta, const std::vector<double>& std);
+    void init(const std::vector<double>& x0, const std::vector<double>& std);
 
     /**
      * prediction Predicts the state for the next time step

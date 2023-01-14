@@ -1,24 +1,28 @@
-#include "DummyState.h"
+#include "bebop2_controller/localization/Sensors/DummyState.h"
 
 
 namespace bebop2
 {
-    DummyState::DummyState(ros::NodeHandle& nh):nh_(nh)
+    DummyState::DummyState(ros::NodeHandle& nh, bool noisy_reading):nh_(nh), noisy_reading_(noisy_reading)
     {
         states_.resize(STATE_DIM);
         std::fill(states_.begin(), states_.end(), 0.0);
 
-        sub_takeoff_ = nh_.subscribe("takeoff", &DummyState::takeoff_callback, this, 10);
-        sub_land_ = nh_.subscribe("land", &DummyState::land_callback, this, 10);
-        sub_cmd_vel_ = nh_.subscribe("cmd_vel", &DummyState::cmd_vel_callback, this, 10);
+        sub_takeoff_ = nh_.subscribe("takeoff", 10, &DummyState::takeoff_callback, this);
+        sub_land_ = nh_.subscribe("land", 10, &DummyState::land_callback, this);
+        sub_cmd_vel_ = nh_.subscribe("cmd_vel", 1, &DummyState::cmd_vel_callback, this);
     }
 
-    void operator()(std::vector<double>& state)
+    void DummyState::operator()(std::vector<double>& state)
     {
         state.clear();
         std::copy(states_.begin(), states_.end(), std::back_inserter(state));
 
-        // add gaussian white noise for simulating a realistic measurement 
+        // don't add noise if noisy_reading is not enabled
+        if(!noisy_reading_)
+            return;
+
+        // add gaussian white noise for simulating a realistic measurement
         std::normal_distribution<double> disturbance(0.0, sqrt(NOISE));
         //focus on x, y coordinates only. Later tune it for all 4 axes
         for(std::size_t i=0; i<state.size() - 2; ++i)

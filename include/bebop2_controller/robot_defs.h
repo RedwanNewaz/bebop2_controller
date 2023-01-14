@@ -3,7 +3,7 @@
 #include <string>
 #include <math.h>
 
-#define STATE_DIM (10)
+//const int STATE_DIM = 10;
 
 struct RobotState
 {
@@ -11,12 +11,12 @@ struct RobotState
     double y;      // y-position (in meters)
     double z;      // z-position (in meters)
     double theta;  // z-orientation (in radians)
-    double vx;     // x-linear velocity (in meters)
-    double vy;     // y-linear velocity (in meters)
-    double vz;     // z-linear velocity (in meters)
-    double wx;     // x-angular velocity (in meters)
-    double wy;     // y-angular velocity (in meters)
-    double wz;     // z-angular velocity (in meters)
+//    double vx;     // x-linear velocity (in meters)
+//    double vy;     // y-linear velocity (in meters)
+//    double vz;     // z-linear velocity (in meters)
+//    double wx;     // x-angular velocity (in meters)
+//    double wy;     // y-angular velocity (in meters)
+//    double wz;     // z-angular velocity (in meters)
 };
 
 

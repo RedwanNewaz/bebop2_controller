@@ -2,7 +2,7 @@
 // Created by redwan on 12/15/22.
 //
 
-#include "ApriltagLandmarks.h"
+#include "bebop2_controller/localization/Sensors/ApriltagLandmarks.h"
 
 ApriltagLandmarks::ApriltagLandmarks(ros::NodeHandle& nh): nh_(nh) {
 
@@ -57,15 +57,6 @@ FieldLocation ApriltagLandmarks::transformToGlobalFrame(const tf::Transform &tag
     return tagStateObs;
 }
 
-void ApriltagLandmarks::publish_tf(const std::vector<double> &state) {
-    tf::Transform globalCoord;
-    tf::Quaternion q;
-    q.setRPY(0, 0, state[3]);
-    globalCoord.setOrigin(tf::Vector3(state[0], state[1], state[2]));
-    globalCoord.setRotation(q);
-    br_.sendTransform(tf::StampedTransform(globalCoord, ros::Time::now(), "map", "robot"));
-//        ROS_INFO_STREAM(robot_position_);
-}
 
 void ApriltagLandmarks::operator()(std::vector<double>& result){
     result = measurements_.front();

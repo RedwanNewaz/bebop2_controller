@@ -12,14 +12,13 @@
 #include <apriltag_ros/AprilTagDetectionArray.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <nav_msgs/Odometry.h>
-#include <tf/transform_broadcaster.h>
-#include <queue>
 
-class ApriltagLandmarks {
+#include <queue>
+#include "SensorBase.h"
+class ApriltagLandmarks : public SensorBase{
 
 public:
     ApriltagLandmarks(ros::NodeHandle& nh);
-    void publish_tf(const std::vector<double>& state);
     void operator()(std::vector<double>& result);
     bool empty();
 
@@ -27,7 +26,6 @@ private:
     std::unordered_map<std::string, tf::Transform> landmarks_;
     ros::Subscriber apriltagSub_;
     ros::NodeHandle nh_;
-    tf::TransformBroadcaster br_;
     std::queue<std::vector<double>> measurements_;
 
 protected:

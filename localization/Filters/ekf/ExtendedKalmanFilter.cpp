@@ -2,9 +2,11 @@
 // Created by Redwan Newaz on 12/29/22.
 //
 
-#include "extended_kalman_filter.h"
+#include "bebop2_controller/localization/Filters/ExtendedKalmanFilter.h"
 
-extended_kalman_filter::extended_kalman_filter(const std::vector<double> &state, const std::vector<double>& sigma_pos, double dt, int state_dim) 
+using namespace bebop2;
+
+ExtendedKalmanFilter::ExtendedKalmanFilter(const std::vector<double>& sigma_pos, double dt, int state_dim)
 :DT(dt), STATE_DIM(state_dim), CONTROL_DIM(STATE_DIM)
 {
     
@@ -16,24 +18,25 @@ extended_kalman_filter::extended_kalman_filter(const std::vector<double> &state,
         R_(i, i) = 1;
     }
 
+    X_.resize(STATE_DIM);
     xEst_.resize(STATE_DIM);
     PEst_.resize(STATE_DIM, STATE_DIM);
     PEst_.setIdentity();
 
-    for (int j = 0; j < STATE_DIM; ++j) {
-        xEst_(j) = state[j];
-    }
-}
-
-void extended_kalman_filter::operator()(std::vector<double> &state) {
-    for (int j = 0; j < state.size(); ++j) {
-        state[j] = xEst_(j);
-    }
 
 }
 
+void ExtendedKalmanFilter::operator()(std::vector<double> &state) {
 
-Eigen::VectorXd extended_kalman_filter::motion_model(const Eigen::VectorXd &x, const Eigen::VectorXd &u) {
+    if(!state.empty())
+        state.clear();
+
+    std::copy(X_.begin(), X_.end(), std::back_inserter(state));
+
+}
+
+
+Eigen::VectorXd ExtendedKalmanFilter::motion_model(const Eigen::VectorXd &x, const Eigen::VectorXd &u) {
     Eigen::MatrixXd F_;
     F_.resize(STATE_DIM, STATE_DIM);
     F_<<1.0,   0,   0,   0,
@@ -51,7 +54,7 @@ Eigen::VectorXd extended_kalman_filter::motion_model(const Eigen::VectorXd &x, c
     return F_ * x + B_ * u;
 }
 
-Eigen::MatrixXd extended_kalman_filter::jacobF(const Eigen::VectorXd &x, const Eigen::VectorXd &u) {
+Eigen::MatrixXd ExtendedKalmanFilter::jacobF(const Eigen::VectorXd &x, const Eigen::VectorXd &u) {
     Eigen::MatrixXd jF_ = Eigen::Matrix4d::Identity();
 //    float yaw = x(2);
 //    float v = u(0);
@@ -62,20 +65,20 @@ Eigen::MatrixXd extended_kalman_filter::jacobF(const Eigen::VectorXd &x, const E
     return jF_;
 }
 
-Eigen::MatrixXd extended_kalman_filter::jacobH() const {
+Eigen::MatrixXd ExtendedKalmanFilter::jacobH() const {
     //# Jacobian of Observation Model
     Eigen::Matrix4d jH;
     jH.setIdentity();
     return jH;
 }
 
-Eigen::VectorXd extended_kalman_filter::observation_model(const Eigen::VectorXd &x) {
+Eigen::VectorXd ExtendedKalmanFilter::observation_model(const Eigen::VectorXd &x) {
     Eigen::Matrix4d H_;
     H_.setIdentity();
     return H_ * x;
 }
 
-void extended_kalman_filter::update(const Eigen::VectorXd &z, const Eigen::VectorXd &u) {
+void ExtendedKalmanFilter::internal_update(const Eigen::VectorXd &z, const Eigen::VectorXd &u) {
     Eigen::VectorXd xPred = motion_model(xEst_, u_);
     Eigen::MatrixXd jF = jacobF(xPred, u_);
     Eigen::MatrixXd PPred = jF * PEst_ * jF.transpose() + Q_;
@@ -89,7 +92,7 @@ void extended_kalman_filter::update(const Eigen::VectorXd &z, const Eigen::Vecto
     PEst_ = (Eigen::Matrix4d::Identity() - K * jH) * PPred;
 }
 
-void extended_kalman_filter::update_cmd(Twist *cmd)     {
+void ExtendedKalmanFilter::update_cmd(const geometry_msgs::Twist::ConstPtr& cmd)     {
     u_.resize(CONTROL_DIM);
     u_ <<   cmd->linear.x,
             cmd->linear.y,
@@ -97,14 +100,20 @@ void extended_kalman_filter::update_cmd(Twist *cmd)     {
             cmd->angular.z;
 }
 
-void extended_kalman_filter::update(const std::vector<double>& obs, std::vector<double>& result)
+void ExtendedKalmanFilter::update(const std::vector<double>& obs, std::vector<double>& result)
 {
     Eigen::VectorXd z(obs.size());
     for (int i = 0; i < obs.size(); ++i) {
         z(i) = obs[i];
     }
-    update(z, u_);
-    for (int j = 0; j < result.size(); ++j) {
+    internal_update(z, u_);
+    for (int j = 0; j < STATE_DIM; ++j) {
         result[j] = xEst_(j);
+    }
+}
+
+void ExtendedKalmanFilter::init(const std::vector<double> &X0) {
+    for (int j = 0; j < STATE_DIM; ++j) {
+        xEst_(j) = X_[j] = X0[j];
     }
 }

@@ -7,15 +7,16 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-
+#include "filters.h"
+#include "sensors.h"
 
 
 namespace bebop2 {
-
-    template<class Sensor, class Filter>
+    class StateObserver;
+    typedef std::shared_ptr<StateObserver> StateObserverPtr;
     class StateObserver {
     public:
-        explicit StateObserver(std::shared_ptr<Filter>& filter, std::shared_ptr<Sensor> &sensor);
+        explicit StateObserver(FilterPtr filter, SensorPtr sensor);
         void operator()(std::vector<double>& result);
 
 
@@ -28,15 +29,11 @@ namespace bebop2 {
          * x, y, z, yaw
          */
         std::vector<double> m_state;
-        std::shared_ptr<Filter> m_filter;
-        std::shared_ptr<Sensor> m_sensor;
+        FilterPtr m_filter;
+        SensorPtr m_sensor;
         bool m_initialized;
 
     };
-
-
-    template<class Sensor, class Filter>
-    using StatePtr = std::shared_ptr<StateObserver<Sensor, Filter>>;
 
 } // bebop2
 #endif //BEBOP2_CONTROLLER_STATEOBSERVER_H

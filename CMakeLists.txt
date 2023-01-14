@@ -20,6 +20,11 @@ find_package(catkin REQUIRED COMPONENTS
   tf
 
 )
+
+find_package(Eigen3 REQUIRED)
+find_package(Python3 REQUIRED)
+
+
 #add_subdirectory(control/LQR)
 #add_subdirectory(control/PID)
 ###################################
@@ -47,19 +52,48 @@ catkin_package(
 include_directories(
  include
   ${catkin_INCLUDE_DIRS}
+   /usr/include/python3.8/
 )
+
+set(HEADER_FILES
+        include/bebop2_controller/robot_defs.h
+        include/bebop2_controller/control/ControlViz.h
+        include/bebop2_controller/control/ControllerBase.h
+        include/bebop2_controller/control/PID.h
+        include/bebop2_controller/control/QuadControllerPID.h
+
+        include/bebop2_controller/localization/StateObserver.h
+        include/bebop2_controller/localization/Filters/ComplementaryFilter.h
+        include/bebop2_controller/localization/Sensors/ApriltagLandmarks.h
+        include/bebop2_controller/localization/filters.h
+        include/bebop2_controller/localization/sensors.h
+        include/bebop2_controller/localization/Filters/FilterBase.h
+        include/bebop2_controller/localization/Sensors/SensorBase.h
+        include/bebop2_controller/localization/Sensors/DummyState.h
+        )
+
+
 set(SOURCE_FILES
-    src/bebop2_controller_node.cpp include/bebop2_controller/robot_defs.h control/ControlViz.cpp control/ControlViz.h
-    control/PID/PID.h control/PID/PID.cpp
-        control/ControllerBase.cpp control/ControllerBase.h localization/StateObserver.cpp localization/StateObserver.h localization/Filters/ComplementaryFilter.h localization/Sensors/ApriltagLandmarks.cpp localization/Sensors/ApriltagLandmarks.h)
+        src/bebop2_controller_node.cpp
+
+        localization/Filters/ekf/ExtendedKalmanFilter.cpp
+        localization/StateObserver.cpp
+        localization/Sensors/ApriltagLandmarks.cpp
+        localization/Sensors/DummyState.cpp
+        control/ControlViz.cpp
+        control/PID.cpp
+        control/ControllerBase.cpp
+        control/QuadControllerPID.cpp
+
+        )
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(${PROJECT_NAME}_node ${SOURCE_FILES})
+ add_executable(${PROJECT_NAME}_node ${SOURCE_FILES} ${HEADER_FILES} )
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(${PROJECT_NAME}_node
    ${catkin_LIBRARIES}
-
+   Eigen3::Eigen
  )
 

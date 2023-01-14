@@ -5,10 +5,11 @@
 #ifndef BEBOP2_CONTROLLER_COMPLEMENTARYFILTER_H
 #define BEBOP2_CONTROLLER_COMPLEMENTARYFILTER_H
 #include <vector>
+#include "FilterBase.h"
 
-class ComplementaryFilter{
+class ComplementaryFilter: public FilterBase{
 public:
-    ComplementaryFilter(double alpha):alpha_(alpha)
+    ComplementaryFilter(double alpha): m_alpha(alpha)
     {
 
     }
@@ -22,14 +23,13 @@ public:
     {
 
         for (int i = 0; i < obs.size(); ++i) {
-            X_[i] = alpha_ * X_[i] + (1 - alpha_) * obs[i];
+            X_[i] = m_alpha * X_[i] + (1 - m_alpha) * obs[i];
         }
         result.clear();
         std::copy(X_.begin(), X_.end(),std::back_inserter(result));
     }
 private:
-    double alpha_;
-    std::vector<double> X_;
+    double m_alpha;
 };
 
 

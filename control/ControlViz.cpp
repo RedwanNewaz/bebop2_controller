@@ -2,7 +2,7 @@
 // Created by redwan on 12/14/22.
 //
 
-#include "ControlViz.h"
+#include "bebop2_controller/control/ControlViz.h"
 
 namespace bebop2 {
     ControlViz::ControlViz( ros::NodeHandle &nh) : nh_(nh) {

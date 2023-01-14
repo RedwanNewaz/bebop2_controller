@@ -2,27 +2,27 @@
 // Created by redwan on 12/15/22.
 //
 
-#include "StateObserver.h"
+#include "bebop2_controller/localization/StateObserver.h"
 
 
 namespace bebop2 {
 
-    template<class Sensor, class Filter>
-    StateObserver<Sensor, Filter>::StateObserver(std::shared_ptr<Filter> &filter, std::shared_ptr<Sensor> &sensor):
+
+    StateObserver::StateObserver(FilterPtr filter, SensorPtr sensor):
     m_filter(filter), m_sensor(sensor) {
         m_initialized = false;
     }
 
-    template<class Sensor, class Filter>
-    void StateObserver<Sensor, Filter>::operator()(std::vector<double>& result) {
+
+    void StateObserver::operator()(std::vector<double>& result) {
 
         update_state();
         result.clear();
         std::copy(m_state.begin(), m_state.end(),std::back_inserter(result));
     }
 
-    template<class Sensor, class Filter>
-    void StateObserver<Sensor, Filter>::update_state() {
+
+    void StateObserver::update_state() {
         while (!m_sensor->empty())
         {
             std::vector<double> obs;

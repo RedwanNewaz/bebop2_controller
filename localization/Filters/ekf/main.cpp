@@ -3,7 +3,7 @@
 //
 #include <memory>
 #include "filters_common/helper.h"
-#include "extended_kalman_filter.h"
+#include "bebop2_controller/localization/Filters/ExtendedKalmanFilter.h"
 
 
 int main(int argc, char* argv[])

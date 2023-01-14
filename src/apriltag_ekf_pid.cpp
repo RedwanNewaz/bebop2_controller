@@ -24,24 +24,22 @@ int main(int argc, char* argv[])
      * these uncertainties directly.
      */
     std::vector<double> sigma_pos{0.015, 0.015, 0.015, 0.01}; // GPS measurement uncertainty [x [m], y [m], z [m], theta [rad]]
+
+
     auto stateFilter = std::make_shared<bebop2::ExtendedKalmanFilter>(sigma_pos, DT, STATE_DIM);
+    auto stateSensor = std::make_shared<ApriltagLandmarks>(nh);
+    auto stateObserver = std::make_shared<bebop2::StateObserver>(stateFilter, stateSensor);
+
     // use cmd_vel to update state
     auto cmd_sub = nh.subscribe("cmd_vel", 1, &bebop2::ExtendedKalmanFilter::update_cmd, stateFilter.get());
 
-    const bool WHITE_NOISE = true;
-    auto stateSensor = std::make_shared<bebop2::DummyState>(nh, WHITE_NOISE);
-    auto stateObserver = std::make_shared<bebop2::StateObserver>(stateFilter, stateSensor);
-
-
 
     bebop2::QuadControllerPID controller(stateObserver, nh);
-    const int THREAD_COUNT = 4;
-
-    ros::AsyncSpinner spinner(THREAD_COUNT);
+    ros::AsyncSpinner spinner(4);
     spinner.start();
     ros::waitForShutdown();
 
-//    ros::MultiThreadedSpinner spinner(THREAD_COUNT);
+//    ros::MultiThreadedSpinner spinner(2);
 //    spinner.spin();
     return 0;
 }

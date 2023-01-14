@@ -4,30 +4,30 @@
 
 #include <numeric>
 #include <utility>
-#include "ControllerBase.h"
+#include "bebop2_controller/control/ControllerBase.h"
 
 namespace bebop2
 {
-    template<class Sensor, class Filter>
-    ControllerBase<Sensor, Filter>::ControllerBase(StatePtr<Sensor, Filter> mGetState, ros::NodeHandle& nh) :
+    
+    ControllerBase::ControllerBase(StateObserverPtr  mGetState, ros::NodeHandle& nh) :
     m_get_state(mGetState), m_nh(nh) {
 
-        ros::param::get("~dt", m_dt);
+        ros::param::get("~dt", dt_);
         ros::param::get("~goal_thres", m_goal_thres);
 
-        joystick_sub_ = m_nh.subscribe("/joy", 10, &bebop2::ControllerBase<Sensor, Filter>::joystick_callback, this);
+        joystick_sub_ = m_nh.subscribe("/joy", 10, &bebop2::ControllerBase::joystick_callback, this);
         drone_takeoff_pub_ = m_nh.advertise<std_msgs::Empty>("takeoff", 1);
         drone_land_pub_ = m_nh.advertise<std_msgs::Empty>("land", 1);
         cmd_vel_pub_ = m_nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-        joystick_timer_ = m_nh.createTimer(ros::Duration(0.05), &bebop2::ControllerBase<Sensor, Filter>::joystick_timer_callback, this);
-        controller_timer_ = m_nh.createTimer(ros::Duration(m_dt), &bebop2::ControllerBase<Sensor, Filter>::control_loop, this);
+        joystick_timer_ = m_nh.createTimer(ros::Duration(0.05), &bebop2::ControllerBase::joystick_timer_callback, this);
+        controller_timer_ = m_nh.createTimer(ros::Duration(dt_), &bebop2::ControllerBase::control_loop, this);
         viz_ = std::make_unique<ControlViz>(m_nh);
         m_buttonState = ENGAGE;
 
     }
 
-    template<class Sensor, class Filter>
-    void ControllerBase<Sensor, Filter>::joystick_callback(const sensor_msgs::Joy_<std::allocator<void>>::ConstPtr &msg) {
+    
+    void ControllerBase::joystick_callback(const sensor_msgs::Joy_<std::allocator<void>>::ConstPtr &msg) {
 
         std::lock_guard<std::mutex> lk(m_mu);
         auto it = std::find(msg->buttons.begin(), msg->buttons.end(), 1);
@@ -70,8 +70,8 @@ namespace bebop2
 
     }
 
-    template<class Sensor, class Filter>
-    void ControllerBase<Sensor, Filter>::joystick_timer_callback(const ros::TimerEvent &event) {
+    
+    void ControllerBase::joystick_timer_callback(const ros::TimerEvent &event) {
         if(axes_values_.empty() || std::accumulate(axes_values_.begin(), axes_values_.end(), 0.0) == 0.0)
             return;
 
@@ -105,8 +105,8 @@ namespace bebop2
 
 
 
-    template<class Sensor, class Filter>
-    void ControllerBase<Sensor, Filter>::control_loop(const ros::TimerEvent &event) {
+    
+    void ControllerBase::control_loop(const ros::TimerEvent &event) {
         std::vector<double> state;
         m_get_state->operator()(state);
 //        ROS_INFO_STREAM("[ControllerBase] state size" << state.size());
@@ -140,8 +140,8 @@ namespace bebop2
     }
 
 
-    template<class Sensor, class Filter>
-    void ControllerBase<Sensor, Filter>::publish_cmd_vel(const std::vector<double> &U) {
+    
+    void ControllerBase::publish_cmd_vel(const std::vector<double> &U) {
 
         std::lock_guard<std::mutex> lk(m_mu);
         assert(U.size() == 4 && "4 commands must be sent");
@@ -155,8 +155,8 @@ namespace bebop2
 
     }
 
-    template<class Sensor, class Filter>
-    double ControllerBase<Sensor, Filter>::goal_distance(const std::vector<double> &X, const std::vector<double> &setPoints) {
+    
+    double ControllerBase::goal_distance(const std::vector<double> &X, const std::vector<double> &setPoints) {
         double error = 0;
         for (int i = 0; i < X.size(); ++i) {
             double e = X[i] - setPoints[i];
@@ -166,8 +166,8 @@ namespace bebop2
     }
 
 
-    template<class Sensor, class Filter>
-    tf::Transform ControllerBase<Sensor, Filter>::getStateVecToTransform(const std::vector<double> &state) {
+    
+    tf::Transform ControllerBase::getStateVecToTransform(const std::vector<double> &state) {
         tf::Transform pose;
         tf::Quaternion q;
         q.setRPY(0, 0, state[3]);

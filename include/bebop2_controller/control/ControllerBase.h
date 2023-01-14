@@ -24,10 +24,10 @@
 #include <cassert>
 #include <functional>
 #include <algorithm>
-#include "ControlViz.h"
+#include "bebop2_controller/control/ControlViz.h"
 
-#include "../localization/StateObserver.h"
-#include "../localization/StateObserver.cpp"
+#include "bebop2_controller/localization/StateObserver.h"
+
 
 namespace bebop2
 {
@@ -40,12 +40,12 @@ namespace bebop2
 
 
 
-    template<class Sensor, class Filter>
+   
     class ControllerBase{
     public:
 
 
-        explicit ControllerBase(StatePtr<Sensor, Filter> mGetState, ros::NodeHandle& nh);
+        explicit ControllerBase(StateObserverPtr mGetState, ros::NodeHandle& nh);
 
 
     private:
@@ -68,10 +68,10 @@ namespace bebop2
         }m_buttonState;
 
         // this function will give robot state
-        StatePtr<Sensor, Filter> m_get_state;
+        StateObserverPtr m_get_state;
 
         // controller param
-        double m_dt; // sample time
+        double dt_; // sample time
         double m_goal_thres; // goal region threshold
 
 

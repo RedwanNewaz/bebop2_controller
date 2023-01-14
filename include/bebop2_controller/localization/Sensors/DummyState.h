@@ -20,12 +20,13 @@
 #include <ros/ros.h>
 #include <std_msgs/Empty.h>
 #include <geometry_msgs/Twist.h>
+#include "SensorBase.h"
 
 namespace bebop2{
-    class DummyState{
+    class DummyState: public SensorBase{
 
     public:
-        DummyState(ros::NodeHandle& nh);
+        DummyState(ros::NodeHandle& nh, bool noisy_reading);
         void operator()(std::vector<double>& state);
         bool empty();
 
@@ -34,6 +35,7 @@ namespace bebop2{
         std::vector<double> states_;
         ros::Subscriber sub_takeoff_, sub_land_, sub_cmd_vel_;
         std::random_device rd_;
+        bool noisy_reading_;
         
         const size_t STATE_DIM = 4;
         const double DT = 0.03;

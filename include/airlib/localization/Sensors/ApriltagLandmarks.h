@@ -2,13 +2,13 @@
 // Created by redwan on 12/15/22.
 //
 
-#ifndef BEBOP2_CONTROLLER_APRILTAGLANDMARKS_H
-#define BEBOP2_CONTROLLER_APRILTAGLANDMARKS_H
+#ifndef airlib_APRILTAGLANDMARKS_H
+#define airlib_APRILTAGLANDMARKS_H
 #include <memory>
 #include <unordered_map>
 #include <ros/ros.h>
 #include <tf/transform_listener.h>
-#include "bebop2_controller/robot_defs.h"
+#include "airlib/robot_defs.h"
 #include <apriltag_ros/AprilTagDetectionArray.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <nav_msgs/Odometry.h>
@@ -36,4 +36,4 @@ protected:
 };
 
 
-#endif //BEBOP2_CONTROLLER_APRILTAGLANDMARKS_H
+#endif //airlib_APRILTAGLANDMARKS_H

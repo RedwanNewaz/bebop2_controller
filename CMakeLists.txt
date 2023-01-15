@@ -22,8 +22,6 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(Eigen3 REQUIRED)
-find_package(Python3 REQUIRED)
-
 
 #add_subdirectory(control/LQR)
 #add_subdirectory(control/PID)
@@ -38,7 +36,7 @@ find_package(Python3 REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES bebop2_controller
+#  LIBRARIES airlib
 #  CATKIN_DEPENDS cv_bridge geometry_msgs image_geometry image_transport nodelet roscpp rospy sensor_msgs std_msgs tf visp_bridge
 #  DEPENDS system_lib
 )
@@ -51,49 +49,50 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
  include
+  ${EIGEN3_INCLUDE_DIR}
   ${catkin_INCLUDE_DIRS}
    /usr/include/python3.8/
 )
 
-set(HEADER_FILES
-        include/bebop2_controller/robot_defs.h
-        include/bebop2_controller/control/ControlViz.h
-        include/bebop2_controller/control/ControllerBase.h
-        include/bebop2_controller/control/PID.h
-        include/bebop2_controller/control/QuadControllerPID.h
-
-        include/bebop2_controller/localization/StateObserver.h
-        include/bebop2_controller/localization/Filters/ComplementaryFilter.h
-        include/bebop2_controller/localization/Sensors/ApriltagLandmarks.h
-        include/bebop2_controller/localization/filters.h
-        include/bebop2_controller/localization/sensors.h
-        include/bebop2_controller/localization/Filters/FilterBase.h
-        include/bebop2_controller/localization/Sensors/SensorBase.h
-        include/bebop2_controller/localization/Sensors/DummyState.h
-        )
-
-
 set(SOURCE_FILES
-        src/bebop2_controller_node.cpp
-
-        localization/Filters/ekf/ExtendedKalmanFilter.cpp
-        localization/StateObserver.cpp
-        localization/Sensors/ApriltagLandmarks.cpp
-        localization/Sensors/DummyState.cpp
-        control/ControlViz.cpp
-        control/PID.cpp
-        control/ControllerBase.cpp
-        control/QuadControllerPID.cpp
-
+        airlib/localization/Filters/ekf/ExtendedKalmanFilter.cpp
+        airlib/localization/StateObserver.cpp
+        airlib/localization/Sensors/ApriltagLandmarks.cpp
+        airlib/localization/Sensors/DummyState.cpp
+        airlib/control/ControlViz.cpp
+        airlib/control/PID.cpp
+        airlib/control/ControllerBase.cpp
+        airlib/control/QuadControllerPID.cpp
         )
+
+set(HEADER_FILES
+        include/airlib/robot_defs.h
+        include/airlib/control/ControlViz.h
+        include/airlib/control/ControllerBase.h
+        include/airlib/control/PID.h
+        include/airlib/control/QuadControllerPID.h
+
+        include/airlib/localization/StateObserver.h
+        include/airlib/localization/Filters/ComplementaryFilter.h
+        include/airlib/localization/Sensors/ApriltagLandmarks.h
+        include/airlib/localization/filters.h
+        include/airlib/localization/sensors.h
+        include/airlib/localization/Filters/FilterBase.h
+        include/airlib/localization/Sensors/SensorBase.h
+        include/airlib/localization/Sensors/DummyState.h
+        )
+
+add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES} )
+target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES})
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(${PROJECT_NAME}_node ${SOURCE_FILES} ${HEADER_FILES} )
+add_executable(apriltag_complementary_pid_node src/apriltag_complementary_pid.cpp  )
+add_executable(apriltag_ekf_pid_node src/apriltag_ekf_pid.cpp  )
+add_executable(dummy_ekf_pid_node src/dummy_ekf_pid.cpp )
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(${PROJECT_NAME}_node
-   ${catkin_LIBRARIES}
-   Eigen3::Eigen
- )
+target_link_libraries(apriltag_complementary_pid_node airlibBebop2 )
+target_link_libraries(apriltag_ekf_pid_node airlibBebop2)
+target_link_libraries(dummy_ekf_pid_node airlibBebop2)
 

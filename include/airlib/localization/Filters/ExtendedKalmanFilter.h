@@ -9,7 +9,7 @@
 #include <Eigen/Dense>
 #include <vector>
 #include "geometry_msgs/Twist.h"
-#include <bebop2_controller/localization/Filters/FilterBase.h>
+#include <airlib/localization/Filters/FilterBase.h>
 
 namespace bebop2{
 

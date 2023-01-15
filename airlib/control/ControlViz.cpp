@@ -2,7 +2,7 @@
 // Created by redwan on 12/14/22.
 //
 
-#include "bebop2_controller/control/ControlViz.h"
+#include "airlib/control/ControlViz.h"
 
 namespace bebop2 {
     ControlViz::ControlViz( ros::NodeHandle &nh) : nh_(nh) {
@@ -98,7 +98,7 @@ namespace bebop2 {
         set_marker_from_pose(pose, msg);
         msg.ns = "drone";
         msg.type = visualization_msgs::Marker::MESH_RESOURCE;
-        msg.mesh_resource = "package://bebop2_controller/config/bebop.dae";
+        msg.mesh_resource = "package://airlib/config/bebop.dae";
 //        msg.mesh_use_embedded_materials = true;
         msg.scale.x = msg.scale.y = msg.scale.z = 0.001;
 

@@ -3,13 +3,13 @@
 //
 #include "ros/ros.h"
 #include <iostream>
-#include "bebop2_controller/control/QuadControllerPID.h"
+#include "airlib/control/QuadControllerPID.h"
 
 
 
 int main(int argc, char* argv[])
 {
-    ros::init(argc, argv, "bebop2_controller");
+    ros::init(argc, argv, "airlib_bebop2");
     ROS_INFO("BEBOP2 CONTROLLER INITIALIZED!");
     ros::NodeHandle nh;
     double alpha;

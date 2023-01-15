@@ -2,7 +2,7 @@
 // Created by redwan on 1/14/23.
 //
 
-#include "bebop2_controller/control/QuadControllerPID.h"
+#include "airlib/control/QuadControllerPID.h"
 
 namespace bebop2
 {

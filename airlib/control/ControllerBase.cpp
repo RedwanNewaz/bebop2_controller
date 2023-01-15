@@ -4,7 +4,7 @@
 
 #include <numeric>
 #include <utility>
-#include "bebop2_controller/control/ControllerBase.h"
+#include "airlib/control/ControllerBase.h"
 
 namespace bebop2
 {

@@ -15,6 +15,14 @@ typedef std::shared_ptr<FilterBase> FilterPtr;
 class FilterBase: std::enable_shared_from_this<FilterBase>
 {
 public:
+    FilterBase()
+    {
+
+    }
+    virtual ~FilterBase()
+    {
+
+    }
     FilterPtr getPtr()
     {
         return shared_from_this();

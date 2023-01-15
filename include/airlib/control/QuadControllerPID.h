@@ -2,12 +2,12 @@
 // Created by redwan on 1/14/23.
 //
 
-#ifndef BEBOP2_CONTROLLER_QUADCONTROLLERPID_H
-#define BEBOP2_CONTROLLER_QUADCONTROLLERPID_H
+#ifndef airlib_QUADCONTROLLERPID_H
+#define airlib_QUADCONTROLLERPID_H
 
-#include "bebop2_controller/control/PID.h"
-#include "bebop2_controller/localization/StateObserver.h"
-#include "bebop2_controller/control/ControllerBase.h"
+#include "airlib/control/PID.h"
+#include "airlib/localization/StateObserver.h"
+#include "airlib/control/ControllerBase.h"
 #include <vector>
 
 namespace bebop2{
@@ -24,4 +24,4 @@ namespace bebop2{
 }
 
 
-#endif //BEBOP2_CONTROLLER_QUADCONTROLLERPID_H
+#endif //airlib_QUADCONTROLLERPID_H

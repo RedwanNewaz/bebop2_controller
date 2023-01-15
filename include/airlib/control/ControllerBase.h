@@ -13,8 +13,8 @@
  *  private variables end with _
  *  protected variables start with m_
  */
-#ifndef BEBOP2_CONTROLLER_CONTROLLERBASE_H
-#define BEBOP2_CONTROLLER_CONTROLLERBASE_H
+#ifndef airlib_CONTROLLERBASE_H
+#define airlib_CONTROLLERBASE_H
 #include <ros/ros.h>
 #include "sensor_msgs/Joy.h"
 #include "std_msgs/Empty.h"
@@ -24,9 +24,9 @@
 #include <cassert>
 #include <functional>
 #include <algorithm>
-#include "bebop2_controller/control/ControlViz.h"
+#include "airlib/control/ControlViz.h"
 
-#include "bebop2_controller/localization/StateObserver.h"
+#include "airlib/localization/StateObserver.h"
 
 
 namespace bebop2
@@ -92,4 +92,4 @@ namespace bebop2
 }
 
 
-#endif //BEBOP2_CONTROLLER_CONTROLLERBASE_H
+#endif //airlib_CONTROLLERBASE_H

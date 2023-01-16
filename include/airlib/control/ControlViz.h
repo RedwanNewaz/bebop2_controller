@@ -5,8 +5,10 @@
 #ifndef BEBOP2_CONTROLLER_CONTROLVIZ_H
 #define BEBOP2_CONTROLLER_CONTROLVIZ_H
 #include <ros/ros.h>
+#include <memory>
 #include <visualization_msgs/Marker.h>
 #include <tf/transform_broadcaster.h>
+#include "airlib/utility/LoggerCSV.h"
 
 namespace bebop2 {
     enum MARKER_COLOR
@@ -28,7 +30,8 @@ namespace bebop2 {
     private:
         ros::NodeHandle nh_;
         ros::Publisher pub_marker_;
-
+        std::unique_ptr<LoggerCSV> logger_;
+        const int LOGGER_FQ = 10; // Hz
     protected:
         void set_marker_from_pose(const tf::Transform& pose, visualization_msgs::Marker& msg);
         void set_marker_color(const MARKER_COLOR& color, visualization_msgs::Marker& msg);

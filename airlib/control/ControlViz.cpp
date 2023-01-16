@@ -7,7 +7,8 @@
 namespace bebop2 {
     ControlViz::ControlViz( ros::NodeHandle &nh) : nh_(nh) {
         pub_marker_ = nh_.advertise<visualization_msgs::Marker>("/bebop2/goal", 10);
-
+        std::vector<std::string>header{"x", "y", "z", "yaw"};
+        logger_ = std::make_unique<LoggerCSV>(header, LOGGER_FQ);
     }
 
 
@@ -24,15 +25,20 @@ namespace bebop2 {
         msg.scale.z = 0.35;
 
         // update position
-        msg.pose.position.x = pose.getOrigin().x();
-        msg.pose.position.y = pose.getOrigin().y();
-        msg.pose.position.z = pose.getOrigin().z();
+        double x, y, z, yaw;
+        msg.pose.position.x = x = pose.getOrigin().x();
+        msg.pose.position.y = y = pose.getOrigin().y();
+        msg.pose.position.z = z = pose.getOrigin().z();
 
         // update orientation
         msg.pose.orientation.x = pose.getRotation().x();
         msg.pose.orientation.y = pose.getRotation().y();
         msg.pose.orientation.z = pose.getRotation().z();
         msg.pose.orientation.w = pose.getRotation().w();
+
+        yaw = tf::getYaw(pose.getRotation());
+        //TODO add logger enable flag
+        logger_->addRow(std::vector<double>{x, y, z, yaw});
 
     }
 

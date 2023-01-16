@@ -80,11 +80,13 @@ set(HEADER_FILES
         include/airlib/localization/Filters/FilterBase.h
         include/airlib/localization/Sensors/SensorBase.h
         include/airlib/localization/Sensors/DummyState.h
+
+        include/airlib/utility/LoggerCSV.h
         )
 
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES} )
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES})
-## Declare a C++ executable
+## Declare a C++ executables
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(apriltag_complementary_pid_node src/apriltag_complementary_pid.cpp  )

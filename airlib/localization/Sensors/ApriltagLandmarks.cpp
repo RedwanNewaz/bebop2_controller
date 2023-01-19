@@ -48,9 +48,11 @@ FieldLocation ApriltagLandmarks::transformToGlobalFrame(const tf::Transform &tag
     // https://www.andre-gaschler.com/rotationconverter/
 
     tf::Transform endEffector;
+    // convert camera to base_link which is a fixed coordinate and given as follows
     endEffector.setOrigin(tf::Vector3(-0.09, 0, 0));
     endEffector.setRotation(tf::Quaternion(0.5, -0.5, 0.5, -0.5));
     tf::Transform baseLink = endEffector * tagTransform;
+    // convert base_link to map coordinate 
     auto loc = landmarks_[tagName].getOrigin() - baseLink.getOrigin();
     FieldLocation tagStateObs = FieldLocation{tagName, loc.x(), loc.y(), loc.z()};
 

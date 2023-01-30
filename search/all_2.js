@@ -6,7 +6,7 @@ var searchData=
   ['complementaryfilter_2eh_16',['ComplementaryFilter.h',['../ComplementaryFilter_8h.html',1,'']]],
   ['compute_5fcontrol_17',['compute_control',['../classbebop2_1_1QuadControllerPID.html#adf0cbf720225ac7b9d73aa103a82ccd8',1,'bebop2::QuadControllerPID::compute_control()'],['../classbebop2_1_1ControllerBase.html#a0619e69c4759098a59a2bdae5c503501',1,'bebop2::ControllerBase::compute_control(const std::vector&lt; double &gt; &amp;X, const std::vector&lt; double &gt; &amp;setPoints, std::vector&lt; double &gt; &amp;control)=0']]],
   ['control_18',['CONTROL',['../classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0a9e134b87d5f808d52d03c5f982da417a',1,'bebop2::ControllerBase']]],
-  ['control_5fdim_19',['CONTROL_DIM',['../classbebop2_1_1ExtendedKalmanFilter.html#a864b08f6504af5b5ff0bd45dfa5c9bc8',1,'bebop2::ExtendedKalmanFilter']]],
+  ['control_5fdim_19',['CONTROL_DIM',['../classbebop2_1_1ExtendedKalmanFilter.html#aa7f5628163fad9302a4231b574c857bb',1,'bebop2::ExtendedKalmanFilter']]],
   ['controllerbase_20',['ControllerBase',['../classbebop2_1_1ControllerBase.html',1,'bebop2::ControllerBase'],['../classbebop2_1_1ControllerBase.html#aecd53db3daa5f49032713283163636b0',1,'bebop2::ControllerBase::ControllerBase()']]],
   ['controllerbase_2ecpp_21',['ControllerBase.cpp',['../ControllerBase_8cpp.html',1,'']]],
   ['controllerbase_2eh_22',['ControllerBase.h',['../ControllerBase_8h.html',1,'']]],

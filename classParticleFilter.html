@@ -81,14 +81,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a60b736fab3746b834dd7cfb08fa5fb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f4ccdfa224f0a62c411230f7fb0cd65"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a4f4ccdfa224f0a62c411230f7fb0cd65">~ParticleFilter</a> ()</td></tr>
 <tr class="separator:a4f4ccdfa224f0a62c411230f7fb0cd65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8fffecf872b9241525b9dcd4ed1fea5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#ad8fffecf872b9241525b9dcd4ed1fea5">update_cmd</a> (Twist *cmd)</td></tr>
-<tr class="separator:ad8fffecf872b9241525b9dcd4ed1fea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a570fec1c1358a1685d71a0426bc8599a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a570fec1c1358a1685d71a0426bc8599a">update_cmd</a> (const geometry_msgs::Twist::ConstPtr &amp;cmd)</td></tr>
+<tr class="separator:a570fec1c1358a1685d71a0426bc8599a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90019fe33003b008575111640f15946c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a90019fe33003b008575111640f15946c">update</a> (const std::vector&lt; double &gt; &amp;obs, std::vector&lt; double &gt; &amp;result)</td></tr>
 <tr class="separator:a90019fe33003b008575111640f15946c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11d7f5a1aba6a649dc9d0cb661fa014d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a11d7f5a1aba6a649dc9d0cb661fa014d">init</a> (const std::vector&lt; double &gt; &amp;x0, const std::vector&lt; double &gt; &amp;std)</td></tr>
 <tr class="separator:a11d7f5a1aba6a649dc9d0cb661fa014d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a541ece0fecb05f999382559c22454f3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a541ece0fecb05f999382559c22454f3b">prediction</a> (double delta_t, const std::vector&lt; double &gt; &amp;std_pos, const Twist *cmd)</td></tr>
-<tr class="separator:a541ece0fecb05f999382559c22454f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae95adf047a6ad1ce227b8503e6a6f694"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#ae95adf047a6ad1ce227b8503e6a6f694">prediction</a> (double delta_t, const std::vector&lt; double &gt; &amp;std_pos, const geometry_msgs::Twist &amp;cmd)</td></tr>
+<tr class="separator:ae95adf047a6ad1ce227b8503e6a6f694"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe77ed78890ea19a87a19c6cbad9a5b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#abe77ed78890ea19a87a19c6cbad9a5b9">dataAssociation</a> (std::vector&lt; <a class="el" href="structLandmarkObs.html">LandmarkObs</a> &gt; predicted, std::vector&lt; <a class="el" href="structLandmarkObs.html">LandmarkObs</a> &gt; &amp;observations)</td></tr>
 <tr class="separator:abe77ed78890ea19a87a19c6cbad9a5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a624174682b3cf3a4c71a341d1f994372"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a624174682b3cf3a4c71a341d1f994372">updateWeights</a> (double sensor_range, const std::vector&lt; double &gt; &amp;std_landmark, std::vector&lt; <a class="el" href="structLandmarkObs.html">LandmarkObs</a> &gt; observations, <a class="el" href="classTagMap.html">TagMap</a> map_landmarks)</td></tr>
@@ -114,7 +114,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00116">116</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00115">115</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="accc05e707b48f1a8f1a10ed318c0dc55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#accc05e707b48f1a8f1a10ed318c0dc55">&#9670;&nbsp;</a></span>ParticleFilter()</h2>
@@ -156,7 +156,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00147">147</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00146">146</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -183,7 +183,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00151">151</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00150">150</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -283,7 +283,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00235">235</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00238">238</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -357,7 +357,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00239">239</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00242">242</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -424,7 +424,7 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>initialized Returns whether particle filter is initialized yet or not. </p>
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00222">222</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00225">225</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -448,8 +448,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a541ece0fecb05f999382559c22454f3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a541ece0fecb05f999382559c22454f3b">&#9670;&nbsp;</a></span>prediction()</h2>
+<a id="ae95adf047a6ad1ce227b8503e6a6f694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae95adf047a6ad1ce227b8503e6a6f694">&#9670;&nbsp;</a></span>prediction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -469,7 +469,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Twist *&#160;</td>
+          <td class="paramtype">const geometry_msgs::Twist &amp;&#160;</td>
           <td class="paramname"><em>cmd</em>&#160;</td>
         </tr>
         <tr>
@@ -543,8 +543,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad8fffecf872b9241525b9dcd4ed1fea5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8fffecf872b9241525b9dcd4ed1fea5">&#9670;&nbsp;</a></span>update_cmd()</h2>
+<a id="a570fec1c1358a1685d71a0426bc8599a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a570fec1c1358a1685d71a0426bc8599a">&#9670;&nbsp;</a></span>update_cmd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +555,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ParticleFilter::update_cmd </td>
           <td>(</td>
-          <td class="paramtype">Twist *&#160;</td>
+          <td class="paramtype">const geometry_msgs::Twist::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>cmd</em></td><td>)</td>
           <td></td>
         </tr>
@@ -567,7 +567,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00156">156</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00155">155</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -655,7 +655,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00143">143</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00142">142</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>

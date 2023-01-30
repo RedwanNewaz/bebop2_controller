@@ -92,9 +92,11 @@ target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES})
 add_executable(apriltag_complementary_pid_node src/apriltag_complementary_pid.cpp  )
 add_executable(apriltag_ekf_pid_node src/apriltag_ekf_pid.cpp  )
 add_executable(dummy_ekf_pid_node src/dummy_ekf_pid.cpp )
+add_executable(dummy_complementary_pid_node src/dummy_complementary_pid.cpp )
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(apriltag_complementary_pid_node airlibBebop2 )
 target_link_libraries(apriltag_ekf_pid_node airlibBebop2)
 target_link_libraries(dummy_ekf_pid_node airlibBebop2)
+target_link_libraries(dummy_complementary_pid_node airlibBebop2)
 

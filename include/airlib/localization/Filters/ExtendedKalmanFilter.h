@@ -38,7 +38,7 @@ namespace bebop2{
         Eigen::VectorXd observation_model(const Eigen::VectorXd& x);
         Eigen::MatrixXd jacobH() const;
         void internal_update(const Eigen::VectorXd& z, const Eigen::VectorXd& u);
-        double DT, STATE_DIM, CONTROL_DIM;
+        const double DT, STATE_DIM, CONTROL_DIM;
 
 
     };

@@ -11,9 +11,8 @@
 #include <utility>
 #include <vector>
 #include <numeric>
-#include "filters_common/helper.h"
 #include <Eigen/Dense>
-
+#include <geometry_msgs/Twist.h>
 
 
 class TagMap {
@@ -128,7 +127,7 @@ class ParticleFilter {
     const TagMap tagMap_;
     double delta_t;
 
-    Twist * cmd_;
+    geometry_msgs::Twist cmd_;
     std::vector<Mvn*> mvn_;
     std::vector<double> sigma_pos_;
     std::vector<double> xEst_;
@@ -153,9 +152,13 @@ public:
 
     }
 
-    void update_cmd(Twist *cmd)
+    void update_cmd( const geometry_msgs::Twist::ConstPtr& cmd)
     {
-        cmd_ = cmd;
+        cmd_.linear.x = cmd->linear.x;
+        cmd_.linear.y = cmd->linear.y;
+        cmd_.linear.z = cmd->linear.z;
+        cmd_.angular.x = cmd->angular.z;
+
     }
 
     // interface
@@ -182,7 +185,7 @@ public:
      * @param velocity Velocity of car from t to t+1 [m/s]
      * @param yaw_rate Yaw rate of car from t to t+1 [rad/s]
      */
-    void prediction(double delta_t, const std::vector<double>& std_pos, const Twist* cmd);
+    void prediction(double delta_t, const std::vector<double>& std_pos, const geometry_msgs::Twist& cmd);
 
     /**
      * dataAssociation Finds which observations correspond to which landmarks (likely by using

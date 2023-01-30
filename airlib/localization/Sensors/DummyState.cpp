@@ -18,6 +18,8 @@ namespace bebop2
         state.clear();
         std::copy(states_.begin(), states_.end(), std::back_inserter(state));
 
+//        ROS_INFO("state = (%lf %lf %lf %lf)", states_[0], states_[1], states_[2], states_[3] );
+
         // don't add noise if noisy_reading is not enabled
         if(!noisy_reading_)
             return;

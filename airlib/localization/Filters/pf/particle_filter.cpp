@@ -61,7 +61,7 @@ void ParticleFilter::init(const std::vector<double>& x0, const std::vector<doubl
     is_initialized = true;
 }
 
-void ParticleFilter::prediction(double delta_t, const std::vector<double>& std_pos, const Twist* cmd) {
+void ParticleFilter::prediction(double delta_t, const std::vector<double>& std_pos, const geometry_msgs::Twist& cmd) {
     // Add measurements to each particle and add random Gaussian noise.
     // NOTE: When adding noise you may find std::normal_distribution and std::default_random_engine useful.
     //  http://en.cppreference.com/w/cpp/numeric/random/normal_distribution
@@ -79,10 +79,10 @@ void ParticleFilter::prediction(double delta_t, const std::vector<double>& std_p
         Particle *p = &particles[i]; // get address of particle to update
 
         // use the prediction equations from the Lesson 14
-        double new_x = p->x + delta_t * cmd->linear.x;
-        double new_y = p->y - delta_t * cmd->linear.y;
-        double new_z = p->z + delta_t * cmd->linear.z;
-        double new_theta = p->theta + delta_t * cmd->angular.z;
+        double new_x = p->x + delta_t * cmd.linear.x;
+        double new_y = p->y - delta_t * cmd.linear.y;
+        double new_z = p->z + delta_t * cmd.linear.z;
+        double new_theta = p->theta + delta_t * cmd.angular.z;
 
         // add Gaussian Noise to each measurement
         // Normal distribution for x, y and theta

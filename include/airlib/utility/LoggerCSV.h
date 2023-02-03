@@ -15,8 +15,8 @@ class LoggerCSV{
   using TIME_POINT = std::chrono::time_point<std::chrono::system_clock>;
 
 public:
-  // this is a default contructor without st.pop_back();header.
-  // one can manually add header file using addHeader function
+  // This is a default contructor without st.pop_back();header.
+  // One can manually add header file using addHeader function
   LoggerCSV()
   {
     m_header_enabled = false;

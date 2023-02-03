@@ -38,14 +38,14 @@ private:
     std::unordered_map<std::string, tf::Transform> landmarks_;
     /// @brief apriltag node subscriber 
     ros::Subscriber apriltagSub_;
-    /// @brief ros NodeHandle for dealing with various messages
+    /// @brief ROS NodeHandle for dealing with various messages
     ros::NodeHandle nh_;
     /// @brief measurements_ queue is reponsible to efficiently communicate with Control Module 
     std::queue<std::vector<double>> measurements_;
 
 protected:
     /**
-     * @brief given a array of detected tags, here we calculate robot global coordinate with respect to each tag.
+     * @brief Given a array of detected tags, here we calculate robot global coordinate with respect to each tag.
      * Each tag propose a noisy state of the robot when transformed it to the global frame. 
      * Therefore, an appropriate state filter is used to denoise those readings and compute the robot state accurately.
      * 

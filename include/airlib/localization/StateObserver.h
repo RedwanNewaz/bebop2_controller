@@ -14,6 +14,7 @@
 namespace bebop2 {
     class StateObserver;
     typedef std::shared_ptr<StateObserver> StateObserverPtr;
+    
     class StateObserver {
     public:
         explicit StateObserver(FilterPtr filter, SensorPtr sensor);

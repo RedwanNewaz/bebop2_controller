@@ -46,7 +46,7 @@ namespace bebop2{
         bool noisy_reading_;
         
         const size_t STATE_DIM = 4;
-        /// @brief discrete sample time is determined by control frequence
+        /// @brief discrete sample time is determined by control frequency.
         const double DT = 0.03; // 30 Hz
         /// @brief white noise amplitude 
         const double NOISE = 0.2; 

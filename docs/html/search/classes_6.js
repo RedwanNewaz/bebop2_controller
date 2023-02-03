@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['markerobservation_0',['MarkerObservation',['../struct_marker_observation.html',1,'']]],
-  ['mvn_1',['Mvn',['../class_mvn.html',1,'']]]
+  ['markerobservation_0',['MarkerObservation',['../structMarkerObservation.html',1,'']]],
+  ['mvn_1',['Mvn',['../classMvn.html',1,'']]]
 ];

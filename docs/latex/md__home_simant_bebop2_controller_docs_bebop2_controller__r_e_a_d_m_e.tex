@@ -1,0 +1,14 @@
+\hypertarget{md__home_simant_bebop2_controller_docs_bebop2_controller__r_e_a_d_m_e_autotoc_md1}{}\doxysection{Quick Run}\label{md__home_simant_bebop2_controller_docs_bebop2_controller__r_e_a_d_m_e_autotoc_md1}
+Connect your joystick to the computer. Joystick buttons perform following operations\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{IDLE\ =\ 0,\ //\ setpoint\ can\ be\ freely\ moved\ with\ joystick.\ Sphere\ color\ blue}
+\DoxyCodeLine{TAKEOFF\ =\ 1,\ //\ drone\ will\ takeoff\ from\ the\ ground}
+\DoxyCodeLine{LAND\ =\ 2,\ //drone\ will\ land}
+\DoxyCodeLine{ENGAGE\ =\ 3,\ //\ set\ current\ location\ as\ a\ set\ point\ (for\ hover).\ Sphere\ color\ yellow}
+\DoxyCodeLine{CONTROL\ =\ 4\ //\ start\ PID\ controller\ for\ the\ current\ (ENGAGE)\ setpoint.\ Sphere\ color\ cyan}
+
+\end{DoxyCode}
+
+
+Once control mode is enabled, setpoint can also be controlled using joystick axes. Note that, only position controller is implemented. Orientation controller needs yaw angle which could be directly obtained from bebop odom.\hypertarget{md__home_simant_bebop2_controller_docs_bebop2_controller__r_e_a_d_m_e_autotoc_md2}{}\doxysection{Parameter Tuning}\label{md__home_simant_bebop2_controller_docs_bebop2_controller__r_e_a_d_m_e_autotoc_md2}
+Refer to {\ttfamily config/param.\+yaml} file to read about tuning parameters. Apriltags are used for landmarks and then the drone position is estimated from those landmarks. A complementary filter is implemented to compute state by combining multiple landmarks. 

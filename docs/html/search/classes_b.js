@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tagmap_0',['TagMap',['../class_tag_map.html',1,'']]]
+  ['tagmap_0',['TagMap',['../classTagMap.html',1,'']]]
 ];

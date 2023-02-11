@@ -1,0 +1,129 @@
+\hypertarget{struct_field_location}{}\doxysection{Field\+Location Struct Reference}
+\label{struct_field_location}\index{FieldLocation@{FieldLocation}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_marker_observation}{Marker\+Observation}} \mbox{\hyperlink{struct_field_location_aba8010cdbd3ea54265db5d7cd75de44e}{to\+Observation}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the radial distance, azimuthal angle and polar angle using x,y,z position. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_field_location}{Field\+Location}} \mbox{\hyperlink{struct_field_location_ae317351db47c70444f72a68516454402}{operator-\/}} (const \mbox{\hyperlink{struct_field_location}{Field\+Location}} \&other) const
+\begin{DoxyCompactList}\small\item\em Calculates the difference between two tags. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_field_location}{Field\+Location}} \mbox{\hyperlink{struct_field_location_ac5966312a3d0df900873be1fa853d840}{operator+}} (const \mbox{\hyperlink{struct_field_location}{Field\+Location}} \&other) const
+\begin{DoxyCompactList}\small\item\em Calculates the sum of two tags. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_field_location}{Field\+Location}} \mbox{\hyperlink{struct_field_location_a7da89910c0992173841458f493027814}{operator$\ast$}} (double scale) const
+\begin{DoxyCompactList}\small\item\em Calculates the product between two tags. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_field_location_a1be847da2ecefc18b2181b8d3e8a1bb2}\label{struct_field_location_a1be847da2ecefc18b2181b8d3e8a1bb2}} 
+std\+::string {\bfseries tag\+Name}
+\item 
+\mbox{\Hypertarget{struct_field_location_a2f101b216cd1177702266249290f382b}\label{struct_field_location_a2f101b216cd1177702266249290f382b}} 
+double {\bfseries x}
+\begin{DoxyCompactList}\small\item\em x-\/position (in meters) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}\label{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}} 
+double {\bfseries y}
+\begin{DoxyCompactList}\small\item\em y-\/position (in meters) ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}\label{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}} 
+double {\bfseries z}
+\begin{DoxyCompactList}\small\item\em z-\/position (in meters) ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{struct_field_location_ae81613697d66349de9e6bff55d3bca4d}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{struct_field_location}{Field\+Location}} \&location)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_field_location_a7da89910c0992173841458f493027814}\label{struct_field_location_a7da89910c0992173841458f493027814}} 
+\index{FieldLocation@{FieldLocation}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!FieldLocation@{FieldLocation}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_field_location}{Field\+Location}} Field\+Location\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{double}]{scale }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the product between two tags. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & is the other April\+Tag. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the struct with the new tagname, x,y and z position 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_field_location_ac5966312a3d0df900873be1fa853d840}\label{struct_field_location_ac5966312a3d0df900873be1fa853d840}} 
+\index{FieldLocation@{FieldLocation}!operator+@{operator+}}
+\index{operator+@{operator+}!FieldLocation@{FieldLocation}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_field_location}{Field\+Location}} Field\+Location\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_field_location}{Field\+Location}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the sum of two tags. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & is the other April\+Tag. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the struct with the new tagname, x,y and z position 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_field_location_ae317351db47c70444f72a68516454402}\label{struct_field_location_ae317351db47c70444f72a68516454402}} 
+\index{FieldLocation@{FieldLocation}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!FieldLocation@{FieldLocation}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_field_location}{Field\+Location}} Field\+Location\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_field_location}{Field\+Location}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the difference between two tags. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & is the other April\+Tag. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the struct with the new tagname, x,y and z position 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_field_location_aba8010cdbd3ea54265db5d7cd75de44e}\label{struct_field_location_aba8010cdbd3ea54265db5d7cd75de44e}} 
+\index{FieldLocation@{FieldLocation}!toObservation@{toObservation}}
+\index{toObservation@{toObservation}!FieldLocation@{FieldLocation}}
+\doxysubsubsection{\texorpdfstring{toObservation()}{toObservation()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_marker_observation}{Marker\+Observation}} Field\+Location\+::to\+Observation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the radial distance, azimuthal angle and polar angle using x,y,z position. 
+
+\begin{DoxyReturn}{Returns}
+Returns the the structure of \doxylink{struct_marker_observation}{Marker\+Observation} with the spherical coordinates. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\mbox{\Hypertarget{struct_field_location_ae81613697d66349de9e6bff55d3bca4d}\label{struct_field_location_ae81613697d66349de9e6bff55d3bca4d}} 
+\index{FieldLocation@{FieldLocation}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!FieldLocation@{FieldLocation}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{struct_field_location}{Field\+Location}} \&}]{location }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & It is an output stream object that writes sequences of characters. \\
+\hline
+{\em location} & Reference to the \doxylink{struct_field_location}{Field\+Location} Struct. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the output of tag\+Name, x, y and z positions in string format. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/airlib/robot\+\_\+defs.\+h\end{DoxyCompactItemize}

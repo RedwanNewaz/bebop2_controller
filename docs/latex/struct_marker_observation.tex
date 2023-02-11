@@ -1,0 +1,47 @@
+\hypertarget{struct_marker_observation}{}\doxysection{Marker\+Observation Struct Reference}
+\label{struct_marker_observation}\index{MarkerObservation@{MarkerObservation}}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_marker_observation_a1de968d571f84b2943de2a8609db2c3d}\label{struct_marker_observation_a1de968d571f84b2943de2a8609db2c3d}} 
+std\+::string {\bfseries tag\+Name}
+\item 
+\mbox{\Hypertarget{struct_marker_observation_a74eaf75e45d859ee6b8f8e4bd5439bae}\label{struct_marker_observation_a74eaf75e45d859ee6b8f8e4bd5439bae}} 
+double {\bfseries radial\+\_\+distance}
+\begin{DoxyCompactList}\small\item\em Observed distance to landmark from robot position ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_marker_observation_a100373bce74cf49ea8870196d2acf74b}\label{struct_marker_observation_a100373bce74cf49ea8870196d2acf74b}} 
+double {\bfseries azimuthal\+\_\+angle}
+\begin{DoxyCompactList}\small\item\em Observed bearing to landmark in the XY coordinate frame. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_marker_observation_aad670bccd0f025ea8808148e828878a2}\label{struct_marker_observation_aad670bccd0f025ea8808148e828878a2}} 
+double {\bfseries polar\+\_\+angle}
+\begin{DoxyCompactList}\small\item\em Observed bearing to landmark in the positive Z axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{struct_marker_observation_a4755337b360a2c606740ae5cc60b00e5}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{struct_marker_observation}{Marker\+Observation}} \&observation)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\mbox{\Hypertarget{struct_marker_observation_a4755337b360a2c606740ae5cc60b00e5}\label{struct_marker_observation_a4755337b360a2c606740ae5cc60b00e5}} 
+\index{MarkerObservation@{MarkerObservation}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!MarkerObservation@{MarkerObservation}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{struct_marker_observation}{Marker\+Observation}} \&}]{observation }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & It is an output stream objects that writes sequences of characters \\
+\hline
+{\em observation} & Reference to \doxylink{struct_marker_observation}{Marker\+Observation} struct. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the output of tagname, radial distance, azimuthal angle and polar angle. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/airlib/robot\+\_\+defs.\+h\end{DoxyCompactItemize}

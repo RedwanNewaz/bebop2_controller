@@ -1,0 +1,93 @@
+\hypertarget{robot__defs_8h_source}{}\doxysection{robot\+\_\+defs.\+h}
+\label{robot__defs_8h_source}\index{include/airlib/robot\_defs.h@{include/airlib/robot\_defs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//const\ int\ STATE\_DIM\ =\ 10;}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_robot_state}{RobotState}}}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_robot_state_a7ca6f4e88ac7982242ab32cf5fba15e6}{x}};\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_robot_state_ac96a8e033454034c95745aee1811ffc2}{y}};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_robot_state_a552998092784696aaf6db9c47ab6a425}{z}};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_robot_state_a347039726076c6fbe8874635dfa21af0}{theta}};\ \ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ \ double\ vx;\ \ \ \ \ //\ x-\/linear\ velocity\ (in\ meters)}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ \ double\ vy;\ \ \ \ \ //\ y-\/linear\ velocity\ (in\ meters)}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ \ double\ vz;\ \ \ \ \ //\ z-\/linear\ velocity\ (in\ meters)}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ \ \ double\ wx;\ \ \ \ \ //\ x-\/angular\ velocity\ (in\ meters)}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ double\ wy;\ \ \ \ \ //\ y-\/angular\ velocity\ (in\ meters)}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ \ double\ wz;\ \ \ \ \ //\ z-\/angular\ velocity\ (in\ meters)}}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ Field\ location\ structure\ in\ radial\ distance\ (r),\ azimuthal\ angle\ (theta),\ and\ polar\ angle\ (psi)\ */}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_marker_observation}{MarkerObservation}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ std::string\ tagName;\ \ \textcolor{comment}{//\ Index\ of\ observed\ marker\ [0-\/n]}}
+\DoxyCodeLine{00032\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_marker_observation_a74eaf75e45d859ee6b8f8e4bd5439bae}{radial\_distance}};\ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_marker_observation_a100373bce74cf49ea8870196d2acf74b}{azimuthal\_angle}};\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_marker_observation_aad670bccd0f025ea8808148e828878a2}{polar\_angle}};\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\mbox{\hyperlink{struct_marker_observation_a4755337b360a2c606740ae5cc60b00e5}{operator<<}}(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_marker_observation}{MarkerObservation}}\ \&observation)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ degFactor\ =\ (180.0/3.141592653589793238463);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}tagName:\ "{}}\ <<\ observation.tagName\ <<\ \textcolor{stringliteral}{"{}\ radial\_distance:\ "{}}\ <<\ observation.\mbox{\hyperlink{struct_marker_observation_a74eaf75e45d859ee6b8f8e4bd5439bae}{radial\_distance}}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ azimuthal\_angle:\ "{}}\ <<\ observation.\mbox{\hyperlink{struct_marker_observation_a100373bce74cf49ea8870196d2acf74b}{azimuthal\_angle}}\ *\ degFactor\ <<\ \textcolor{stringliteral}{"{}\ polar\_angle:\ "{}}\ <<\ observation.\mbox{\hyperlink{struct_marker_observation_aad670bccd0f025ea8808148e828878a2}{polar\_angle}}\ *\ degFactor;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ Field\ location\ structure\ */}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_field_location}{FieldLocation}}}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ std::string\ tagName;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}};\ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}};\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}};\ \ \ \ \ \ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{struct_marker_observation}{MarkerObservation}}\ \mbox{\hyperlink{struct_field_location_aba8010cdbd3ea54265db5d7cd75de44e}{toObservation}}()}
+\DoxyCodeLine{00067\ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ rho\ =\ sqrt(\mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}}\ *\ \mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}}\ +\ \mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}}\ *\ \mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}}\ +\ \mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}}\ *\ \mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}});}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ phi\ =\ atan2(\mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}},\ \mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}});}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ theta\ =\ atan2(hypot(\mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}},\ \mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}}),\ \mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}});}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_marker_observation}{MarkerObservation}}\{tagName,\ rho,\ theta,\ phi\};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\mbox{\hyperlink{struct_field_location_ae81613697d66349de9e6bff55d3bca4d}{operator<<}}(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\ \&location)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}tagName:\ "{}}\ <<\ location.tagName\ <<\ \textcolor{stringliteral}{"{}\ x:\ "{}}\ <<\ location.\mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}}\ <<\ \textcolor{stringliteral}{"{}\ y:\ "{}}\ <<\ location.\mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}}\ <<\ \textcolor{stringliteral}{"{}\ z:\ "{}}\ <<\ location.\mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\ \mbox{\hyperlink{struct_field_location_ae317351db47c70444f72a68516454402}{operator\ -\/\ }}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\&\ other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00087\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx\ =\ \mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}}\ -\/\ other.\mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dy\ =\ \mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}}\ -\/\ other.\mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dz\ =\ \mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}}\ -\/\ other.\mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\{tagName\ +\ \textcolor{stringliteral}{"{}-\/"{}}\ +\ other.tagName,\ dx,\ dy,\ dz\};}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\ \mbox{\hyperlink{struct_field_location_ac5966312a3d0df900873be1fa853d840}{operator\ +\ }}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\&\ other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx\ =\ \mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}}\ +\ other.\mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dy\ =\ \mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}}\ +\ other.\mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dz\ =\ \mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}}\ +\ other.\mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\{tagName,\ dx,\ dy,\ dz\};}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\ \mbox{\hyperlink{struct_field_location_a7da89910c0992173841458f493027814}{operator\ *\ }}(\textcolor{keywordtype}{double}\ scale)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00109\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx\ =\ \mbox{\hyperlink{struct_field_location_a2f101b216cd1177702266249290f382b}{x}}\ *\ scale;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dy\ =\ \mbox{\hyperlink{struct_field_location_a91e5558f47b388feffccf1c23a93b5e6}{y}}\ *\ scale;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dz\ =\ \mbox{\hyperlink{struct_field_location_a4cdf46653fc5e8fae3688924f7705897}{z}}\ *\ scale;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_field_location}{FieldLocation}}\{tagName,\ dx,\ dy,\ dz\};}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \};}
+
+\end{DoxyCode}

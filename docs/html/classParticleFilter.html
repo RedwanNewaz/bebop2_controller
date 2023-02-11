@@ -78,6 +78,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>initializing particles to Gaussian distribution around first position and then Predicts the state for the next time step using the process model.  
+ <a href="classParticleFilter.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -93,6 +96,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a90019fe33003b008575111640f15946c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a90019fe33003b008575111640f15946c">update</a> (const std::vector&lt; double &gt; &amp;obs, std::vector&lt; double &gt; &amp;result)</td></tr>
 <tr class="separator:a90019fe33003b008575111640f15946c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11d7f5a1aba6a649dc9d0cb661fa014d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a11d7f5a1aba6a649dc9d0cb661fa014d">init</a> (const std::vector&lt; double &gt; &amp;x0, const std::vector&lt; double &gt; &amp;std)</td></tr>
+<tr class="memdesc:a11d7f5a1aba6a649dc9d0cb661fa014d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init Initializes particle filter by initializing particles to Gaussian distribution around first position and all the weights to 1.  <br /></td></tr>
 <tr class="separator:a11d7f5a1aba6a649dc9d0cb661fa014d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a541ece0fecb05f999382559c22454f3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a541ece0fecb05f999382559c22454f3b">prediction</a> (double delta_t, const std::vector&lt; double &gt; &amp;std_pos, const Twist *cmd)</td></tr>
 <tr class="separator:a541ece0fecb05f999382559c22454f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,6 +114,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a4d73f797a7a4bfffbfbb4fd6d09114f9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structParticle.html">Particle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParticleFilter.html#a4d73f797a7a4bfffbfbb4fd6d09114f9">particles</a></td></tr>
+<tr class="memdesc:a4d73f797a7a4bfffbfbb4fd6d09114f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set of current particles.  <br /></td></tr>
 <tr class="separator:a4d73f797a7a4bfffbfbb4fd6d09114f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -120,8 +125,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a1d90b6ed0e0e88f21d21dd324698ea7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00116">116</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<div class="textblock"><p>initializing particles to Gaussian distribution around first position and then Predicts the state for the next time step using the process model. </p>
+<p>Updates the weights for each particle based on the likelihood of the observed measurements following the resampling from the updated set of particles to form the new set of particles and returns whether particle filter has been initliazed or not. </p>
+
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00141">141</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="accc05e707b48f1a8f1a10ed318c0dc55" name="accc05e707b48f1a8f1a10ed318c0dc55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#accc05e707b48f1a8f1a10ed318c0dc55">&#9670;&#160;</a></span>ParticleFilter()</h2>
@@ -162,8 +169,14 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructor of <a class="el" href="classParticleFilter.html" title="initializing particles to Gaussian distribution around first position and then Predicts the state for...">ParticleFilter</a> class. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Number of particles </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00147">147</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00172">172</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -190,7 +203,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00151">151</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00177">177</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -290,7 +303,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00235">235</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00261">261</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -364,7 +377,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00239">239</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00265">265</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -393,7 +406,9 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>init Initializes particle filter by initializing particles to Gaussian distribution around first position and all the weights to 1. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Init Initializes particle filter by initializing particles to Gaussian distribution around first position and all the weights to 1. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>Initial x position [m] (simulated estimate from GPS) </td></tr>
     <tr><td class="paramname">y</td><td>Initial y position [m] </td></tr>
@@ -431,7 +446,7 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>initialized Returns whether particle filter is initialized yet or not. </p>
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00222">222</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00248">248</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -486,7 +501,7 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>prediction Predicts the state for the next time step using the process model. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><a class="el" href="classParticleFilter.html#a541ece0fecb05f999382559c22454f3b">prediction()</a> method Predicts the state for the next time step using the process model. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">delta_t</td><td>Time between time step t and t+1 in measurements [s] </td></tr>
     <tr><td class="paramname">std_pos[]</td><td>Array of dimension 3 [standard deviation of x [m], standard deviation of y [m] standard deviation of yaw [rad]] </td></tr>
@@ -574,7 +589,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00156">156</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00182">182</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -662,7 +677,9 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00143">143</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p>Set of current particles. </p>
+
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00168">168</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>

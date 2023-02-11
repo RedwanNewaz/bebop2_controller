@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bebop2_20controller_0',['Bebop2 Controller',['../md_README.html',1,'']]]
+  ['parrot_20bebop2_20drone_20with_20joystick_20controller_20readme_20file_0',['Parrot Bebop2 Drone with Joystick Controller README File',['../index.html',1,'']]]
 ];

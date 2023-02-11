@@ -15,18 +15,19 @@
 
 #include <queue>
 #include "SensorBase.h"
-class ApriltagLandmarks : public SensorBase{
     /**
-     * @brief This class compute the robot coordinate from stationary tags.
+     * @brief This class computes the robot coordinate from stationary tags.
+     * 
      * There are three stationary apriltags located on the wall. 
      * These tags are treated as known landmarks for the map. 
      * Bebop2 can view these tags with the front facing camera.
-     * It is not necessary to see all the tags even one landmark can help to localize the robot. 
+     * It is not necessary to see all the tags since even one landmark can help to localize the robot. 
      * This information is feedback to the computer to detect apriltags from the camera image. 
      * Bebop2 can transmit this images upto 28 Hz speed 
-     * Apprantly, the tags are located only front direction, therefore robot yaw angle is ignored. 
+     * Apparently, the tags are located only front direction, therefore robot yaw angle is ignored. 
      * 
      */
+class ApriltagLandmarks : public SensorBase{
 
 public:
     ApriltagLandmarks(ros::NodeHandle& nh);
@@ -45,7 +46,7 @@ private:
 
 protected:
     /**
-     * @brief Given a array of detected tags, here we calculate robot global coordinate with respect to each tag.
+     * @brief Given an array of detected tags, here we calculate robot global coordinate with respect to each tag.
      * Each tag propose a noisy state of the robot when transformed it to the global frame. 
      * Therefore, an appropriate state filter is used to denoise those readings and compute the robot state accurately.
      * 

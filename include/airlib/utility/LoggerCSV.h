@@ -10,20 +10,21 @@
 
 using namespace std::literals;
 
+/// @brief This class allows us to easily log information to a CSV file format.
 class LoggerCSV{
 
   using TIME_POINT = std::chrono::time_point<std::chrono::system_clock>;
 
 public:
-  // This is a default contructor without st.pop_back();header.
-  // One can manually add header file using addHeader function
+  /// @brief This is a default contructor without st.pop_back();header.
+  /// One can manually add header file using addHeader function
   LoggerCSV()
   {
     m_header_enabled = false;
     m_timer_enabled = false;
   }
 
-  /// use this constructor to create a csv file with header
+  ///@brief This constructor is used to create a csv file with header
   LoggerCSV(const std::vector<std::string>&header)
   {
     m_header_enabled = false;
@@ -31,31 +32,30 @@ public:
     addHeader(header);
   }
 
-  /// use this contructor when you want to record data row at different frequency than sensor frequency
+  ///@brief This constructor is used to to record data row at different frequency than sensor frequency whenever required.
   explicit LoggerCSV(const std::vector<std::string>&header, const int frequency)
   {
     m_header_enabled = false;
     m_timer_enabled = false;
     addHeader(header);
-    // initiate last update time 1 min later to write data row
-    // write time only depends on actual data not header
+    /// @brief Initiates last update time 1 min later to write data row and write time only depends on actual data not header
     m_last_update_time =  std::chrono::system_clock::now() - 1min;
     m_timer_enabled = true;
-    // calculate pause time in millisecond between two data rows
+    /// calculates the pause time in millisecond between two data rows
     m_pause_time_ms = 1000 / frequency;
 
   }
 
+  /// @brief When this class will be distructed, we will write the logger values from ROM to a csv file on the hard drive.
   ~LoggerCSV()
   {
-    // when this class will be distructed, we will write the logger values from ROM to a csv file on the hard drive.
     std::string value = m_data.str();
 
     // don't write file if there is no data added to the logger
     if(!value.length())
       return;
 
-    // remove last new line from the string
+    /// Removes last new line from the string
     value.pop_back();
 
     // make sure you have unique name for each logger file. Use system timestamp to serve this purpose
@@ -65,7 +65,7 @@ public:
     myfile.close();
   }
 
-  /// this function is used to generate unique name for a file with timestamp
+  /// @brief This function is used to generate unique name for a file with timestamp
   std::string getTimestamp()
   {
     const TIME_POINT now = std::chrono::system_clock::now();
@@ -88,7 +88,7 @@ public:
   {
     if(m_timer_enabled)
     {
-      // if timer is enabled then discard the data point based on the pause limit
+      /// If timer is enabled then it discards the data point based on the pause limit
       const auto end = std::chrono::system_clock::now();
       int elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - m_last_update_time).count();
 
@@ -98,7 +98,7 @@ public:
       m_last_update_time =  std::chrono::system_clock::now();
     }
 
-    // if header is present then check the number of columns match with header column
+    /// If header is present then this checks the number of columns match with header column
     if(m_header_enabled)
       if(m_header_len != data.size())
       {
@@ -106,7 +106,7 @@ public:
         return;
       }
 
-    // we are now ready to store the data into RAM using stringstream
+    /// This will store the data into RAM using stringstream
     int index = 0;
     for(const auto& item: data)
       if(++index < data.size())

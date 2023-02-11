@@ -120,7 +120,7 @@ namespace bebop2
         tf::Transform getStateVecToTransform(const std::vector<double>& state);
 
     protected:
-        /// @brief This function sets the linear positon of the drone to all 3 linear axes and to angula z-axis and publishes the message of the current position of the drone.
+        /// @brief This function sets the linear positon of the drone to all 3 linear axes and to angular z-axis and publishes the message of the current position of the drone.
         /// @param U is array of commands of size 4 which sets the above mentioned position of the drone.
         void publish_cmd_vel(const std::vector<double>&U);
         /// @brief This function calculates the distance between the setpoint of the drone and the current state position.

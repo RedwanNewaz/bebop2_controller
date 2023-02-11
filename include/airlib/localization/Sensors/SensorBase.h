@@ -13,6 +13,12 @@ class SensorBase;
 
 typedef std::shared_ptr<SensorBase> SensorPtr;
 
+/**
+*   @brief This class provides a conection to acquire internal state vector 
+    
+*   so that other components required for the bebop to operate successfully can do estimation and calculation. 
+*   It also publishes the drone's positon and transformation so that we can picture it in a graphical interface such as RVIZ.  
+*/
 class SensorBase: std::enable_shared_from_this<SensorBase>
 {
 public:
@@ -26,7 +32,7 @@ public:
      * @brief This is an interface to access to the internal state vector so that other modules can do their computation 
      * @note this interface depends on bool empty()  
      * @param result copy internal state vector to result vector 
-     */
+    */
     virtual void operator()(std::vector<double>& result) = 0;
     /**
      * @brief This is an interface to check whether internal state vector is empty or not so that we can safely read internal state vector.

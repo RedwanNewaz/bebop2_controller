@@ -7,7 +7,9 @@
 #include <vector>
 #include "FilterBase.h"
 
+/// @brief The ComplementaryFilter.h class implements the complmentary filter where it initializes the state and updates it using the
 class ComplementaryFilter: public FilterBase{
+/// filter's alpha paramater in update() method.
 public:
     ComplementaryFilter(double alpha): m_alpha(alpha)
     {
@@ -19,6 +21,8 @@ public:
         X_.clear();
         std::copy(X0.begin(), X0.end(), std::back_inserter(X_));
     }
+
+
     void update(const std::vector<double>& obs, std::vector<double>& result)
     {
 

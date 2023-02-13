@@ -8,15 +8,28 @@ namespace bebop2
         states_.resize(STATE_DIM);
         std::fill(states_.begin(), states_.end(), 0.0);
 
+        queue_.push(states_);
+
         sub_takeoff_ = nh_.subscribe("takeoff", 10, &DummyState::takeoff_callback, this);
         sub_land_ = nh_.subscribe("land", 10, &DummyState::land_callback, this);
-        sub_cmd_vel_ = nh_.subscribe("cmd_vel", 1, &DummyState::cmd_vel_callback, this);
+        sub_cmd_vel_ = nh_.subscribe("cmd_vel", 10, &DummyState::cmd_vel_callback, this);
+
+        dummy_timer_ = nh_.createTimer(ros::Duration(DT), &DummyState::updateState, this);
+        ROS_INFO("[DummyState] DummyState initialized ...");
     }
 
     void DummyState::operator()(std::vector<double>& state)
     {
-        state.clear();
-        std::copy(states_.begin(), states_.end(), std::back_inserter(state));
+        if(state.size() != STATE_DIM )
+        {
+            state.clear();
+            std::copy(states_.begin(), states_.end(), std::back_inserter(state));
+        }
+        else{
+            for (int i = 0; i < STATE_DIM; ++i)
+                state[i] = states_[i];
+        }
+
 
 //        ROS_INFO("state = (%lf %lf %lf %lf)", states_[0], states_[1], states_[2], states_[3] );
 
@@ -34,7 +47,10 @@ namespace bebop2
 
     bool DummyState::empty()
     {
-        return states_.empty();
+        bool empty =  queue_.empty();
+        if(!empty)
+            queue_.pop();
+        return empty;
     }
 
     void DummyState::takeoff_callback(const std_msgs::Empty::ConstPtr& msg)
@@ -57,6 +73,10 @@ namespace bebop2
 
         ROS_INFO("[DummyState] state = (%lf, %lf, %lf, %lf)", states_[0], states_[1], states_[2], states_[3]);
     }
-    
+
+    void DummyState::updateState(const ros::TimerEvent &event) {
+        queue_.push(states_);
+    }
+
 } // namespace bebop2
 

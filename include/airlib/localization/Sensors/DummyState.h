@@ -8,7 +8,7 @@
 #include <std_msgs/Empty.h>
 #include <geometry_msgs/Twist.h>
 #include "SensorBase.h"
-
+#include <queue>
 
 namespace bebop2{
     /** 
@@ -37,6 +37,7 @@ namespace bebop2{
 
     private:
         ros::NodeHandle nh_;
+        ros::Timer dummy_timer_;
         /// @brief internal states must contain at least four vairables [x, y, z, yaw] for the position control module
         std::vector<double> states_;
         /// @brief bebop_autonomy messages for basic maneuvers 
@@ -49,7 +50,8 @@ namespace bebop2{
         /// @brief discrete sample time is determined by control frequence
         const double DT = 0.03; // 30 Hz
         /// @brief white noise amplitude 
-        const double NOISE = 0.2; 
+        const double NOISE = 0.2;
+        std::queue<std::vector<double>> queue_;
     protected:
         /**
          * @brief Joystic command to takeoff the bebop2 
@@ -68,6 +70,8 @@ namespace bebop2{
          * @param msg publish Twist message to the topic ```cmd_vel``` 
          */
         void cmd_vel_callback(const geometry_msgs::Twist::ConstPtr& msg);
+
+        void updateState(const ros::TimerEvent& event);
 
     };
 }

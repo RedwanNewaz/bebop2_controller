@@ -26,8 +26,10 @@ int main(int argc, char* argv[])
     auto stateSensor = std::make_shared<bebop2::DummyState>(nh, WHITE_NOISE);
     auto stateObserver = std::make_shared<bebop2::StateObserver>(stateFilter, stateSensor);
 
+
     bebop2::QuadControllerPID controller(stateObserver, nh);
     const int THREAD_COUNT = 4;
+
 
     ros::AsyncSpinner spinner(THREAD_COUNT);
     spinner.start();

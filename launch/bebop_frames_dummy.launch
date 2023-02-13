@@ -1,0 +1,16 @@
+<launch>
+<!--apriltag_complementary_pid_node apriltag_ekf_pid_node-->
+   <node pkg="joy" type="joy_node" name="joy_node" />
+
+    <group ns="bebop">
+        <node pkg="bebop2_controller" type="dummy_complementary_pid_node" name="bebop2_controller" output="screen" >
+            <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
+        </node>
+
+    </group>
+
+
+   <node pkg="rviz" type="rviz" name="tagView" args="-d  $(find bebop2_controller)/config/tag.rviz" />
+
+
+</launch>

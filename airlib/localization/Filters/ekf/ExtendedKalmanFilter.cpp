@@ -125,16 +125,19 @@ void ExtendedKalmanFilter::update(const std::vector<double>& obs, std::vector<do
         z(i) = obs[i];
 
     }
+    z(3) = 3.1416;
+
 
 
     internal_update(z, u_);
-    std::cout << "[update] finished internal update " << xEst_.transpose() ;
-    result.clear();
-    result.resize(STATE_DIM);
-
-    for (int j = 0; j < STATE_DIM; ++j) {
-        result[j] = xEst_(j);
-    }
+    std::cout << "[update] finished internal update " << xEst_.transpose() << std::endl ;
+////    std::cout << "[update] finished internal update " << xEst_.transpose() ;
+//    result.clear();
+//    result.resize(STATE_DIM);
+//
+//    for (int j = 0; j < STATE_DIM; ++j) {
+//        result[j] = xEst_(j);
+//    }
 }
 
 void ExtendedKalmanFilter::init(const std::vector<double> &X0) {

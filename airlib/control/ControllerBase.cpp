@@ -23,6 +23,7 @@ namespace bebop2
         controller_timer_ = m_nh.createTimer(ros::Duration(dt_), &bebop2::ControllerBase::control_loop, this);
         viz_ = std::make_unique<ControlViz>(m_nh);
         m_buttonState = ENGAGE;
+        ROS_INFO("[ControllerBase] Initialization complete ...");
 
     }
 
@@ -111,13 +112,21 @@ namespace bebop2
         m_get_state->operator()(state);
 //        ROS_INFO_STREAM("[ControllerBase] state size" << state.size());
         if(state.empty())
+        {
+            ROS_WARN("[ControllerBase]: State vector is Empty");
             return;
+        }
+
+//        ROS_INFO_STREAM("[ControllerBase] state size" << state.size());
 
         if(m_buttonState == ENGAGE)
         {
             // set setpoint at current position
             setPoints_.clear();
             std::copy(state.begin(), state.end(), std::back_inserter(setPoints_));
+            // visualize your state with sphere
+            auto pose = getStateVecToTransform(setPoints_);
+            viz_->update(pose, YELLOW);
 
         }
         else if(m_buttonState == CONTROL)

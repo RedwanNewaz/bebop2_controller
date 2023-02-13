@@ -69,10 +69,11 @@ The functions of the Four Action Buttons of the joystick is as follows:
  
 // To be written down. 
 
-1.  A   ---> 
-2.  B   ---> 
-3.  X   ---> 
-4.  Y   ---> 
+1.  A   ---> TAKE OFF (Green button)
+2.  B   ---> LAND (Red Button)
+3.  X   ---> IDLE (Blue Button)
+4.  Y   ---> ENGAGE (Yellow Button)
+5.  L   ---> CONTROL (Top Left Button) 
 
 ---------------------------------------------
 

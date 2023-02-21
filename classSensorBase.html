@@ -69,6 +69,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>This class provides a conection to acquire internal state vector.  
+ <a href="classSensorBase.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="SensorBase_8h_source.html">SensorBase.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SensorBase:</div>
@@ -76,8 +79,8 @@ Inheritance diagram for SensorBase:</div>
  <div class="center">
   <img src="classSensorBase.png" usemap="#SensorBase_map" alt=""/>
   <map id="SensorBase_map" name="SensorBase_map">
-<area href="classApriltagLandmarks.html" alt="ApriltagLandmarks" shape="rect" coords="0,112,268,136"/>
-<area href="classbebop2_1_1DummyState.html" alt="bebop2::DummyState" shape="rect" coords="278,112,546,136"/>
+<area href="classApriltagLandmarks.html" title="This class compute the robot coordinate from stationary tags." alt="ApriltagLandmarks" shape="rect" coords="0,112,268,136"/>
+<area href="classbebop2_1_1DummyState.html" title="Dummy state creates a state space repersentation for quadrotor." alt="bebop2::DummyState" shape="rect" coords="278,112,546,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -98,8 +101,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad56a833e43ba1c3c10cbf52024390e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="SensorBase_8h_source.html#l00016">16</a> of file <a class="el" href="SensorBase_8h_source.html">SensorBase.h</a>.</p>
+<div class="textblock"><p>This class provides a conection to acquire internal state vector. </p>
+<p>so that other components required for the bebop to operate successfully can do estimation and calculation. It also publishes the drone's positon and transformation so that we can picture it in a graphical interface such as RVIZ. <br  />
+ </p>
+
+<p class="definition">Definition at line <a class="el" href="SensorBase_8h_source.html#l00022">22</a> of file <a class="el" href="SensorBase_8h_source.html">SensorBase.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4f481426253035b3a39162d107f52a38"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f481426253035b3a39162d107f52a38">&#9670;&nbsp;</a></span>empty()</h2>
@@ -161,7 +167,7 @@ false if internal state vector has been initialized </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>SensorPtr <br  />
  </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SensorBase_8h_source.html#l00021">21</a> of file <a class="el" href="SensorBase_8h_source.html">SensorBase.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SensorBase_8h_source.html#l00027">27</a> of file <a class="el" href="SensorBase_8h_source.html">SensorBase.h</a>.</p>
 
 </div>
 </div>
@@ -238,7 +244,7 @@ false if internal state vector has been initialized </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>broadcast map to robot tf </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function depends on private vairable tf::TransformBroadcaster m_br; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SensorBase_8h_source.html#l00047">47</a> of file <a class="el" href="SensorBase_8h_source.html">SensorBase.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SensorBase_8h_source.html#l00053">53</a> of file <a class="el" href="SensorBase_8h_source.html">SensorBase.h</a>.</p>
 
 </div>
 </div>

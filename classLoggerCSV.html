@@ -69,22 +69,27 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>This class allows us to easily log information to a CSV file format.  
+ <a href="classLoggerCSV.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a727b61abcb5030665d0ab73a68ed6f6e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a727b61abcb5030665d0ab73a68ed6f6e">LoggerCSV</a> ()</td></tr>
+<tr class="memdesc:a727b61abcb5030665d0ab73a68ed6f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a default contructor without st.pop_back();header. One can manually add header file using addHeader function.  <a href="classLoggerCSV.html#a727b61abcb5030665d0ab73a68ed6f6e">More...</a><br /></td></tr>
 <tr class="separator:a727b61abcb5030665d0ab73a68ed6f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cfadbfb1cce7279e3c675a23d73ec7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a0cfadbfb1cce7279e3c675a23d73ec7e">LoggerCSV</a> (const std::vector&lt; std::string &gt; &amp;header)</td></tr>
-<tr class="memdesc:a0cfadbfb1cce7279e3c675a23d73ec7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">use this constructor to create a csv file with header  <a href="classLoggerCSV.html#a0cfadbfb1cce7279e3c675a23d73ec7e">More...</a><br /></td></tr>
+<tr class="memdesc:a0cfadbfb1cce7279e3c675a23d73ec7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This constructor is used to create a csv file with header.  <a href="classLoggerCSV.html#a0cfadbfb1cce7279e3c675a23d73ec7e">More...</a><br /></td></tr>
 <tr class="separator:a0cfadbfb1cce7279e3c675a23d73ec7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4730a968872141ec2ece9ef90c2d7186"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a4730a968872141ec2ece9ef90c2d7186">LoggerCSV</a> (const std::vector&lt; std::string &gt; &amp;header, const int frequency)</td></tr>
-<tr class="memdesc:a4730a968872141ec2ece9ef90c2d7186"><td class="mdescLeft">&#160;</td><td class="mdescRight">use this contructor when you want to record data row at different frequency than sensor frequency  <a href="classLoggerCSV.html#a4730a968872141ec2ece9ef90c2d7186">More...</a><br /></td></tr>
+<tr class="memdesc:a4730a968872141ec2ece9ef90c2d7186"><td class="mdescLeft">&#160;</td><td class="mdescRight">This constructor is used to to record data row at different frequency than sensor frequency whenever required.  <a href="classLoggerCSV.html#a4730a968872141ec2ece9ef90c2d7186">More...</a><br /></td></tr>
 <tr class="separator:a4730a968872141ec2ece9ef90c2d7186"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3241cbbbe476425821ce05204c8bba6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a3241cbbbe476425821ce05204c8bba6f">~LoggerCSV</a> ()</td></tr>
+<tr class="memdesc:a3241cbbbe476425821ce05204c8bba6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this class will be distructed, we will write the logger values from ROM to a csv file on the hard drive.  <a href="classLoggerCSV.html#a3241cbbbe476425821ce05204c8bba6f">More...</a><br /></td></tr>
 <tr class="separator:a3241cbbbe476425821ce05204c8bba6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34f36a942a6fecb0cacf720f43774b44"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a34f36a942a6fecb0cacf720f43774b44">getTimestamp</a> ()</td></tr>
-<tr class="memdesc:a34f36a942a6fecb0cacf720f43774b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">this function is used to generate unique name for a file with timestamp  <a href="classLoggerCSV.html#a34f36a942a6fecb0cacf720f43774b44">More...</a><br /></td></tr>
+<tr class="memdesc:a34f36a942a6fecb0cacf720f43774b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to generate unique name for a file with timestamp.  <a href="classLoggerCSV.html#a34f36a942a6fecb0cacf720f43774b44">More...</a><br /></td></tr>
 <tr class="separator:a34f36a942a6fecb0cacf720f43774b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c3316d5c7c272357512d83c152232cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a2c3316d5c7c272357512d83c152232cd">addHeader</a> (const std::vector&lt; std::string &gt; &amp;data)</td></tr>
 <tr class="separator:a2c3316d5c7c272357512d83c152232cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,8 +98,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9c9d7e83cf30030bc380d0e31cbaceca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00013">13</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<div class="textblock"><p>This class allows us to easily log information to a CSV file format. </p>
+
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00014">14</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a727b61abcb5030665d0ab73a68ed6f6e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a727b61abcb5030665d0ab73a68ed6f6e">&#9670;&nbsp;</a></span>LoggerCSV() <span class="overload">[1/3]</span></h2>
@@ -119,7 +125,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00020">20</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p>This is a default contructor without st.pop_back();header. One can manually add header file using addHeader function. </p>
+
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00021">21</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -147,9 +155,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>use this constructor to create a csv file with header </p>
+<p>This constructor is used to create a csv file with header. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00027">27</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00028">28</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -187,9 +195,11 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>use this contructor when you want to record data row at different frequency than sensor frequency </p>
+<p>This constructor is used to to record data row at different frequency than sensor frequency whenever required. </p>
+<p>Initiates last update time 1 min later to write data row and write time only depends on actual data not header</p>
+<p>calculates the pause time in millisecond between two data rows</p>
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00035">35</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00036">36</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -216,7 +226,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00049">49</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p>When this class will be distructed, we will write the logger values from ROM to a csv file on the hard drive. </p>
+
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00050">50</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -245,7 +257,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00079">79</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00080">80</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -274,8 +286,10 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>If timer is enabled then it discards the data point based on the pause limit</p>
+<p>If header is present then this checks the number of columns match with header column</p>
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00087">87</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00088">88</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -302,9 +316,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>this function is used to generate unique name for a file with timestamp </p>
+<p>This function is used to generate unique name for a file with timestamp. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00069">69</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00070">70</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>

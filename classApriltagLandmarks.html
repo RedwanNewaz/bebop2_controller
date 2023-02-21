@@ -70,6 +70,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>This class compute the robot coordinate from stationary tags.  
+ <a href="classApriltagLandmarks.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="ApriltagLandmarks_8h_source.html">ApriltagLandmarks.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ApriltagLandmarks:</div>
@@ -77,14 +80,13 @@ Inheritance diagram for ApriltagLandmarks:</div>
  <div class="center">
   <img src="classApriltagLandmarks.png" usemap="#ApriltagLandmarks_map" alt=""/>
   <map id="ApriltagLandmarks_map" name="ApriltagLandmarks_map">
-<area href="classSensorBase.html" alt="SensorBase" shape="rect" coords="0,56,268,80"/>
+<area href="classSensorBase.html" title="This class provides a conection to acquire internal state vector." alt="SensorBase" shape="rect" coords="0,56,268,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9e32395a2cd0485d753fb0979ef8ed68"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApriltagLandmarks.html#a9e32395a2cd0485d753fb0979ef8ed68">ApriltagLandmarks</a> (ros::NodeHandle &amp;nh)</td></tr>
-<tr class="memdesc:a9e32395a2cd0485d753fb0979ef8ed68"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class compute the robot coordinate from stationary tags. There are three stationary apriltags located on the wall. These tags are treated as known landmarks for the map. Bebop2 can view these tags with the front facing camera. It is not necessary to see all the tags even one landmark can help to localize the robot. This information is feedback to the computer to detect apriltags from the camera image. Bebop2 can transmit this images upto 28 Hz speed Apprantly, the tags are located only front direction, therefore robot yaw angle is ignored.  <a href="classApriltagLandmarks.html#a9e32395a2cd0485d753fb0979ef8ed68">More...</a><br /></td></tr>
 <tr class="separator:a9e32395a2cd0485d753fb0979ef8ed68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11f9b912b3f326faa40eccc67e3ba7b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApriltagLandmarks.html#a11f9b912b3f326faa40eccc67e3ba7b2">operator()</a> (std::vector&lt; double &gt; &amp;result)</td></tr>
 <tr class="memdesc:a11f9b912b3f326faa40eccc67e3ba7b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is an interface to access to the internal state vector so that other modules can do their computation.  <a href="classApriltagLandmarks.html#a11f9b912b3f326faa40eccc67e3ba7b2">More...</a><br /></td></tr>
@@ -111,8 +113,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:ae1fedc5c1e5d0bba0ddfbd881269df99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ApriltagLandmarks_8h_source.html#l00018">18</a> of file <a class="el" href="ApriltagLandmarks_8h_source.html">ApriltagLandmarks.h</a>.</p>
+<div class="textblock"><p>This class compute the robot coordinate from stationary tags. </p>
+<p>There are three stationary apriltags located on the wall. These tags are treated as known landmarks for the map. Bebop2 can view these tags with the front facing camera. It is not necessary to see all the tags even one landmark can help to localize the robot. This information is feedback to the computer to detect apriltags from the camera image. Bebop2 can transmit this images upto 28 Hz speed Apprantly, the tags are located only front direction, therefore robot yaw angle is ignored. </p>
+
+<p class="definition">Definition at line <a class="el" href="ApriltagLandmarks_8h_source.html#l00030">30</a> of file <a class="el" href="ApriltagLandmarks_8h_source.html">ApriltagLandmarks.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9e32395a2cd0485d753fb0979ef8ed68"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e32395a2cd0485d753fb0979ef8ed68">&#9670;&nbsp;</a></span>ApriltagLandmarks()</h2>
@@ -129,8 +133,6 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>This class compute the robot coordinate from stationary tags. There are three stationary apriltags located on the wall. These tags are treated as known landmarks for the map. Bebop2 can view these tags with the front facing camera. It is not necessary to see all the tags even one landmark can help to localize the robot. This information is feedback to the computer to detect apriltags from the camera image. Bebop2 can transmit this images upto 28 Hz speed Apprantly, the tags are located only front direction, therefore robot yaw angle is ignored. </p>
 
 <p class="definition">Definition at line <a class="el" href="ApriltagLandmarks_8cpp_source.html#l00007">7</a> of file <a class="el" href="ApriltagLandmarks_8cpp_source.html">ApriltagLandmarks.cpp</a>.</p>
 

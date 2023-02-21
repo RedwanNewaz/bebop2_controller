@@ -76,18 +76,25 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1LQR.html">LQR</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html">ControllerBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Responsible to control the position, state and rotation of the drone and also provides the code to make the robot hover. It publishes the takeoff, landing commands along with the current position of the drone and the state of the axes and buttons of the joystick controller. It also updates the state of the robot in RVIZ which is used for visaulation.  <a href="classbebop2_1_1ControllerBase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControlViz.html">ControlViz</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class helps in the 3D visualization of data being rendered. It receives the updated position and orientation of the drone and sends points and lines to a graphical interface. Hence, visualizes the movement, position, orientation and behaviors of the drone.  <a href="classbebop2_1_1ControlViz.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1PID.html">PID</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates an error value as the difference between desired output and the current output and applies a correction based on proportional, integral and derivative terms(denoted by P, I, D respectively).  <a href="classbebop2_1_1PID.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1QuadControllerPID.html">QuadControllerPID</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Responsible to find the error values every second whenever the position of the quadrators of the drone is updated.  <a href="classbebop2_1_1QuadControllerPID.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ExtendedKalmanFilter.html">ExtendedKalmanFilter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The extended Kalman Filter uses an algorithm to estimate the state of the system like velocity and position of the drone by using past and possible noisy observations and current and possibly noisy measurements of that system.  <a href="classbebop2_1_1ExtendedKalmanFilter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1DummyState.html">DummyState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy state creates a state space repersentation for quadrotor.  <a href="classbebop2_1_1DummyState.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1StateObserver.html">StateObserver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classbebop2_1_1StateObserver.html" title="The StateObserver class Observes and updates the state of the drone.">StateObserver</a> class Observes and updates the state of the drone.  <a href="classbebop2_1_1StateObserver.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -125,7 +132,7 @@ Variables</h2></td></tr>
 <tr class="separator:ad130bb29243bfa4b86a561fee67cdade"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Controller Base has a) joystick controller to setup goal location, takeoff and landing commands b) visualization interface to show the result in rviz Controller Base should take different type of controller e.g., i) <a class="el" href="classbebop2_1_1PID.html">PID</a> controller ii) <a class="el" href="classbebop2_1_1LQR.html">LQR</a> controller Controller Base should take a StatePtr and obtain robot state from there Variable convention private variables end with _ protected variables start with m_ </p>
+<div class="textblock"><p>Controller Base has a) joystick controller to setup goal location, takeoff and landing commands b) visualization interface to show the result in rviz Controller Base should take different type of controller e.g., i) <a class="el" href="classbebop2_1_1PID.html" title="Calculates an error value as the difference between desired output and the current output and applies...">PID</a> controller ii) <a class="el" href="classbebop2_1_1LQR.html">LQR</a> controller Controller Base should take a StatePtr and obtain robot state from there Variable convention private variables end with _ protected variables start with m_ </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="a73dc7da96dafd486f0c43a33ea064d4c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73dc7da96dafd486f0c43a33ea064d4c">&#9670;&nbsp;</a></span>StateObserverPtr</h2>

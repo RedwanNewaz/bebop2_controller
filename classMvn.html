@@ -69,21 +69,28 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>initializes the mean and covariance matrix for the distribution. The mean and covariance matrix are used in the calculation along with the observation passed to the pdf function.  
+ <a href="classMvn.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3e6c158a9d5a08050dafec14ca2f788c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMvn.html#a3e6c158a9d5a08050dafec14ca2f788c">Mvn</a> (const <a class="el" href="structTagMap_1_1single__landmark__s.html">TagMap::single_landmark_s</a> &amp;landmark, const std::vector&lt; double &gt; &amp;std)</td></tr>
+<tr class="memdesc:a3e6c158a9d5a08050dafec14ca2f788c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classMvn.html#a3e6c158a9d5a08050dafec14ca2f788c">More...</a><br /></td></tr>
 <tr class="separator:a3e6c158a9d5a08050dafec14ca2f788c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec49f8e17feb48fbbd47f64c26565502"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMvn.html#aec49f8e17feb48fbbd47f64c26565502">~Mvn</a> ()</td></tr>
+<tr class="memdesc:aec49f8e17feb48fbbd47f64c26565502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deconstructor.  <a href="classMvn.html#aec49f8e17feb48fbbd47f64c26565502">More...</a><br /></td></tr>
 <tr class="separator:aec49f8e17feb48fbbd47f64c26565502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8317e80dc988ad98cf93428c4bcbfed6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a8317e80dc988ad98cf93428c4bcbfed6"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classMvn.html#a8317e80dc988ad98cf93428c4bcbfed6">pdf</a> (const T &amp;obs_m) const</td></tr>
+<tr class="memdesc:a8317e80dc988ad98cf93428c4bcbfed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability density function value for a given observation.  <a href="classMvn.html#a8317e80dc988ad98cf93428c4bcbfed6">More...</a><br /></td></tr>
 <tr class="separator:a8317e80dc988ad98cf93428c4bcbfed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00034">34</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<div class="textblock"><p>initializes the mean and covariance matrix for the distribution. The mean and covariance matrix are used in the calculation along with the observation passed to the pdf function. </p>
+
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00039">39</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3e6c158a9d5a08050dafec14ca2f788c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3e6c158a9d5a08050dafec14ca2f788c">&#9670;&nbsp;</a></span>Mvn()</h2>
@@ -119,7 +126,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00037">37</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">landmark</td><td>Landmark </td></tr>
+    <tr><td class="paramname">std</td><td>Array of dimension 3 [standard deviation of x [m], standard deviation of y [m] standard deviation of yaw [rad] </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00045">45</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -146,7 +162,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00057">57</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p>Deconstructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00066">66</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>
@@ -177,7 +195,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00062">62</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
+<p>Calculates the probability density function value for a given observation. </p>
+
+<p class="definition">Definition at line <a class="el" href="particle__filter_8h_source.html#l00072">72</a> of file <a class="el" href="particle__filter_8h_source.html">particle_filter.h</a>.</p>
 
 </div>
 </div>

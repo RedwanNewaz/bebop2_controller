@@ -74,6 +74,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Dummy state creates a state space repersentation for quadrotor.  
+ <a href="classbebop2_1_1DummyState.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="DummyState_8h_source.html">DummyState.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for bebop2::DummyState:</div>
@@ -81,7 +84,7 @@ Inheritance diagram for bebop2::DummyState:</div>
  <div class="center">
   <img src="classbebop2_1_1DummyState.png" usemap="#bebop2::DummyState_map" alt=""/>
   <map id="bebop2::DummyState_map" name="bebop2::DummyState_map">
-<area href="classSensorBase.html" alt="SensorBase" shape="rect" coords="0,56,268,80"/>
+<area href="classSensorBase.html" title="This class provides a conection to acquire internal state vector." alt="SensorBase" shape="rect" coords="0,56,268,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -91,7 +94,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa704cb1fb20c0a80e881478b07af2118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Dummy State object To simulate desired behavior from a sensor so that we can develop accurate control module.  <a href="classbebop2_1_1DummyState.html#aa704cb1fb20c0a80e881478b07af2118">More...</a><br /></td></tr>
 <tr class="separator:aa704cb1fb20c0a80e881478b07af2118"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a18fcd35402f1d756bd052def7cfb0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1DummyState.html#a9a18fcd35402f1d756bd052def7cfb0e">operator()</a> (std::vector&lt; double &gt; &amp;state)</td></tr>
-<tr class="memdesc:a9a18fcd35402f1d756bd052def7cfb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is an interface to access to the internal state vector so that other modules can do their computation.  <a href="classbebop2_1_1DummyState.html#a9a18fcd35402f1d756bd052def7cfb0e">More...</a><br /></td></tr>
+<tr class="memdesc:a9a18fcd35402f1d756bd052def7cfb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the requested state vector.  <a href="classbebop2_1_1DummyState.html#a9a18fcd35402f1d756bd052def7cfb0e">More...</a><br /></td></tr>
 <tr class="separator:a9a18fcd35402f1d756bd052def7cfb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af718a706c941fb6cf3e283f8ff51965b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1DummyState.html#af718a706c941fb6cf3e283f8ff51965b">empty</a> ()</td></tr>
 <tr class="memdesc:af718a706c941fb6cf3e283f8ff51965b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is an interface to check whether internal state vector is empty or not so that we can safely read internal state vector.  <a href="classbebop2_1_1DummyState.html#af718a706c941fb6cf3e283f8ff51965b">More...</a><br /></td></tr>
@@ -117,13 +120,15 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a759c288e1c05a40707af808391a0d48f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joystic command to move the <a class="el" href="namespacebebop2.html">bebop2</a>.  <a href="classbebop2_1_1DummyState.html#a759c288e1c05a40707af808391a0d48f">More...</a><br /></td></tr>
 <tr class="separator:a759c288e1c05a40707af808391a0d48f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7af4ea2bd269d531cbef32de148a54a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1DummyState.html#a7af4ea2bd269d531cbef32de148a54a3">updateState</a> (const ros::TimerEvent &amp;event)</td></tr>
+<tr class="memdesc:a7af4ea2bd269d531cbef32de148a54a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the state of the dummy drone.  <a href="classbebop2_1_1DummyState.html#a7af4ea2bd269d531cbef32de148a54a3">More...</a><br /></td></tr>
 <tr class="separator:a7af4ea2bd269d531cbef32de148a54a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dummy state will create a state space repersentation for quadrotor. The key idea is to initialize a state at (0, 0, 0, 0) and take joystick command to update state. To capture realistic behavior add some gaussian white noise to the state. When <a class="el" href="namespacebebop2.html">bebop2</a> takeoff from the ground it reaches 1m above from the ground origin and when it lands then z axis value is 0. This behavior can be achieved by simply subscribing takeoff and land messages. To change bebop coordinates in x and y direction subscribe cmd_vel topic and update the state based on the cmd_vel value. cmd_vel is a geometry_msg/Twist msg which provides 4 control inputs, i.e., linear.x, linear.y, linear.z, angular.z Here, we need to make a assumption that sampling time DT is a constant value. <br  />
- Finally to integrate with our main framework, we need a public method void <a class="el" href="classbebop2_1_1DummyState.html#a9a18fcd35402f1d756bd052def7cfb0e" title="This is an interface to access to the internal state vector so that other modules can do their comput...">operator()(std::vector&lt;double&gt;&amp; state)</a> that can populate a requested state vector; </p>
+<div class="textblock"><p>Dummy state creates a state space repersentation for quadrotor. </p>
+<p>The key idea is to initialize a state at (0, 0, 0, 0) and take joystick command to update state. To capture realistic behavior add some gaussian white noise to the state. When <a class="el" href="namespacebebop2.html">bebop2</a> takeoff from the ground it reaches 1m above from the ground origin and when it lands then z axis value is 0. This behavior can be achieved by simply subscribing takeoff and land messages. To change bebop coordinates in x and y direction subscribe cmd_vel topic and update the state based on the cmd_vel value. cmd_vel is a geometry_msg/Twist msg which provides 4 control inputs, i.e., linear.x, linear.y, linear.z, angular.z Here, we need to make a assumption that sampling time DT is a constant value. <br  />
+ Finally to integrate with our main framework, we need a public method void <a class="el" href="classbebop2_1_1DummyState.html#a9a18fcd35402f1d756bd052def7cfb0e" title="Populates the requested state vector.">operator()(std::vector&lt;double&gt;&amp; state)</a> that can populate a requested state vector; </p>
 
-<p class="definition">Definition at line <a class="el" href="DummyState_8h_source.html#l00025">25</a> of file <a class="el" href="DummyState_8h_source.html">DummyState.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DummyState_8h_source.html#l00026">26</a> of file <a class="el" href="DummyState_8h_source.html">DummyState.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa704cb1fb20c0a80e881478b07af2118"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa704cb1fb20c0a80e881478b07af2118">&#9670;&nbsp;</a></span>DummyState()</h2>
@@ -228,7 +233,7 @@ Protected Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true if internal state vector has not been populated yet </dd>
 <dd>
 false if internal state vector has been initialized </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>previous void <a class="el" href="classbebop2_1_1DummyState.html#a9a18fcd35402f1d756bd052def7cfb0e" title="This is an interface to access to the internal state vector so that other modules can do their comput...">operator()(std::vector&lt;double&gt;&amp; result)</a> depends on it </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>previous void <a class="el" href="classbebop2_1_1DummyState.html#a9a18fcd35402f1d756bd052def7cfb0e" title="Populates the requested state vector.">operator()(std::vector&lt;double&gt;&amp; result)</a> depends on it </dd></dl>
 
 <p>Implements <a class="el" href="classSensorBase.html#a4f481426253035b3a39162d107f52a38">SensorBase</a>.</p>
 
@@ -285,7 +290,7 @@ false if internal state vector has been initialized </dd></dl>
           <td class="memname">void bebop2::DummyState::operator() </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -296,12 +301,10 @@ false if internal state vector has been initialized </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>This is an interface to access to the internal state vector so that other modules can do their computation. </p>
-<dl class="section note"><dt>Note</dt><dd>this interface depends on bool <a class="el" href="classbebop2_1_1DummyState.html#af718a706c941fb6cf3e283f8ff51965b" title="This is an interface to check whether internal state vector is empty or not so that we can safely rea...">empty()</a> <br  />
- </dd></dl>
+<p>Populates the requested state vector. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">result</td><td>copy internal state vector to result vector </td></tr>
+    <tr><td class="paramname">state</td><td>Gives the current position of the drone. </td></tr>
   </table>
   </dd>
 </dl>
@@ -371,6 +374,8 @@ false if internal state vector has been initialized </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Updates the state of the dummy drone. </p>
 
 <p class="definition">Definition at line <a class="el" href="DummyState_8cpp_source.html#l00077">77</a> of file <a class="el" href="DummyState_8cpp_source.html">DummyState.cpp</a>.</p>
 

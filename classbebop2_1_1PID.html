@@ -73,19 +73,26 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Calculates an error value as the difference between desired output and the current output and applies a correction based on proportional, integral and derivative terms(denoted by P, I, D respectively).  
+ <a href="classbebop2_1_1PID.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="PID_8h_source.html">PID.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8c9b9e1417bdcefb64e04041d6caa339"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1PID.html#a8c9b9e1417bdcefb64e04041d6caa339">PID</a> ()</td></tr>
+<tr class="memdesc:a8c9b9e1417bdcefb64e04041d6caa339"><td class="mdescLeft">&#160;</td><td class="mdescRight">A default Constuctor.  <a href="classbebop2_1_1PID.html#a8c9b9e1417bdcefb64e04041d6caa339">More...</a><br /></td></tr>
 <tr class="separator:a8c9b9e1417bdcefb64e04041d6caa339"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bdaa787b389dc3c1ce287110bd5adb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1PID.html#a3bdaa787b389dc3c1ce287110bd5adb8">init</a> (double dt, double max, double min, double Kp, double Kd, double Ki)</td></tr>
+<tr class="memdesc:a3bdaa787b389dc3c1ce287110bd5adb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init method initiliazes all the controller parameters like proportional constant, Integral constant, Derivative constant, rate of change, maximum and minimum output values.  <a href="classbebop2_1_1PID.html#a3bdaa787b389dc3c1ce287110bd5adb8">More...</a><br /></td></tr>
 <tr class="separator:a3bdaa787b389dc3c1ce287110bd5adb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b7afa3e1573a2f673d3c7165f4e8be0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1PID.html#a9b7afa3e1573a2f673d3c7165f4e8be0">calculate</a> (double setpoint, double pv)</td></tr>
+<tr class="memdesc:a9b7afa3e1573a2f673d3c7165f4e8be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">At first it calculates the error by subtracting the setpoint and current position of the drone, Then the Proportional, Integral, Derivate terms are calculated using that error and their repective constans. Following that, we find out the total ouptput by the sum of three terms and tehn restrict the output withtin the boundaries of minimum, maximum valeus.  <a href="classbebop2_1_1PID.html#a9b7afa3e1573a2f673d3c7165f4e8be0">More...</a><br /></td></tr>
 <tr class="separator:a9b7afa3e1573a2f673d3c7165f4e8be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>Calculates an error value as the difference between desired output and the current output and applies a correction based on proportional, integral and derivative terms(denoted by P, I, D respectively). </p>
+
 <p class="definition">Definition at line <a class="el" href="PID_8h_source.html#l00012">12</a> of file <a class="el" href="PID_8h_source.html">PID.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8c9b9e1417bdcefb64e04041d6caa339"></a>
@@ -102,6 +109,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>A default Constuctor. </p>
 
 <p class="definition">Definition at line <a class="el" href="PID_8cpp_source.html#l00008">8</a> of file <a class="el" href="PID_8cpp_source.html">PID.cpp</a>.</p>
 
@@ -133,6 +142,22 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>At first it calculates the error by subtracting the setpoint and current position of the drone, Then the Proportional, Integral, Derivate terms are calculated using that error and their repective constans. Following that, we find out the total ouptput by the sum of three terms and tehn restrict the output withtin the boundaries of minimum, maximum valeus. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">setpoint</td><td>It is the desired position of the drone. </td></tr>
+    <tr><td class="paramname">pv</td><td>It is the current position of the drone. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the error between the setpoint and the current postion of the drone. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="classbebop2_1_1PID.html" title="Calculates an error value as the difference between desired output and the current output and applies...">PID</a> Gains identifiers.<ul>
+<li>Kp = Proportionality Constant</li>
+<li>Kd = Derivative Constant</li>
+<li>Ki = Intergration Constant </li>
+</ul>
+</dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="PID_8cpp_source.html#l00022">22</a> of file <a class="el" href="PID_8cpp_source.html">PID.cpp</a>.</p>
 
@@ -187,6 +212,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Init method initiliazes all the controller parameters like proportional constant, Integral constant, Derivative constant, rate of change, maximum and minimum output values. </p>
 
 <p class="definition">Definition at line <a class="el" href="PID_8cpp_source.html#l00013">13</a> of file <a class="el" href="PID_8cpp_source.html">PID.cpp</a>.</p>
 

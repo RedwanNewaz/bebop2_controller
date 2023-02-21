@@ -76,6 +76,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Responsible to control the position, state and rotation of the drone and also provides the code to make the robot hover. It publishes the takeoff, landing commands along with the current position of the drone and the state of the axes and buttons of the joystick controller. It also updates the state of the robot in RVIZ which is used for visaulation.  
+ <a href="classbebop2_1_1ControllerBase.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for bebop2::ControllerBase:</div>
@@ -83,13 +86,14 @@ Inheritance diagram for bebop2::ControllerBase:</div>
  <div class="center">
   <img src="classbebop2_1_1ControllerBase.png" usemap="#bebop2::ControllerBase_map" alt=""/>
   <map id="bebop2::ControllerBase_map" name="bebop2::ControllerBase_map">
-<area href="classbebop2_1_1QuadControllerPID.html" alt="bebop2::QuadControllerPID" shape="rect" coords="0,56,167,80"/>
+<area href="classbebop2_1_1QuadControllerPID.html" title="Responsible to find the error values every second whenever the position of the quadrators of the dron..." alt="bebop2::QuadControllerPID" shape="rect" coords="0,56,167,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aecd53db3daa5f49032713283163636b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#aecd53db3daa5f49032713283163636b0">ControllerBase</a> (<a class="el" href="namespacebebop2.html#a73dc7da96dafd486f0c43a33ea064d4c">StateObserverPtr</a> mGetState, ros::NodeHandle &amp;nh)</td></tr>
+<tr class="memdesc:aecd53db3daa5f49032713283163636b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes to sensor_msgs/joy which reports the state of a joystick's axes and buttons. It also publishes the message of drone takeoff and landing along with the linear and angular position of the drone. The constructor is also responsible to call the appropriate functions at specifc rates that plays a role in setting the set-point at a current location. Lastly it contructs an object to send the updated pose to the RVIZ for visualization and also sets the state of the controller's button.  <a href="classbebop2_1_1ControllerBase.html#aecd53db3daa5f49032713283163636b0">More...</a><br /></td></tr>
 <tr class="separator:aecd53db3daa5f49032713283163636b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
@@ -103,13 +107,16 @@ Protected Types</h2></td></tr>
 &#160;&#160;<a class="el" href="classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0a9e134b87d5f808d52d03c5f982da417a">CONTROL</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a76352e69566212036f3d7207ce4b6cc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applications applied to control the state of the robot using Joystick controller.  <a href="classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0">More...</a><br /></td></tr>
 <tr class="separator:a76352e69566212036f3d7207ce4b6cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a644d91e6e4bc12977deff541165a6b8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a644d91e6e4bc12977deff541165a6b8c">publish_cmd_vel</a> (const std::vector&lt; double &gt; &amp;U)</td></tr>
+<tr class="memdesc:a644d91e6e4bc12977deff541165a6b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the linear positon of the drone to all 3 linear axes and to angular z-axis and publishes the message of the current position of the drone.  <a href="classbebop2_1_1ControllerBase.html#a644d91e6e4bc12977deff541165a6b8c">More...</a><br /></td></tr>
 <tr class="separator:a644d91e6e4bc12977deff541165a6b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcc0fee29e5f7b7f6a19a640955eb652"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#adcc0fee29e5f7b7f6a19a640955eb652">goal_distance</a> (const std::vector&lt; double &gt; &amp;X, const std::vector&lt; double &gt; &amp;setPoints)</td></tr>
+<tr class="memdesc:adcc0fee29e5f7b7f6a19a640955eb652"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the distance between the setpoint of the drone and the current state position.  <a href="classbebop2_1_1ControllerBase.html#adcc0fee29e5f7b7f6a19a640955eb652">More...</a><br /></td></tr>
 <tr class="separator:adcc0fee29e5f7b7f6a19a640955eb652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0619e69c4759098a59a2bdae5c503501"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a0619e69c4759098a59a2bdae5c503501">compute_control</a> (const std::vector&lt; double &gt; &amp;X, const std::vector&lt; double &gt; &amp;setPoints, std::vector&lt; double &gt; &amp;control)=0</td></tr>
 <tr class="separator:a0619e69c4759098a59a2bdae5c503501"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,21 +124,27 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:add1eb5b349b755bdad661697bb184f2a"><td class="memItemLeft" align="right" valign="top">ros::NodeHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#add1eb5b349b755bdad661697bb184f2a">m_nh</a></td></tr>
+<tr class="memdesc:add1eb5b349b755bdad661697bb184f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This ROS Handle attribute is used to create various publishers and subscribers which also deals with messages.  <a href="classbebop2_1_1ControllerBase.html#add1eb5b349b755bdad661697bb184f2a">More...</a><br /></td></tr>
 <tr class="separator:add1eb5b349b755bdad661697bb184f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a419cc93fc0637717522429e67b63f8dd"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a419cc93fc0637717522429e67b63f8dd">m_mu</a></td></tr>
+<tr class="memdesc:a419cc93fc0637717522429e67b63f8dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks some functions for safe operations.  <a href="classbebop2_1_1ControllerBase.html#a419cc93fc0637717522429e67b63f8dd">More...</a><br /></td></tr>
 <tr class="separator:a419cc93fc0637717522429e67b63f8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a587d4539796276947acfceedd74daf2c"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0">bebop2::ControllerBase::ButtonState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a587d4539796276947acfceedd74daf2c">m_buttonState</a></td></tr>
 <tr class="separator:a587d4539796276947acfceedd74daf2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcf21b03e3a3c40f8173e4819a2a4230"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacebebop2.html#a73dc7da96dafd486f0c43a33ea064d4c">StateObserverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#afcf21b03e3a3c40f8173e4819a2a4230">m_get_state</a></td></tr>
+<tr class="memdesc:afcf21b03e3a3c40f8173e4819a2a4230"><td class="mdescLeft">&#160;</td><td class="mdescRight">This attribute gives the state of the robot.  <a href="classbebop2_1_1ControllerBase.html#afcf21b03e3a3c40f8173e4819a2a4230">More...</a><br /></td></tr>
 <tr class="separator:afcf21b03e3a3c40f8173e4819a2a4230"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b0de02e8c727752a1dad0a2857f2013"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a2b0de02e8c727752a1dad0a2857f2013">dt_</a></td></tr>
+<tr class="memdesc:a2b0de02e8c727752a1dad0a2857f2013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample time.  <a href="classbebop2_1_1ControllerBase.html#a2b0de02e8c727752a1dad0a2857f2013">More...</a><br /></td></tr>
 <tr class="separator:a2b0de02e8c727752a1dad0a2857f2013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a405dcc08256f764191275e542d37a955"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a405dcc08256f764191275e542d37a955">m_goal_thres</a></td></tr>
+<tr class="memdesc:a405dcc08256f764191275e542d37a955"><td class="mdescLeft">&#160;</td><td class="mdescRight">Goal region threshold.  <a href="classbebop2_1_1ControllerBase.html#a405dcc08256f764191275e542d37a955">More...</a><br /></td></tr>
 <tr class="separator:a405dcc08256f764191275e542d37a955"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00044">44</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
+<div class="textblock"><p>Responsible to control the position, state and rotation of the drone and also provides the code to make the robot hover. It publishes the takeoff, landing commands along with the current position of the drone and the state of the axes and buttons of the joystick controller. It also updates the state of the robot in RVIZ which is used for visaulation. </p>
+
+<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00047">47</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a76352e69566212036f3d7207ce4b6cc0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a76352e69566212036f3d7207ce4b6cc0">&#9670;&nbsp;</a></span>ButtonState</h2>
@@ -152,15 +165,22 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Applications applied to control the state of the robot using Joystick controller. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0a2eb4f2f58d711bb2fc7cf6443830e41b"></a>IDLE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0a034f3ebd64c6dedc4232ea246cb82f0a"></a>TAKEOFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0a8b7d2a81407259ab3721dfc2e6827b97"></a>LAND&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0aa78035010c11ea80cefb7f54823d5083"></a>ENGAGE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0a9e134b87d5f808d52d03c5f982da417a"></a>CONTROL&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0a2eb4f2f58d711bb2fc7cf6443830e41b"></a>IDLE&#160;</td><td class="fielddoc"><p>Setpoint can be freely moved with joystick. Sphere color blue. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0a034f3ebd64c6dedc4232ea246cb82f0a"></a>TAKEOFF&#160;</td><td class="fielddoc"><p>Drone will takeoff from the ground. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0a8b7d2a81407259ab3721dfc2e6827b97"></a>LAND&#160;</td><td class="fielddoc"><p>Drone will land. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0aa78035010c11ea80cefb7f54823d5083"></a>ENGAGE&#160;</td><td class="fielddoc"><p>Set current location as a set point (for hover). Sphere color yellow. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a76352e69566212036f3d7207ce4b6cc0a9e134b87d5f808d52d03c5f982da417a"></a>CONTROL&#160;</td><td class="fielddoc"><p>Start <a class="el" href="classbebop2_1_1PID.html" title="Calculates an error value as the difference between desired output and the current output and applies...">PID</a> controller for the current setpoint. Sphere color cyan. </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00062">62</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00082">82</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
 
 </div>
 </div>
@@ -198,6 +218,15 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Subscribes to sensor_msgs/joy which reports the state of a joystick's axes and buttons. It also publishes the message of drone takeoff and landing along with the linear and angular position of the drone. The constructor is also responsible to call the appropriate functions at specifc rates that plays a role in setting the set-point at a current location. Lastly it contructs an object to send the updated pose to the RVIZ for visualization and also sets the state of the controller's button. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mGetState</td><td>Obtains the current state of the robot </td></tr>
+    <tr><td class="paramname">nh</td><td>Used to create publishers and subscribes. For eg: The <a class="el" href="classbebop2_1_1ControllerBase.html" title="Responsible to control the position, state and rotation of the drone and also provides the code to ma...">ControllerBase</a> constructor publishes messages during takeoff and landing with the help of the <b>ros::NodeHandle</b> aka nh parameter. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="ControllerBase_8cpp_source.html#l00012">12</a> of file <a class="el" href="ControllerBase_8cpp_source.html">ControllerBase.cpp</a>.</p>
 
@@ -282,6 +311,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>This function calculates the distance between the setpoint of the drone and the current state position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">X</td><td>is an array of vectors of data type double representing the present position of the drone. </td></tr>
+    <tr><td class="paramname">setPoints</td><td>is an array of vectors representing the commanded position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Errors between the current and commanded position of the robot. </dd></dl>
+
 <p class="definition">Definition at line <a class="el" href="ControllerBase_8cpp_source.html#l00168">168</a> of file <a class="el" href="ControllerBase_8cpp_source.html">ControllerBase.cpp</a>.</p>
 
 </div>
@@ -310,6 +349,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>This function sets the linear positon of the drone to all 3 linear axes and to angular z-axis and publishes the message of the current position of the drone. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">U</td><td>is array of commands of size 4 which sets the above mentioned position of the drone. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p class="definition">Definition at line <a class="el" href="ControllerBase_8cpp_source.html#l00153">153</a> of file <a class="el" href="ControllerBase_8cpp_source.html">ControllerBase.cpp</a>.</p>
 
 </div>
@@ -335,7 +382,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00074">74</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
+<p>Sample time. </p>
+
+<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00100">100</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
 
 </div>
 </div>
@@ -381,7 +430,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00071">71</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
+<p>This attribute gives the state of the robot. </p>
+
+<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00096">96</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
 
 </div>
 </div>
@@ -405,7 +456,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00075">75</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
+<p>Goal region threshold. </p>
+
+<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00102">102</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
 
 </div>
 </div>
@@ -429,7 +482,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00061">61</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
+<p>Locks some functions for safe operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00080">80</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
 
 </div>
 </div>
@@ -453,7 +508,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00060">60</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
+<p>This ROS Handle attribute is used to create various publishers and subscribers which also deals with messages. </p>
+
+<p class="definition">Definition at line <a class="el" href="ControllerBase_8h_source.html#l00078">78</a> of file <a class="el" href="ControllerBase_8h_source.html">ControllerBase.h</a>.</p>
 
 </div>
 </div>

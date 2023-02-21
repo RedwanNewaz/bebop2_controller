@@ -74,27 +74,36 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>This class helps in the 3D visualization of data being rendered. It receives the updated position and orientation of the drone and sends points and lines to a graphical interface. Hence, visualizes the movement, position, orientation and behaviors of the drone.  
+ <a href="classbebop2_1_1ControlViz.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="ControlViz_8h_source.html">ControlViz.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aad6dd4782c5662f432a5fca0d44fb1f2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControlViz.html#aad6dd4782c5662f432a5fca0d44fb1f2">ControlViz</a> (ros::NodeHandle &amp;nh)</td></tr>
+<tr class="memdesc:aad6dd4782c5662f432a5fca0d44fb1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes messages through /bebop2/goal topic.  <a href="classbebop2_1_1ControlViz.html#aad6dd4782c5662f432a5fca0d44fb1f2">More...</a><br /></td></tr>
 <tr class="separator:aad6dd4782c5662f432a5fca0d44fb1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6141e56c2fd5936ed6f261309ca90a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControlViz.html#ac6141e56c2fd5936ed6f261309ca90a1">setDrone</a> (const tf::Transform &amp;pose)</td></tr>
+<tr class="memdesc:ac6141e56c2fd5936ed6f261309ca90a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function starts and slightly lifts the drone. As a result sets the Marker from the pose parameter and also sets the color by invoking the <a class="el" href="classbebop2_1_1ControlViz.html#ae21b0f1d37929ae2378f709e201cd86c" title="Receives the current position of the drone and uses that position to populate the point position and ...">set_marker_from_pose()</a> and <a class="el" href="classbebop2_1_1ControlViz.html#aa520a0b7efe18ff02186c6cfcac05181" title="sets different colors for different flights and paths of the drone for better understanding.">set_marker_color()</a> functions.  <a href="classbebop2_1_1ControlViz.html#ac6141e56c2fd5936ed6f261309ca90a1">More...</a><br /></td></tr>
 <tr class="separator:ac6141e56c2fd5936ed6f261309ca90a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7bf24b46f45546fadad51a19964ede0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControlViz.html#ae7bf24b46f45546fadad51a19964ede0">update</a> (const tf::Transform &amp;pose, const <a class="el" href="namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bf">MARKER_COLOR</a> &amp;color)</td></tr>
+<tr class="memdesc:ae7bf24b46f45546fadad51a19964ede0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions updates the path and the color of the path of the robot. It also publishes the messages from the visualization_msgs::Marker. Lastly, it sets the Marker object type to be a sphere.  <a href="classbebop2_1_1ControlViz.html#ae7bf24b46f45546fadad51a19964ede0">More...</a><br /></td></tr>
 <tr class="separator:ae7bf24b46f45546fadad51a19964ede0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ae21b0f1d37929ae2378f709e201cd86c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControlViz.html#ae21b0f1d37929ae2378f709e201cd86c">set_marker_from_pose</a> (const tf::Transform &amp;pose, visualization_msgs::Marker &amp;msg)</td></tr>
+<tr class="memdesc:ae21b0f1d37929ae2378f709e201cd86c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives the current position of the drone and uses that position to populate the point position and orientation of the marker messages. The marker messages will be used by a graphical interface to visualize the movement of the robot.  <a href="classbebop2_1_1ControlViz.html#ae21b0f1d37929ae2378f709e201cd86c">More...</a><br /></td></tr>
 <tr class="separator:ae21b0f1d37929ae2378f709e201cd86c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa520a0b7efe18ff02186c6cfcac05181"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControlViz.html#aa520a0b7efe18ff02186c6cfcac05181">set_marker_color</a> (const <a class="el" href="namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bf">MARKER_COLOR</a> &amp;color, visualization_msgs::Marker &amp;msg)</td></tr>
+<tr class="memdesc:aa520a0b7efe18ff02186c6cfcac05181"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets different colors for different flights and paths of the drone for better understanding.  <a href="classbebop2_1_1ControlViz.html#aa520a0b7efe18ff02186c6cfcac05181">More...</a><br /></td></tr>
 <tr class="separator:aa520a0b7efe18ff02186c6cfcac05181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ControlViz_8h_source.html#l00024">24</a> of file <a class="el" href="ControlViz_8h_source.html">ControlViz.h</a>.</p>
+<div class="textblock"><p>This class helps in the 3D visualization of data being rendered. It receives the updated position and orientation of the drone and sends points and lines to a graphical interface. Hence, visualizes the movement, position, orientation and behaviors of the drone. </p>
+
+<p class="definition">Definition at line <a class="el" href="ControlViz_8h_source.html#l00025">25</a> of file <a class="el" href="ControlViz_8h_source.html">ControlViz.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aad6dd4782c5662f432a5fca0d44fb1f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aad6dd4782c5662f432a5fca0d44fb1f2">&#9670;&nbsp;</a></span>ControlViz()</h2>
@@ -119,6 +128,14 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Publishes messages through /bebop2/goal topic. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nh</td><td>ROS Node Handle which deals with messages. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="ControlViz_8cpp_source.html#l00008">8</a> of file <a class="el" href="ControlViz_8cpp_source.html">ControlViz.cpp</a>.</p>
 
@@ -159,6 +176,15 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>sets different colors for different flights and paths of the drone for better understanding. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>color of the path </td></tr>
+    <tr><td class="paramname">msg</td><td>is Marker object same as the parameter msg in <a class="el" href="classbebop2_1_1ControlViz.html#ae21b0f1d37929ae2378f709e201cd86c" title="Receives the current position of the drone and uses that position to populate the point position and ...">set_marker_from_pose()</a> and has attributes to set color as well. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p class="definition">Definition at line <a class="el" href="ControlViz_8cpp_source.html#l00045">45</a> of file <a class="el" href="ControlViz_8cpp_source.html">ControlViz.cpp</a>.</p>
 
 </div>
@@ -197,6 +223,15 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Receives the current position of the drone and uses that position to populate the point position and orientation of the marker messages. The marker messages will be used by a graphical interface to visualize the movement of the robot. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pose</td><td>Robot's pose having a /map frame. </td></tr>
+    <tr><td class="paramname">msg</td><td>is a Marker object from visualization msgs that has attributes like position, orientation etc. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p class="definition">Definition at line <a class="el" href="ControlViz_8cpp_source.html#l00016">16</a> of file <a class="el" href="ControlViz_8cpp_source.html">ControlViz.cpp</a>.</p>
 
 </div>
@@ -216,6 +251,15 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This function starts and slightly lifts the drone. As a result sets the Marker from the pose parameter and also sets the color by invoking the <a class="el" href="classbebop2_1_1ControlViz.html#ae21b0f1d37929ae2378f709e201cd86c" title="Receives the current position of the drone and uses that position to populate the point position and ...">set_marker_from_pose()</a> and <a class="el" href="classbebop2_1_1ControlViz.html#aa520a0b7efe18ff02186c6cfcac05181" title="sets different colors for different flights and paths of the drone for better understanding.">set_marker_color()</a> functions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pose</td><td>Drone's positon. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Sets the path of the color to gray. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="ControlViz_8cpp_source.html#l00101">101</a> of file <a class="el" href="ControlViz_8cpp_source.html">ControlViz.cpp</a>.</p>
 
@@ -246,6 +290,17 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This functions updates the path and the color of the path of the robot. It also publishes the messages from the visualization_msgs::Marker. Lastly, it sets the Marker object type to be a sphere. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pose</td><td>current position of the robot. <br  />
+ </td></tr>
+    <tr><td class="paramname">color</td><td>color of the path in which the robot is in. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Calls the <a class="el" href="classbebop2_1_1ControlViz.html#ae21b0f1d37929ae2378f709e201cd86c" title="Receives the current position of the drone and uses that position to populate the point position and ...">set_marker_from_pose()</a> and <a class="el" href="classbebop2_1_1ControlViz.html#aa520a0b7efe18ff02186c6cfcac05181" title="sets different colors for different flights and paths of the drone for better understanding.">set_marker_color()</a> functions to update the path and color. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="ControlViz_8cpp_source.html#l00091">91</a> of file <a class="el" href="ControlViz_8cpp_source.html">ControlViz.cpp</a>.</p>
 

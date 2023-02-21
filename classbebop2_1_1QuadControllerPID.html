@@ -74,6 +74,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Responsible to find the error values every second whenever the position of the quadrators of the drone is updated.  
+ <a href="classbebop2_1_1QuadControllerPID.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="QuadControllerPID_8h_source.html">QuadControllerPID.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for bebop2::QuadControllerPID:</div>
@@ -81,26 +84,31 @@ Inheritance diagram for bebop2::QuadControllerPID:</div>
  <div class="center">
   <img src="classbebop2_1_1QuadControllerPID.png" usemap="#bebop2::QuadControllerPID_map" alt=""/>
   <map id="bebop2::QuadControllerPID_map" name="bebop2::QuadControllerPID_map">
-<area href="classbebop2_1_1ControllerBase.html" alt="bebop2::ControllerBase" shape="rect" coords="0,0,167,24"/>
+<area href="classbebop2_1_1ControllerBase.html" title="Responsible to control the position, state and rotation of the drone and also provides the code to ma..." alt="bebop2::ControllerBase" shape="rect" coords="0,0,167,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9a47a9d55416b290dfba482caf970cc8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1QuadControllerPID.html#a9a47a9d55416b290dfba482caf970cc8">QuadControllerPID</a> (<a class="el" href="namespacebebop2.html#a73dc7da96dafd486f0c43a33ea064d4c">StateObserverPtr</a> mGetState, ros::NodeHandle &amp;nh)</td></tr>
+<tr class="memdesc:a9a47a9d55416b290dfba482caf970cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classbebop2_1_1QuadControllerPID.html" title="Responsible to find the error values every second whenever the position of the quadrators of the dron...">QuadControllerPID</a> constructor initializes a vector of type double that is responsible for populating the <a class="el" href="classbebop2_1_1PID.html" title="Calculates an error value as the difference between desired output and the current output and applies...">PID</a> Gains, maximum and minimum threshold values.  <a href="classbebop2_1_1QuadControllerPID.html#a9a47a9d55416b290dfba482caf970cc8">More...</a><br /></td></tr>
 <tr class="separator:a9a47a9d55416b290dfba482caf970cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classbebop2_1_1ControllerBase"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classbebop2_1_1ControllerBase')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classbebop2_1_1ControllerBase.html">bebop2::ControllerBase</a></td></tr>
 <tr class="memitem:aecd53db3daa5f49032713283163636b0 inherit pub_methods_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#aecd53db3daa5f49032713283163636b0">ControllerBase</a> (<a class="el" href="namespacebebop2.html#a73dc7da96dafd486f0c43a33ea064d4c">StateObserverPtr</a> mGetState, ros::NodeHandle &amp;nh)</td></tr>
+<tr class="memdesc:aecd53db3daa5f49032713283163636b0 inherit pub_methods_classbebop2_1_1ControllerBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes to sensor_msgs/joy which reports the state of a joystick's axes and buttons. It also publishes the message of drone takeoff and landing along with the linear and angular position of the drone. The constructor is also responsible to call the appropriate functions at specifc rates that plays a role in setting the set-point at a current location. Lastly it contructs an object to send the updated pose to the RVIZ for visualization and also sets the state of the controller's button.  <a href="classbebop2_1_1ControllerBase.html#aecd53db3daa5f49032713283163636b0">More...</a><br /></td></tr>
 <tr class="separator:aecd53db3daa5f49032713283163636b0 inherit pub_methods_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:adf0cbf720225ac7b9d73aa103a82ccd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1QuadControllerPID.html#adf0cbf720225ac7b9d73aa103a82ccd8">compute_control</a> (const std::vector&lt; double &gt; &amp;X, const std::vector&lt; double &gt; &amp;setPoints, std::vector&lt; double &gt; &amp;control) override</td></tr>
+<tr class="memdesc:adf0cbf720225ac7b9d73aa103a82ccd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to the calculate() method in <a class="el" href="PID_8h.html">PID.h</a> class, the compute_control method also calculates the error, <a class="el" href="classbebop2_1_1PID.html" title="Calculates an error value as the difference between desired output and the current output and applies...">PID</a> Gain constants and return the error value when the drone is hovering over a position for the four vector values.  <a href="classbebop2_1_1QuadControllerPID.html#adf0cbf720225ac7b9d73aa103a82ccd8">More...</a><br /></td></tr>
 <tr class="separator:adf0cbf720225ac7b9d73aa103a82ccd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classbebop2_1_1ControllerBase"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classbebop2_1_1ControllerBase')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classbebop2_1_1ControllerBase.html">bebop2::ControllerBase</a></td></tr>
 <tr class="memitem:a644d91e6e4bc12977deff541165a6b8c inherit pro_methods_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a644d91e6e4bc12977deff541165a6b8c">publish_cmd_vel</a> (const std::vector&lt; double &gt; &amp;U)</td></tr>
+<tr class="memdesc:a644d91e6e4bc12977deff541165a6b8c inherit pro_methods_classbebop2_1_1ControllerBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the linear positon of the drone to all 3 linear axes and to angular z-axis and publishes the message of the current position of the drone.  <a href="classbebop2_1_1ControllerBase.html#a644d91e6e4bc12977deff541165a6b8c">More...</a><br /></td></tr>
 <tr class="separator:a644d91e6e4bc12977deff541165a6b8c inherit pro_methods_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcc0fee29e5f7b7f6a19a640955eb652 inherit pro_methods_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#adcc0fee29e5f7b7f6a19a640955eb652">goal_distance</a> (const std::vector&lt; double &gt; &amp;X, const std::vector&lt; double &gt; &amp;setPoints)</td></tr>
+<tr class="memdesc:adcc0fee29e5f7b7f6a19a640955eb652 inherit pro_methods_classbebop2_1_1ControllerBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the distance between the setpoint of the drone and the current state position.  <a href="classbebop2_1_1ControllerBase.html#adcc0fee29e5f7b7f6a19a640955eb652">More...</a><br /></td></tr>
 <tr class="separator:adcc0fee29e5f7b7f6a19a640955eb652 inherit pro_methods_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
@@ -115,24 +123,31 @@ Additional Inherited Members</h2></td></tr>
 &#160;&#160;<a class="el" href="classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0a9e134b87d5f808d52d03c5f982da417a">CONTROL</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a76352e69566212036f3d7207ce4b6cc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applications applied to control the state of the robot using Joystick controller.  <a href="classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0">More...</a><br /></td></tr>
 <tr class="separator:a76352e69566212036f3d7207ce4b6cc0 inherit pro_types_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classbebop2_1_1ControllerBase"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classbebop2_1_1ControllerBase')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classbebop2_1_1ControllerBase.html">bebop2::ControllerBase</a></td></tr>
 <tr class="memitem:add1eb5b349b755bdad661697bb184f2a inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top">ros::NodeHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#add1eb5b349b755bdad661697bb184f2a">m_nh</a></td></tr>
+<tr class="memdesc:add1eb5b349b755bdad661697bb184f2a inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">This ROS Handle attribute is used to create various publishers and subscribers which also deals with messages.  <a href="classbebop2_1_1ControllerBase.html#add1eb5b349b755bdad661697bb184f2a">More...</a><br /></td></tr>
 <tr class="separator:add1eb5b349b755bdad661697bb184f2a inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a419cc93fc0637717522429e67b63f8dd inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a419cc93fc0637717522429e67b63f8dd">m_mu</a></td></tr>
+<tr class="memdesc:a419cc93fc0637717522429e67b63f8dd inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks some functions for safe operations.  <a href="classbebop2_1_1ControllerBase.html#a419cc93fc0637717522429e67b63f8dd">More...</a><br /></td></tr>
 <tr class="separator:a419cc93fc0637717522429e67b63f8dd inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a587d4539796276947acfceedd74daf2c inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0">bebop2::ControllerBase::ButtonState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a587d4539796276947acfceedd74daf2c">m_buttonState</a></td></tr>
 <tr class="separator:a587d4539796276947acfceedd74daf2c inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcf21b03e3a3c40f8173e4819a2a4230 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacebebop2.html#a73dc7da96dafd486f0c43a33ea064d4c">StateObserverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#afcf21b03e3a3c40f8173e4819a2a4230">m_get_state</a></td></tr>
+<tr class="memdesc:afcf21b03e3a3c40f8173e4819a2a4230 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">This attribute gives the state of the robot.  <a href="classbebop2_1_1ControllerBase.html#afcf21b03e3a3c40f8173e4819a2a4230">More...</a><br /></td></tr>
 <tr class="separator:afcf21b03e3a3c40f8173e4819a2a4230 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b0de02e8c727752a1dad0a2857f2013 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a2b0de02e8c727752a1dad0a2857f2013">dt_</a></td></tr>
+<tr class="memdesc:a2b0de02e8c727752a1dad0a2857f2013 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample time.  <a href="classbebop2_1_1ControllerBase.html#a2b0de02e8c727752a1dad0a2857f2013">More...</a><br /></td></tr>
 <tr class="separator:a2b0de02e8c727752a1dad0a2857f2013 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a405dcc08256f764191275e542d37a955 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1ControllerBase.html#a405dcc08256f764191275e542d37a955">m_goal_thres</a></td></tr>
+<tr class="memdesc:a405dcc08256f764191275e542d37a955 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Goal region threshold.  <a href="classbebop2_1_1ControllerBase.html#a405dcc08256f764191275e542d37a955">More...</a><br /></td></tr>
 <tr class="separator:a405dcc08256f764191275e542d37a955 inherit pro_attribs_classbebop2_1_1ControllerBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="QuadControllerPID_8h_source.html#l00014">14</a> of file <a class="el" href="QuadControllerPID_8h_source.html">QuadControllerPID.h</a>.</p>
+<div class="textblock"><p>Responsible to find the error values every second whenever the position of the quadrators of the drone is updated. </p>
+
+<p class="definition">Definition at line <a class="el" href="QuadControllerPID_8h_source.html#l00015">15</a> of file <a class="el" href="QuadControllerPID_8h_source.html">QuadControllerPID.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9a47a9d55416b290dfba482caf970cc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9a47a9d55416b290dfba482caf970cc8">&#9670;&nbsp;</a></span>QuadControllerPID()</h2>
@@ -159,6 +174,15 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The <a class="el" href="classbebop2_1_1QuadControllerPID.html" title="Responsible to find the error values every second whenever the position of the quadrators of the dron...">QuadControllerPID</a> constructor initializes a vector of type double that is responsible for populating the <a class="el" href="classbebop2_1_1PID.html" title="Calculates an error value as the difference between desired output and the current output and applies...">PID</a> Gains, maximum and minimum threshold values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mGetState</td><td>This parameter givs the current state of the robot. </td></tr>
+    <tr><td class="paramname">nh</td><td>Used to setup publishers, subscribers and deals with various messages. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="QuadControllerPID_8cpp_source.html#l00009">9</a> of file <a class="el" href="QuadControllerPID_8cpp_source.html">QuadControllerPID.cpp</a>.</p>
 
@@ -204,6 +228,16 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Similar to the calculate() method in <a class="el" href="PID_8h.html">PID.h</a> class, the compute_control method also calculates the error, <a class="el" href="classbebop2_1_1PID.html" title="Calculates an error value as the difference between desired output and the current output and applies...">PID</a> Gain constants and return the error value when the drone is hovering over a position for the four vector values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">X</td><td>is the current state of the drone. </td></tr>
+    <tr><td class="paramname">setPoints</td><td>is the desired goal position of the drone. </td></tr>
+    <tr><td class="paramname">control</td><td>is the actively control position. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="classbebop2_1_1ControllerBase.html#a0619e69c4759098a59a2bdae5c503501">bebop2::ControllerBase</a>.</p>
 

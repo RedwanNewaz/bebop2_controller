@@ -74,29 +74,39 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>The <a class="el" href="classbebop2_1_1StateObserver.html" title="The StateObserver class Observes and updates the state of the drone.">StateObserver</a> class Observes and updates the state of the drone.  
+ <a href="classbebop2_1_1StateObserver.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1bfd8d999a4246192a566feed36b82b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1StateObserver.html#a1bfd8d999a4246192a566feed36b82b7">StateObserver</a> (<a class="el" href="FilterBase_8h.html#aec1719f7c37e43544283ed24fab742c9">FilterPtr</a> filter, <a class="el" href="SensorBase_8h.html#ae79ed385e2ca22ae255892167db2390c">SensorPtr</a> sensor)</td></tr>
+<tr class="memdesc:a1bfd8d999a4246192a566feed36b82b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the filter and sensor parameter and sets m_initliazed to False.  <a href="classbebop2_1_1StateObserver.html#a1bfd8d999a4246192a566feed36b82b7">More...</a><br /></td></tr>
 <tr class="separator:a1bfd8d999a4246192a566feed36b82b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d829045f35ed3531559f53aeb1773ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1StateObserver.html#a1d829045f35ed3531559f53aeb1773ca">operator()</a> (std::vector&lt; double &gt; &amp;result)</td></tr>
+<tr class="memdesc:a1d829045f35ed3531559f53aeb1773ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">It updates and copies the state of the drone and adds the copied state into the parameter result.  <a href="classbebop2_1_1StateObserver.html#a1d829045f35ed3531559f53aeb1773ca">More...</a><br /></td></tr>
 <tr class="separator:a1d829045f35ed3531559f53aeb1773ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a693f9d73394813a3209e41b46590c14f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1StateObserver.html#a693f9d73394813a3209e41b46590c14f">m_state</a></td></tr>
+<tr class="memdesc:a693f9d73394813a3209e41b46590c14f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This attribute is an array of values and the elements in the vector gives the state of the robot. The first three attributes are vectors that gives the linear state of the robot and yaw gives the rotation of the robot about these vectors.  <a href="classbebop2_1_1StateObserver.html#a693f9d73394813a3209e41b46590c14f">More...</a><br /></td></tr>
 <tr class="separator:a693f9d73394813a3209e41b46590c14f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ededc78ab08eba61eab678ed7a7896a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="FilterBase_8h.html#aec1719f7c37e43544283ed24fab742c9">FilterPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1StateObserver.html#a6ededc78ab08eba61eab678ed7a7896a">m_filter</a></td></tr>
+<tr class="memdesc:a6ededc78ab08eba61eab678ed7a7896a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer that provides the address to the <a class="el" href="FilterBase_8h.html">FilterBase.h</a> class.  <a href="classbebop2_1_1StateObserver.html#a6ededc78ab08eba61eab678ed7a7896a">More...</a><br /></td></tr>
 <tr class="separator:a6ededc78ab08eba61eab678ed7a7896a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a743085128ae5fdb567d61ec1159176b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="SensorBase_8h.html#ae79ed385e2ca22ae255892167db2390c">SensorPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1StateObserver.html#a743085128ae5fdb567d61ec1159176b8">m_sensor</a></td></tr>
+<tr class="memdesc:a743085128ae5fdb567d61ec1159176b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer that provides the addreess to the <a class="el" href="SensorBase_8h.html">SensorBase.h</a> class.  <a href="classbebop2_1_1StateObserver.html#a743085128ae5fdb567d61ec1159176b8">More...</a><br /></td></tr>
 <tr class="separator:a743085128ae5fdb567d61ec1159176b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4304686fa39b86122ea6892dfd472c08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbebop2_1_1StateObserver.html#a4304686fa39b86122ea6892dfd472c08">m_initialized</a></td></tr>
 <tr class="separator:a4304686fa39b86122ea6892dfd472c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00017">17</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
+<div class="textblock"><p>The <a class="el" href="classbebop2_1_1StateObserver.html" title="The StateObserver class Observes and updates the state of the drone.">StateObserver</a> class Observes and updates the state of the drone. </p>
+<p>and sends those messages to different modules of the program such as controllers, sensors etc so that they can control the drone and perform tasks. </p>
+
+<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00022">22</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1bfd8d999a4246192a566feed36b82b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1bfd8d999a4246192a566feed36b82b7">&#9670;&nbsp;</a></span>StateObserver()</h2>
@@ -132,6 +142,15 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Initializes the filter and sensor parameter and sets m_initliazed to False. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filter</td><td>A barrier to refine the noise. </td></tr>
+    <tr><td class="paramname">sensor</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p class="definition">Definition at line <a class="el" href="StateObserver_8cpp_source.html#l00011">11</a> of file <a class="el" href="StateObserver_8cpp_source.html">StateObserver.cpp</a>.</p>
 
 </div>
@@ -152,6 +171,15 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>It updates and copies the state of the drone and adds the copied state into the parameter result. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td><br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="StateObserver_8cpp_source.html#l00017">17</a> of file <a class="el" href="StateObserver_8cpp_source.html">StateObserver.cpp</a>.</p>
 
@@ -178,7 +206,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00032">32</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
+<p>Shared pointer that provides the address to the <a class="el" href="FilterBase_8h.html">FilterBase.h</a> class. </p>
+
+<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00056">56</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
 
 </div>
 </div>
@@ -202,7 +232,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00034">34</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00059">59</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
 
 </div>
 </div>
@@ -226,7 +256,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00033">33</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
+<p>Shared pointer that provides the addreess to the <a class="el" href="SensorBase_8h.html">SensorBase.h</a> class. </p>
+
+<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00058">58</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
 
 </div>
 </div>
@@ -250,7 +282,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00031">31</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
+<p>This attribute is an array of values and the elements in the vector gives the state of the robot. The first three attributes are vectors that gives the linear state of the robot and yaw gives the rotation of the robot about these vectors. </p>
+<dl class="section note"><dt>Note</dt><dd>The elements in the array are commonly represented by:-<ul>
+<li>x &mdash;&gt; Position of the drone in x-axis.</li>
+<li>y &mdash;&gt; Position of the drone in x-axis.</li>
+<li>z &mdash;&gt; Position of the drone in z-axis.</li>
+<li>w &mdash;&gt; yaw (Rotation about z-axis). </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="StateObserver_8h_source.html#l00054">54</a> of file <a class="el" href="StateObserver_8h_source.html">StateObserver.h</a>.</p>
 
 </div>
 </div>

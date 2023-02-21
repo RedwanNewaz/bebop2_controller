@@ -70,6 +70,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Field location structure in radial distance (r), azimuthal angle (theta), and polar angle (psi)*&zwj;/.  
+ <a href="structMarkerObservation.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -77,20 +80,25 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a1de968d571f84b2943de2a8609db2c3d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMarkerObservation.html#a1de968d571f84b2943de2a8609db2c3d">tagName</a></td></tr>
 <tr class="separator:a1de968d571f84b2943de2a8609db2c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74eaf75e45d859ee6b8f8e4bd5439bae"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMarkerObservation.html#a74eaf75e45d859ee6b8f8e4bd5439bae">radial_distance</a></td></tr>
+<tr class="memdesc:a74eaf75e45d859ee6b8f8e4bd5439bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observed distance to landmark from robot position.  <a href="structMarkerObservation.html#a74eaf75e45d859ee6b8f8e4bd5439bae">More...</a><br /></td></tr>
 <tr class="separator:a74eaf75e45d859ee6b8f8e4bd5439bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a100373bce74cf49ea8870196d2acf74b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMarkerObservation.html#a100373bce74cf49ea8870196d2acf74b">azimuthal_angle</a></td></tr>
+<tr class="memdesc:a100373bce74cf49ea8870196d2acf74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observed bearing to landmark in the XY coordinate frame.  <a href="structMarkerObservation.html#a100373bce74cf49ea8870196d2acf74b">More...</a><br /></td></tr>
 <tr class="separator:a100373bce74cf49ea8870196d2acf74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad670bccd0f025ea8808148e828878a2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMarkerObservation.html#aad670bccd0f025ea8808148e828878a2">polar_angle</a></td></tr>
+<tr class="memdesc:aad670bccd0f025ea8808148e828878a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observed bearing to landmark in the positive Z axis,.  <a href="structMarkerObservation.html#aad670bccd0f025ea8808148e828878a2">More...</a><br /></td></tr>
 <tr class="separator:aad670bccd0f025ea8808148e828878a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a2690b758214cd3aae11955864919ccdf"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMarkerObservation.html#a2690b758214cd3aae11955864919ccdf">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="structMarkerObservation.html">MarkerObservation</a> &amp;observation)</td></tr>
+<tr class="memdesc:a2690b758214cd3aae11955864919ccdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows object of the <a class="el" href="structMarkerObservation.html" title="Field location structure in radial distance (r), azimuthal angle (theta), and polar angle (psi)*‍/.">MarkerObservation</a> class to be printed to an output stream using the stream insertion operator.  <a href="structMarkerObservation.html#a2690b758214cd3aae11955864919ccdf">More...</a><br /></td></tr>
 <tr class="separator:a2690b758214cd3aae11955864919ccdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00024">24</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
+<div class="textblock"><p>Field location structure in radial distance (r), azimuthal angle (theta), and polar angle (psi)*&zwj;/. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00029">29</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
 </div><h2 class="groupheader">Friends And Related Function Documentation</h2>
 <a id="a2690b758214cd3aae11955864919ccdf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2690b758214cd3aae11955864919ccdf">&#9670;&nbsp;</a></span>operator&lt;&lt;</h2>
@@ -126,7 +134,17 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00031">31</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
+<p>Allows object of the <a class="el" href="structMarkerObservation.html" title="Field location structure in radial distance (r), azimuthal angle (theta), and polar angle (psi)*‍/.">MarkerObservation</a> class to be printed to an output stream using the stream insertion operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>It is an output stream objects that writes sequences of characters </td></tr>
+    <tr><td class="paramname">observation</td><td>Reference to <a class="el" href="structMarkerObservation.html" title="Field location structure in radial distance (r), azimuthal angle (theta), and polar angle (psi)*‍/.">MarkerObservation</a> struct. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the output of tagname, radial distance, azimuthal angle and polar angle. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00044">44</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
 
 </div>
 </div>
@@ -143,7 +161,9 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00028">28</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
+<p>Observed bearing to landmark in the XY coordinate frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00035">35</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
 
 </div>
 </div>
@@ -159,7 +179,9 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00029">29</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
+<p>Observed bearing to landmark in the positive Z axis,. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00037">37</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
 
 </div>
 </div>
@@ -175,7 +197,9 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00027">27</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
+<p>Observed distance to landmark from robot position. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00033">33</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
 
 </div>
 </div>
@@ -191,7 +215,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00026">26</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__defs_8h_source.html#l00031">31</a> of file <a class="el" href="robot__defs_8h_source.html">robot_defs.h</a>.</p>
 
 </div>
 </div>

@@ -12,9 +12,16 @@
 #define DEBUG(x) std::cout << x << std::endl
 
 namespace bebop2 {
-
+    /**
+    *   @brief The LQR is an optimal control regulator that better tracks a reference trajectory.
+    * 
+    *   It predicts future states of the drone at every time step in order to minimize a global criterion/cost function. By estimating future states
+    *   based on past outputs, we are able to better regulate offset in tracking. 
+    *   The LQR algorithm is essentially an automated way of finding an appropriate state-feedback controller.
+    */
     class LQR {
     public:
+        /// @brief A defauld constructor for LQR
         LQR();
 
     private:

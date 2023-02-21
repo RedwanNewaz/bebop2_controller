@@ -10,7 +10,7 @@ This README file explains how to control the drone using a joystick and ROS driv
 
 -----------------------------------------
 
-<img src="Images/img-bebop2.jpg" alt="Parrot Bebop2 Drone" align="right" width="400" height="400">
+<img src="/Images/img-bebop2.jpg" alt="Parrot Bebop2 Drone" align="right" width="400" height="400">
 
 
 
@@ -51,7 +51,7 @@ Orientation controller needs yaw angle which could be directly obtained from beb
 ## Software Setup:
 
 
--- **Installation of bebop_autonomy** from fork manually is required to send relative move commands to the drone. Check out [install bebop_autonomy from fork and build visp](http://wiki.ros.org/visp_ros/Tutorials/How%20to%20do%20visual%20servoing%20with%20Parrot%20Bebop%202%20drone%20and%20visp_ros). <br>
+-- **Installation of bebop_autonomy** from fork manually is required to send relative move commands to the drone. Check out [install bebop_autonomy from fork and build visp](http://wiki.ros.org/visp_ros/Tutorials/How%20to%20do%20visual%20servoing%20with%20Parrot%20Bebop%202%20drone%20and%20visp_ros). <br><br>
 Bebop_autonomy is a ROS driver for Parrot Bebop 2.0 drones (quadrocopters), based on Parrot’s official ARDroneSDK3. You can check out [this source code](https://github.com/AutonomyLab/bebop_autonomy) for the driver is for more understanding.
 
 ---------------------------------------------
@@ -76,7 +76,7 @@ The functions of the Four Action Buttons of the joystick is as follows:
 
 ---------------------------------------------
 
-<img align="right" width="150" height="150" alt="AprilTag 36h11" src="../Images/tag_36h11.png">
+<img align="right" width="150" height="150" alt="AprilTag 36h11" src="/Images/tag_36h11.png">
 
 ## April Tags
 

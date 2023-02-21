@@ -9,7 +9,9 @@ It's camera has a most impressive electronic image stabilization and with a top 
 This README file explains how to control the drone using a joystick and ROS drivers, add visual servoing capabilities, and scan for April Tags to find the drone's relative position.
 
 -----------------------------------------
-<img align="right" width="400" height="400" alt="Parrot Bebop Drone 2" src="http://wiki.ros.org/visp_ros/Tutorials/How%20to%20do%20visual%20servoing%20with%20Parrot%20Bebop%202%20drone%20and%20visp_ros?action=AttachFile&do=get&target=img-bebop2.jpg">
+
+<img src="/home/simant/Undergrad_Research/bebop2_controller_docs/bebop2_controller/Images/img-bebop2.jpg" alt="Parrot Bebop2 Drone" align="right" width="400" height="400">
+
 
 
 ## Quick Run
@@ -58,7 +60,7 @@ Bebop_autonomy is a ROS driver for Parrot Bebop 2.0 drones (quadrocopters), base
 ---------------------------------------------
 
 
-<img align="right" width="280" height="200" alt="Joystick Controller" src="https://resource.logitech.com/content/dam/gaming/en/products/f710/f710-gallery-1.png">
+<img align="right" width="280" height="200" alt="Joystick Controller" src="/home/simant/Undergrad_Research/bebop2_controller_docs/bebop2_controller/Images/f710-gallery-1.png">
 
 ## Operating the drone
 
@@ -77,7 +79,7 @@ The functions of the Four Action Buttons of the joystick is as follows:
 
 ---------------------------------------------
 
-<img align="right" width="150" height="150" alt="AprilTag 36h11" src="https://berndpfrommer.github.io/tagslam_web/media/tag_36h11.png">
+<img align="right" width="150" height="150" alt="AprilTag 36h11" src="/home/simant/Undergrad_Research/bebop2_controller_docs/bebop2_controller/Images/tag_36h11.png">
 
 ## April Tags
 

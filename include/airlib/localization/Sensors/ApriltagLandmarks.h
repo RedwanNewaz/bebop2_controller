@@ -15,9 +15,9 @@
 
 #include <queue>
 #include "SensorBase.h"
-class ApriltagLandmarks : public SensorBase{
     /**
      * @brief This class compute the robot coordinate from stationary tags.
+     * 
      * There are three stationary apriltags located on the wall. 
      * These tags are treated as known landmarks for the map. 
      * Bebop2 can view these tags with the front facing camera.
@@ -27,6 +27,7 @@ class ApriltagLandmarks : public SensorBase{
      * Apprantly, the tags are located only front direction, therefore robot yaw angle is ignored. 
      * 
      */
+class ApriltagLandmarks : public SensorBase{
 
 public:
     ApriltagLandmarks(ros::NodeHandle& nh);

@@ -13,6 +13,12 @@ class SensorBase;
 
 typedef std::shared_ptr<SensorBase> SensorPtr;
 
+/**
+*   @brief This class provides a conection to acquire internal state vector 
+    
+*   so that other components required for the bebop to operate successfully can do estimation and calculation. 
+*   It also publishes the drone's positon and transformation so that we can picture it in a graphical interface such as RVIZ.  
+*/
 class SensorBase: std::enable_shared_from_this<SensorBase>
 {
 public:

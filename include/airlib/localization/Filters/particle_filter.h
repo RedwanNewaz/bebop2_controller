@@ -14,26 +14,34 @@
 #include <Eigen/Dense>
 #include <geometry_msgs/Twist.h>
 
-
+/// @brief Data structure to store information about landmarks in a map. 
 class TagMap {
 public:
+    /// @brief structure holds information about each individual landmark, including its ID, and its x, y, and z positions in the global coordinate system.
 
     struct single_landmark_s{
-
-        int id_i ; // Landmark ID
-        double x_d; // Landmark x-position in the map (global coordinates)
-        double y_d; // Landmark y-position in the map (global coordinates)
-        double z_d; // Landmark z-position in the map (global coordinates)
+        /// Landmark ID
+        int id_i ;
+        /// Landmark x-position in the map (global coordinates)
+        double x_d;
+        /// Landmark y-position in the map (global coordinates)
+        double y_d;
+        /// Landmark z-position in the map (global coordinates)
+        double z_d;
     };
 
-    std::vector<single_landmark_s> landmark_list ; // List of landmarks in the map
+    /// List of landmarks in the map
+    std::vector<single_landmark_s> landmark_list ; 
 
 };
 
-
+/// @brief initializes the mean and covariance matrix for the distribution. The mean and covariance matrix are used in the calculation along with the observation passed to the pdf function.
 class Mvn
 {
 public:
+    /// @brief Constructor
+    /// @param landmark Landmark
+    /// @param std Array of dimension 3 [standard deviation of x [m], standard deviation of y [m] standard deviation of yaw [rad]
     Mvn(const TagMap::single_landmark_s & landmark,
         const std::vector<double>& std)
     {
@@ -54,11 +62,13 @@ public:
         sigma_det = sigma.determinant();
 
     }
+    /// Deconstructor
     ~Mvn()
     {
 
     }
     template <typename T>
+    /// Calculates the probability density function value for a given observation. 
     double pdf(const T& obs_m) const
     {
         Eigen::Vector3d x;
@@ -80,7 +90,7 @@ private:
     double sigma_det;
 };
 
-
+/// @brief  This structure allows us to create particles and set their values.
 struct Particle {
 
     int id;
@@ -90,6 +100,9 @@ struct Particle {
     double theta;
     double weight;
 
+    /// @param os It is an output stream objects that writes sequences of characters.
+    /// @param location Particle struct
+    /// @return Returns the output of the id, x, y, z positions in string format.
     friend std::ostream &operator<<(std::ostream &os, const Particle &particle)
     {
         os << "id: " << particle.id << " x: " << particle.x << " y: " << particle.y << " z: " << particle.z << " theta: "
@@ -99,29 +112,40 @@ struct Particle {
 
 };
 
-/*
- * Struct representing one landmark observation measurement.
- */
+/**
+* @brief It is a Struct representing one landmark observation measurement.
+*/
 struct LandmarkObs {
 
-    int id;				// Id of matching landmark in the map.
-    double x;			// Local (vehicle coordinates) x position of landmark observation [m]
-    double y;			// Local (vehicle coordinates) y position of landmark observation [m]
-    double z;			// Local (vehicle coordinates) z position of landmark observation [m]
+    /// Id of matching landmark in the map.
+    int id;				
+    /// Local (vehicle coordinates) x position of landmark observation [m]
+    double x;
+    /// Local (vehicle coordinates) y position of landmark observation [m]			
+    double y;	
+    /// Local (vehicle coordinates) z position of landmark observation [m]		
+    double z;			
 };
 
 
-
+/**
+* @brief initializing particles to Gaussian distribution around first position and then Predicts the state for the next time step
+*  using the process model.
+*
+*  Updates the weights for each particle based on the likelihood of the observed measurements following the resampling from the updated set of particles to form
+*  the new set of particles and returns whether particle filter has been initliazed or not.
+*
+*/ 
 class ParticleFilter {
 
-    // Number of particles to draw
+    /// Number of particles to draw
     int num_particles;
 
 
-    // Flag, if filter is initialized
+    /// Flag, if filter is initialized
     bool is_initialized;
 
-    // Vector of weights of all particles
+    /// Vector of weights of all particles
     std::vector<double> weights;
 
     const TagMap tagMap_;
@@ -138,15 +162,15 @@ class ParticleFilter {
 
 public:
 
-    // Set of current particles
+    /// Set of current particles
     std::vector<Particle> particles;
 
-    // Constructor
-    // @param M Number of particles
+    /// Constructor
+    /// @param M Number of particles
     ParticleFilter(int num_particles, const TagMap&  tagMap, double delta_t) :
     num_particles(num_particles), tagMap_(tagMap), is_initialized(false), delta_t(0.03) {}
     void operator()(std::vector<double>& state);
-    // Destructor
+    /// Destructor
     ~ParticleFilter() {
 
 
@@ -166,7 +190,7 @@ public:
 
 
     /**
-     * init Initializes particle filter by initializing particles to Gaussian
+     * @brief Init Initializes particle filter by initializing particles to Gaussian
      *   distribution around first position and all the weights to 1.
      * @param x Initial x position [m] (simulated estimate from GPS)
      * @param y Initial y position [m]

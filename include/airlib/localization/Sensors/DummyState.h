@@ -12,7 +12,8 @@
 
 namespace bebop2{
     /** 
-     * Dummy state will create a state space repersentation for quadrotor. 
+     * @brief Dummy state creates a state space repersentation for quadrotor. 
+     
      * The key idea is to initialize a state at (0, 0, 0, 0) and take joystick command to update state. 
      * To capture realistic behavior add some gaussian white noise to the state. 
      * When bebop2 takeoff from the ground it reaches 1m above from the ground origin and when it lands then z axis value is 0. 
@@ -32,11 +33,15 @@ namespace bebop2{
          * @param noisy_reading an option to make a realistic sensor reading: if true white noise will be added to the output 
          */
         DummyState(ros::NodeHandle& nh, bool noisy_reading);
+        /** @brief Populates the requested state vector.
+        *   @param state Gives the current position of the drone.
+        */
         void operator()(std::vector<double>& state);
         bool empty();
 
     private:
         ros::NodeHandle nh_;
+        // Timer to call the updateState() method.
         ros::Timer dummy_timer_;
         /// @brief internal states must contain at least four vairables [x, y, z, yaw] for the position control module
         std::vector<double> states_;
@@ -71,6 +76,9 @@ namespace bebop2{
          */
         void cmd_vel_callback(const geometry_msgs::Twist::ConstPtr& msg);
 
+        /**
+        * @brief Updates the state of the dummy drone.
+        */
         void updateState(const ros::TimerEvent& event);
 
     };

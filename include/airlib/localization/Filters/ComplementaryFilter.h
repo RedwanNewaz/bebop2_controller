@@ -7,6 +7,8 @@
 #include <vector>
 #include "FilterBase.h"
 
+
+/// @brief The ComplementaryFilter.h class implements the complmentary filter where it initializes the state and updates it using the filter's alpha paramater in update() method.
 class ComplementaryFilter: public FilterBase{
 public:
     ComplementaryFilter(double alpha): m_alpha(alpha)

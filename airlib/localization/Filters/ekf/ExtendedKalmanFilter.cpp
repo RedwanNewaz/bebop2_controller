@@ -25,6 +25,10 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const std::vector<double>& sigma_pos,
     u_.resize(CONTROL_DIM);
     u_ << 0, 0, 0, 0;
 
+    PEst_ = PEst_ * 666e-3;
+
+//    PEst_(2, 2) = PEst_(2, 2) * 5e-2;
+
 
 }
 
@@ -74,35 +78,21 @@ Eigen::VectorXd ExtendedKalmanFilter::observation_model(const Eigen::VectorXd &x
 }
 
 void ExtendedKalmanFilter::internal_update(const Eigen::VectorXd &z, const Eigen::VectorXd &u) {
-    Eigen::VectorXd xPred = motion_model(xEst_, u);
 
-//    std::cout << "\n [internal update] xPred" << xPred;
+    Eigen::MatrixXd H_ = Eigen::Matrix4d::Identity();
+    Eigen::VectorXd z_pred = H_ * xEst_;
+    Eigen::VectorXd y = z - z_pred;
+    Eigen::MatrixXd Ht = H_.transpose();
+    Eigen::MatrixXd PHt = PEst_ * Ht;
+    Eigen::MatrixXd S = H_ * PHt + R_;
+    Eigen::MatrixXd Si = S.inverse();
+    Eigen::MatrixXd K = PHt * Si;
 
-    Eigen::MatrixXd jF = jacobF(xPred, u);
-    Eigen::MatrixXd PPred = jF * PEst_ * jF.transpose() + Q_;
-
-
-    Eigen::MatrixXd jH = jacobH();
-    Eigen::VectorXd zPred = observation_model(xPred);
-//    std::cout << "\n [internal update] zPred" << zPred;
-
-    Eigen::VectorXd y = z - zPred;
-
-//    std::cout << "\n [internal update] y" << y;
-    Eigen::MatrixXd S = jH * PPred * jH.transpose() + R_;
-
-//    std::cout << "\n [internal update] S" << S;
-
-
-    Eigen::MatrixXd K = PPred * jH.transpose() * S.inverse();
-
-//    std::cout << "\n [internal update] K" << K;
-    Eigen::VectorXd x = K * y;
-
-//    std::cout << "\n [internal update] x" << y;
-
-    xEst_ = xPred + x;
-    PEst_ = (Eigen::Matrix4d::Identity() - K * jH) * PPred;
+    //new estimate
+    xEst_ = xEst_ + (K * y);
+    long x_size = xEst_.size();
+    Eigen::MatrixXd I = Eigen::MatrixXd::Identity(x_size, x_size);
+    PEst_ = (I - K * H_) * PEst_;
 
 
 
@@ -125,19 +115,20 @@ void ExtendedKalmanFilter::update(const std::vector<double>& obs, std::vector<do
         z(i) = obs[i];
 
     }
-    z(3) = 3.1416;
+//    z(3) = 3.1416;
 
 
 
     internal_update(z, u_);
-    std::cout << "[update] finished internal update " << xEst_.transpose() << std::endl ;
+//    std::cout << "[update] finished internal update " << xEst_.transpose() << std::endl ;
 ////    std::cout << "[update] finished internal update " << xEst_.transpose() ;
 //    result.clear();
-//    result.resize(STATE_DIM);
-//
-//    for (int j = 0; j < STATE_DIM; ++j) {
-//        result[j] = xEst_(j);
-//    }
+    if(result.size() != STATE_DIM)
+        result.resize(STATE_DIM);
+
+    for (int j = 0; j < STATE_DIM; ++j) {
+        result[j] = xEst_(j);
+    }
 }
 
 void ExtendedKalmanFilter::init(const std::vector<double> &X0) {

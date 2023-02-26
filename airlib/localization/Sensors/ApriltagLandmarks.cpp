@@ -43,7 +43,7 @@ ApriltagLandmarks::apriltag_callback(const apriltag_ros::AprilTagDetectionArray:
         tagTransform.setRotation(tf::Quaternion(pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w));
         auto position = transformToGlobalFrame(tagTransform, tagName);
         double tagId = detection.id[0];
-        measurements_.push({position.x, position.y, position.z, tagId});
+        measurements_.push({position.x, position.y, position.z, 0.0});
 
     }
 

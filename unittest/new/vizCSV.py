@@ -92,7 +92,7 @@ def modifiedData2(csvfile):
         plt.scatter(P[:, 0], P[:, 1], s=15)
     plt.show()
 
-def showData(csvfile):
+def showData0(csvfile):
     df = pd.read_csv(csvfile)
     df2 = df[df[" yaw"] == 2]
     df7 = df[df[" yaw"] == 7]
@@ -105,6 +105,12 @@ def showData(csvfile):
         plt.scatter(X, Y, s=15)
 
     plt.legend(legends)
+    plt.show()
+def showData(csvfile):
+    df = pd.read_csv(csvfile)
+
+    X, Y = df["x"], df[" y"]
+    plt.scatter(X, Y, s=15)
     plt.show()
 
 if __name__ == '__main__':

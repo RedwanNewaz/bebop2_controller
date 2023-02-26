@@ -85,6 +85,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4730a968872141ec2ece9ef90c2d7186"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a4730a968872141ec2ece9ef90c2d7186">LoggerCSV</a> (const std::vector&lt; std::string &gt; &amp;header, const int frequency)</td></tr>
 <tr class="memdesc:a4730a968872141ec2ece9ef90c2d7186"><td class="mdescLeft">&#160;</td><td class="mdescRight">This constructor is used to to record data row at different frequency than sensor frequency whenever required.  <a href="classLoggerCSV.html#a4730a968872141ec2ece9ef90c2d7186">More...</a><br /></td></tr>
 <tr class="separator:a4730a968872141ec2ece9ef90c2d7186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a979c66ae6ef7a8542579473249fe1a7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a979c66ae6ef7a8542579473249fe1a7b">setOutputFolder</a> (const std::string &amp;output)</td></tr>
+<tr class="memdesc:a979c66ae6ef7a8542579473249fe1a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">set output folder to save the csv file in case you need to change the output from default folder  <a href="classLoggerCSV.html#a979c66ae6ef7a8542579473249fe1a7b">More...</a><br /></td></tr>
+<tr class="separator:a979c66ae6ef7a8542579473249fe1a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3241cbbbe476425821ce05204c8bba6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLoggerCSV.html#a3241cbbbe476425821ce05204c8bba6f">~LoggerCSV</a> ()</td></tr>
 <tr class="memdesc:a3241cbbbe476425821ce05204c8bba6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this class will be distructed, we will write the logger values from ROM to a csv file on the hard drive.  <a href="classLoggerCSV.html#a3241cbbbe476425821ce05204c8bba6f">More...</a><br /></td></tr>
 <tr class="separator:a3241cbbbe476425821ce05204c8bba6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,6 +201,7 @@ Public Member Functions</h2></td></tr>
 <p>This constructor is used to to record data row at different frequency than sensor frequency whenever required. </p>
 <p>Initiates last update time 1 min later to write data row and write time only depends on actual data not header</p>
 <p>calculates the pause time in millisecond between two data rows</p>
+<p>set default output current binary directory</p>
 
 <p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00036">36</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
@@ -228,7 +232,7 @@ Public Member Functions</h2></td></tr>
 
 <p>When this class will be distructed, we will write the logger values from ROM to a csv file on the hard drive. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00050">50</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00057">57</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -257,7 +261,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00080">80</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00088">88</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -289,7 +293,7 @@ template&lt;typename T &gt; </div>
 <p>If timer is enabled then it discards the data point based on the pause limit</p>
 <p>If header is present then this checks the number of columns match with header column</p>
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00088">88</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00096">96</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>
@@ -318,7 +322,37 @@ template&lt;typename T &gt; </div>
 
 <p>This function is used to generate unique name for a file with timestamp. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00070">70</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00078">78</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
+
+</div>
+</div>
+<a id="a979c66ae6ef7a8542579473249fe1a7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a979c66ae6ef7a8542579473249fe1a7b">&#9670;&nbsp;</a></span>setOutputFolder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LoggerCSV::setOutputFolder </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set output folder to save the csv file in case you need to change the output from default folder </p>
+
+<p class="definition">Definition at line <a class="el" href="LoggerCSV_8h_source.html#l00051">51</a> of file <a class="el" href="LoggerCSV_8h_source.html">LoggerCSV.h</a>.</p>
 
 </div>
 </div>

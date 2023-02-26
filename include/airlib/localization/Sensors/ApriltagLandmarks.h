@@ -44,6 +44,9 @@ private:
     /// @brief measurements_ queue is reponsible to efficiently communicate with Control Module 
     std::queue<std::vector<double>> measurements_;
 
+    /// @brief tagRoations_
+    std::vector<double> tagRoations_;
+
 protected:
     /**
      * @brief given a array of detected tags, here we calculate robot global coordinate with respect to each tag.

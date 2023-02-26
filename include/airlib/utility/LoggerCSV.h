@@ -44,6 +44,13 @@ public:
     /// calculates the pause time in millisecond between two data rows
     m_pause_time_ms = 1000 / frequency;
 
+    /// set default output current binary directory
+      m_output_folder = ".";
+  }
+  /// @brief set output folder to save the csv file in case you need to change the output from default folder
+  void setOutputFolder(const std::string& output)
+  {
+      m_output_folder = output;
   }
 
 /// @brief When this class will be distructed, we will write the logger values from ROM to a csv file on the hard drive.
@@ -60,10 +67,11 @@ public:
     value.pop_back();
 
     // make sure you have unique name for each logger file. Use system timestamp to serve this purpose
-    std::string filename = "logger_" + getTimestamp() + ".csv";
+    std::string filename = m_output_folder + "/logger_" + getTimestamp() + ".csv";
     std::ofstream myfile(filename);
     myfile << value;
     myfile.close();
+    std::cout << "[LoggerCSV] save results @ " + filename << std::endl;
   }
 
   /// @brief This function is used to generate unique name for a file with timestamp
@@ -126,5 +134,6 @@ private:
   bool m_timer_enabled;
   TIME_POINT m_last_update_time;
   int m_pause_time_ms;
+  std::string m_output_folder;
 
 };

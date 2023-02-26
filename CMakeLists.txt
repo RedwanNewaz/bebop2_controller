@@ -100,3 +100,5 @@ target_link_libraries(apriltag_ekf_pid_node airlibBebop2)
 target_link_libraries(dummy_ekf_pid_node airlibBebop2)
 target_link_libraries(dummy_complementary_pid_node airlibBebop2)
 
+add_subdirectory(unittest)
+

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['calculate_13',['calculate',['../classbebop2_1_1PID.html#a9b7afa3e1573a2f673d3c7165f4e8be0',1,'bebop2::PID']]],
-  ['checkupdate_14',['checkUpdate',['../classDecodeModule.html#a5bd60fa3a2fc84d4dc569f2a51ce18fb',1,'DecodeModule']]],
+  ['checkupdate_14',['checkUpdate',['../classDecodeModule.html#a5bd60fa3a2fc84d4dc569f2a51ce18fb',1,'DecodeModule::checkUpdate(const ros::TimerEvent &amp;event)'],['../classDecodeModule.html#a5bd60fa3a2fc84d4dc569f2a51ce18fb',1,'DecodeModule::checkUpdate(const ros::TimerEvent &amp;event)'],['../classDecodeModule.html#a5bd60fa3a2fc84d4dc569f2a51ce18fb',1,'DecodeModule::checkUpdate(const ros::TimerEvent &amp;event)']]],
   ['cmd_5fvel_5fcallback_15',['cmd_vel_callback',['../classbebop2_1_1DummyState.html#a759c288e1c05a40707af808391a0d48f',1,'bebop2::DummyState']]],
   ['complementaryfilter_16',['ComplementaryFilter',['../classComplementaryFilter.html',1,'ComplementaryFilter'],['../classComplementaryFilter.html#a3538e9422629678ee68874ee20937aac',1,'ComplementaryFilter::ComplementaryFilter()']]],
   ['complementaryfilter_2eh_17',['ComplementaryFilter.h',['../ComplementaryFilter_8h.html',1,'']]],

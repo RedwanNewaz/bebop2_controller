@@ -96,140 +96,131 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    u_.resize(<a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#aa7f5628163fad9302a4231b574c857bb">CONTROL_DIM</a>);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    u_ &lt;&lt; 0, 0, 0, 0;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a69797105ff979b3e5a602d1a87149297">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a69797105ff979b3e5a602d1a87149297">ExtendedKalmanFilter::operator()</a>(std::vector&lt;double&gt; &amp;state) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    PEst_ = PEst_ * 666e-3;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//    PEst_(2, 2) = PEst_(2, 2) * 5e-2;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span>(!state.empty())</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        state.clear();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::copy(<a class="code" href="classFilterBase.html#aeb7e15b1e110d25ce56508aaecbd91e3">X_</a>.begin(), <a class="code" href="classFilterBase.html#aeb7e15b1e110d25ce56508aaecbd91e3">X_</a>.end(), std::back_inserter(state));</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a69797105ff979b3e5a602d1a87149297">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a69797105ff979b3e5a602d1a87149297">ExtendedKalmanFilter::operator()</a>(std::vector&lt;double&gt; &amp;state) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span>(!state.empty())</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        state.clear();</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#ae584586d81bc66c0f46b1a5aeffe7d26">   41</a></span>&#160;Eigen::VectorXd <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#ae584586d81bc66c0f46b1a5aeffe7d26">ExtendedKalmanFilter::motion_model</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;x, <span class="keyword">const</span> Eigen::VectorXd &amp;u) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Eigen::MatrixXd F_;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    F_.resize(<a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>, <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    F_&lt;&lt;1.0,   0,   0,   0,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            0, 1.0,   0,   0,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            0,   0, 1.0,   0,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            0,   0,   0, 1.0;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    Eigen::MatrixXd B_;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    B_.resize(<a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>, <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    B_&lt;&lt;    <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">DT</a>,  0,   0,   0,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">DT</a>,  0,   0,   0,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">DT</a>,  0,   0,   0,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">DT</a>,  0,   0,   0;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> F_ * x + B_ * u;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a099b533a912aa76f92b7a820c3086f54">   59</a></span>&#160;Eigen::MatrixXd <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a099b533a912aa76f92b7a820c3086f54">ExtendedKalmanFilter::jacobF</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;x, <span class="keyword">const</span> Eigen::VectorXd &amp;u) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    Eigen::MatrixXd jF_ = Eigen::Matrix4d::Identity();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> jF_;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a98b524af05ef67b13b5319e3531cb97c">   64</a></span>&#160;Eigen::MatrixXd <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a98b524af05ef67b13b5319e3531cb97c">ExtendedKalmanFilter::jacobH</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">//# Jacobian of Observation Model</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    Eigen::MatrixXd jH = Eigen::Matrix4d::Identity();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::copy(<a class="code" href="classFilterBase.html#aeb7e15b1e110d25ce56508aaecbd91e3">X_</a>.begin(), <a class="code" href="classFilterBase.html#aeb7e15b1e110d25ce56508aaecbd91e3">X_</a>.end(), std::back_inserter(state));</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#ae584586d81bc66c0f46b1a5aeffe7d26">   45</a></span>&#160;Eigen::VectorXd <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#ae584586d81bc66c0f46b1a5aeffe7d26">ExtendedKalmanFilter::motion_model</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;x, <span class="keyword">const</span> Eigen::VectorXd &amp;u) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    Eigen::MatrixXd F_;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    F_.resize(<a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>, <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    F_&lt;&lt;1.0,   0,   0,   0,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            0, 1.0,   0,   0,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            0,   0, 1.0,   0,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            0,   0,   0, 1.0;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    Eigen::MatrixXd B_;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    B_.resize(<a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>, <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    B_&lt;&lt;    <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">DT</a>,  0,   0,   0,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">DT</a>,  0,   0,   0,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">DT</a>,  0,   0,   0,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">DT</a>,  0,   0,   0;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> F_ * x + B_ * u;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a099b533a912aa76f92b7a820c3086f54">   63</a></span>&#160;Eigen::MatrixXd <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a099b533a912aa76f92b7a820c3086f54">ExtendedKalmanFilter::jacobF</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;x, <span class="keyword">const</span> Eigen::VectorXd &amp;u) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    Eigen::MatrixXd jF_ = Eigen::Matrix4d::Identity();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> jF_;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> jH;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a555a02b112e88b63a92c230ae365b17f">   71</a></span>&#160;Eigen::VectorXd <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a555a02b112e88b63a92c230ae365b17f">ExtendedKalmanFilter::observation_model</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;x) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    Eigen::MatrixXd H_ = Eigen::Matrix4d::Identity();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> H_ * x;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a9780edd80082973223723de463046506">   76</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a9780edd80082973223723de463046506">ExtendedKalmanFilter::internal_update</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;z, <span class="keyword">const</span> Eigen::VectorXd &amp;u) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    Eigen::VectorXd xPred = <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#ae584586d81bc66c0f46b1a5aeffe7d26">motion_model</a>(xEst_, u);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">//    std::cout &lt;&lt; &quot;\n [internal update] xPred&quot; &lt;&lt; xPred;</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    Eigen::MatrixXd jF = <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a099b533a912aa76f92b7a820c3086f54">jacobF</a>(xPred, u);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Eigen::MatrixXd PPred = jF * PEst_ * jF.transpose() + Q_;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    Eigen::MatrixXd jH = <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a98b524af05ef67b13b5319e3531cb97c">jacobH</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    Eigen::VectorXd zPred = <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a555a02b112e88b63a92c230ae365b17f">observation_model</a>(xPred);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">//    std::cout &lt;&lt; &quot;\n [internal update] zPred&quot; &lt;&lt; zPred;</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    Eigen::VectorXd y = z - zPred;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a98b524af05ef67b13b5319e3531cb97c">   68</a></span>&#160;Eigen::MatrixXd <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a98b524af05ef67b13b5319e3531cb97c">ExtendedKalmanFilter::jacobH</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">//# Jacobian of Observation Model</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    Eigen::MatrixXd jH = Eigen::Matrix4d::Identity();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> jH;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a555a02b112e88b63a92c230ae365b17f">   75</a></span>&#160;Eigen::VectorXd <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a555a02b112e88b63a92c230ae365b17f">ExtendedKalmanFilter::observation_model</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;x) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    Eigen::MatrixXd H_ = Eigen::Matrix4d::Identity();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">return</span> H_ * x;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a9780edd80082973223723de463046506">   80</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a9780edd80082973223723de463046506">ExtendedKalmanFilter::internal_update</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;z, <span class="keyword">const</span> Eigen::VectorXd &amp;u) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Eigen::MatrixXd H_ = Eigen::Matrix4d::Identity();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    Eigen::VectorXd z_pred = H_ * xEst_;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    Eigen::VectorXd y = z - z_pred;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    Eigen::MatrixXd Ht = H_.transpose();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    Eigen::MatrixXd PHt = PEst_ * Ht;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    Eigen::MatrixXd S = H_ * PHt + R_;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    Eigen::MatrixXd Si = S.inverse();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    Eigen::MatrixXd K = PHt * Si;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">//    std::cout &lt;&lt; &quot;\n [internal update] y&quot; &lt;&lt; y;</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    Eigen::MatrixXd S = jH * PPred * jH.transpose() + R_;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">//    std::cout &lt;&lt; &quot;\n [internal update] S&quot; &lt;&lt; S;</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">//new estimate</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    xEst_ = xEst_ + (K * y);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">long</span> x_size = xEst_.size();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    Eigen::MatrixXd I = Eigen::MatrixXd::Identity(x_size, x_size);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    PEst_ = (I - K * H_) * PEst_;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    Eigen::MatrixXd K = PPred * jH.transpose() * S.inverse();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">//    std::cout &lt;&lt; &quot;\n [internal update] K&quot; &lt;&lt; K;</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    Eigen::VectorXd x = K * y;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">//    std::cout &lt;&lt; &quot;\n [internal update] x&quot; &lt;&lt; y;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    xEst_ = xPred + x;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    PEst_ = (Eigen::Matrix4d::Identity() - K * jH) * PPred;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a9b197ee9ee0c74a6a3632832666794c7">  101</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a9b197ee9ee0c74a6a3632832666794c7">ExtendedKalmanFilter::update_cmd</a>(<span class="keyword">const</span> geometry_msgs::Twist::ConstPtr&amp; cmd)     {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    u_(0) =   cmd-&gt;linear.x;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    u_(1) =   cmd-&gt;linear.y;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    u_(2) =   cmd-&gt;linear.z;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    u_(3) =   cmd-&gt;angular.z;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a9b197ee9ee0c74a6a3632832666794c7">  111</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a9b197ee9ee0c74a6a3632832666794c7">ExtendedKalmanFilter::update_cmd</a>(<span class="keyword">const</span> geometry_msgs::Twist::ConstPtr&amp; cmd)     {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a222a3660fa70e667b932949cb2a59075">  110</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a222a3660fa70e667b932949cb2a59075">ExtendedKalmanFilter::update</a>(<span class="keyword">const</span> std::vector&lt;double&gt;&amp; obs, std::vector&lt;double&gt;&amp; result)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;{</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    u_(0) =   cmd-&gt;linear.x;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    u_(1) =   cmd-&gt;linear.y;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    u_(2) =   cmd-&gt;linear.z;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    u_(3) =   cmd-&gt;angular.z;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    Eigen::VectorXd z(obs.size());</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; obs.size(); ++i) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        z(i) = obs[i];</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">//    z(3) = 3.1416;</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a222a3660fa70e667b932949cb2a59075">  120</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a222a3660fa70e667b932949cb2a59075">ExtendedKalmanFilter::update</a>(<span class="keyword">const</span> std::vector&lt;double&gt;&amp; obs, std::vector&lt;double&gt;&amp; result)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;{</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    Eigen::VectorXd z(obs.size());</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; obs.size(); ++i) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        z(i) = obs[i];</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    z(3) = 3.1416;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a9780edd80082973223723de463046506">internal_update</a>(z, u_);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    std::cout &lt;&lt; <span class="stringliteral">&quot;[update] finished internal update &quot;</span> &lt;&lt; xEst_.transpose() &lt;&lt; std::endl ;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">//    result.clear();</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">//    result.resize(STATE_DIM);</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">//    for (int j = 0; j &lt; STATE_DIM; ++j) {</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">//        result[j] = xEst_(j);</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">//    }</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a93b97c85025a9792558c02baa4ec6388">  143</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a93b97c85025a9792558c02baa4ec6388">ExtendedKalmanFilter::init</a>(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;X0) {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>; ++j) {</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        xEst_(j) = <a class="code" href="classFilterBase.html#aeb7e15b1e110d25ce56508aaecbd91e3">X_</a>[j] = X0[j];</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a9780edd80082973223723de463046506">internal_update</a>(z, u_);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">//    std::cout &lt;&lt; &quot;[update] finished internal update &quot; &lt;&lt; xEst_.transpose() &lt;&lt; std::endl ;</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment"></span><span class="comment">//    result.clear();</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">if</span>(result.size() != <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        result.resize(<a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>; ++j) {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        result[j] = xEst_(j);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="classbebop2_1_1ExtendedKalmanFilter.html#a93b97c85025a9792558c02baa4ec6388">  134</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a93b97c85025a9792558c02baa4ec6388">ExtendedKalmanFilter::init</a>(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;X0) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">STATE_DIM</a>; ++j) {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        xEst_(j) = <a class="code" href="classFilterBase.html#aeb7e15b1e110d25ce56508aaecbd91e3">X_</a>[j] = X0[j];</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
 <div class="ttc" id="aExtendedKalmanFilter_8h_html"><div class="ttname"><a href="ExtendedKalmanFilter_8h.html">ExtendedKalmanFilter.h</a></div></div>
 <div class="ttc" id="aclassFilterBase_html_aeb7e15b1e110d25ce56508aaecbd91e3"><div class="ttname"><a href="classFilterBase.html#aeb7e15b1e110d25ce56508aaecbd91e3">FilterBase::X_</a></div><div class="ttdeci">std::vector&lt; double &gt; X_</div><div class="ttdoc">Estimated state of the system.</div><div class="ttdef"><b>Definition:</b> <a href="FilterBase_8h_source.html#l00045">FilterBase.h:45</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a099b533a912aa76f92b7a820c3086f54"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a099b533a912aa76f92b7a820c3086f54">bebop2::ExtendedKalmanFilter::jacobF</a></div><div class="ttdeci">Eigen::MatrixXd jacobF(const Eigen::VectorXd &amp;x, const Eigen::VectorXd &amp;u)</div><div class="ttdoc">Calculates the Jacobian matrix of the motion model.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00059">ExtendedKalmanFilter.cpp:59</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a222a3660fa70e667b932949cb2a59075"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a222a3660fa70e667b932949cb2a59075">bebop2::ExtendedKalmanFilter::update</a></div><div class="ttdeci">void update(const std::vector&lt; double &gt; &amp;obs, std::vector&lt; double &gt; &amp;result) override</div><div class="ttdoc">In this method, the input obs is converted from a std::vector to an Eigen vector z and then passed to...</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00120">ExtendedKalmanFilter.cpp:120</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a555a02b112e88b63a92c230ae365b17f"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a555a02b112e88b63a92c230ae365b17f">bebop2::ExtendedKalmanFilter::observation_model</a></div><div class="ttdeci">Eigen::VectorXd observation_model(const Eigen::VectorXd &amp;x)</div><div class="ttdoc">Calculates the predicted measurement values.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00071">ExtendedKalmanFilter.cpp:71</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a69797105ff979b3e5a602d1a87149297"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a69797105ff979b3e5a602d1a87149297">bebop2::ExtendedKalmanFilter::operator()</a></div><div class="ttdeci">void operator()(std::vector&lt; double &gt; &amp;state)</div><div class="ttdoc">Populates it with the estimated state of the system.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00031">ExtendedKalmanFilter.cpp:31</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a93b97c85025a9792558c02baa4ec6388"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a93b97c85025a9792558c02baa4ec6388">bebop2::ExtendedKalmanFilter::init</a></div><div class="ttdeci">void init(const std::vector&lt; double &gt; &amp;X0) override</div><div class="ttdoc">Makes the current estimate of the state of the system start out being the same as the true state.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00143">ExtendedKalmanFilter.cpp:143</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a099b533a912aa76f92b7a820c3086f54"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a099b533a912aa76f92b7a820c3086f54">bebop2::ExtendedKalmanFilter::jacobF</a></div><div class="ttdeci">Eigen::MatrixXd jacobF(const Eigen::VectorXd &amp;x, const Eigen::VectorXd &amp;u)</div><div class="ttdoc">Calculates the Jacobian matrix of the motion model.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00063">ExtendedKalmanFilter.cpp:63</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a222a3660fa70e667b932949cb2a59075"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a222a3660fa70e667b932949cb2a59075">bebop2::ExtendedKalmanFilter::update</a></div><div class="ttdeci">void update(const std::vector&lt; double &gt; &amp;obs, std::vector&lt; double &gt; &amp;result) override</div><div class="ttdoc">In this method, the input obs is converted from a std::vector to an Eigen vector z and then passed to...</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00110">ExtendedKalmanFilter.cpp:110</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a555a02b112e88b63a92c230ae365b17f"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a555a02b112e88b63a92c230ae365b17f">bebop2::ExtendedKalmanFilter::observation_model</a></div><div class="ttdeci">Eigen::VectorXd observation_model(const Eigen::VectorXd &amp;x)</div><div class="ttdoc">Calculates the predicted measurement values.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00075">ExtendedKalmanFilter.cpp:75</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a69797105ff979b3e5a602d1a87149297"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a69797105ff979b3e5a602d1a87149297">bebop2::ExtendedKalmanFilter::operator()</a></div><div class="ttdeci">void operator()(std::vector&lt; double &gt; &amp;state)</div><div class="ttdoc">Populates it with the estimated state of the system.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00035">ExtendedKalmanFilter.cpp:35</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a93b97c85025a9792558c02baa4ec6388"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a93b97c85025a9792558c02baa4ec6388">bebop2::ExtendedKalmanFilter::init</a></div><div class="ttdeci">void init(const std::vector&lt; double &gt; &amp;X0) override</div><div class="ttdoc">Makes the current estimate of the state of the system start out being the same as the true state.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00134">ExtendedKalmanFilter.cpp:134</a></div></div>
 <div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a94c491bc2b1074bb196f05abec325090"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a94c491bc2b1074bb196f05abec325090">bebop2::ExtendedKalmanFilter::STATE_DIM</a></div><div class="ttdeci">const double STATE_DIM</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8h_source.html#l00073">ExtendedKalmanFilter.h:73</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a9780edd80082973223723de463046506"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a9780edd80082973223723de463046506">bebop2::ExtendedKalmanFilter::internal_update</a></div><div class="ttdeci">void internal_update(const Eigen::VectorXd &amp;z, const Eigen::VectorXd &amp;u)</div><div class="ttdoc">The internal update step is used to update the linearized measurement model, which is used to calcula...</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00076">ExtendedKalmanFilter.cpp:76</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a98b524af05ef67b13b5319e3531cb97c"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a98b524af05ef67b13b5319e3531cb97c">bebop2::ExtendedKalmanFilter::jacobH</a></div><div class="ttdeci">Eigen::MatrixXd jacobH() const</div><div class="ttdoc">Checks the linearity between the state and the measured variables.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00064">ExtendedKalmanFilter.cpp:64</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a9b197ee9ee0c74a6a3632832666794c7"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a9b197ee9ee0c74a6a3632832666794c7">bebop2::ExtendedKalmanFilter::update_cmd</a></div><div class="ttdeci">void update_cmd(const geometry_msgs::Twist::ConstPtr &amp;cmd)</div><div class="ttdoc">Updates the command velocity of the drone by changing the linear x,y,z and angular z values.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00111">ExtendedKalmanFilter.cpp:111</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a9780edd80082973223723de463046506"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a9780edd80082973223723de463046506">bebop2::ExtendedKalmanFilter::internal_update</a></div><div class="ttdeci">void internal_update(const Eigen::VectorXd &amp;z, const Eigen::VectorXd &amp;u)</div><div class="ttdoc">The internal update step is used to update the linearized measurement model, which is used to calcula...</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00080">ExtendedKalmanFilter.cpp:80</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a98b524af05ef67b13b5319e3531cb97c"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a98b524af05ef67b13b5319e3531cb97c">bebop2::ExtendedKalmanFilter::jacobH</a></div><div class="ttdeci">Eigen::MatrixXd jacobH() const</div><div class="ttdoc">Checks the linearity between the state and the measured variables.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00068">ExtendedKalmanFilter.cpp:68</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_a9b197ee9ee0c74a6a3632832666794c7"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#a9b197ee9ee0c74a6a3632832666794c7">bebop2::ExtendedKalmanFilter::update_cmd</a></div><div class="ttdeci">void update_cmd(const geometry_msgs::Twist::ConstPtr &amp;cmd)</div><div class="ttdoc">Updates the command velocity of the drone by changing the linear x,y,z and angular z values.</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00101">ExtendedKalmanFilter.cpp:101</a></div></div>
 <div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_aa7f5628163fad9302a4231b574c857bb"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#aa7f5628163fad9302a4231b574c857bb">bebop2::ExtendedKalmanFilter::CONTROL_DIM</a></div><div class="ttdeci">const double CONTROL_DIM</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8h_source.html#l00073">ExtendedKalmanFilter.h:73</a></div></div>
 <div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_acb3f566dea3744c2d30d930a8eed1163"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#acb3f566dea3744c2d30d930a8eed1163">bebop2::ExtendedKalmanFilter::DT</a></div><div class="ttdeci">const double DT</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8h_source.html#l00073">ExtendedKalmanFilter.h:73</a></div></div>
 <div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_acdff0e290cf27a84a68097a653245f37"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#acdff0e290cf27a84a68097a653245f37">bebop2::ExtendedKalmanFilter::ExtendedKalmanFilter</a></div><div class="ttdeci">ExtendedKalmanFilter(const std::vector&lt; double &gt; &amp;sigma_pos, double dt, int state_dim)</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00009">ExtendedKalmanFilter.cpp:9</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_ae584586d81bc66c0f46b1a5aeffe7d26"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#ae584586d81bc66c0f46b1a5aeffe7d26">bebop2::ExtendedKalmanFilter::motion_model</a></div><div class="ttdeci">Eigen::VectorXd motion_model(const Eigen::VectorXd &amp;x, const Eigen::VectorXd &amp;u)</div><div class="ttdoc">It computes the predicted state of the system based on the motion model. The function creates two Eig...</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00041">ExtendedKalmanFilter.cpp:41</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1ExtendedKalmanFilter_html_ae584586d81bc66c0f46b1a5aeffe7d26"><div class="ttname"><a href="classbebop2_1_1ExtendedKalmanFilter.html#ae584586d81bc66c0f46b1a5aeffe7d26">bebop2::ExtendedKalmanFilter::motion_model</a></div><div class="ttdeci">Eigen::VectorXd motion_model(const Eigen::VectorXd &amp;x, const Eigen::VectorXd &amp;u)</div><div class="ttdoc">It computes the predicted state of the system based on the motion model. The function creates two Eig...</div><div class="ttdef"><b>Definition:</b> <a href="ExtendedKalmanFilter_8cpp_source.html#l00045">ExtendedKalmanFilter.cpp:45</a></div></div>
 <div class="ttc" id="anamespacebebop2_html"><div class="ttname"><a href="namespacebebop2.html">bebop2</a></div><div class="ttdef"><b>Definition:</b> <a href="ControllerBase_8cpp_source.html#l00009">ControllerBase.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

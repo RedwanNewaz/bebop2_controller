@@ -114,7 +114,7 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        tagTransform.setRotation(tf::Quaternion(pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w));</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">auto</span> position = <a class="code" href="classApriltagLandmarks.html#ae1fedc5c1e5d0bba0ddfbd881269df99">transformToGlobalFrame</a>(tagTransform, tagName);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">double</span> tagId = detection.id[0];</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        measurements_.push({position.x, position.y, position.z, tagId});</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        measurements_.push({position.x, position.y, position.z, 0.0});</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>

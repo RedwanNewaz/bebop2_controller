@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['robotstate_197',['RobotState',['../structRobotState.html',1,'']]]
+  ['robotlocalization_207',['RobotLocalization',['../classbebop2_1_1RobotLocalization.html',1,'bebop2']]],
+  ['robotstate_208',['RobotState',['../structRobotState.html',1,'']]]
 ];

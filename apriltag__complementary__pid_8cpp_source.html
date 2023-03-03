@@ -75,7 +75,7 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;ros/ros.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="QuadControllerPID_8h.html">airlib/control/QuadControllerPID.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ApriltagLandmarksExtended_8h.html">airlib/localization/Sensors/ApriltagLandmarksExtended.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="apriltag__complementary__pid_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">   10</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="apriltag__complementary__pid_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[])</div>
@@ -87,7 +87,7 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    ros::param::get(<span class="stringliteral">&quot;~alpha&quot;</span>, alpha);</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">auto</span> stateFilter = std::make_shared&lt;ComplementaryFilter&gt;(alpha);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">auto</span> stateSensor = std::make_shared&lt;ApriltagLandmarks&gt;(nh);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">auto</span> stateSensor = std::make_shared&lt;ApriltagLandmarksExtended&gt;(nh);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">auto</span> stateObserver = std::make_shared&lt;bebop2::StateObserver&gt;(stateFilter, stateSensor);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
@@ -102,6 +102,7 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//    spinner.spin();</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="ttc" id="aApriltagLandmarksExtended_8h_html"><div class="ttname"><a href="ApriltagLandmarksExtended_8h.html">ApriltagLandmarksExtended.h</a></div></div>
 <div class="ttc" id="aQuadControllerPID_8h_html"><div class="ttname"><a href="QuadControllerPID_8h.html">QuadControllerPID.h</a></div></div>
 <div class="ttc" id="aapriltag__complementary__pid_8cpp_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="apriltag__complementary__pid_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdef"><b>Definition:</b> <a href="apriltag__complementary__pid_8cpp_source.html#l00010">apriltag_complementary_pid.cpp:10</a></div></div>
 <div class="ttc" id="aclassbebop2_1_1QuadControllerPID_html"><div class="ttname"><a href="classbebop2_1_1QuadControllerPID.html">bebop2::QuadControllerPID</a></div><div class="ttdoc">Responsible to find the error values every second whenever the position of the quadrators of the dron...</div><div class="ttdef"><b>Definition:</b> <a href="QuadControllerPID_8h_source.html#l00015">QuadControllerPID.h:15</a></div></div>

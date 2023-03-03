@@ -91,4 +91,3 @@ void ApriltagLandmarks::operator()(std::vector<double>& result){
 bool ApriltagLandmarks::empty() {
     return measurements_.empty();
 }
-

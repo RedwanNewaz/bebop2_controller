@@ -4,8 +4,8 @@
 #include "ros/ros.h"
 #include <iostream>
 #include "airlib/control/QuadControllerPID.h"
-
-
+#include "airlib/localization/Sensors/ApriltagLandmarksExtended.h"
+#include "airlib/localization/Filters/RobotLocalization.h"
 
 int main(int argc, char* argv[])
 {
@@ -15,23 +15,13 @@ int main(int argc, char* argv[])
     double alpha;
     ros::param::get("~alpha", alpha);
 
-    const int STATE_DIM = 4;
-    const double DT = 0.03;
 
-    /*
-     * Sigmas - just an estimate, usually comes from uncertainty of sensor, but
-     * if you used fused data from multiple sensors, it's difficult to find
-     * these uncertainties directly.
-     */
-    std::vector<double> sigma_pos{0.015, 0.015, 0.015, 0.01}; // GPS measurement uncertainty [x [m], y [m], z [m], theta [rad]]
-
-
-    auto stateFilter = std::make_shared<bebop2::ExtendedKalmanFilter>(sigma_pos, DT, STATE_DIM);
-    auto stateSensor = std::make_shared<ApriltagLandmarks>(nh);
+    auto stateFilter = std::make_shared<bebop2::RobotLocalization>(nh);
+    auto stateSensor = std::make_shared<ApriltagLandmarksExtended>(nh);
     auto stateObserver = std::make_shared<bebop2::StateObserver>(stateFilter, stateSensor);
 
     // use cmd_vel to update state
-    auto cmd_sub = nh.subscribe("cmd_vel", 1, &bebop2::ExtendedKalmanFilter::update_cmd, stateFilter.get());
+    auto cmd_sub = nh.subscribe("cmd_vel", 1, &bebop2::RobotLocalization::update_cmd, stateFilter.get());
 
 
     bebop2::QuadControllerPID controller(stateObserver, nh);

@@ -82,7 +82,7 @@ set(HEADER_FILES
         include/airlib/localization/Sensors/DummyState.h
 
         include/airlib/utility/LoggerCSV.h
-        )
+        airlib/localization/Sensors/ApriltagLandmarksExtended.cpp include/airlib/localization/Sensors/ApriltagLandmarksExtended.h airlib/localization/Filters/RobotLocalization.cpp include/airlib/localization/Filters/RobotLocalization.h)
 
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES} )
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES})

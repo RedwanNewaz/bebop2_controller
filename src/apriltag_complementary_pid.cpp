@@ -4,7 +4,7 @@
 #include "ros/ros.h"
 #include <iostream>
 #include "airlib/control/QuadControllerPID.h"
-
+#include "airlib/localization/Sensors/ApriltagLandmarksExtended.h"
 
 
 int main(int argc, char* argv[])
@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     ros::param::get("~alpha", alpha);
 
     auto stateFilter = std::make_shared<ComplementaryFilter>(alpha);
-    auto stateSensor = std::make_shared<ApriltagLandmarks>(nh);
+    auto stateSensor = std::make_shared<ApriltagLandmarksExtended>(nh);
     auto stateObserver = std::make_shared<bebop2::StateObserver>(stateFilter, stateSensor);
 
 

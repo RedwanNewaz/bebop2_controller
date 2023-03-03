@@ -25,7 +25,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const std::vector<double>& sigma_pos,
     u_.resize(CONTROL_DIM);
     u_ << 0, 0, 0, 0;
 
-    PEst_ = PEst_ * 666e-3;
+//    PEst_ = PEst_ * 666e-3;
 
 //    PEst_(2, 2) = PEst_(2, 2) * 5e-2;
 

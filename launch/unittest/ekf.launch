@@ -1,7 +1,10 @@
 <launch>
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
         <rosparam command="load" file="$(find bebop2_controller)/config/ekf.yaml" />
-<!--        <remap from="odometry/filtered" to="/bebop2/odometry/filtered"/>-->
+
+        <remap from="odometry/filtered" to="/bebop/odometry/filtered"/>
+        <remap from="bebop/cmd_vel" to="/cmd_vel"/>
+
         <!--  Placeholder for output topic remapping
         <remap from="odometry/filtered" to=""/>
         <remap from="accel/filtered" to=""/>

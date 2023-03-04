@@ -5,6 +5,7 @@
 #ifndef BEBOP2_CONTROLLER_ROBOTLOCALIZATION_H
 #define BEBOP2_CONTROLLER_ROBOTLOCALIZATION_H
 #include <ros/ros.h>
+#include <functional>
 #include <tf/transform_listener.h>
 #include "FilterBase.h"
 #include "geometry_msgs/Twist.h"
@@ -30,14 +31,15 @@ namespace bebop2{
         void update(const std::vector<double>& obs, std::vector<double>& result) override;
 
     private:
-        std::vector<double> state_;
+        const int STATE_DIM = 8;
+        std::vector<double> state_, odom_state_, ekf_state_;
         ros::NodeHandle nh_;
         ros::Publisher pub_odom_;
-        ros::Subscriber sub_odom_;
+        ros::Subscriber sub_odom_, sub_ekf_, sub_cmd_;
         std::unique_ptr<ComplementaryFilter> lowPassFilter_;
     protected:
         void obs_to_nav_msg(const std::vector<double>& state, nav_msgs::Odometry& odometry);
-        void odometry_callback(const nav_msgs::Odometry::ConstPtr& msg);
+        void odometry_callback(const nav_msgs::Odometry::ConstPtr& msg, std::vector<double>& temp);
     };
 
 } // bebop2

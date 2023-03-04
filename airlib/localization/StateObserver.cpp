@@ -17,8 +17,10 @@ namespace bebop2 {
     void StateObserver::operator()(std::vector<double>& result) {
 
         update_state();
-        result.clear();
-        std::copy(m_state.begin(), m_state.end(),std::back_inserter(result));
+        if (result.empty())
+            std::copy(m_state.begin(), m_state.end(),std::back_inserter(result));
+        else
+            std::copy(m_state.begin(), m_state.begin() + result.size(),result.begin());
     }
 
 
@@ -34,7 +36,7 @@ namespace bebop2 {
             }
             m_filter->update(obs, m_state);
 
-//            std::cout << m_state[0] << ", " << m_state[1] << ", " << m_state[2] << std::endl;
+//            std::cout << m_state[0] << ", " << m_state[1] << ", " << m_state[2] << ", " << m_state[3] << std::endl;
         }
 
         if(!m_state.empty())

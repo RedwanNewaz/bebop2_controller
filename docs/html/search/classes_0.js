@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['apriltaglandmarks_0',['ApriltagLandmarks',['../class_apriltag_landmarks.html',1,'']]]
+  ['apriltaglandmarks_188',['ApriltagLandmarks',['../classApriltagLandmarks.html',1,'']]],
+  ['apriltaglandmarksextended_189',['ApriltagLandmarksExtended',['../classApriltagLandmarksExtended.html',1,'']]]
 ];

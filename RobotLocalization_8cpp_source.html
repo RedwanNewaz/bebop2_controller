@@ -78,8 +78,8 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebebop2.html">bebop2</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a3acb32353796d7d86018e2e7a258440a">    8</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#a3acb32353796d7d86018e2e7a258440a">RobotLocalization::init</a>(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;X0) {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="comment">// copy this initial value to internal state</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        std::copy(X0.begin(), X0.end(), std::back_inserter(state_));</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;       lowPassFilter_-&gt;init(X0);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        std::copy(X0.begin(), X0.end(), state_.begin());</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;       lowPassFilter_-&gt;init(state_);</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    }</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a489cd86bbee605397b90f0f77b4eae64">   14</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#a489cd86bbee605397b90f0f77b4eae64">RobotLocalization::operator()</a>(std::vector&lt;double&gt; &amp;result) {</div>
@@ -89,73 +89,108 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            std::copy(state_.begin(), state_.end(), result.begin());</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a73c0e9100bc995ea109528b530e72d0e">   21</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#a73c0e9100bc995ea109528b530e72d0e">RobotLocalization::update_cmd</a>(<span class="keyword">const</span> geometry_msgs::Twist_&lt;std::allocator&lt;void&gt;&gt;::ConstPtr &amp;cmd) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a11986ec7d9b5eaf2f1a438e26e8f3903">   25</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#a11986ec7d9b5eaf2f1a438e26e8f3903">RobotLocalization::update</a>(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;obs, std::vector&lt;double&gt; &amp;result) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="comment">// publish nav message for robot localization node</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        nav_msgs::Odometry msg;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="classbebop2_1_1RobotLocalization.html#af84fbc8420a8aca7130d05a162722bf4">obs_to_nav_msg</a>(obs, msg);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        pub_odom_.publish(msg);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span>(result.empty())</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            std::copy(state_.begin(), state_.end(), std::back_inserter(result));</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            std::copy(state_.begin(), state_.end(), result.begin());</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#af84fbc8420a8aca7130d05a162722bf4">   37</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#af84fbc8420a8aca7130d05a162722bf4">RobotLocalization::obs_to_nav_msg</a>(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;obs, nav_msgs::Odometry &amp;msg) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        msg.header.frame_id = <span class="stringliteral">&quot;mapDummy&quot;</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        msg.header.stamp = ros::Time::now();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        msg.pose.pose.position.x = obs[0];</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        msg.pose.pose.position.y = obs[1];</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        msg.pose.pose.position.z = obs[2];</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="comment">// compute yaw</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        tf::Quaternion q;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        q.setRPY(0, 0, obs[3]);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        msg.pose.pose.orientation.x = q.x();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        msg.pose.pose.orientation.y = q.y();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        msg.pose.pose.orientation.z = q.z();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        msg.pose.pose.orientation.w = q.w();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#acba885156cdbe4b72286b2e9a0d7cfa9">   52</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#acba885156cdbe4b72286b2e9a0d7cfa9">RobotLocalization::odometry_callback</a>(<span class="keyword">const</span> nav_msgs::Odometry::ConstPtr &amp;msg) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::vector&lt;double&gt; temp(4);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        temp[0] = msg-&gt;pose.pose.position.x;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        temp[1] = msg-&gt;pose.pose.position.y;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        temp[2] = msg-&gt;pose.pose.position.z;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        tf::Quaternion q(</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            msg-&gt;pose.pose.orientation.x,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            msg-&gt;pose.pose.orientation.y,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            msg-&gt;pose.pose.orientation.z,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            msg-&gt;pose.pose.orientation.w);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        temp[3] = q.getAngle();</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a73c0e9100bc995ea109528b530e72d0e">   21</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#a73c0e9100bc995ea109528b530e72d0e">RobotLocalization::update_cmd</a>(<span class="keyword">const</span> geometry_msgs::Twist_&lt;std::allocator&lt;void&gt;&gt;::ConstPtr &amp;msg) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        state_[4] = msg-&gt;linear.x;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        state_[5] = msg-&gt;linear.y;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        state_[6] = msg-&gt;linear.z;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        state_[7] = msg-&gt;angular.z;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a11986ec7d9b5eaf2f1a438e26e8f3903">   28</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#a11986ec7d9b5eaf2f1a438e26e8f3903">RobotLocalization::update</a>(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;obs, std::vector&lt;double&gt; &amp;result) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="comment">// publish nav message for robot localization node</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        nav_msgs::Odometry msg;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="classbebop2_1_1RobotLocalization.html#af84fbc8420a8aca7130d05a162722bf4">obs_to_nav_msg</a>(obs, msg);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        pub_odom_.publish(msg);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span>(result.empty())</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            std::copy(state_.begin(), state_.end(), std::back_inserter(result));</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            std::copy(state_.begin(), state_.begin() + result.size(), result.begin());</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#af84fbc8420a8aca7130d05a162722bf4">   40</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#af84fbc8420a8aca7130d05a162722bf4">RobotLocalization::obs_to_nav_msg</a>(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;obs, nav_msgs::Odometry &amp;msg) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="comment">// this function is responsible to update the ekf from robot_localization package</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        msg.header.frame_id = <span class="stringliteral">&quot;mapDummy&quot;</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        msg.header.stamp = ros::Time::now();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        msg.pose.pose.position.x = obs[0];</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        msg.pose.pose.position.y = obs[1];</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        msg.pose.pose.position.z = obs[2];</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="comment">// compute yaw</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        tf::Quaternion q;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        q.setRPY(0, 0, obs[3]);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        msg.pose.pose.orientation.x = q.x();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        msg.pose.pose.orientation.y = q.y();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        msg.pose.pose.orientation.z = q.z();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        msg.pose.pose.orientation.w = q.w();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="comment">// update velocities</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        msg.twist.twist.linear.x = state_[4];</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        msg.twist.twist.linear.y = state_[5];</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        msg.twist.twist.linear.z = state_[6];</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        msg.twist.twist.angular.z = state_[7];</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a44d1136e903679868e571a32ee83cc19">   61</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classbebop2_1_1RobotLocalization.html#a44d1136e903679868e571a32ee83cc19">RobotLocalization::odometry_callback</a>(<span class="keyword">const</span> nav_msgs::Odometry::ConstPtr &amp;msg, std::vector&lt;double&gt;&amp; temp) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="comment">// this function is invoked by two subscribers</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">if</span>(temp.empty() || temp.size() &lt; STATE_DIM)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            temp.resize(STATE_DIM); <span class="comment">// with default value 0</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        lowPassFilter_-&gt;update(temp, state_);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a5f978b18bdef8891645fc57e4183b692">   72</a></span>&#160;    <a class="code" href="classbebop2_1_1RobotLocalization.html#a5f978b18bdef8891645fc57e4183b692">RobotLocalization::RobotLocalization</a>(ros::NodeHandle &amp;nh) : nh_(nh){</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        pub_odom_ = nh_.advertise&lt;nav_msgs::Odometry&gt;(<span class="stringliteral">&quot;/apriltag/odom&quot;</span>, 10);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        sub_odom_ = nh_.subscribe(<span class="stringliteral">&quot;/odometry/filtered&quot;</span>, 10, &amp;<a class="code" href="classbebop2_1_1RobotLocalization.html#acba885156cdbe4b72286b2e9a0d7cfa9">RobotLocalization::odometry_callback</a>, <span class="keyword">this</span>);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordtype">double</span> alpha;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        ros::param::get(<span class="stringliteral">&quot;~alpha&quot;</span>, alpha);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        lowPassFilter_ = std::make_unique&lt;ComplementaryFilter&gt;(alpha);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        temp[0] = msg-&gt;pose.pose.position.x;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        temp[1] = msg-&gt;pose.pose.position.y;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        temp[2] = msg-&gt;pose.pose.position.z;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        tf::Quaternion q(</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            msg-&gt;pose.pose.orientation.x,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            msg-&gt;pose.pose.orientation.y,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            msg-&gt;pose.pose.orientation.z,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            msg-&gt;pose.pose.orientation.w);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        temp[3] = q.getAngle();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// bebop2</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classbebop2_1_1RobotLocalization.html#a5f978b18bdef8891645fc57e4183b692">   80</a></span>&#160;    <a class="code" href="classbebop2_1_1RobotLocalization.html#a5f978b18bdef8891645fc57e4183b692">RobotLocalization::RobotLocalization</a>(ros::NodeHandle &amp;nh) : nh_(nh){</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        pub_odom_ = nh_.advertise&lt;nav_msgs::Odometry&gt;(<span class="stringliteral">&quot;apriltag/odom&quot;</span>, 10);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        state_.resize(STATE_DIM, 0);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="comment">// read yaw angle from bebop onboard odom parameter</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        sub_odom_=nh_.subscribe&lt;nav_msgs::Odometry&gt; (<span class="stringliteral">&quot;odom&quot;</span>,1, [&amp;](<span class="keyword">const</span> nav_msgs::Odometry::ConstPtr&amp; msg){</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <a class="code" href="classbebop2_1_1RobotLocalization.html#a44d1136e903679868e571a32ee83cc19">odometry_callback</a>(msg, odom_state_);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="comment">// update yaw only</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            state_[3] = odom_state_[3];</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">//            ROS_INFO(&quot;[RobotLocalization] yaw = %lf&quot;, state_[3]);</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        });</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="comment">// read robot_localization ekf output</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        sub_ekf_=nh_.subscribe&lt;nav_msgs::Odometry&gt; (<span class="stringliteral">&quot;odometry/filtered&quot;</span>,1, [&amp;](<span class="keyword">const</span> nav_msgs::Odometry::ConstPtr&amp; msg){</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="comment">// don&#39;t change yaw angle it will create unwanted rotation</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordtype">double</span> yaw_angle = state_[3];</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <a class="code" href="classbebop2_1_1RobotLocalization.html#a44d1136e903679868e571a32ee83cc19">odometry_callback</a>(msg, ekf_state_);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            lowPassFilter_-&gt;update(ekf_state_, state_);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="comment">// use the previous value of yaw</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            state_[3] = yaw_angle;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        });</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="comment">// use cmd velocities to update the observation for the ekf</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        sub_cmd_ = nh_.subscribe&lt;geometry_msgs::Twist&gt; (<span class="stringliteral">&quot;cmd_vel&quot;</span>,1, [&amp;](<span class="keyword">const</span> geometry_msgs::Twist::ConstPtr&amp; msg){</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            state_[4] = msg-&gt;linear.x;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            state_[5] = msg-&gt;linear.y;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            state_[6] = msg-&gt;linear.z;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            state_[7] = msg-&gt;angular.z;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        });</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordtype">double</span> alpha;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        ros::param::get(<span class="stringliteral">&quot;~alpha&quot;</span>, alpha);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        lowPassFilter_ = std::make_unique&lt;ComplementaryFilter&gt;(alpha);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// bebop2</span></div>
 <div class="ttc" id="aRobotLocalization_8h_html"><div class="ttname"><a href="RobotLocalization_8h.html">RobotLocalization.h</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_a11986ec7d9b5eaf2f1a438e26e8f3903"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#a11986ec7d9b5eaf2f1a438e26e8f3903">bebop2::RobotLocalization::update</a></div><div class="ttdeci">void update(const std::vector&lt; double &gt; &amp;obs, std::vector&lt; double &gt; &amp;result) override</div><div class="ttdoc">In this method, the input obs is converted from a std::vector to an Eigen vector z and then passed to...</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00025">RobotLocalization.cpp:25</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_a11986ec7d9b5eaf2f1a438e26e8f3903"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#a11986ec7d9b5eaf2f1a438e26e8f3903">bebop2::RobotLocalization::update</a></div><div class="ttdeci">void update(const std::vector&lt; double &gt; &amp;obs, std::vector&lt; double &gt; &amp;result) override</div><div class="ttdoc">In this method, the input obs is converted from a std::vector to an Eigen vector z and then passed to...</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00028">RobotLocalization.cpp:28</a></div></div>
 <div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_a3acb32353796d7d86018e2e7a258440a"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#a3acb32353796d7d86018e2e7a258440a">bebop2::RobotLocalization::init</a></div><div class="ttdeci">void init(const std::vector&lt; double &gt; &amp;X0) override</div><div class="ttdoc">Makes the current estimate of the state of the system start out being the same as the true state.</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00008">RobotLocalization.cpp:8</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_a44d1136e903679868e571a32ee83cc19"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#a44d1136e903679868e571a32ee83cc19">bebop2::RobotLocalization::odometry_callback</a></div><div class="ttdeci">void odometry_callback(const nav_msgs::Odometry::ConstPtr &amp;msg, std::vector&lt; double &gt; &amp;temp)</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00061">RobotLocalization.cpp:61</a></div></div>
 <div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_a489cd86bbee605397b90f0f77b4eae64"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#a489cd86bbee605397b90f0f77b4eae64">bebop2::RobotLocalization::operator()</a></div><div class="ttdeci">void operator()(std::vector&lt; double &gt; &amp;state)</div><div class="ttdoc">Populates it with the estimated state of the system.</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00014">RobotLocalization.cpp:14</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_a5f978b18bdef8891645fc57e4183b692"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#a5f978b18bdef8891645fc57e4183b692">bebop2::RobotLocalization::RobotLocalization</a></div><div class="ttdeci">RobotLocalization(ros::NodeHandle &amp;nh)</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00072">RobotLocalization.cpp:72</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_a5f978b18bdef8891645fc57e4183b692"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#a5f978b18bdef8891645fc57e4183b692">bebop2::RobotLocalization::RobotLocalization</a></div><div class="ttdeci">RobotLocalization(ros::NodeHandle &amp;nh)</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00080">RobotLocalization.cpp:80</a></div></div>
 <div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_a73c0e9100bc995ea109528b530e72d0e"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#a73c0e9100bc995ea109528b530e72d0e">bebop2::RobotLocalization::update_cmd</a></div><div class="ttdeci">void update_cmd(const geometry_msgs::Twist::ConstPtr &amp;cmd)</div><div class="ttdoc">Updates the command velocity of the drone by changing the linear x,y,z and angular z values.</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00021">RobotLocalization.cpp:21</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_acba885156cdbe4b72286b2e9a0d7cfa9"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#acba885156cdbe4b72286b2e9a0d7cfa9">bebop2::RobotLocalization::odometry_callback</a></div><div class="ttdeci">void odometry_callback(const nav_msgs::Odometry::ConstPtr &amp;msg)</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00052">RobotLocalization.cpp:52</a></div></div>
-<div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_af84fbc8420a8aca7130d05a162722bf4"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#af84fbc8420a8aca7130d05a162722bf4">bebop2::RobotLocalization::obs_to_nav_msg</a></div><div class="ttdeci">void obs_to_nav_msg(const std::vector&lt; double &gt; &amp;state, nav_msgs::Odometry &amp;odometry)</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00037">RobotLocalization.cpp:37</a></div></div>
+<div class="ttc" id="aclassbebop2_1_1RobotLocalization_html_af84fbc8420a8aca7130d05a162722bf4"><div class="ttname"><a href="classbebop2_1_1RobotLocalization.html#af84fbc8420a8aca7130d05a162722bf4">bebop2::RobotLocalization::obs_to_nav_msg</a></div><div class="ttdeci">void obs_to_nav_msg(const std::vector&lt; double &gt; &amp;state, nav_msgs::Odometry &amp;odometry)</div><div class="ttdef"><b>Definition:</b> <a href="RobotLocalization_8cpp_source.html#l00040">RobotLocalization.cpp:40</a></div></div>
 <div class="ttc" id="anamespacebebop2_html"><div class="ttname"><a href="namespacebebop2.html">bebop2</a></div><div class="ttdef"><b>Definition:</b> <a href="ControllerBase_8cpp_source.html#l00009">ControllerBase.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

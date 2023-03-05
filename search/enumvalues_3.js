@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['gray_378',['GRAY',['../namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa3bdf1108294862aab590f14ae8b19962',1,'bebop2']]],
-  ['green_379',['GREEN',['../namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa60ee5eacf4c977d6bb56b14d659b4acb',1,'bebop2']]]
+  ['dummy_479',['DUMMY',['../dfa_8h.html#a1ad005a5fea6e31be66b1791cb8dbf4da9209f5fbea2d3d4929a28252205e97a6',1,'dfa.h']]]
 ];

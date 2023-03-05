@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['yellow_384',['YELLOW',['../namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa5262f6b9940c6b77dcc59a75fa477e95',1,'bebop2']]]
+  ['land_487',['LAND',['../classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0a8b7d2a81407259ab3721dfc2e6827b97',1,'bebop2::ControllerBase']]],
+  ['lowpass_488',['LOWPASS',['../dfa_8h.html#a1ad005a5fea6e31be66b1791cb8dbf4da0f056d1892baa220efdb9afeca443025',1,'dfa.h']]]
 ];

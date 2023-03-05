@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['land_381',['LAND',['../classbebop2_1_1ControllerBase.html#a76352e69566212036f3d7207ce4b6cc0a8b7d2a81407259ab3721dfc2e6827b97',1,'bebop2::ControllerBase']]]
+  ['gray_483',['GRAY',['../namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa3bdf1108294862aab590f14ae8b19962',1,'bebop2']]],
+  ['green_484',['GREEN',['../namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa60ee5eacf4c977d6bb56b14d659b4acb',1,'bebop2']]]
 ];

@@ -90,7 +90,7 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="classMainWindow.html#a9b035434c3b0776f6c26390ffac6784c">set_states</a>();</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment">// start process manager</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    m_manager_ = <span class="keyword">new</span> ProcessManager();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    m_manager_ = <span class="keyword">new</span> <a class="code" href="classProcessManager.html">ProcessManager</a>();</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    connect(ui-&gt;actionset_bag_file, SIGNAL(triggered()), m_manager_, SLOT(on_bag_file_triggered()));</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    connect(ui-&gt;actionset_rviz_file, SIGNAL(triggered()), m_manager_, SLOT(on_rviz_file_triggered()));</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
@@ -127,7 +127,7 @@ $(function() {
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                pids.insert(i);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        pids.insert(<a class="code" href="dfa_8h.html#a1ad005a5fea6e31be66b1791cb8dbf4da13d000b4d7dc70d90239b7430d1eb6b2">START</a>);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        m_manager_-&gt;start(pids);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        m_manager_-&gt;<a class="code" href="classProcessManager.html#aaafd3fad73b208d9a7c4298d82c4b94b">start</a>(pids);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        m_button_status = <span class="keyword">true</span>;</div>
@@ -142,7 +142,7 @@ $(function() {
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        m_manager_-&gt;stop();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        m_manager_-&gt;<a class="code" href="classProcessManager.html#a0022ff18784d39c908f7345d159d4c6f">stop</a>();</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        m_button_status = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        ui-&gt;btn_start-&gt;setText(<span class="stringliteral">&quot;Start&quot;</span>);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        qDebug() &lt;&lt; <span class="stringliteral">&quot;[MainWindow]: stop button clicked&quot;</span>;</div>
@@ -295,6 +295,9 @@ $(function() {
 <div class="ttc" id="aclassMainWindow_html_a996c5a2b6f77944776856f08ec30858d"><div class="ttname"><a href="classMainWindow.html#a996c5a2b6f77944776856f08ec30858d">MainWindow::MainWindow</a></div><div class="ttdeci">MainWindow(QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="mainwindow_8cpp_source.html#l00006">mainwindow.cpp:6</a></div></div>
 <div class="ttc" id="aclassMainWindow_html_a9b035434c3b0776f6c26390ffac6784c"><div class="ttname"><a href="classMainWindow.html#a9b035434c3b0776f6c26390ffac6784c">MainWindow::set_states</a></div><div class="ttdeci">void set_states()</div><div class="ttdef"><b>Definition:</b> <a href="mainwindow_8cpp_source.html#l00135">mainwindow.cpp:135</a></div></div>
 <div class="ttc" id="aclassMainWindow_html_ae98d00a93bc118200eeef9f9bba1dba7"><div class="ttname"><a href="classMainWindow.html#ae98d00a93bc118200eeef9f9bba1dba7">MainWindow::~MainWindow</a></div><div class="ttdeci">~MainWindow()</div><div class="ttdef"><b>Definition:</b> <a href="mainwindow_8cpp_source.html#l00037">mainwindow.cpp:37</a></div></div>
+<div class="ttc" id="aclassProcessManager_html"><div class="ttname"><a href="classProcessManager.html">ProcessManager</a></div><div class="ttdef"><b>Definition:</b> <a href="process__manager_8h_source.html#l00013">process_manager.h:14</a></div></div>
+<div class="ttc" id="aclassProcessManager_html_a0022ff18784d39c908f7345d159d4c6f"><div class="ttname"><a href="classProcessManager.html#a0022ff18784d39c908f7345d159d4c6f">ProcessManager::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdef"><b>Definition:</b> <a href="process__manager_8cpp_source.html#l00095">process_manager.cpp:95</a></div></div>
+<div class="ttc" id="aclassProcessManager_html_aaafd3fad73b208d9a7c4298d82c4b94b"><div class="ttname"><a href="classProcessManager.html#aaafd3fad73b208d9a7c4298d82c4b94b">ProcessManager::start</a></div><div class="ttdeci">void start(const std::set&lt; int &gt; &amp;pids)</div><div class="ttdef"><b>Definition:</b> <a href="process__manager_8cpp_source.html#l00036">process_manager.cpp:36</a></div></div>
 <div class="ttc" id="adfa_8h_html_a1ad005a5fea6e31be66b1791cb8dbf4da0f056d1892baa220efdb9afeca443025"><div class="ttname"><a href="dfa_8h.html#a1ad005a5fea6e31be66b1791cb8dbf4da0f056d1892baa220efdb9afeca443025">LOWPASS</a></div><div class="ttdeci">@ LOWPASS</div><div class="ttdef"><b>Definition:</b> <a href="dfa_8h_source.html#l00019">dfa.h:19</a></div></div>
 <div class="ttc" id="adfa_8h_html_a1ad005a5fea6e31be66b1791cb8dbf4da13d000b4d7dc70d90239b7430d1eb6b2"><div class="ttname"><a href="dfa_8h.html#a1ad005a5fea6e31be66b1791cb8dbf4da13d000b4d7dc70d90239b7430d1eb6b2">START</a></div><div class="ttdeci">@ START</div><div class="ttdef"><b>Definition:</b> <a href="dfa_8h_source.html#l00022">dfa.h:21</a></div></div>
 <div class="ttc" id="adfa_8h_html_a1ad005a5fea6e31be66b1791cb8dbf4da25f966031f3630b7ea2a347fa376b757"><div class="ttname"><a href="dfa_8h.html#a1ad005a5fea6e31be66b1791cb8dbf4da25f966031f3630b7ea2a347fa376b757">EXP</a></div><div class="ttdeci">@ EXP</div><div class="ttdef"><b>Definition:</b> <a href="dfa_8h_source.html#l00011">dfa.h:11</a></div></div>

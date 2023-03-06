@@ -19,12 +19,21 @@ alpha: 0.95
 #   angular.z (+)      Rotate counter clockwise -> (NEGATIVE gain)
 #             (-)      Rotate clockwise
 
+# pid_gains: [
+#   0.50, 0.70, 0,
+#  -0.50, -0.70, 0,
+#   0.50, 0.70, 0,
+#   0.0, 0, 0
+# ]
+
+
 pid_gains: [
-  0.50, 0.70, 0,
- -0.50, -0.70, 0,
-  0.50, 0.70, 0,
+  0.08, 0.20, 0,
+ -0.08, -0.20, 0,
+  0.08, 0.20, 0,
   0.0, 0, 0
 ]
+
 
 # set the control loop duration default 30 Hz -> 0.03
 dt: 0.03

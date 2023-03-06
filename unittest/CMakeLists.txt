@@ -24,3 +24,14 @@ add_executable(test_robot_localization test_robot_localization.cpp
 target_link_libraries(test_robot_localization ${catkin_LIBRARIES})
 
 
+add_executable(apriltag_complementary_pid_node apriltag_complementary_pid.cpp)
+add_executable(apriltag_ekf_pid_node apriltag_ekf_pid.cpp)
+add_executable(dummy_ekf_pid_node dummy_ekf_pid.cpp)
+add_executable(dummy_complementary_pid_node dummy_complementary_pid.cpp)
+
+target_link_libraries(apriltag_complementary_pid_node airlibBebop2 )
+target_link_libraries(apriltag_ekf_pid_node airlibBebop2)
+target_link_libraries(dummy_ekf_pid_node airlibBebop2)
+target_link_libraries(dummy_complementary_pid_node airlibBebop2)
+
+

@@ -23,17 +23,6 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(Eigen3 REQUIRED)
 
-#add_subdirectory(control/LQR)
-#add_subdirectory(control/PID)
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if your package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES airlib
@@ -51,7 +40,6 @@ include_directories(
  include
   ${EIGEN3_INCLUDE_DIR}
   ${catkin_INCLUDE_DIRS}
-   /usr/include/python3.8/
 )
 
 set(SOURCE_FILES
@@ -63,6 +51,8 @@ set(SOURCE_FILES
         airlib/control/PID.cpp
         airlib/control/ControllerBase.cpp
         airlib/control/QuadControllerPID.cpp
+        airlib/localization/Filters/RobotLocalization.cpp
+        airlib/localization/Sensors/ApriltagLandmarksExtended.cpp
         )
 
 set(HEADER_FILES
@@ -82,7 +72,10 @@ set(HEADER_FILES
         include/airlib/localization/Sensors/DummyState.h
 
         include/airlib/utility/LoggerCSV.h
-        airlib/localization/Sensors/ApriltagLandmarksExtended.cpp include/airlib/localization/Sensors/ApriltagLandmarksExtended.h airlib/localization/Filters/RobotLocalization.cpp include/airlib/localization/Filters/RobotLocalization.h)
+        include/airlib/localization/Sensors/ApriltagLandmarksExtended.h
+        include/airlib/localization/Filters/RobotLocalization.h
+
+        )
 
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES} )
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES})
@@ -90,22 +83,14 @@ target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES})
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(bebop2_controller_node src/bebop2_controller_node.cpp )
-
-
-add_executable(apriltag_complementary_pid_node src/apriltag_complementary_pid.cpp  )
-add_executable(apriltag_ekf_pid_node src/apriltag_ekf_pid.cpp  )
-add_executable(dummy_ekf_pid_node src/dummy_ekf_pid.cpp )
-add_executable(dummy_complementary_pid_node src/dummy_complementary_pid.cpp )
-
 ## Specify libraries to link a library or executable target against
 target_link_libraries(bebop2_controller_node airlibBebop2)
 
-target_link_libraries(apriltag_complementary_pid_node airlibBebop2 )
-target_link_libraries(apriltag_ekf_pid_node airlibBebop2)
-target_link_libraries(dummy_ekf_pid_node airlibBebop2)
-target_link_libraries(dummy_complementary_pid_node airlibBebop2)
+option(BUILD_TESTS  "build unittest executables" OFF )
 
+if(BUILD_TESTS)
+ add_subdirectory(unittest)
+endif()
 
-add_subdirectory(unittest)
 add_subdirectory(bebop2_controller_gui)
 

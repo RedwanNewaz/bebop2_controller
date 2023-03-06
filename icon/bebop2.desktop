@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=2.0
+Name=Bebop2 
+Comment=Autonomous Flying Drone
+Exec=/home/roboticslab/catkin_ws/src/bebop2_controller/icon/bebop2.sh
+Icon=/home/roboticslab/catkin_ws/src/bebop2_controller/icon/bebop2.png
+Terminal=true
+StartupWMClass=Bebop2 Controller
+Type=Application
+Categories=Research and development
+MimeType=Bebop2 Controller Gui

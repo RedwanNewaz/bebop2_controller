@@ -115,4 +115,4 @@ def showData(csvfile):
 
 if __name__ == '__main__':
     csvfile = sys.argv[1]
-    showData(csvfile)
+    showData0(csvfile)

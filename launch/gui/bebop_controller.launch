@@ -1,0 +1,12 @@
+<launch>
+    <arg name="filter" default="ekf"/>
+    <arg name="exp" default="sim-bag"/>
+    <group ns="bebop">
+        <node pkg="bebop2_controller" type="bebop2_controller_node" name="bebop2_controller" output="screen" >
+            <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
+            <param name="filter" value="$(arg filter)" />
+            <param name="exp" value="$(arg exp)" />
+        </node>
+    </group>
+    <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
+</launch>

@@ -236,6 +236,7 @@
     </property>
    </widget>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -247,22 +248,21 @@
    </property>
    <widget class="QMenu" name="menuMenu">
     <property name="title">
-     <string>Menu</string>
+     <string>Settings</string>
     </property>
     <addaction name="actionset_bag_file"/>
+    <addaction name="actionset_rviz_file"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionset_bag_file">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>set bag file</string>
+   </property>
+  </action>
+  <action name="actionset_rviz_file">
+   <property name="text">
+    <string>set rviz file</string>
    </property>
   </action>
  </widget>

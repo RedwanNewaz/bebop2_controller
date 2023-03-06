@@ -43,6 +43,8 @@ else()
     CPUSnapshot.cpp
     CPUData.h
     CPUSnapshot.h
+    process_manager.cpp
+    process_manager.h
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui

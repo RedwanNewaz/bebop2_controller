@@ -4,13 +4,12 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QVector>
-#include "dfa.h"
 #include <memory>
 #include <QString>
-#include <QSettings>
-#include <QFileDialog>
 #include <QProcess>
 #include "CPUSnapshot.h"
+#include "dfa.h"
+#include "process_manager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,20 +30,21 @@ private slots:
 
     void on_op_type_exp_toggled(bool checked);
 
-    void on_actionset_bag_file_triggered();
+
 
 
 
 protected:
     void set_states();
-    bool file_exist(const QString& path);
+
 
 private:
     Ui::MainWindow *ui;
     DFA *m_dfa;
     QTimer *m_timer;
     QVector<bool> m_state;
-    QSettings *m_settings;
+    ProcessManager *m_manager_;
+
     std::unique_ptr<CPUSnapshot> currentSnap, previousSnap;
     bool m_button_status;
     QProcess *m_proc;

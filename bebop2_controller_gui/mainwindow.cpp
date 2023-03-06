@@ -10,14 +10,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     setWindowTitle("bebop2_controller_gui");
+    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 
     m_dfa = new DFA();
     // resize internal state
     m_state.resize(m_dfa->size());
     fill(m_state.begin(), m_state.end(), false);
     set_states();
-    // settings
-    m_settings = new QSettings("gui.conf");
+
+    // start process manager
+    m_manager_ = new ProcessManager();
+    connect(ui->actionset_bag_file, SIGNAL(triggered()), m_manager_, SLOT(on_bag_file_triggered()));
+    connect(ui->actionset_rviz_file, SIGNAL(triggered()), m_manager_, SLOT(on_rviz_file_triggered()));
 
     // set cpu usage
     previousSnap = std::make_unique<CPUSnapshot>();
@@ -35,9 +39,6 @@ MainWindow::~MainWindow()
     delete ui;
     delete m_dfa;
     delete m_timer;
-    delete m_settings;
-
-    delete m_proc;
 }
 
 
@@ -49,6 +50,15 @@ void MainWindow::on_btn_start_clicked()
     if(!m_button_status)
     {
         qDebug() << "[MainWindow]: start button clicked";
+        std::set<int>pids;
+        for(int i=0; i<m_state.size(); ++i)
+            if(m_state[i])
+                pids.insert(i);
+
+        pids.insert(START);
+        m_manager_->start(pids);
+
+
         m_button_status = true;
         ui->btn_start->setText("Stop");
         ui->btn_start->setProperty("color", "red");
@@ -56,42 +66,20 @@ void MainWindow::on_btn_start_clicked()
         ui->btn_start->setAutoFillBackground(true);
         ui->btn_start->setPalette(pal);
         ui->btn_start->update();
+
     }
     else
     {
+
+        m_manager_->stop();
         m_button_status = false;
-//        delete m_proc;
-          int pid = m_proc->pid();
-          qDebug() << "[running process] " << pid;
-
-          m_proc->terminate();
-
         ui->btn_start->setText("Start");
         qDebug() << "[MainWindow]: stop button clicked";
         pal.setColor(QPalette::Button, QColor(Qt::gray));
         ui->btn_start->setAutoFillBackground(true);
         ui->btn_start->setPalette(pal);
         ui->btn_start->update();
-        return;
     }
-
-    QStringList roslaunchFiles{"EXP", "SIM",  "BAG", "DUMMY", "APRILTAG", "BEBOP", "JOY", "EKF", "LOWPASS", "RVIZ", "START"};
-    qDebug() << roslaunchFiles.size();
-    for(int i=0; i < m_state.size(); ++i)
-        if(m_state[i])
-            qDebug() << roslaunchFiles[i];
-
-    // start program
-    // roslaunch bebop2_controller apriltag.launch
-
-    m_proc = new QProcess(this);
-    QString program1 = "roslaunch";
-    QStringList args1;
-    args1 << "bebop2_controller" << "apriltag.launch";
-    m_proc->setProgram(program1);
-    m_proc->setArguments(args1);
-    m_proc->start(program1, args1);
-
 
 }
 
@@ -181,16 +169,7 @@ void MainWindow::set_states()
         ui->grp_sim->setDisabled(false);
 }
 
-bool MainWindow::file_exist(const QString &path)
-{
-   QFileInfo check_file(path);
-   // check if file exists and if yes: Is it really a file and no directory?
-   if (check_file.exists() && check_file.isFile()) {
-       return true;
-   } else {
-       return false;
-   }
-}
+
 
 void MainWindow::on_op_type_sim_toggled(bool checked)
 {
@@ -204,20 +183,20 @@ void MainWindow::on_op_type_sim_toggled(bool checked)
        set_states();
    }
 
-   if(m_state[BAG])
-   {
-       QString bagFile = m_settings->value("bag_file").toString();
-        if(!file_exist(bagFile))
-        {
-            qDebug() << "bag file does not exist";
-            bagFile = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                            "/home",
-                                                            tr("Rosbag (*.bag)"));
-            m_settings->setValue("bag_file", bagFile);
+//   if(m_state[BAG])
+//   {
+//       QString bagFile = m_settings->value("bag_file").toString();
+//        if(!file_exist(bagFile))
+//        {
+//            qDebug() << "bag file does not exist";
+//            bagFile = QFileDialog::getOpenFileName(this, tr("Open File"),
+//                                                            "/home",
+//                                                            tr("Rosbag (*.bag)"));
+//            m_settings->setValue("bag_file", bagFile);
 
-        }
-        qDebug() << bagFile;
-   }
+//        }
+//        qDebug() << bagFile;
+//   }
 
 }
 
@@ -235,13 +214,4 @@ void MainWindow::on_op_type_exp_toggled(bool checked)
     }
 }
 
-void MainWindow::on_actionset_bag_file_triggered()
-{
-
-    QString bagFile = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                    "/home",
-                                                    tr("Rosbag (*.bag)"));
-    if(!bagFile.isEmpty())
-        m_settings->setValue("bag_file", bagFile);
-}
 

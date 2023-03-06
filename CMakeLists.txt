@@ -89,16 +89,23 @@ target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES})
 ## Declare a C++ executables
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
+add_executable(bebop2_controller_node src/bebop2_controller_node.cpp )
+
+
 add_executable(apriltag_complementary_pid_node src/apriltag_complementary_pid.cpp  )
 add_executable(apriltag_ekf_pid_node src/apriltag_ekf_pid.cpp  )
 add_executable(dummy_ekf_pid_node src/dummy_ekf_pid.cpp )
 add_executable(dummy_complementary_pid_node src/dummy_complementary_pid.cpp )
 
 ## Specify libraries to link a library or executable target against
+target_link_libraries(bebop2_controller_node airlibBebop2)
+
 target_link_libraries(apriltag_complementary_pid_node airlibBebop2 )
 target_link_libraries(apriltag_ekf_pid_node airlibBebop2)
 target_link_libraries(dummy_ekf_pid_node airlibBebop2)
 target_link_libraries(dummy_complementary_pid_node airlibBebop2)
 
+
 add_subdirectory(unittest)
+add_subdirectory(bebop2_controller_gui)
 

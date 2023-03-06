@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['loggercsv_2eh_304',['LoggerCSV.h',['../LoggerCSV_8h.html',1,'']]],
-  ['lqr_2ecpp_305',['LQR.cpp',['../LQR_8cpp.html',1,'']]],
-  ['lqr_2eh_306',['LQR.h',['../LQR_8h.html',1,'']]]
+  ['filterbase_2eh_303',['FilterBase.h',['../FilterBase_8h.html',1,'']]],
+  ['filters_2eh_304',['filters.h',['../filters_8h.html',1,'']]]
 ];

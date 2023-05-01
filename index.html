@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>airlib: Main Page</title>
+<title>airlib: Parrot Bebop2 Drone with Joystick Controller README File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,11 +60,94 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">airlib Documentation</div>  </div>
+<div class="title">Parrot Bebop2 Drone with Joystick Controller README File </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><h2><a class="anchor" id="autotoc_md0"></a>
+Introduction</h2>
+<p>The Parrot Bebop 2 is a small, lightweight manufactured by Parrot, a French company specializing in consumer electronics. It is compact and lightweight, making it easy to transport and use on the go which makes it a popular choice It's camera has a most impressive electronic image stabilization and with a top speed of 40 mph, this drone can really move. The Bebop 2 has a battery life of up to 25 minutes. <br  />
+</p>
+<p>This README file explains how to control the drone using a joystick and ROS drivers, add visual servoing capabilities, and scan for April Tags to find the drone's relative position.</p>
+<hr  />
+<p><img src="/Images/img-bebop2.jpg" alt="Parrot Bebop2 Drone" align="right" width="400" height="400" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Quick Run</h2>
+<p><b>Hardware Setup</b>: Connect your joystick to the computer. <br  />
+</p>
+<p>Before starting the program, the drone should be turned on and the computer connected to the drone WiFi.</p>
+<blockquote class="doxtable">
+<p><b>Warning</b> It is strictly recommended to use protective equipments while testing the drone. <br  />
+ </p>
+</blockquote>
+<p>If the drone needs to be shut down completely then we should flip the drone.</p>
+<p><em>Joystick buttons perform following operations</em>:</p>
+<div class="fragment"><div class="line">IDLE = 0, // Setpoint can be freely moved with joystick. Sphere color blue</div>
+<div class="line"> </div>
+<div class="line">TAKEOFF = 1, // Drone will takeoff from the ground</div>
+<div class="line"> </div>
+<div class="line">LAND = 2, // Drone will land</div>
+<div class="line"> </div>
+<div class="line">ENGAGE = 3, // Set current location as a set point (for hover). Sphere color yellow</div>
+<div class="line"> </div>
+<div class="line">CONTROL = 4 // Start PID controller for the current (ENGAGE) setpoint. Sphere color cyan</div>
+</div><!-- fragment --><p>Once control mode is enabled, setpoint can also be controlled using joystick axes. Note that, only position controller is implemented from the analog sticks. Orientation controller needs yaw angle which could be directly obtained from bebop odom.</p>
+<hr  />
+<h2><a class="anchor" id="autotoc_md4"></a>
+Software Setup:</h2>
+<p>&ndash; <b>Installation of bebop_autonomy</b> from fork manually is required to send relative move commands to the drone. Check out <a href="http://wiki.ros.org/visp_ros/Tutorials/How%20to%20do%20visual%20servoing%20with%20Parrot%20Bebop%202%20drone%20and%20visp_ros">install bebop_autonomy from fork and build visp</a>. <br  />
+<br  />
+ Bebop_autonomy is a ROS driver for Parrot Bebop 2.0 drones (quadrocopters), based on Parrot’s official ARDroneSDK3. You can check out <a href="https://github.com/AutonomyLab/bebop_autonomy">this source code</a> for the driver is for more understanding.</p>
+<hr  />
+<p><img src="/Images/f710-gallery-1.png" alt="Joystick Controller" align="right" width="280" height="200" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Operating the drone</h2>
+<p>The Parrot Bebop 2 Drone can be controlled from a PID Joystick Controller. The drone can be manuvered with the joytsick analog sticks.</p>
+<p>The functions of the Four Action Buttons of the joystick is as follows:</p>
+<p>// To be written down.</p>
+<ol type="1">
+<li>A &mdash;&gt; TAKE OFF (Green button)</li>
+<li>B &mdash;&gt; LAND (Red Button)</li>
+<li>X &mdash;&gt; IDLE (Blue Button)</li>
+<li>Y &mdash;&gt; ENGAGE (Yellow Button)</li>
+<li>L &mdash;&gt; CONTROL (Top Left Button)</li>
+</ol>
+<hr  />
+<p><img src="/Images/tag_36h11.png" alt="AprilTag 36h11" align="right" width="150" height="150" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md8"></a>
+April Tags</h2>
+<p>AprilTag is a visual fiducial system, useful for a wide variety of tasks including augmented reality, robotics, and camera calibration. Targets can be created from an ordinary printer, and the AprilTag detection software computes the precise 3D position, orientation, and identity of the tags relative to the camera. <br  />
+<br  />
+</p>
+<p>Using the built-in camera of the Parrot Bebop 2 Drone, it scans the tag and determines its relative postion from the tag. <br  />
+</p>
+<p>An April Tag from 36h11 family that will serve as target for the visual servoing (see <a href="https://visp-doc.inria.fr/doxygen/visp-daily/tutorial-franka-pbvs.html#franka_prereq_target">this page</a> to print one).</p>
+<hr  />
+<h2><a class="anchor" id="autotoc_md10"></a>
+Visualisation using Graphical Interface (RVIZ)</h2>
+<p>The Parrot Bebop 2 drone can be monitored and visualised using a graphical interface like rviz. <br  />
+</p>
+<p><b>For RVIZ installtion</b> :- </p><div class="fragment"><div class="line">sudo apt-get install ros-[ros-version]-rviz </div>
+</div><!-- fragment --><p>For example:- </p><div class="fragment"><div class="line">sudo apt-get install ros-noetic-rviz</div>
+</div><!-- fragment --><p>To run rviz </p><div class="fragment"><div class="line">rosrun rviz rviz</div>
+</div><!-- fragment --><p>Check out <a href="http://wiki.ros.org/rviz/UserGuide">http://wiki.ros.org/rviz/UserGuide</a> for more information.</p>
+<hr  />
+<h2><a class="anchor" id="autotoc_md12"></a>
+Parameter Tuning</h2>
+<p>Refer to <code>config/param.yaml</code> file to read about tuning parameters. Apriltags are used for landmarks and then the drone position is estimated from those landmarks. A complementary filter is implemented to compute state by combining multiple landmarks.</p>
+<hr  />
+<h2><a class="anchor" id="autotoc_md14"></a>
+Steps to use the bebop2_controller Launch Files</h2>
+<ol type="1">
+<li><b>To use Dummy Filter</b> : <code>roslaunch bebop_controller bebop_frames_dummy.launch</code></li>
+<li><b>To use Complementary Filter</b> : <code>roslaunch bebop_controller bebop_complementary_filter.launch</code></li>
+<li><b>To run the apriltag_ros_continuous_node</b> : <code>roslaunch bebop2_controller apriltag.launch</code></li>
+</ol>
+<p>Step 1. Press the A button on the Joystick Controller to take-off. <br  />
+ Step 2. Press the left-bottom (LB) button to engage Controller. <br  />
+ Step 3. Use the joystick axis to control the set-point </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -99,12 +99,12 @@ The Parrot Bebop 2 drone can be monitored and visualised using a graphical inter
 
 **For RVIZ installtion** :-
 ```
-    sudo apt-get install ros-[ros-version]-rviz 
+sudo apt-get install ros-[ros-version]-rviz 
 ```
 
 For example:-
 ```
-    sudo apt-get install ros-noetic-rviz
+sudo apt-get install ros-noetic-rviz
 ```
 
 To run rviz 

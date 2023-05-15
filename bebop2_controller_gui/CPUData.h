@@ -7,32 +7,74 @@
 class CPUData
 {
 public:
+    /**
+     * @brief A method that reads data from a given string and updates the statistics of the CPU.
+     * @param line Represents a line of data for a particular CPU
+     */
 	void ReadData(const std::string & line);
-
+	/**
+     	 * @brief A method that computes the total active time of the CPU.
+	 * @return Total active time of CPU
+	 * @see #CPUStates for definitions for all types of states of CPU
+	 * @note #S_USER, #S_NICE, #S_SYSTEM, #S_IRQ, #S_SOFTIRQ, #S_STEAL, #S_GUEST, #S_GUEST_NICE are the active states.
+     */
 	std::size_t GetActiveTime() const;
-	std::size_t GetIdleTime() const;
+	 /**
+     	 * @brief A function that calculates the total idle time of the CPU.
+	 * @return Total idle time of the CPU
+	 * @see #S_IDLE describes what idle state is
+	 * @note #S_IDLE, #S_IOWAIT are the idle states.
+     	*/
+    	std::size_t GetIdleTime() const;
+	/**
+	* @brief A method which computes the time spent in a specific state of the CPU.
+     	* @param state state of the CPU
+     	* @return Time spent by a CPU in a specific state.
+	* @see #CPUStates for definitions for all types of states of CPU
+    	*/
 	std::size_t GetStateTime(unsigned int state) const;
+	 /**
+   	 * @brief A function that calculates the total time spent by the CPU on all states.
+	* @return Total time spent by the CPU.
+    	*/
 	std::size_t GetTotalTime() const;
-
+	 /**
+    	* @return A function that calculates the label of the CPU.
+    	* @see #CPUStates for definitions for all types of states of CPU
+	*/
 	const std::string & GetLabel() const;
 
 public:
+	/**
+	* @brief determines if the input string contains CPU statistics.
+	* @note CPU statistics means the data related to the usage and state of a CPU instance in a system.
+	*/
 	static bool IsDataCPUStats(const std::string & line);
 
 public:
 	enum CPUStates
 	{
+	/// The time spent by normal processes executing in user mode.
 		S_USER = 0,
+	/// The time spent by lower priority processes executing in user mode.
 	    S_NICE,
+	/// Time spent by processes executing in kernel mode.
 	    S_SYSTEM,
+	 /// Time waiting for a task to be given or time spent doing nothing.
 	    S_IDLE,
+	/// Time spent waiting for I/O to complete
 	    S_IOWAIT,
+	/// Time spent servicing interrupts.
 	    S_IRQ,
+	/// Time spent servicing softirqs.
 	    S_SOFTIRQ,
+	/// Time spent in other operating systems.
 	    S_STEAL,
+	  /// Time spent running a virtual CPU for a guest operating system.
 	    S_GUEST,
+	/// Time spent running a lower priority guest CPU for a guest operating system.
 	    S_GUEST_NICE,
-
+	/// The total number of CPU states.	
 		NUM_CPU_STATES
 	};
 

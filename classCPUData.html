@@ -96,14 +96,17 @@ Public Types</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aca32118617e52a5673180499f0248d27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUData.html#aca32118617e52a5673180499f0248d27">ReadData</a> (const std::string &amp;line)</td></tr>
+<tr class="memdesc:aca32118617e52a5673180499f0248d27"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that reads data from a given string and updates the statistics of the CPU.  <a href="classCPUData.html#aca32118617e52a5673180499f0248d27">More...</a><br /></td></tr>
 <tr class="separator:aca32118617e52a5673180499f0248d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41e1ea4c2b5b58c2be9cab84f5c49e81"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUData.html#a41e1ea4c2b5b58c2be9cab84f5c49e81">GetActiveTime</a> () const</td></tr>
 <tr class="separator:a41e1ea4c2b5b58c2be9cab84f5c49e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af058e5d8ee7b7796fc3213bcb6854ccf"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUData.html#af058e5d8ee7b7796fc3213bcb6854ccf">GetIdleTime</a> () const</td></tr>
 <tr class="separator:af058e5d8ee7b7796fc3213bcb6854ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0eb67a5957efec131fd67a55039d1971"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUData.html#a0eb67a5957efec131fd67a55039d1971">GetStateTime</a> (unsigned int state) const</td></tr>
+<tr class="memdesc:a0eb67a5957efec131fd67a55039d1971"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method which computes the time spent in a specific state of the CPU.  <a href="classCPUData.html#a0eb67a5957efec131fd67a55039d1971">More...</a><br /></td></tr>
 <tr class="separator:a0eb67a5957efec131fd67a55039d1971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73a95cfeb476c8643cf5637033d7a34d"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUData.html#a73a95cfeb476c8643cf5637033d7a34d">GetTotalTime</a> () const</td></tr>
+<tr class="memdesc:a73a95cfeb476c8643cf5637033d7a34d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that calculates the total time spent by the CPU on all states.  <a href="classCPUData.html#a73a95cfeb476c8643cf5637033d7a34d">More...</a><br /></td></tr>
 <tr class="separator:a73a95cfeb476c8643cf5637033d7a34d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afed46b15d038fe2856b0693272a4daab"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUData.html#afed46b15d038fe2856b0693272a4daab">GetLabel</a> () const</td></tr>
 <tr class="separator:afed46b15d038fe2856b0693272a4daab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,6 +114,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a7157f06dbab05451d3f6031977382f39"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUData.html#a7157f06dbab05451d3f6031977382f39">IsDataCPUStats</a> (const std::string &amp;line)</td></tr>
+<tr class="memdesc:a7157f06dbab05451d3f6031977382f39"><td class="mdescLeft">&#160;</td><td class="mdescRight">determines if the input string contains CPU statistics.  <a href="classCPUData.html#a7157f06dbab05451d3f6031977382f39">More...</a><br /></td></tr>
 <tr class="separator:a7157f06dbab05451d3f6031977382f39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -129,20 +133,31 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a6f627911091208c82741e81f9565731b"></a>S_USER&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a38c1ef1ecf3426d811b654e866b0f48a"></a>S_NICE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a53df7cee689bfc4fe9ca0345027630c2"></a>S_SYSTEM&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898ac795681895c0650377e483f6563fd3eb"></a>S_IDLE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a3dd5912b930405af3674a60c67670b41"></a>S_IOWAIT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898ab08e3dc25d354c23a8de4e2d4ce53814"></a>S_IRQ&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898abb75f5bbfa38ecc15e392dcc496767de"></a>S_SOFTIRQ&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898ad5529f8355268f7b920d20fe0b0b6a34"></a>S_STEAL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898af82a4310e5f0c90e2d24bd7ed1914cd0"></a>S_GUEST&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a4ae23e3096c7f9ba85c297c1fd4bda16"></a>S_GUEST_NICE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a77d308ffcdc706f9b4b0cd109f5db052"></a>NUM_CPU_STATES&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a6f627911091208c82741e81f9565731b"></a>S_USER&#160;</td><td class="fielddoc"><p>The time spent by normal processes executing in user mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a38c1ef1ecf3426d811b654e866b0f48a"></a>S_NICE&#160;</td><td class="fielddoc"><p>The time spent by lower priority processes executing in user mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a53df7cee689bfc4fe9ca0345027630c2"></a>S_SYSTEM&#160;</td><td class="fielddoc"><p>Time spent by processes executing in kernel mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898ac795681895c0650377e483f6563fd3eb"></a>S_IDLE&#160;</td><td class="fielddoc"><p>Time waiting for a task to be given or time spent doing nothing. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a3dd5912b930405af3674a60c67670b41"></a>S_IOWAIT&#160;</td><td class="fielddoc"><p>Time spent waiting for I/O to complete. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898ab08e3dc25d354c23a8de4e2d4ce53814"></a>S_IRQ&#160;</td><td class="fielddoc"><p>Time spent servicing interrupts. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898abb75f5bbfa38ecc15e392dcc496767de"></a>S_SOFTIRQ&#160;</td><td class="fielddoc"><p>Time spent servicing softirqs. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898ad5529f8355268f7b920d20fe0b0b6a34"></a>S_STEAL&#160;</td><td class="fielddoc"><p>Time spent in other operating systems. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898af82a4310e5f0c90e2d24bd7ed1914cd0"></a>S_GUEST&#160;</td><td class="fielddoc"><p>Time spent running a virtual CPU for a guest operating system. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a4ae23e3096c7f9ba85c297c1fd4bda16"></a>S_GUEST_NICE&#160;</td><td class="fielddoc"><p>Time spent running a lower priority guest CPU for a guest operating system. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afbebbce972bee6ffa5be2f936ccc3898a77d308ffcdc706f9b4b0cd109f5db052"></a>NUM_CPU_STATES&#160;</td><td class="fielddoc"><p>The total number of CPU states. </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00023">23</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00055">55</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
 
 </div>
 </div>
@@ -169,8 +184,12 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<pre class="fragment">@brief A method that computes the total active time of the CPU.
+</pre> <dl class="section return"><dt>Returns</dt><dd>Total active time of CPU </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898">CPUStates</a> for definitions for all types of states of CPU </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898a6f627911091208c82741e81f9565731b" title="The time spent by normal processes executing in user mode.">S_USER</a>, <a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898a38c1ef1ecf3426d811b654e866b0f48a" title="The time spent by lower priority processes executing in user mode.">S_NICE</a>, <a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898a53df7cee689bfc4fe9ca0345027630c2" title="Time spent by processes executing in kernel mode.">S_SYSTEM</a>, <a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898ab08e3dc25d354c23a8de4e2d4ce53814" title="Time spent servicing interrupts.">S_IRQ</a>, <a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898abb75f5bbfa38ecc15e392dcc496767de" title="Time spent servicing softirqs.">S_SOFTIRQ</a>, <a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898ad5529f8355268f7b920d20fe0b0b6a34" title="Time spent in other operating systems.">S_STEAL</a>, <a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898af82a4310e5f0c90e2d24bd7ed1914cd0" title="Time spent running a virtual CPU for a guest operating system.">S_GUEST</a>, <a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898a4ae23e3096c7f9ba85c297c1fd4bda16" title="Time spent running a lower priority guest CPU for a guest operating system.">S_GUEST_NICE</a> are the active states. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00053">53</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00095">95</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
 
 </div>
 </div>
@@ -196,8 +215,12 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<pre class="fragment">@brief A function that calculates the total idle time of the CPU.
+</pre> <dl class="section return"><dt>Returns</dt><dd>Total idle time of the CPU </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898ac795681895c0650377e483f6563fd3eb" title="Time waiting for a task to be given or time spent doing nothing.">S_IDLE</a> describes what idle state is </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898ac795681895c0650377e483f6563fd3eb" title="Time waiting for a task to be given or time spent doing nothing.">S_IDLE</a>, <a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898a3dd5912b930405af3674a60c67670b41" title="Time spent waiting for I/O to complete.">S_IOWAIT</a> are the idle states. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00065">65</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00107">107</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
 
 </div>
 </div>
@@ -223,8 +246,10 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A function that calculates the label of the CPU. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898">CPUStates</a> for definitions for all types of states of CPU </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00092">92</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00134">134</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
 
 </div>
 </div>
@@ -252,7 +277,17 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00070">70</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
+<p>A method which computes the time spent in a specific state of the CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>state of the CPU </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Time spent by a CPU in a specific state. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classCPUData.html#afbebbce972bee6ffa5be2f936ccc3898">CPUStates</a> for definitions for all types of states of CPU </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00112">112</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
 
 </div>
 </div>
@@ -279,7 +314,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00078">78</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
+<p>A function that calculates the total time spent by the CPU on all states. </p>
+<dl class="section return"><dt>Returns</dt><dd>Total time spent by the CPU. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00120">120</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
 
 </div>
 </div>
@@ -307,7 +345,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00094">94</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
+<p>determines if the input string contains CPU statistics. </p>
+<dl class="section note"><dt>Note</dt><dd>CPU statistics means the data related to the usage and state of a CPU instance in a system. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUData_8h_source.html#l00136">136</a> of file <a class="el" href="CPUData_8h_source.html">CPUData.h</a>.</p>
 
 </div>
 </div>
@@ -326,6 +367,14 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>A method that reads data from a given string and updates the statistics of the CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">line</td><td>Represents a line of data for a particular CPU </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="CPUData_8cpp_source.html#l00012">12</a> of file <a class="el" href="CPUData_8cpp_source.html">CPUData.cpp</a>.</p>
 

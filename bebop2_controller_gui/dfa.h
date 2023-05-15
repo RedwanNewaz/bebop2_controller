@@ -21,21 +21,39 @@ enum NODE{
   START
 };
 
+/// @brief It provides methods for adding edges, checking if a given sequence of vertices is valid, and performing depth-first search traversals from specific starting vertices to find sets of visited vertices.
+
 class DFA
 {
 public:
+
+    /// @brief Constructor.
     DFA();
-   // DFS traversal of the vertices
+    
+   /// @brief Checks if the given sequence of vertices is a valid path in the DFA or not, by performing DFS from the first vertex. 
+   /// @param choices Sequence of vertices
+   /// @return a boolean value indicating whether the given sequence of choices is a valid sequence or not.
    bool isValid(const list<int>& choices);
-   // number of vertices
+   
+   /// number of vertices
    size_t size();
-   // default path
+   /// @brief Does a DFS traversal from the EXP Node to the Start Node
+   /// @return A set of integers representing visited node obtained during the DFS.
    set<int> defaultExpPath();
+   
+   /// @brief Does a DFS traversal from the SIM Node to the Start Node
+   /// @return A set of integers representing visited node obtained during the DFS.
    set<int> defaultSimPath();
 protected:
-   // function to add an edge to graph
+   /// @brief Method that add an edge to the graph
+   /// @param v Current vertex
+   /// @param w Next vertex to be added in v's list
    void addEdge(int v, int w);
-   // reachable from v
+   
+    /// @brief Keeps track of the visited vertices. Basically finds out Reachability from v
+   /// @param v Current vertex
+   /// @param target target Vertex
+   /// @return True if we have the target vertex else False
    bool DFS(int v, int target);
 private:
    map<int, bool> visited;

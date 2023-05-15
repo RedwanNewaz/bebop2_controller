@@ -71,6 +71,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>It creates and manages processes for various ROS nodes (such as BEBOP, APRILTAG) based on the process IDs given to it. It also provides functionality to start and stop processes and handles events such as opening a bag file or an RVIZ file.  
+ <a href="classProcessManager.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="process__manager_8h_source.html">process_manager.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ProcessManager:</div>
@@ -82,29 +85,37 @@ Inheritance diagram for ProcessManager:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
 <tr class="memitem:ab4543adc54ef028ce81f26270f055b2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcessManager.html#ab4543adc54ef028ce81f26270f055b2a">on_bag_file_triggered</a> ()</td></tr>
+<tr class="memdesc:ab4543adc54ef028ce81f26270f055b2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler that is called when the user clicks on the "bag_file" menu option.  <a href="classProcessManager.html#ab4543adc54ef028ce81f26270f055b2a">More...</a><br /></td></tr>
 <tr class="separator:ab4543adc54ef028ce81f26270f055b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4b008839ab61e2ffd0b9d0f3f74737a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcessManager.html#aa4b008839ab61e2ffd0b9d0f3f74737a">on_rviz_file_triggered</a> ()</td></tr>
+<tr class="memdesc:aa4b008839ab61e2ffd0b9d0f3f74737a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler that is called when the "Open RVIZ file" action is triggered in the menu bar.  <a href="classProcessManager.html#aa4b008839ab61e2ffd0b9d0f3f74737a">More...</a><br /></td></tr>
 <tr class="separator:aa4b008839ab61e2ffd0b9d0f3f74737a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3a585325799f3789083d326080435c9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcessManager.html#a3a585325799f3789083d326080435c9a">ProcessManager</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a3a585325799f3789083d326080435c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the Process Manager which initializes commands launching and running various ROS Nodes using keys like BEBOP, APRILTAG etc.  <a href="classProcessManager.html#a3a585325799f3789083d326080435c9a">More...</a><br /></td></tr>
 <tr class="separator:a3a585325799f3789083d326080435c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed3cd2ca11d92395228b758d39030b5f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcessManager.html#aed3cd2ca11d92395228b758d39030b5f">~ProcessManager</a> ()</td></tr>
+<tr class="memdesc:aed3cd2ca11d92395228b758d39030b5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor of the Process Manager Class. This destructor deletes the dynamically allocated QSettings and checks if there are processes currently running and calls the <a class="el" href="classProcessManager.html#a0022ff18784d39c908f7345d159d4c6f" title="Stops all currently running processes.">stop()</a> member function to stop them.  <a href="classProcessManager.html#aed3cd2ca11d92395228b758d39030b5f">More...</a><br /></td></tr>
 <tr class="separator:aed3cd2ca11d92395228b758d39030b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaafd3fad73b208d9a7c4298d82c4b94b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcessManager.html#aaafd3fad73b208d9a7c4298d82c4b94b">start</a> (const std::set&lt; int &gt; &amp;pids)</td></tr>
+<tr class="memdesc:aaafd3fad73b208d9a7c4298d82c4b94b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts new processes based on the given set of process ids.  <a href="classProcessManager.html#aaafd3fad73b208d9a7c4298d82c4b94b">More...</a><br /></td></tr>
 <tr class="separator:aaafd3fad73b208d9a7c4298d82c4b94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0022ff18784d39c908f7345d159d4c6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcessManager.html#a0022ff18784d39c908f7345d159d4c6f">stop</a> ()</td></tr>
+<tr class="memdesc:a0022ff18784d39c908f7345d159d4c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops all currently running processes.  <a href="classProcessManager.html#a0022ff18784d39c908f7345d159d4c6f">More...</a><br /></td></tr>
 <tr class="separator:a0022ff18784d39c908f7345d159d4c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a1fe5b56c773a409d20372363bc92ef2a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcessManager.html#a1fe5b56c773a409d20372363bc92ef2a">file_exist</a> (const QString &amp;path)</td></tr>
+<tr class="memdesc:a1fe5b56c773a409d20372363bc92ef2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a file exists at the specified path.  <a href="classProcessManager.html#a1fe5b56c773a409d20372363bc92ef2a">More...</a><br /></td></tr>
 <tr class="separator:a1fe5b56c773a409d20372363bc92ef2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="process__manager_8h_source.html#l00013">13</a> of file <a class="el" href="process__manager_8h_source.html">process_manager.h</a>.</p>
+<div class="textblock"><p>It creates and manages processes for various ROS nodes (such as BEBOP, APRILTAG) based on the process IDs given to it. It also provides functionality to start and stop processes and handles events such as opening a bag file or an RVIZ file. </p>
+
+<p class="definition">Definition at line <a class="el" href="process__manager_8h_source.html#l00015">15</a> of file <a class="el" href="process__manager_8h_source.html">process_manager.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3a585325799f3789083d326080435c9a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a585325799f3789083d326080435c9a">&#9670;&nbsp;</a></span>ProcessManager()</h2>
@@ -129,6 +140,16 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Constructor for the Process Manager which initializes commands launching and running various ROS Nodes using keys like BEBOP, APRILTAG etc. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>QWidget pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Marked explicit to prevent implicit conversations from QWidget to <a class="el" href="classProcessManager.html" title="It creates and manages processes for various ROS nodes (such as BEBOP, APRILTAG) based on the process...">ProcessManager</a> <br  />
+ </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="process__manager_8cpp_source.html#l00004">4</a> of file <a class="el" href="process__manager_8cpp_source.html">process_manager.cpp</a>.</p>
 
@@ -156,6 +177,8 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Destructor of the Process Manager Class. This destructor deletes the dynamically allocated QSettings and checks if there are processes currently running and calls the <a class="el" href="classProcessManager.html#a0022ff18784d39c908f7345d159d4c6f" title="Stops all currently running processes.">stop()</a> member function to stop them. </p>
 
 <p class="definition">Definition at line <a class="el" href="process__manager_8cpp_source.html#l00029">29</a> of file <a class="el" href="process__manager_8cpp_source.html">process_manager.cpp</a>.</p>
 
@@ -186,6 +209,15 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Checks whether a file exists at the specified path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>path of the file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the the file exists else False </dd></dl>
+
 <p class="definition">Definition at line <a class="el" href="process__manager_8cpp_source.html#l00123">123</a> of file <a class="el" href="process__manager_8cpp_source.html">process_manager.cpp</a>.</p>
 
 </div>
@@ -212,6 +244,8 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Event handler that is called when the user clicks on the "bag_file" menu option. </p>
 
 <p class="definition">Definition at line <a class="el" href="process__manager_8cpp_source.html#l00104">104</a> of file <a class="el" href="process__manager_8cpp_source.html">process_manager.cpp</a>.</p>
 
@@ -240,6 +274,8 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Event handler that is called when the "Open RVIZ file" action is triggered in the menu bar. </p>
+
 <p class="definition">Definition at line <a class="el" href="process__manager_8cpp_source.html#l00114">114</a> of file <a class="el" href="process__manager_8cpp_source.html">process_manager.cpp</a>.</p>
 
 </div>
@@ -260,6 +296,14 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Starts new processes based on the given set of process ids. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pids</td><td>Reference to a constant std::set&lt;int&gt; which contains a set of integer process IDs that are to be started by the <a class="el" href="classProcessManager.html" title="It creates and manages processes for various ROS nodes (such as BEBOP, APRILTAG) based on the process...">ProcessManager</a>. It is used to determine which processes should be started, based on the values of the process IDs in the set. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p class="definition">Definition at line <a class="el" href="process__manager_8cpp_source.html#l00036">36</a> of file <a class="el" href="process__manager_8cpp_source.html">process_manager.cpp</a>.</p>
 
 </div>
@@ -278,6 +322,8 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Stops all currently running processes. </p>
 
 <p class="definition">Definition at line <a class="el" href="process__manager_8cpp_source.html#l00095">95</a> of file <a class="el" href="process__manager_8cpp_source.html">process_manager.cpp</a>.</p>
 

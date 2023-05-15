@@ -69,38 +69,54 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Provides a snapshot of all the CPU data from /proc/stat at a given time.  
+ <a href="classCPUSnapshot.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af47972d542c9ad5dacbe97d1c5f86303"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#af47972d542c9ad5dacbe97d1c5f86303">CPUSnapshot</a> ()</td></tr>
+<tr class="memdesc:af47972d542c9ad5dacbe97d1c5f86303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classCPUSnapshot.html#af47972d542c9ad5dacbe97d1c5f86303">More...</a><br /></td></tr>
 <tr class="separator:af47972d542c9ad5dacbe97d1c5f86303"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f59a5854a195843ea1ef29ac857e91c"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#a5f59a5854a195843ea1ef29ac857e91c">GetNumEntries</a> () const</td></tr>
+<tr class="memdesc:a5f59a5854a195843ea1ef29ac857e91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter method for the number of entries in CPU time data.  <a href="classCPUSnapshot.html#a5f59a5854a195843ea1ef29ac857e91c">More...</a><br /></td></tr>
 <tr class="separator:a5f59a5854a195843ea1ef29ac857e91c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0d6f4172bcb941f2d63b1a80ca6b4b3"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#af0d6f4172bcb941f2d63b1a80ca6b4b3">GetLabelTotal</a> () const</td></tr>
+<tr class="memdesc:af0d6f4172bcb941f2d63b1a80ca6b4b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the label of the total CPU time.  <a href="classCPUSnapshot.html#af0d6f4172bcb941f2d63b1a80ca6b4b3">More...</a><br /></td></tr>
 <tr class="separator:af0d6f4172bcb941f2d63b1a80ca6b4b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4305c0e94956a049a779c0fbdd2d5761"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#a4305c0e94956a049a779c0fbdd2d5761">GetLabel</a> (unsigned int cpu) const</td></tr>
+<tr class="memdesc:a4305c0e94956a049a779c0fbdd2d5761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the label of a specific CPU identitfied by its CPU number.  <a href="classCPUSnapshot.html#a4305c0e94956a049a779c0fbdd2d5761">More...</a><br /></td></tr>
 <tr class="separator:a4305c0e94956a049a779c0fbdd2d5761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30a8d0062cb65332c6ce29a4c315f139"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#a30a8d0062cb65332c6ce29a4c315f139">GetActiveTimeTotal</a> () const</td></tr>
+<tr class="memdesc:a30a8d0062cb65332c6ce29a4c315f139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the total Active Time the entries of the CPU Data.  <a href="classCPUSnapshot.html#a30a8d0062cb65332c6ce29a4c315f139">More...</a><br /></td></tr>
 <tr class="separator:a30a8d0062cb65332c6ce29a4c315f139"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02dfe52125e0f9296f9482e456d47973"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#a02dfe52125e0f9296f9482e456d47973">GetActiveTime</a> (unsigned int cpu) const</td></tr>
+<tr class="memdesc:a02dfe52125e0f9296f9482e456d47973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the active CPU Time for a specifc CPU identitfied by its CPU number.  <a href="classCPUSnapshot.html#a02dfe52125e0f9296f9482e456d47973">More...</a><br /></td></tr>
 <tr class="separator:a02dfe52125e0f9296f9482e456d47973"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa51c15a5e499916c9cd51d711c851fc5"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#aa51c15a5e499916c9cd51d711c851fc5">GetIdleTimeTotal</a> () const</td></tr>
+<tr class="memdesc:aa51c15a5e499916c9cd51d711c851fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the total idle CPU Time for all CPU's.  <a href="classCPUSnapshot.html#aa51c15a5e499916c9cd51d711c851fc5">More...</a><br /></td></tr>
 <tr class="separator:aa51c15a5e499916c9cd51d711c851fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7bec742ba482c13235c60711bc44adc"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#ac7bec742ba482c13235c60711bc44adc">GetIdleTime</a> (unsigned int cpu) const</td></tr>
+<tr class="memdesc:ac7bec742ba482c13235c60711bc44adc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the idle time for a specific CPU identitfied by its CPU number.  <a href="classCPUSnapshot.html#ac7bec742ba482c13235c60711bc44adc">More...</a><br /></td></tr>
 <tr class="separator:ac7bec742ba482c13235c60711bc44adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d48dadf5a7eab2bbd470e9e61a0079e"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#a0d48dadf5a7eab2bbd470e9e61a0079e">GetStateTimeTotal</a> (unsigned int state) const</td></tr>
+<tr class="memdesc:a0d48dadf5a7eab2bbd470e9e61a0079e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the total time spent in a specific CPU state.  <a href="classCPUSnapshot.html#a0d48dadf5a7eab2bbd470e9e61a0079e">More...</a><br /></td></tr>
 <tr class="separator:a0d48dadf5a7eab2bbd470e9e61a0079e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89673a62e8a142d3d2b20d2781b22822"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#a89673a62e8a142d3d2b20d2781b22822">GetStateTime</a> (unsigned int state, unsigned int cpu) const</td></tr>
+<tr class="memdesc:a89673a62e8a142d3d2b20d2781b22822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the time spent on a specific state for a specific CPU.  <a href="classCPUSnapshot.html#a89673a62e8a142d3d2b20d2781b22822">More...</a><br /></td></tr>
 <tr class="separator:a89673a62e8a142d3d2b20d2781b22822"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f500895e5c6fa0e3390623559780898"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#a5f500895e5c6fa0e3390623559780898">GetTotalTimeTotal</a> () const</td></tr>
+<tr class="memdesc:a5f500895e5c6fa0e3390623559780898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the total CPU Time for all CPU's.  <a href="classCPUSnapshot.html#a5f500895e5c6fa0e3390623559780898">More...</a><br /></td></tr>
 <tr class="separator:a5f500895e5c6fa0e3390623559780898"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa46ec69a14cb110975e61a42f03dd0e1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCPUSnapshot.html#aa46ec69a14cb110975e61a42f03dd0e1">GetTotalTime</a> (unsigned int cpu) const</td></tr>
+<tr class="memdesc:aa46ec69a14cb110975e61a42f03dd0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the CPU time for a specific CPU.  <a href="classCPUSnapshot.html#aa46ec69a14cb110975e61a42f03dd0e1">More...</a><br /></td></tr>
 <tr class="separator:aa46ec69a14cb110975e61a42f03dd0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00009">9</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<div class="textblock"><p>Provides a snapshot of all the CPU data from /proc/stat at a given time. </p>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00011">11</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af47972d542c9ad5dacbe97d1c5f86303"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af47972d542c9ad5dacbe97d1c5f86303">&#9670;&nbsp;</a></span>CPUSnapshot()</h2>
@@ -116,6 +132,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor. </p>
 
 <p class="definition">Definition at line <a class="el" href="CPUSnapshot_8cpp_source.html#l00009">9</a> of file <a class="el" href="CPUSnapshot_8cpp_source.html">CPUSnapshot.cpp</a>.</p>
 
@@ -146,7 +164,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00057">57</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Computes the active CPU Time for a specifc CPU identitfied by its CPU number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu</td><td>CPU Number or CPU identifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Active CPU Time </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00093">93</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -173,7 +200,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00055">55</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Finds the total Active Time the entries of the CPU Data. </p>
+<dl class="section return"><dt>Returns</dt><dd>Total Active Time </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00091">91</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -201,7 +231,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00070">70</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Computes the idle time for a specific CPU identitfied by its CPU number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu</td><td>CPU Number or CPU identifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Specific idle time </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00106">106</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -228,7 +267,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00068">68</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Calculates the total idle CPU Time for all CPU's. </p>
+<dl class="section return"><dt>Returns</dt><dd>total idle CPU Time </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00104">104</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -256,7 +298,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00044">44</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Finds the label of a specific CPU identitfied by its CPU number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu</td><td>CPU Number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the C-style string of the label of a specific CPU </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00080">80</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -283,7 +334,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00042">42</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Finds the label of the total CPU time. </p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the label of the total CPU time </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00078">78</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -310,7 +364,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00040">40</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Getter method for the number of entries in CPU time data. </p>
+<dl class="section return"><dt>Returns</dt><dd>Number of entries </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00076">76</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -348,7 +405,18 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00083">83</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Calculates the time spent on a specific state for a specific CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>CPU'S State </td></tr>
+    <tr><td class="paramname">cpu</td><td>CPU identifier or CPU Number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Time spent on state for a CPU <br  />
+ </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00119">119</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -376,7 +444,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00081">81</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Finds the total time spent in a specific CPU state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>state of the CPU </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Total spent time in a state </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00117">117</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -404,7 +481,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00096">96</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Finds the CPU time for a specific CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu</td><td>CPU identifier or CPU Number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>CPU Time for a CPU </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00132">132</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>
@@ -431,7 +517,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00094">94</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
+<p>Computes the total CPU Time for all CPU's. </p>
+<dl class="section return"><dt>Returns</dt><dd>Total CPU Time </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="CPUSnapshot_8h_source.html#l00130">130</a> of file <a class="el" href="CPUSnapshot_8h_source.html">CPUSnapshot.h</a>.</p>
 
 </div>
 </div>

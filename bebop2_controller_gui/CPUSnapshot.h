@@ -4,28 +4,64 @@
 
 #include "CPUData.h"
 
+/// @brief Provides a snapshot of all the CPU data from /proc/stat at a given time
+
 #include <vector>
 
 class CPUSnapshot
 {
 public:
+	/// Constructor
 	CPUSnapshot();
-
+	/// @brief Getter method for the number of entries in CPU time data
+	/// @return Number of entries
 	std::size_t GetNumEntries() const;
-
+	
+	/// @brief Finds the label of the total CPU time
+	/// @return Pointer to the label of the total CPU time
 	const char * GetLabelTotal() const;
+	
+	/// @brief Finds the label of a specific CPU identitfied by its CPU number.
+	/// @param cpu CPU Number
+	/// @return Pointer to the C-style string of the label of a specific CPU
 	const char * GetLabel(unsigned int cpu) const;
 
+	/// @brief Finds the total Active Time the entries of the CPU Data
+	/// @return Total Active Time
 	std::size_t GetActiveTimeTotal() const;
+	
+	/// @brief Computes the active CPU Time for a specifc CPU identitfied by its CPU number.
+	/// @param cpu CPU Number or CPU identifier
+	/// @return Active CPU Time
 	std::size_t GetActiveTime(unsigned int cpu) const;
 
+	/// @brief Calculates the total idle CPU Time for all CPU's
+	/// @return total idle CPU Time
 	std::size_t GetIdleTimeTotal() const;
+	
+	/// @brief Computes the idle time for a specific CPU identitfied by its CPU number.
+	/// @param cpu CPU Number or CPU identifier
+	/// @return Specific idle time
 	std::size_t GetIdleTime(unsigned int cpu) const;
 
+	/// @brief Finds the total time spent in a specific CPU state
+	/// @param state state of the CPU
+	/// @return Total spent time in a state
 	std::size_t GetStateTimeTotal(unsigned int state) const;
+	
+	/// @brief Calculates the time spent on a specific state for a specific CPU 
+	/// @param state CPU'S State
+	/// @param cpu CPU identifier or CPU Number
+	/// @return Time spent on state for a CPU	
 	std::size_t GetStateTime(unsigned int state, unsigned int cpu) const;
-
+	
+	/// @brief Computes the total CPU Time for all CPU's
+	/// @return Total CPU Time
 	std::size_t GetTotalTimeTotal() const;
+	
+	/// @brief Finds the CPU time for a specific CPU
+	/// @param cpu CPU identifier or CPU Number
+	/// @return CPU Time for a CPU
 	std::size_t GetTotalTime(unsigned int cpu) const;
 
 private:

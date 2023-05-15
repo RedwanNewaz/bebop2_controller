@@ -70,31 +70,42 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>It provides methods for adding edges, checking if a given sequence of vertices is valid, and performing depth-first search traversals from specific starting vertices to find sets of visited vertices.  
+ <a href="classDFA.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="dfa_8h_source.html">dfa.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0739bd751a325dd162604ed63fadea69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDFA.html#a0739bd751a325dd162604ed63fadea69">DFA</a> ()</td></tr>
+<tr class="memdesc:a0739bd751a325dd162604ed63fadea69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classDFA.html#a0739bd751a325dd162604ed63fadea69">More...</a><br /></td></tr>
 <tr class="separator:a0739bd751a325dd162604ed63fadea69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb58f05f713886a3894355158ed19b68"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDFA.html#aeb58f05f713886a3894355158ed19b68">isValid</a> (const list&lt; int &gt; &amp;choices)</td></tr>
+<tr class="memdesc:aeb58f05f713886a3894355158ed19b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the given sequence of vertices is a valid path in the <a class="el" href="classDFA.html" title="It provides methods for adding edges, checking if a given sequence of vertices is valid,...">DFA</a> or not, by performing DFS from the first vertex.  <a href="classDFA.html#aeb58f05f713886a3894355158ed19b68">More...</a><br /></td></tr>
 <tr class="separator:aeb58f05f713886a3894355158ed19b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a772ff440eb089ac9a000c54894fceb22"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDFA.html#a772ff440eb089ac9a000c54894fceb22">size</a> ()</td></tr>
+<tr class="memdesc:a772ff440eb089ac9a000c54894fceb22"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of vertices  <a href="classDFA.html#a772ff440eb089ac9a000c54894fceb22">More...</a><br /></td></tr>
 <tr class="separator:a772ff440eb089ac9a000c54894fceb22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8f9b0622ec694bcec61a0bce6ede500"><td class="memItemLeft" align="right" valign="top">set&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDFA.html#aa8f9b0622ec694bcec61a0bce6ede500">defaultExpPath</a> ()</td></tr>
+<tr class="memdesc:aa8f9b0622ec694bcec61a0bce6ede500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a DFS traversal from the EXP Node to the Start Node.  <a href="classDFA.html#aa8f9b0622ec694bcec61a0bce6ede500">More...</a><br /></td></tr>
 <tr class="separator:aa8f9b0622ec694bcec61a0bce6ede500"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36f4aa6517c85bdc3513555ec46e29d5"><td class="memItemLeft" align="right" valign="top">set&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDFA.html#a36f4aa6517c85bdc3513555ec46e29d5">defaultSimPath</a> ()</td></tr>
+<tr class="memdesc:a36f4aa6517c85bdc3513555ec46e29d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a DFS traversal from the SIM Node to the Start Node.  <a href="classDFA.html#a36f4aa6517c85bdc3513555ec46e29d5">More...</a><br /></td></tr>
 <tr class="separator:a36f4aa6517c85bdc3513555ec46e29d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a4021da3c5448d586c4a1a0b071722c21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDFA.html#a4021da3c5448d586c4a1a0b071722c21">addEdge</a> (int v, int w)</td></tr>
+<tr class="memdesc:a4021da3c5448d586c4a1a0b071722c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method that add an edge to the graph.  <a href="classDFA.html#a4021da3c5448d586c4a1a0b071722c21">More...</a><br /></td></tr>
 <tr class="separator:a4021da3c5448d586c4a1a0b071722c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c9e338313ed1a1e2a6cb16d77757276"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDFA.html#a5c9e338313ed1a1e2a6cb16d77757276">DFS</a> (int v, int target)</td></tr>
+<tr class="memdesc:a5c9e338313ed1a1e2a6cb16d77757276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keeps track of the visited vertices. Basically finds out Reachability from v.  <a href="classDFA.html#a5c9e338313ed1a1e2a6cb16d77757276">More...</a><br /></td></tr>
 <tr class="separator:a5c9e338313ed1a1e2a6cb16d77757276"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="dfa_8h_source.html#l00024">24</a> of file <a class="el" href="dfa_8h_source.html">dfa.h</a>.</p>
+<div class="textblock"><p>It provides methods for adding edges, checking if a given sequence of vertices is valid, and performing depth-first search traversals from specific starting vertices to find sets of visited vertices. </p>
+
+<p class="definition">Definition at line <a class="el" href="dfa_8h_source.html#l00026">26</a> of file <a class="el" href="dfa_8h_source.html">dfa.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0739bd751a325dd162604ed63fadea69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0739bd751a325dd162604ed63fadea69">&#9670;&nbsp;</a></span>DFA()</h2>
@@ -110,6 +121,8 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor. </p>
 
 <p class="definition">Definition at line <a class="el" href="dfa_8cpp_source.html#l00003">3</a> of file <a class="el" href="dfa_8cpp_source.html">dfa.cpp</a>.</p>
 
@@ -150,6 +163,15 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Method that add an edge to the graph. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Current vertex </td></tr>
+    <tr><td class="paramname">w</td><td>Next vertex to be added in v's list </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p class="definition">Definition at line <a class="el" href="dfa_8cpp_source.html#l00046">46</a> of file <a class="el" href="dfa_8cpp_source.html">dfa.cpp</a>.</p>
 
 </div>
@@ -169,6 +191,9 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Does a DFS traversal from the EXP Node to the Start Node. </p>
+<dl class="section return"><dt>Returns</dt><dd>A set of integers representing visited node obtained during the DFS. </dd></dl>
+
 <p class="definition">Definition at line <a class="el" href="dfa_8cpp_source.html#l00032">32</a> of file <a class="el" href="dfa_8cpp_source.html">dfa.cpp</a>.</p>
 
 </div>
@@ -187,6 +212,9 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Does a DFS traversal from the SIM Node to the Start Node. </p>
+<dl class="section return"><dt>Returns</dt><dd>A set of integers representing visited node obtained during the DFS. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="dfa_8cpp_source.html#l00039">39</a> of file <a class="el" href="dfa_8cpp_source.html">dfa.cpp</a>.</p>
 
@@ -226,6 +254,16 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Keeps track of the visited vertices. Basically finds out Reachability from v. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Current vertex </td></tr>
+    <tr><td class="paramname">target</td><td>target Vertex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if we have the target vertex else False </dd></dl>
+
 <p class="definition">Definition at line <a class="el" href="dfa_8cpp_source.html#l00087">87</a> of file <a class="el" href="dfa_8cpp_source.html">dfa.cpp</a>.</p>
 
 </div>
@@ -246,6 +284,15 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Checks if the given sequence of vertices is a valid path in the <a class="el" href="classDFA.html" title="It provides methods for adding edges, checking if a given sequence of vertices is valid,...">DFA</a> or not, by performing DFS from the first vertex. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">choices</td><td>Sequence of vertices </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a boolean value indicating whether the given sequence of choices is a valid sequence or not. </dd></dl>
+
 <p class="definition">Definition at line <a class="el" href="dfa_8cpp_source.html#l00058">58</a> of file <a class="el" href="dfa_8cpp_source.html">dfa.cpp</a>.</p>
 
 </div>
@@ -264,6 +311,8 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>number of vertices </p>
 
 <p class="definition">Definition at line <a class="el" href="dfa_8cpp_source.html#l00053">53</a> of file <a class="el" href="dfa_8cpp_source.html">dfa.cpp</a>.</p>
 

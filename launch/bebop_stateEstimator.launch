@@ -1,0 +1,8 @@
+<launch>
+    <rosparam command="load" file="$(find bebop2_controller_nodelet)/config/param.yaml"/>
+    <node pkg="bebop2_controller_nodelet" type="bebop2_stateEstimator_node" name="stateEstimator"/>
+    <include file="$(find bebop2_controller_nodelet)/launch/bebop_ekfLandmakrs.launch"/>
+    <include file="$(find bebop2_controller_nodelet)/launch/bebop_apriltag.launch"/>
+    <node pkg="rosbag" type="play"  name="rosbag_play" args="--clock /home/airlab/catkin_ws/bags/exp2.bag"/>
+<node pkg="rviz" type="rviz" name="tagView" args="-d  $(find bebop2_controller_nodelet)/config/tag.rviz" />
+</launch>

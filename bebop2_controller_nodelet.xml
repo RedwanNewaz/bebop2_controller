@@ -1,0 +1,12 @@
+<library path="lib/libbebop2_controller_nodelet">
+  <class name="bebop2_controller_nodelet/StateEstimator" type="bebop2_controller_nodelet::StateEstimator" base_class_type="nodelet::Nodelet">
+    <description>
+      A node to estimate bebop2 state from static apriltag landmarks
+    </description>
+  </class>
+  <class name="bebop2_controller_nodelet/DroneController" type="bebop2_controller_nodelet::DroneController" base_class_type="nodelet::Nodelet">
+    <description>
+      A node to control bebop2 drone
+    </description>
+  </class>
+</library>

@@ -1,0 +1,26 @@
+<launch>
+    <arg name="nodelet_manager" default="bebop2_controller_nodelet" />
+    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1  map odom  100"/>
+
+    <node pkg="nodelet" type="nodelet" name="ekf_se"  output="screen" clear_params="true"  args="load RobotLocalization/EkfNodelet $(arg nodelet_manager)" >
+        <rosparam command="load" file="$(find bebop2_controller_nodelet)/config/ekfLandmarks.yaml" />
+        <remap from="odometry/filtered" to="bebop/ekf_state"/>
+    </node>
+
+
+    <node pkg="nodelet" type="nodelet" name="ekf_tag2"  output="screen" clear_params="true"  args="load RobotLocalization/EkfNodelet $(arg nodelet_manager)" >
+        <rosparam command="load" file="$(find bebop2_controller_nodelet)/config/ekfLandmarks/ekf_tag2.yaml" />
+        <remap from="odometry/filtered" to="apriltag/tag2"/>
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="ekf_tag4"  output="screen" clear_params="true"  args="load RobotLocalization/EkfNodelet $(arg nodelet_manager)" >
+       <rosparam command="load" file="$(find bebop2_controller_nodelet)/config/ekfLandmarks/ekf_tag4.yaml" />
+       <remap from="odometry/filtered" to="apriltag/tag4"/>
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="ekf_tag7"  output="screen" clear_params="true"  args="load RobotLocalization/EkfNodelet $(arg nodelet_manager)" >
+      <rosparam command="load" file="$(find bebop2_controller_nodelet)/config/ekfLandmarks/ekf_tag7.yaml" />
+      <remap from="odometry/filtered" to="apriltag/tag7"/>
+    </node>
+
+</launch>

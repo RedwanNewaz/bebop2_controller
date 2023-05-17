@@ -1,0 +1,38 @@
+# make sure you define tag index before defining tag coordinates
+apriltags: [2, 4, 7]
+
+# the program will look for the tag index first to read each tag coordinate
+tag2: [4, 0.21, 0.95, 0, 0, 0, 1]
+tag7: [4.2, 1.74, 0.95, 0, 0, 0, 1]
+tag4: [4.3, 4.3, 0.95, 0, 0, 0, 1]
+
+
+#   linear.x  (+)      Translate forward
+#             (-)      Translate backward
+#   linear.y  (+)      Translate to left -> (NEGATIVE gain)
+#             (-)      Translate to right
+#   linear.z  (+)      Ascend
+#             (-)      Descend
+#   angular.z (+)      Rotate counter clockwise -> (NEGATIVE gain)
+#             (-)      Rotate clockwise
+
+# pid_gains: [
+#   0.50, 0.70, 0,
+#  -0.50, -0.70, 0,
+#   0.50, 0.70, 0,
+#   0.0, 0, 0
+# ]
+
+
+pid_gains: [
+  0.08, 0.20, 0,
+ -0.08, -0.20, 0,
+  0.08, 0.20, 0,
+  0.0, 0, 0
+]
+
+
+# set the control loop duration default 30 Hz -> 0.03
+dt: 0.01
+# set hovering region
+goal_thres: 0.345

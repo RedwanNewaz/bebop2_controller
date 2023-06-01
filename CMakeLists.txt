@@ -156,3 +156,4 @@ add_library(${PROJECT_NAME}
 
 add_subdirectory(AprilStateEstimator)
 add_subdirectory(controller)
+add_subdirectory(DummyStateEstimator)

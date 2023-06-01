@@ -1,7 +1,6 @@
 <launch>
     <include file="$(find bebop2_controller_nodelet)/launch/bebop_stateEstimator.launch"/>
     <node pkg="joy" type="joy_node" name="joystick" />
-    <group ns="bebop">
-        <node pkg="bebop2_controller_nodelet" type="bebop2_controller_node" name="bebop2_controller_node" output="screen"/>
-    </group>
+    <node pkg="bebop2_controller_nodelet" type="bebop2_controller_node" name="bebop2_controller_node" output="screen"/>
+
 </launch>

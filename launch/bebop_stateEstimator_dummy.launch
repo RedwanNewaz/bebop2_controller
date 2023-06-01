@@ -1,0 +1,10 @@
+<launch>
+    <rosparam command="load" file="$(find bebop2_controller_nodelet)/config/param.yaml"/>
+    <node pkg="bebop2_controller_nodelet" type="bebop2_dummy_stateEstimator_node" name="bebop2_dummy_stateEstimator"/>
+    <node pkg="joy" type="joy_node" name="joystick" />
+    <node pkg="bebop2_controller_nodelet" type="bebop2_controller_node" name="bebop2_controller_node" output="screen"/>
+
+<!--     <include file="$(find bebop2_controller_nodelet)/launch/bebop_apriltag.launch"/> -->
+
+    <node pkg="rviz" type="rviz" name="tagView" args="-d  $(find bebop2_controller_nodelet)/config/tag.rviz" />
+</launch>

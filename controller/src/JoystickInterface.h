@@ -16,7 +16,7 @@
 #include <algorithm>
 #include <numeric>
 #include <nav_msgs/Odometry.h>
-#include "../Core/StateViz.h"
+#include "../../Core/StateViz.h"
 
 namespace bebop2 {
     const float STEP_INCR = 0.02;

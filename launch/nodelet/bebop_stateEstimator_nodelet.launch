@@ -6,7 +6,7 @@
     <node pkg="nodelet" type="nodelet" name="bebop2_stateEstimator_nodelet" args="load bebop2_controller_nodelet/StateEstimator bebop2_controller_nodelet" output="screen"/>
     <include file="$(find bebop2_controller_nodelet)/launch/nodelet/bebop_ekfLandmakrs_nodelet.launch"/>
     <include file="$(find bebop2_controller_nodelet)/launch/nodelet/bebop_apriltag_nodelet.launch"/>
-
-    <node pkg="rosbag" type="play"  name="rosbag_play" args="--clock /home/airlab/catkin_ws/bags/exp2.bag"/>
     <node pkg="rviz" type="rviz" name="tagView" args="-d  $(find bebop2_controller_nodelet)/config/tag.rviz" />
+
 </launch>
+

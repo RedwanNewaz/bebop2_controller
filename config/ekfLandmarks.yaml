@@ -96,7 +96,7 @@ odom0_queue_size: 5
 # [ADVANCED] Large messages in ROS can exhibit strange behavior when they arrive at a high frequency. This is a result
 # of Nagle's algorithm. This option tells the ROS subscriber to use the tcpNoDelay option, which disables Nagle's
 # algorithm.
-odom0_nodelay: false
+odom0_nodelay: true
 
 # [ADVANCED] When measuring one pose variable with two sensors, a situation can arise in which both sensors under-
 # report their covariances. This can lead to the filter rapidly jumping back and forth between each measurement as they
@@ -132,7 +132,7 @@ odom1_config: [true,  true,  true,
                false, false, false,
                true,  true,  true]
 odom1_queue_size: 5
-odom1_nodelay: false
+odom1_nodelay: true
 odom1_differential: false
 odom1_relative: false
 odom1_pose_rejection_threshold: 2
@@ -145,11 +145,26 @@ odom2_config: [true,  true,  true,
                false, false, false,
                true,  true,  true]
 odom2_queue_size: 5
-odom2_nodelay: false
+odom2_nodelay: true
 odom2_differential: false
 odom2_relative: false
 odom2_pose_rejection_threshold: 2
 odom2_twist_rejection_threshold: 1
+
+
+# Further input parameter examples
+odom3: /bebop/odom
+odom3_config: [true, true, true,
+               false, false, false,
+               true, true, true,
+               false, false, true,
+               false, false, false]
+odom3_differential: true
+odom3_relative: true
+odom3_queue_size: 5
+odom3_pose_rejection_threshold: 2
+odom3_twist_rejection_threshold: 0.2
+odom3_nodelay: true
 
 
 

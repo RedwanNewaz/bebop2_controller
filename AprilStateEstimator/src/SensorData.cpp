@@ -12,7 +12,8 @@ namespace Alse
         std::string landmarkName = "tag" + std::to_string(id);
         pub_ = nh_.advertise<nav_msgs::Odometry>("apriltag/" + landmarkName, 10);
         sub_ = nh_.subscribe("odometry/filtered/"+ landmarkName, 10, &SensorData::ekf_subscriber, this);
-        ready_ = covReady_ = false;
+        odom_sub_ = nh_.subscribe("/bebop/odom", 10, &SensorData::odom_subscriber, this);
+        ready_ = covReady_ = odom_ready_ =false;
     }
 
     SensorDataPtr SensorData::getPtr(){
@@ -55,17 +56,31 @@ namespace Alse
 
     void SensorData::update_detection(const tf::Transform &tagTransform) {
         std::lock_guard<std::mutex> lk(mu_);
-
+//        detection_ = tagTransform.inverseTimes(landmark_);
         detection_ = landmark_.inverseTimes(tagTransform);
         // all coordinates goes negative after above transformation but proper orientation
         auto currOri = detection_.getOrigin() * - 1; // change negative to positive coords
         detection_.setOrigin(currOri);
+
+        //fuse odom information
+        if(odom_ready_)
+        {
+            auto ori = detection_.getOrigin();
+            double alt = odom_.getOrigin().z();
+            ROS_INFO_STREAM("[SensorData] altitude diff " << alt - ori.z());
+            ori.setZ(alt);
+            detection_.setOrigin(ori);
+            static tf::Quaternion initOri = odom_.getRotation();
+            detection_.setRotation(odom_.getRotation() - initOri);
+        }
+
+
         ready_ = true;
         updateTime_ = ros::Time::now();
 
-//        static tf::TransformBroadcaster br;
-//        std::string frame_name = "Map2Tag" + std::to_string(tagId_);
-//        br.sendTransform(tf::StampedTransform(detection_, ros::Time::now(), "map", frame_name));
+        static tf::TransformBroadcaster br;
+        std::string frame_name = "Map2Tag" + std::to_string(tagId_);
+        br.sendTransform(tf::StampedTransform(detection_, ros::Time::now(), "map", frame_name));
 
     }
 
@@ -102,5 +117,15 @@ namespace Alse
         ros::serialization::deserialize(istream, copied);
 
         return copied;
+    }
+
+    void SensorData::odom_subscriber(const nav_msgs::Odometry_<std::allocator<void>>::ConstPtr &msg) {
+        odom_ready_ = true;
+        auto p = msg->pose.pose.position;
+        auto q = msg->pose.pose.orientation;
+        tf::Vector3 ori(p.x, p.y, p.z);
+        tf::Quaternion rot(q.x, q.y, q.z, q.w);
+        odom_.setOrigin(ori);
+        odom_.setRotation(rot);
     }
 }

@@ -40,6 +40,7 @@ namespace Alse
 
     protected:
         void ekf_subscriber(const nav_msgs::Odometry::ConstPtr& msg);
+        void odom_subscriber(const nav_msgs::Odometry::ConstPtr& msg);
         nav_msgs::Odometry deepCopyOdometry(const nav_msgs::Odometry& original);
 
 
@@ -48,14 +49,16 @@ namespace Alse
         tf::Transform landmark_;
         tf::Transform detection_;
         bool ready_;
+        bool odom_ready_;
         bool covReady_;
         int tagId_;
         ros::Time updateTime_;
         ros::NodeHandle nh_;
         ros::Publisher pub_;
-        ros::Subscriber sub_;
+        ros::Subscriber sub_, odom_sub_;
         nav_msgs::Odometry msg_;
         std::mutex mu_;
+        tf::Transform odom_;
     };
 
 }

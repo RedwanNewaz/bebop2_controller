@@ -5,6 +5,7 @@
     <node pkg="nodelet" type="nodelet" name="ekf_se"  output="screen" clear_params="true"  args="load RobotLocalization/EkfNodelet $(arg nodelet_manager)" >
         <rosparam command="load" file="$(find bebop2_controller_nodelet)/config/ekfLandmarks.yaml" />
         <remap from="odometry/filtered" to="bebop/ekf_state"/>
+        <remap from="/bebop/cmd_vel" to="/cmd_vel"/>
     </node>
 
 

@@ -197,6 +197,19 @@ namespace bebop2
         std::vector<double>state{p.x, p.y, p.z, yaw};
         control_loop(state);
 
+        Eigen::MatrixXd xEst(3, 1);
+        xEst << p.x, p.y, p.z;
+
+        Eigen::MatrixXd PEst(6, 6);
+        for (int i = 0; i < 6; ++i) {
+            for (int j = 0; j < 6; ++j) {
+                int oneDindex = (i * 6) + j; // Indexes
+                PEst(i, j) = msg->pose.covariance[oneDindex];
+            }
+        }
+
+        viz_->plot_covariance_ellipse(xEst, PEst);
+
     }
 
 

@@ -9,6 +9,7 @@
 #include <visualization_msgs/Marker.h>
 #include <tf/transform_broadcaster.h>
 #include "airlib/utility/LoggerCSV.h"
+#include <Eigen/Dense>
 
 namespace bebop2 {
     enum MARKER_COLOR
@@ -47,6 +48,10 @@ namespace bebop2 {
         */ 
         void update(const tf::Transform& pose, const MARKER_COLOR& color);
 
+        void plot_covariance_ellipse(const Eigen::MatrixXd& xEst, const Eigen::MatrixXd& PEst);
+
+        Eigen::Matrix2d rot_mat_2d(double angle);
+
     private:
         /// ROS NodeHandle for dealing with various messages.
         ros::NodeHandle nh_;
@@ -54,6 +59,7 @@ namespace bebop2 {
         ros::Publisher pub_marker_;
         std::unique_ptr<LoggerCSV> logger_;
         const int LOGGER_FQ = 10; // Hz
+        std::vector<geometry_msgs::Point> landmarks_;
     protected:
         /**
         * @brief Receives the current position of the drone and uses that position to populate the point position and orientation of the marker messages.

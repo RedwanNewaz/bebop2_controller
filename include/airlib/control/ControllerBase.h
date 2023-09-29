@@ -27,7 +27,8 @@
 #include "airlib/control/ControlViz.h"
 
 #include "airlib/localization/StateObserver.h"
-
+#include <thread>
+#include <future>
 
 namespace bebop2
 {
@@ -56,6 +57,7 @@ namespace bebop2
         */ 
         explicit ControllerBase(StateObserverPtr mGetState, ros::NodeHandle& nh);
 
+        virtual ~ControllerBase();
 
     private:
         /// Array of four real numbers in which the first three numbers most commonly represented by x,y,z are vectors and the last number is w which represents the rotation of the robot about the vectors.
@@ -115,11 +117,14 @@ namespace bebop2
         */   
         void joystick_timer_callback(const ros::TimerEvent& event);
        /// @brief Responsible for making the drone hover at a certain position
-        void control_loop(const ros::TimerEvent& event);
+        void control_loop(const std::vector<double>& state);
         /// @brief Sets the position and rotation of the drone through the setpoints .
         /// @param state is used as an parameter to pass the setpoints.
         /// @return Returns the tf::Transform pose which is the new position and rotated angle of the robot.
         tf::Transform getStateVecToTransform(const std::vector<double>& state);
+
+        /// @brief control loop thread
+        std::thread m_stateThread;
 
     protected:
         /// @brief This function sets the linear positon of the drone to all 3 linear axes and to angular z-axis and publishes the message of the current position of the drone.

@@ -14,25 +14,69 @@ ApriltagLandmarksExtended::ApriltagLandmarksExtended(ros::NodeHandle& nh): nh_(n
     ros::param::get("/apriltags", tagIds);
     for(auto tagId : tagIds)
     {
-        std::string tag_name = "tag" + std::to_string(tagId);
-        std::vector<double> value;
-        ros::param::get("/" + tag_name, value);
-
-        tf::Transform tagTransform;
-        auto q = tf::Quaternion(value[3], value[4], value[5], value[6]);
-        tagTransform.setOrigin(tf::Vector3(value[0], value[1], value[2]));
-        tagTransform.setRotation(q);
-        landmarks_[tag_name] = tagTransform;
-        ROS_INFO("[ApriltagLandmarksExtended] tag = %d origin = (%lf %lf %lf) q = (%lf %lf %lf) ", tagId, value[0], value[1], value[2], q.x(), q.y(), q.z());
-
+        detections_[tagId] = std::make_shared<SensorData>(tagId);
+        m_pub_odoms[tagId] = nh_.advertise<nav_msgs::Odometry>("/apriltag/odom" + std::to_string(tagId), 10);
     }
 
     apriltagSub_ = nh_.subscribe("/tag_detections", 1, &ApriltagLandmarksExtended::apriltag_callback, this);
     ROS_INFO_STREAM("[ApriltagLandmarksExtended] initialized");
     filterCount_ = 0;
+    timer_ = nh_.createTimer(ros::Duration(0.01), &ApriltagLandmarksExtended::timerCallback, this); //. 100 Hz
+    sub_ = nh_.subscribe("/odometry/filtered", 10, &ApriltagLandmarksExtended::ekf_subscriber, this);
 }
 
+void ApriltagLandmarksExtended::ekf_subscriber(const nav_msgs::Odometry::ConstPtr& msg)
+{
+    const std::lock_guard<std::mutex> lock(mu_);
+    auto position = msg->pose.pose.position;
+    auto orientation = msg->pose.pose.orientation;
 
+    auto q = tf::Quaternion(orientation.x, orientation.y, orientation.z, orientation.w);
+    double roll, pitch, yaw;
+    tf::Matrix3x3 m(q);
+    m.getRPY(roll, pitch, yaw);
+    measurements_.clear();
+    measurements_.push_back(position.x);
+    measurements_.push_back(position.y);
+    measurements_.push_back(position.z);
+    measurements_.push_back(yaw);
+
+}
+
+void ApriltagLandmarksExtended::timerCallback(const ros::TimerEvent& event)
+{
+    for(auto it:detections_)
+    {
+        if(it.second->isAvailable())
+        {
+            auto msg = it.second->toOdomMsg();
+            m_pub_odoms[it.first].publish(msg);
+        }
+    }
+
+//
+//    tf::StampedTransform transform;
+//    bool isStateAvailable = false;
+//    try{
+//        listener_.lookupTransform("map", "ekf/base_link ",
+//                                 ros::Time(0), transform);
+//        isStateAvailable = true;
+//    }
+//    catch (tf::TransformException ex){
+////        ROS_ERROR("%s",ex.what());
+////        ros::Duration(1.0).sleep();
+//    }
+//
+//    if(isStateAvailable)
+//    {
+//        auto position = transform.getOrigin();
+//        auto q = transform.getRotation();
+//        double roll, pitch, yaw;
+//        tf::Matrix3x3 m(q);
+//        m.getRPY(roll, pitch, yaw);
+////        measurements_.push({position.x(), position.y(), position.z(), yaw});
+//    }
+}
 
 void
 ApriltagLandmarksExtended::apriltag_callback(const apriltag_ros::AprilTagDetectionArray::ConstPtr &msg) {
@@ -42,36 +86,26 @@ ApriltagLandmarksExtended::apriltag_callback(const apriltag_ros::AprilTagDetecti
 //    ROS_INFO_STREAM(*msg);
     for(auto detection: msg->detections)
     {
-        std::string tagName = "tag" + std::to_string(detection.id[0]);
+        int tagId = detection.id[0];
         auto pose = detection.pose.pose.pose;
         tf::Transform tagTransform;
-        tagTransform.setOrigin(tf::Vector3(pose.position.x, pose.position.y, pose.position.z));
-        tagTransform.setRotation(tf::Quaternion(pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w));
 
-        tf::Transform endEffector;
-        // convert camera to base_link which is a fixed coordinate and given as follows
-        endEffector.setOrigin(tf::Vector3(-0.09, 0, 0));
-        endEffector.setRotation(tf::Quaternion(-0.5, 0.5, 0.5, 0.5 ));
-//        tf::Transform baseLink = endEffector.inverseTimes(tagTransform);
-        tf::Transform baseLink = tagTransform.inverseTimes(endEffector);
-//        std::call_once(tagInits_[tagName], [&](){
-//
-//            landmarks_[tagName] = baseLink;
-//
-//            double roll, pitch, yaw;
-//            tf::Matrix3x3 m(baseLink.getRotation());
-//            m.getRPY(roll, pitch, yaw);
-//            auto position = baseLink.getOrigin();
-//            ROS_INFO("[ApriltagLandmarksExtended] init %s : xyz = (%lf, %lf, %lf) rpy = (%lf, %lf, %lf)",
-//                     tagName.c_str(), position.x(), position.y(), position.z(), roll, pitch, yaw);
-//
-//        });
-        // get relative pose with respect to initial position: invert one and multiply the other.
-//        auto newTransform = landmarks_[tagName].inverseTimes(tagTransform);
-        auto newTransform = baseLink.inverseTimes(landmarks_[tagName]);
-        auto position = newTransform.getOrigin();
-        double tagId = detection.id[0];
-        measurements_.push({position.x(), position.y(), position.z(), tagId});
+        auto q = tf::Quaternion(pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w);
+        double roll, pitch, yaw;
+        tf::Matrix3x3 m(q);
+        m.getRPY(roll, pitch, yaw);
+        q.setEuler(pitch, yaw, roll - M_PI);
+        tagTransform.setRotation(q);
+
+        // convert camera frame to camera base link frame
+        double x, y, z;
+        x = pose.position.z - 0.09; // bebop center point offset
+        y = pose.position.x;
+        z = pose.position.y;
+        auto ori = tf::Vector3(x, y, z);
+        tagTransform.setOrigin(ori);
+        detections_[tagId]->update_detection(tagTransform);
+//        measurements_.push({position.x(), position.y(), position.z(), tagId});
 
     }
 
@@ -79,9 +113,23 @@ ApriltagLandmarksExtended::apriltag_callback(const apriltag_ros::AprilTagDetecti
 
 
 void ApriltagLandmarksExtended::operator()(std::vector<double>& result){
-    result = measurements_.front();
-//    ROS_INFO_STREAM("[ApriltagLandmarksExtended] mes size" << measurements_.size() << " current tag = " << result[3]);
-    measurements_.pop();
+
+    if(result.empty() && !measurements_.empty())
+    {
+        std::copy(measurements_.begin(), measurements_.end(), std::back_inserter(result));
+
+    }
+    else if(!result.empty())
+    {
+        std::copy(measurements_.begin(), measurements_.end(), result.begin());
+
+    }
+
+    measurements_.clear();
+
+//    result = measurements_.front();
+////    ROS_INFO_STREAM("[ApriltagLandmarksExtended] mes size" << measurements_.size() << " current tag = " << result[3]);
+//    measurements_.pop();
 }
 
 bool ApriltagLandmarksExtended::empty() {

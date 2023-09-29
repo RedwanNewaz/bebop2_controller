@@ -1,9 +1,31 @@
 <launch>
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
-        <rosparam command="load" file="$(find bebop2_controller)/config/ekf.yaml" />
+<!--     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true"> -->
+<!--         <rosparam command="load" file="$(find bebop2_controller)/config/ekf.yaml" /> -->
 
-        <remap from="odometry/filtered" to="/bebop/odometry/filtered"/>
-        <remap from="bebop/cmd_vel" to="/cmd_vel"/>
+<!--         <remap from="odometry/filtered" to="/bebop/odometry/filtered"/> -->
+<!--         <remap from="bebop/cmd_vel" to="/cmd_vel"/> -->
+<!--     </node> -->
+<!--     <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1  mapDummy odomDummy  100"/> -->
+
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+        <rosparam command="load" file="$(find bebop2_controller)/config/ekfLandmarks.yaml" />
     </node>
-    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1  mapDummy odomDummy  100"/>
+    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1  map odom  100"/>
+
+
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_tag2" clear_params="true">
+        <rosparam command="load" file="$(find bebop2_controller)/config/ekfLandmarks/ekf_tag2.yaml" />
+        <remap from="odometry/filtered" to="/apriltag/tag2"/>
+    </node>
+
+   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_tag4" clear_params="true">
+       <rosparam command="load" file="$(find bebop2_controller)/config/ekfLandmarks/ekf_tag4.yaml" />
+       <remap from="odometry/filtered" to="/apriltag/tag4"/>
+   </node>
+
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_tag7" clear_params="true">
+      <rosparam command="load" file="$(find bebop2_controller)/config/ekfLandmarks/ekf_tag7.yaml" />
+      <remap from="odometry/filtered" to="/apriltag/tag7"/>
+  </node>
+
 </launch>

@@ -1,9 +1,20 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 #include <math.h>
+#include <tf/transform_datatypes.h>
 
 //const int STATE_DIM = 10;
+
+inline std::vector<double> getEulerFromQuat(const tf::Quaternion& q)
+{
+    tf::Matrix3x3 m(q);
+    double roll, pitch, yaw;
+    m.getRPY(roll, pitch, yaw);
+    return std::vector<double>{roll, pitch, yaw};
+}
+
 
 /// @brief Structure defining the state of the drone.
 struct RobotState

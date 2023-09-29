@@ -14,15 +14,19 @@ namespace bebop2 {
     }
 
 
-    void StateObserver::operator()(std::vector<double>& result) {
+    void StateObserver::getState(std::promise<std::vector<double>>& promise ) {
 
-        update_state();
-        if (result.empty())
-            std::copy(m_state.begin(), m_state.end(),std::back_inserter(result));
-        else
-            std::copy(m_state.begin(), m_state.begin() + result.size(),result.begin());
+        while (m_state.empty())
+        {
+            update_state();
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+
+        std::vector<double> result;
+        std::copy(m_state.begin(), m_state.end(),std::back_inserter(result));
+        m_state.clear();
+        promise.set_value(result);
     }
-
 
     void StateObserver::update_state() {
         while (!m_sensor->empty())

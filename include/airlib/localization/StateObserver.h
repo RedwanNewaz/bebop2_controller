@@ -9,7 +9,8 @@
 #include <memory>
 #include "filters.h"
 #include "sensors.h"
-
+#include <future>
+#include <thread>
 
 namespace bebop2 {
     class StateObserver;
@@ -28,8 +29,8 @@ namespace bebop2 {
         explicit StateObserver(FilterPtr filter, SensorPtr sensor);
     
         /// @brief It updates and copies the state of the drone and adds the copied state into the parameter result.
-        /// @param result 
-        void operator()(std::vector<double>& result);
+        /// @param result
+        void getState(std::promise<std::vector<double>>& promise);
 
 
 

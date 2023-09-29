@@ -10,7 +10,7 @@ namespace bebop2
 {
     
     ControllerBase::ControllerBase(StateObserverPtr  mGetState, ros::NodeHandle& nh) :
-    m_get_state(mGetState), m_nh(nh) {
+    m_get_state(mGetState), m_nh(nh), m_stateThread() {
 
         ros::param::get("~dt", dt_);
         ros::param::get("~goal_thres", m_goal_thres);
@@ -20,11 +20,34 @@ namespace bebop2
         drone_land_pub_ = m_nh.advertise<std_msgs::Empty>("land", 1);
         cmd_vel_pub_ = m_nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
         joystick_timer_ = m_nh.createTimer(ros::Duration(0.05), &bebop2::ControllerBase::joystick_timer_callback, this);
-        controller_timer_ = m_nh.createTimer(ros::Duration(dt_), &bebop2::ControllerBase::control_loop, this);
+//        controller_timer_ = m_nh.createTimer(ros::Duration(dt_), &bebop2::ControllerBase::control_loop, this);
         viz_ = std::make_unique<ControlViz>(m_nh);
         m_buttonState = ENGAGE;
+
+        m_stateThread = std::thread ([&]{
+            try {
+                // code that may throw
+                while(ros::ok())
+                {
+                    std::promise<std::vector<double>> promise;
+                    m_get_state->getState(std::ref(promise));
+                    auto xEst = promise.get_future();
+                    auto state = xEst.get();
+                    ROS_INFO("[State] (%lf, %lf, %lf, %lf)", state[0], state[1], state[2], state[3]);
+                    control_loop(state);
+                }
+            } catch(...) {
+
+            }
+        });
+
         ROS_INFO("[ControllerBase] Initialization complete ...");
 
+    }
+    ControllerBase::~ControllerBase()
+    {
+        if(m_stateThread.joinable())
+            m_stateThread.join();
     }
 
     
@@ -107,15 +130,8 @@ namespace bebop2
 
 
     
-    void ControllerBase::control_loop(const ros::TimerEvent &event) {
-        std::vector<double> state;
-        m_get_state->operator()(state);
-//        ROS_INFO_STREAM("[ControllerBase] state size" << state.size());
-        if(state.empty())
-        {
-            ROS_WARN("[ControllerBase]: State vector is Empty");
-            return;
-        }
+    void ControllerBase::control_loop(const std::vector<double>& state) {
+
 
 //        ROS_INFO_STREAM("[ControllerBase] state size" << state.size());
 

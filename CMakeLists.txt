@@ -82,9 +82,14 @@ target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES} -pthread)
 ## Declare a C++ executables
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(bebop2_controller_node src/bebop2_controller_node.cpp )
+add_executable(bebop2_controller_node src/bebop2_controller_node.cpp
+        )
+
+add_executable(bebop2_state_estimator_lpf
+        src/bebop2_state_estimator_lpf.cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(bebop2_controller_node airlibBebop2 -pthread)
+target_link_libraries(bebop2_state_estimator_lpf airlibBebop2 -pthread)
 
 option(BUILD_TESTS  "build unittest executables" OFF )
 

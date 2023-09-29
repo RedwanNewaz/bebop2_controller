@@ -16,6 +16,7 @@ inline std::vector<double> getEulerFromQuat(const tf::Quaternion& q)
 }
 
 
+
 /// @brief Structure defining the state of the drone.
 struct RobotState
 {

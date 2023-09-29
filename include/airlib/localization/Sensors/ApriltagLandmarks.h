@@ -30,6 +30,7 @@
 class ApriltagLandmarks : public SensorBase{
 
 public:
+    using MEAS_VEC = std::vector<std::pair<std::string, tf::Transform>>;
     ApriltagLandmarks(ros::NodeHandle& nh);
     void operator()(std::vector<double>& result);
     bool empty();
@@ -62,6 +63,12 @@ protected:
     /// @param tagName name of the tag 
     /// @return global coordinate [x, y, z]
     FieldLocation transformToGlobalFrame(const tf::Transform& tagTransform, const std::string& tagName);
+
+    /// @brief calculate heading angle based on the nearest landmark
+    double calc_heading_mindist(const MEAS_VEC& z_vec);
+
+    /// @brief calculate heading angle by averaging all the detected heading angles
+    double calc_heading_avg(const MEAS_VEC& z_vec);
 
 
 };

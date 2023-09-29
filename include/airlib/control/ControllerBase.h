@@ -27,8 +27,10 @@
 #include "airlib/control/ControlViz.h"
 
 #include "airlib/localization/StateObserver.h"
+#include <nav_msgs/Odometry.h>
 #include <thread>
 #include <future>
+
 
 namespace bebop2
 {
@@ -101,7 +103,12 @@ namespace bebop2
         /// Sample time
         double dt_; 
         /// Goal region threshold
-        double m_goal_thres; 
+        double m_goal_thres;
+
+        ///State callback
+        ros::Subscriber state_sub_;
+        void state_callback(const nav_msgs::Odometry::ConstPtr& msg);
+
 
 
 
@@ -123,8 +130,6 @@ namespace bebop2
         /// @return Returns the tf::Transform pose which is the new position and rotated angle of the robot.
         tf::Transform getStateVecToTransform(const std::vector<double>& state);
 
-        /// @brief control loop thread
-        std::thread m_stateThread;
 
     protected:
         /// @brief This function sets the linear positon of the drone to all 3 linear axes and to angular z-axis and publishes the message of the current position of the drone.

@@ -40,6 +40,13 @@ void
 ApriltagLandmarks::apriltag_callback(const apriltag_ros::AprilTagDetectionArray::ConstPtr &msg) {
 
 //    ROS_INFO_STREAM(*msg);
+    tf::Transform camBaseLink;
+    // convert camera to base_link which is a fixed coordinate and given as follows
+    camBaseLink.setOrigin(tf::Vector3(-0.09, 0, 0));
+    camBaseLink.setRotation(tf::Quaternion(0.5, -0.5, 0.5, -0.5));
+
+
+    MEAS_VEC z_vec;
 
     for(auto detection: msg->detections)
     {
@@ -50,31 +57,34 @@ ApriltagLandmarks::apriltag_callback(const apriltag_ros::AprilTagDetectionArray:
         tagTransform.setRotation(tf::Quaternion(pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w));
 
 
-        tf::Transform camBaseLink;
-        // convert camera to base_link which is a fixed coordinate and given as follows
-        camBaseLink.setOrigin(tf::Vector3(-0.09, 0, 0));
-        camBaseLink.setRotation(tf::Quaternion(0.5, -0.5, 0.5, -0.5));
         tf::Transform baseLink = camBaseLink * tagTransform;
-
         // compute heading angle
-        tf::Matrix3x3 m(baseLink.getRotation());
-        double roll, pitch, yaw;
-        m.getRPY(roll, pitch, yaw);
+        auto euler = getEulerFromQuat(baseLink.getRotation());
         tf::Quaternion q;
-        q.setRPY(0, 0, -pitch + M_PI_2);
+        q.setRPY(0, 0, -euler[2]);
         baseLink.setRotation(q);
-
-        tf::Transform mapToRobot(baseLink);
-        auto coord = transformToGlobalFrame(mapToRobot, tagName);
-        mapToRobot.setOrigin(tf::Vector3(coord.x, coord.y, coord.z));
-
-        auto ori = getEulerFromQuat(mapToRobot.getRotation());
-        auto pos = mapToRobot.getOrigin();
-        auto z_i = std::vector<double>{pos.x(), pos.y(), pos.z(), ori[2]};
-        measurements_.push(z_i);
+        z_vec.emplace_back(tagName, baseLink);
 
 //        static tf::TransformBroadcaster br;
 //        br.sendTransform(tf::StampedTransform(mapToRobot, ros::Time::now(), "map", "map_" + tagName));
+    }
+
+    double heading = calc_heading_mindist(z_vec);
+
+    for(const auto&z :z_vec)
+    {
+        tf::Transform mapToRobot(z.second);
+        auto coord = transformToGlobalFrame(mapToRobot, z.first);
+        mapToRobot.setOrigin(tf::Vector3(coord.x, coord.y, coord.z));
+
+        auto q = mapToRobot.getRotation();
+//        double theta = heading / (double) z_vec.size();
+        double theta = heading;
+        q.setRPY(0, 0, theta);
+        auto ori = getEulerFromQuat(q);
+        auto pos = mapToRobot.getOrigin();
+        auto z_i = std::vector<double>{pos.x(), pos.y(), pos.z(), ori[2]};
+        measurements_.push(z_i);
     }
 
 
@@ -128,4 +138,35 @@ void ApriltagLandmarks::operator()(std::vector<double>& result){
 
 bool ApriltagLandmarks::empty() {
     return measurements_.empty();
+}
+
+double ApriltagLandmarks::calc_heading_mindist(const ApriltagLandmarks::MEAS_VEC &z_vec) {
+    double heading = 0.0;
+    const tf2::Vector3 origin(0, 0, 0);
+    double maxDist = std::numeric_limits<double>::max();
+    for(const auto&z :z_vec)
+    {
+
+        auto node = z.second.getOrigin();
+        const tf2::Vector3 tagOrigin(node.x(),node.y(), node.z());
+        double dist = tf2::tf2Distance(origin, tagOrigin);
+        if(dist < maxDist)
+        {
+            maxDist = dist;
+            auto euler = getEulerFromQuat(z.second.getRotation());
+            heading = euler[2];
+        }
+
+    }
+    return heading;
+}
+
+double ApriltagLandmarks::calc_heading_avg(const ApriltagLandmarks::MEAS_VEC &z_vec) {
+    double heading = 0.0;
+    for(const auto&z :z_vec)
+    {
+        auto euler = getEulerFromQuat(z.second.getRotation());
+        heading += euler[2];
+    }
+    return heading / (double) z_vec.size();
 }

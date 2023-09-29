@@ -10,7 +10,7 @@ namespace bebop2
 {
     
     ControllerBase::ControllerBase(StateObserverPtr  mGetState, ros::NodeHandle& nh) :
-    m_get_state(mGetState), m_nh(nh), m_stateThread() {
+    m_get_state(mGetState), m_nh(nh){
 
         ros::param::get("~dt", dt_);
         ros::param::get("~goal_thres", m_goal_thres);
@@ -21,33 +21,17 @@ namespace bebop2
         cmd_vel_pub_ = m_nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
         joystick_timer_ = m_nh.createTimer(ros::Duration(0.05), &bebop2::ControllerBase::joystick_timer_callback, this);
 //        controller_timer_ = m_nh.createTimer(ros::Duration(dt_), &bebop2::ControllerBase::control_loop, this);
+        state_sub_ = m_nh.subscribe("/apriltag/state", 10, &ControllerBase::state_callback, this);
         viz_ = std::make_unique<ControlViz>(m_nh);
         m_buttonState = ENGAGE;
 
-        m_stateThread = std::thread ([&]{
-            try {
-                // code that may throw
-                while(ros::ok())
-                {
-                    std::promise<std::vector<double>> promise;
-                    m_get_state->getState(std::ref(promise));
-                    auto xEst = promise.get_future();
-                    auto state = xEst.get();
-                    ROS_INFO("[State] (%lf, %lf, %lf, %lf)", state[0], state[1], state[2], state[3]);
-                    control_loop(state);
-                }
-            } catch(...) {
-
-            }
-        });
 
         ROS_INFO("[ControllerBase] Initialization complete ...");
 
     }
     ControllerBase::~ControllerBase()
     {
-        if(m_stateThread.joinable())
-            m_stateThread.join();
+
     }
 
     
@@ -199,6 +183,20 @@ namespace bebop2
         pose.setOrigin(tf::Vector3(state[0], state[1], state[2]));
         pose.setRotation(q);
         return pose;
+    }
+
+    void ControllerBase::state_callback(const nav_msgs::Odometry::ConstPtr &msg) {
+        auto p = msg->pose.pose.position;
+        auto q = msg->pose.pose.orientation;
+        tf::Matrix3x3 m(tf::Quaternion(q.x, q.y, q.z, q.w));
+        double roll, pitch, yaw;
+        m.getRPY(roll,pitch, yaw);
+        yaw = yaw + M_PI_2;
+        yaw = fmod(yaw + M_PI, 2 * M_PI) - M_PI;
+
+        std::vector<double>state{p.x, p.y, p.z, yaw};
+        control_loop(state);
+
     }
 
 

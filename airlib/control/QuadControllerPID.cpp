@@ -8,7 +8,7 @@ namespace bebop2
 {
     QuadControllerPID::QuadControllerPID(bebop2::StateObserverPtr mGetState, ros::NodeHandle &nh): ControllerBase(mGetState, nh) {
         std::vector<double> gains;
-        ros::param::get("~pid_gains", gains);
+        ros::param::get("/pid_gains", gains);
         assert(gains.size() == NUM_GAINS * NUM_CONTROLLER && "inaccurate PID gains");
         set_gains(gains, _quadController);
     }

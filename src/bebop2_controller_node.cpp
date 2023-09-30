@@ -6,11 +6,8 @@
 //
 #include "ros/ros.h"
 #include <iostream>
-#include "airlib/control/QuadControllerPID.h"
-#include "airlib/localization/Sensors/ApriltagLandmarksExtended.h"
-#include "airlib/localization/Filters/RobotLocalization.h"
-#include <future>
-#include <thread>
+#include "airlib/control/controller.h"
+
 
 int main(int argc, char* argv[])
 {
@@ -18,7 +15,13 @@ int main(int argc, char* argv[])
     ROS_INFO("airlib-bebop2 INITIALIZED!");
     ros::NodeHandle nh;
 
-    bebop2::QuadControllerPID controller(nh);
+    std::vector<double> gains;
+    double dt;
+    ros::param::get("/pid_gains", gains);
+    ros::param::get("/dt", dt);
+
+    auto controller = std::make_shared<controller::quad_pids>(gains, dt);
+    bebop2::ControllerInterface interface(nh, controller);
 
     ros::AsyncSpinner spinner(4);
     spinner.start();

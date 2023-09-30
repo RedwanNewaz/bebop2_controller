@@ -25,11 +25,9 @@
 #include <functional>
 #include <algorithm>
 #include "airlib/control/ControlViz.h"
-
-#include "airlib/localization/StateObserver.h"
+#include "airlib/control/ControllerBase.h"
 #include <nav_msgs/Odometry.h>
-#include <thread>
-#include <future>
+
 
 
 namespace bebop2
@@ -57,7 +55,7 @@ namespace bebop2
          * @param mGetState Obtains the current state of the robot 
          * @param nh Used to create publishers and subscribes. For eg: The ControllerInterface constructor publishes messages during takeoff and landing with the help of the **ros::NodeHandle** aka nh parameter.
         */ 
-        explicit ControllerInterface(ros::NodeHandle& nh);
+        explicit ControllerInterface(ros::NodeHandle& nh, ControllerPtr controller);
 
         virtual ~ControllerInterface();
 
@@ -96,8 +94,6 @@ namespace bebop2
             CONTROL 
         }m_buttonState;
 
-        /// This attribute gives the state of the robot.
-        StateObserverPtr m_get_state;
 
         // controller param
         /// Sample time
@@ -130,7 +126,7 @@ namespace bebop2
         /// @return Returns the tf::Transform pose which is the new position and rotated angle of the robot.
         tf::Transform getStateVecToTransform(const std::vector<double>& state);
 
-
+        ControllerPtr drone_controller_;
     protected:
         /// @brief This function sets the linear positon of the drone to all 3 linear axes and to angular z-axis and publishes the message of the current position of the drone.
         /// @param U is array of commands of size 4 which sets the above mentioned position of the drone.
@@ -140,7 +136,6 @@ namespace bebop2
         /// @param setPoints is an array of vectors representing the commanded position.
         /// @return Errors between the current and commanded position of the robot.
         double goal_distance(const std::vector<double>& X, const std::vector<double>& setPoints);
-        virtual void compute_control(const std::vector<double>& X, const std::vector<double>& setPoints, std::vector<double>& control) = 0;
 
  };
 }

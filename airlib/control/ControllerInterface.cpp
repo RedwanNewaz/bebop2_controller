@@ -9,8 +9,8 @@
 namespace bebop2
 {
     
-    ControllerInterface::ControllerInterface(ros::NodeHandle& nh) :
-    m_nh(nh){
+    ControllerInterface::ControllerInterface(ros::NodeHandle& nh, ControllerPtr controller) :
+    m_nh(nh), drone_controller_(controller){
 
         ros::param::get("/dt", dt_);
         ros::param::get("/goal_thres", m_goal_thres);
@@ -133,8 +133,8 @@ namespace bebop2
             if(goal_distance(state, setPoints_) > m_goal_thres)
             {
                 // actively control position
-                std::vector<double>U(NUM_CONTROLS);
-                compute_control(state, setPoints_, U);
+                std::vector<double>U;
+                drone_controller_->compute_control(state, setPoints_, U);
                 ROS_INFO("[PositionController] vx = %lf, vy = %lf, vz = %lf", U[0], U[1], U[2]);
                 publish_cmd_vel(U);
             }

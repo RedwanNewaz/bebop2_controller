@@ -5,13 +5,14 @@
 #ifndef BEBOP2_CONTROLLER_QUAD_PIDS_H
 #define BEBOP2_CONTROLLER_QUAD_PIDS_H
 
+#include "../ControllerBase.h"
 #include "airlib/control/pid/PID.h"
 #include <Eigen/Dense>
 #include <vector>
 
 namespace controller{
     /// @brief Responsible to find the error values every second whenever the position of the quadrators of the drone is updated.
-    class quad_pids{
+    class quad_pids: public ControllerBase{
     public:
         /** @brief The QuadControllerPID constructor initializes a vector of type double that is responsible for populating the PID Gains, maximum and minimum threshold values.
         *   @param mGetState This parameter givs the current state of the robot.
@@ -24,7 +25,7 @@ namespace controller{
         /// @param setPoints is the desired goal position of the drone.
         /// @param control is the actively control position.
         void compute_control(const std::vector<double> &X, const std::vector<double> &setPoints,
-                             std::vector<double> &control);
+                             std::vector<double> &control) override;
 
     private:
         /// @brief Sets all the proportional, integral, and derivative constants along with the maximum and minimum output values.

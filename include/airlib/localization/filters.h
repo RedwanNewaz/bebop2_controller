@@ -8,4 +8,5 @@
 #include "airlib/localization/Filters/ComplementaryFilter.h"
 #include "airlib/localization/Filters/ExtendedKalmanFilter.h"
 #include "airlib/localization/Filters/particle_filter.h"
+#include "StateObserver.h"
 #endif //airlib_FILTERS_H

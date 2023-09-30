@@ -50,9 +50,6 @@ set(SOURCE_FILES
         airlib/control/ControlViz.cpp
         airlib/control/PID/PID.cpp
         airlib/control/ControllerInterface.cpp
-        airlib/control/QuadControllerPID.cpp
-        airlib/localization/Filters/RobotLocalization.cpp
-        airlib/localization/Sensors/ApriltagLandmarksExtended.cpp
         airlib/control/PID/quad_pids.cpp
         )
 
@@ -61,7 +58,6 @@ set(HEADER_FILES
         include/airlib/control/ControlViz.h
         include/airlib/control/ControllerInterface.h
         include/airlib/control/pid/PID.h
-        include/airlib/control/QuadControllerPID.h
 
         include/airlib/localization/StateObserver.h
         include/airlib/localization/Filters/ComplementaryFilter.h
@@ -73,8 +69,6 @@ set(HEADER_FILES
         include/airlib/localization/Sensors/DummyState.h
 
         include/airlib/utility/LoggerCSV.h
-        include/airlib/localization/Sensors/ApriltagLandmarksExtended.h
-        include/airlib/localization/Filters/RobotLocalization.h
 
         include/airlib/control/pid/quad_pids.h
         include/airlib/control/controller.h
@@ -82,13 +76,14 @@ set(HEADER_FILES
         )
 
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES}
+        include/airlib/control/ControllerBase.h
 
-   )
+)
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES} -pthread)
 ## Declare a C++ executables
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(bebop2_controller_node src/bebop2_controller_node.cpp
+add_executable(bebop2_controller_node src/bebop2_controller_node.cpp ${SOURCE_FILES} ${HEADER_FILES}
         )
 
 add_executable(bebop2_state_estimator_lpf

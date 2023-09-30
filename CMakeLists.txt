@@ -40,6 +40,7 @@ include_directories(
  include
   ${EIGEN3_INCLUDE_DIR}
   ${catkin_INCLUDE_DIRS}
+  include/traj
 )
 
 set(SOURCE_FILES
@@ -72,6 +73,12 @@ set(HEADER_FILES
 
         include/airlib/control/pid/quad_pids.h
         include/airlib/control/controller.h
+
+        include/traj/root_finder.hpp
+        include/traj/traj_min_jerk.hpp
+        include/traj/traj_min_snap.hpp
+        include/traj/waypoint_trajectory.h
+
 
         )
 

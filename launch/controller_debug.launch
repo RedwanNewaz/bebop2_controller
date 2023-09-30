@@ -7,7 +7,7 @@
     <remap from="odometry/filtered" to="/apriltag/state/filtered"/>
   </node>
 
-
+  <node pkg="tf" type="static_transform_publisher" name="laser" args="0 0 0 0 0 0 1  map odom  100"/>
 
   <!-- Start state estimator node -->
   <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
@@ -23,7 +23,5 @@
     <remap from="/apriltag/state" to="/apriltag/state/filtered"/>
   </node>
 
-
-  <node name="rosbag" pkg="rosbag" type="play" args="--clock $(arg BAG_ROOT)/$(arg BAG_FILE)"/>
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bebop2_controller)/config/tag.rviz"/>
 </launch>

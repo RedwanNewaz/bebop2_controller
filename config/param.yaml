@@ -32,3 +32,7 @@ pid_gains: [
 dt: 0.03
 # set hovering region
 goal_thres: 0.25
+
+# trajectory param
+max_vel: 2
+max_acc: 3

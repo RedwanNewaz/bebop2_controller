@@ -19,9 +19,12 @@ namespace bebop2 {
         _Ki = Ki;
     }
 
-    double PID::calculate(double setpoint, double pv) {
+    double PID::calculate(double setpoint, double pv, bool normalized) {
         // Calculate error
         double error = setpoint - pv;
+
+        if(normalized)
+            error = fmod((error + M_PI) , (2 * M_PI)) - M_PI ; //# Normalize between -π and π
 
         // Proportional term
         double Pout = _Kp * error;

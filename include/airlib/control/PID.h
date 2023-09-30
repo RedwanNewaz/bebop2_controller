@@ -6,7 +6,7 @@
 #define BEBOP2_CONTROLLER_PID_H
 #define NUM_CONTROLLER  4
 #define NUM_GAINS 3
-
+#include <cmath>
 namespace bebop2 {
     /// @brief Calculates an error value as the difference between desired output and the current output and applies a correction based on proportional, integral and derivative terms(denoted by P, I, D respectively).
     class PID {
@@ -30,7 +30,7 @@ namespace bebop2 {
         *          - Kd = Derivative Constant
         *          - Ki = Intergration Constant
         */      
-        double calculate( double setpoint, double pv );
+        double calculate( double setpoint, double pv, bool normalized = false );
 
 
 

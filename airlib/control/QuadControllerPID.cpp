@@ -28,7 +28,10 @@ namespace bebop2
         std::lock_guard<std::mutex> lk(ControllerBase::m_mu);
         for (int i = 0; i < NUM_CONTROLLER; ++i) {
             //        ROS_INFO("[PositionController]: control axis = %d setpoint = %lf X = %lf", i, setPoints[i], X[i] );
-            control[i] = _quadController[i].calculate(setPoints[i], X[i]);
+            bool normalized = (i == NUM_CONTROLLER - 1);
+            control[i] = _quadController[i].calculate(setPoints[i], X[i], normalized);
+            //yaw_error = (yaw_error + np.pi) % (2 * np.pi) - np.pi  # Normalize between -π and π
+
         }
 
     }

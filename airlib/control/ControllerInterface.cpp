@@ -135,7 +135,7 @@ namespace bebop2
                 // actively control position
                 std::vector<double>U;
                 drone_controller_->compute_control(state, setPoints_, U);
-                ROS_INFO("[PositionController] vx = %lf, vy = %lf, vz = %lf", U[0], U[1], U[2]);
+//                ROS_INFO("[PositionController] vx = %lf, vy = %lf, vz = %lf, wz = %lf", U[0], U[1], U[2], U[3]);
                 publish_cmd_vel(U);
             }
 
@@ -144,6 +144,8 @@ namespace bebop2
         // show drone
         auto transform = getStateVecToTransform(state);
         viz_->setDrone(transform);
+
+
 
     }
 
@@ -209,6 +211,12 @@ namespace bebop2
 
         viz_->plot_covariance_ellipse(xEst, PEst);
 
+    }
+
+    void ControllerInterface::set_goal_state(const std::vector<double> &Xg) {
+        m_buttonState = CONTROL;
+        setPoints_.clear();
+        std::copy(Xg.begin(), Xg.end(), std::back_inserter(setPoints_));
     }
 
 

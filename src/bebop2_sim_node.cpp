@@ -12,6 +12,24 @@
 #include "airlib/control/controller.h"
 
 
+const double DT = 0.1; // Define your time step value here
+
+void calcInput(std::vector<double> &x, std::vector<double> &y) {
+    // Define a parameter t
+    int numPoints = 200;
+    double xScale = 3.5;
+    double yScale = 2.5;
+
+    for (int i = 0; i < numPoints; ++i) {
+        double t = 2 * M_PI * i / numPoints;
+        double xx = xScale + xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
+        double yy = yScale + yScale * sin(t); // You can adjust the vertical offset (+1) for position
+        x.push_back(xx);
+        y.push_back(yy);
+    }
+}
+
+
 int main(int argc, char* argv[])
 {
     ros::init(argc, argv, "airlib_bebop2");
@@ -43,6 +61,12 @@ int main(int argc, char* argv[])
 
     ros::AsyncSpinner spinner(4);
     spinner.start();
+    std::vector<double> wp_x, wp_y;
+    calcInput(wp_x, wp_y);
+    std::vector<double>x0{wp_x[0], wp_y[1], 1.0, 0.0};
+    stateSensor->set(x0);
+
+
 
     std::thread stateThread = std::thread ([&]{
         try {
@@ -53,7 +77,7 @@ int main(int argc, char* argv[])
                 stateObserver->getState(std::ref(promise));
                 auto xEst = promise.get_future();
                 auto state = xEst.get();
-                ROS_INFO("[State] (%lf, %lf, %lf, %lf)", state[0], state[1], state[2], state[3]);
+//                ROS_INFO("[State] (%lf, %lf, %lf, %lf)", state[0], state[1], state[2], state[3]);
 
                 nav_msgs::Odometry odom;
                 odom.header.stamp = ros::Time::now();
@@ -77,6 +101,14 @@ int main(int argc, char* argv[])
 
         }
     });
+
+
+    for (int i = 0; i < wp_x.size(); ++i) {
+        ROS_INFO("[WP %d] (%lf, %lf)", i, wp_x[i], wp_y[i]);
+        std::vector<double>x{wp_x[i], wp_y[i], 1.0, M_PI_2};
+        interface.set_goal_state(x);
+        std::this_thread::sleep_for(200ms);
+    }
 
     ros::waitForShutdown();
 

@@ -128,7 +128,7 @@ namespace bebop2 {
 
     void ControlViz::setDrone(const tf::Transform &pose) {
 
-        visualization_msgs::Marker msg;
+        visualization_msgs::Marker msg, traj_msg;
         set_marker_from_pose(pose, msg);
         msg.ns = "drone";
         msg.type = visualization_msgs::Marker::MESH_RESOURCE;
@@ -141,6 +141,19 @@ namespace bebop2 {
         msg.id = 101;
 
         pub_marker_.publish(msg);
+
+        traj_.emplace_back(msg.pose.position);
+        std::copy(traj_.begin(), traj_.end(), std::back_inserter(traj_msg.points));
+
+        traj_msg.header.frame_id = "map";
+        traj_msg.ns = "traj";
+        traj_msg.header.stamp = ros::Time::now();
+        traj_msg.color.a = traj_msg.color.g = traj_msg.color.b = 1.0;
+        traj_msg.type = visualization_msgs::Marker::POINTS;
+        traj_msg.scale.x = traj_msg.scale.y = traj_msg.scale.z = 0.05;
+        traj_msg.id = 102;
+        pub_marker_.publish(traj_msg);
+
 
     }
 

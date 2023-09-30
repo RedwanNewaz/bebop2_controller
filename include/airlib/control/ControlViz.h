@@ -59,7 +59,7 @@ namespace bebop2 {
         ros::Publisher pub_marker_;
         std::unique_ptr<LoggerCSV> logger_;
         const int LOGGER_FQ = 10; // Hz
-        std::vector<geometry_msgs::Point> landmarks_;
+        std::vector<geometry_msgs::Point> landmarks_, traj_;
     protected:
         /**
         * @brief Receives the current position of the drone and uses that position to populate the point position and orientation of the marker messages.

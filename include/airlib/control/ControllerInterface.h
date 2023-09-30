@@ -59,6 +59,8 @@ namespace bebop2
 
         virtual ~ControllerInterface();
 
+        void set_goal_state(const std::vector<double>& Xg);
+
     private:
         /// Array of four real numbers in which the first three numbers most commonly represented by x,y,z are vectors and the last number is w which represents the rotation of the robot about the vectors.
         std::vector<float>axes_values_;

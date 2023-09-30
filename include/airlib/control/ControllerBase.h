@@ -57,7 +57,7 @@ namespace bebop2
          * @param mGetState Obtains the current state of the robot 
          * @param nh Used to create publishers and subscribes. For eg: The ControllerBase constructor publishes messages during takeoff and landing with the help of the **ros::NodeHandle** aka nh parameter. 
         */ 
-        explicit ControllerBase(StateObserverPtr mGetState, ros::NodeHandle& nh);
+        explicit ControllerBase(ros::NodeHandle& nh);
 
         virtual ~ControllerBase();
 

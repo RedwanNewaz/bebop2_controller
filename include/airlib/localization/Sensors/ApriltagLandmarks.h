@@ -31,17 +31,25 @@ class ApriltagLandmarks : public SensorBase{
 
 public:
     using MEAS_VEC = std::vector<std::pair<std::string, tf::Transform>>;
-    ApriltagLandmarks(ros::NodeHandle& nh);
+    ApriltagLandmarks(std::unordered_map<std::string, tf::Transform>& landmarks);
     void operator()(std::vector<double>& result);
     bool empty();
+    /**
+     * @brief given a array of detected tags, here we calculate robot global coordinate with respect to each tag.
+     * Each tag propose a noisy state of the robot when transformed it to the global frame.
+     * Therefore, an appropriate state filter is used to denoise those readings and compute the robot state accurately.
+     *
+     * @param msg an array of detected tags
+     */
+    void apriltag_callback(const apriltag_ros::AprilTagDetectionArray::ConstPtr& msg);
+
+    void detect_tag(const apriltag_ros::AprilTagDetectionArray& msg);
+
 
 private:
     /// @brief Known landmarks with respect to map 
     std::unordered_map<std::string, tf::Transform> landmarks_;
-    /// @brief apriltag node subscriber 
-    ros::Subscriber apriltagSub_;
-    /// @brief ros NodeHandle for dealing with various messages
-    ros::NodeHandle nh_;
+
     /// @brief measurements_ queue is reponsible to efficiently communicate with Control Module 
     std::queue<std::vector<double>> measurements_;
 
@@ -49,15 +57,7 @@ private:
     std::vector<double> tagRoations_;
 
 protected:
-    /**
-     * @brief given a array of detected tags, here we calculate robot global coordinate with respect to each tag.
-     * Each tag propose a noisy state of the robot when transformed it to the global frame. 
-     * Therefore, an appropriate state filter is used to denoise those readings and compute the robot state accurately.
-     * 
-     * @param msg an array of detected tags 
-     */
-    void apriltag_callback(const apriltag_ros::AprilTagDetectionArray::ConstPtr& msg);
-    /// @brief tag is detected with respect to camera frame which needs to be transformed to global frame through 
+    /// @brief tag is detected with respect to camera frame which needs to be transformed to global frame through
     /// camera baselink -> global_frame 
     /// @param tagTransform tag pose with resect to camera frame
     /// @param tagName name of the tag 

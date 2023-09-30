@@ -20,12 +20,32 @@ int main(int argc, char* argv[])
     ros::NodeHandle nh;
     double alpha;
     ros::param::get("/alpha", alpha);
+    std::vector<int>tagIds;
+    ros::param::get("/apriltags", tagIds);
+    std::unordered_map<std::string, tf::Transform> landmarks;
+    for(auto tagId : tagIds)
+    {
+        std::string tag_name = "tag" + std::to_string(tagId);
+        std::vector<double> value;
+        ros::param::get("/" + tag_name, value);
+        tf::Transform tagTransform;
+        auto q = tf::Quaternion();
+        auto alphaAngle = atan2(value[1], value[2]);
+        q.setRPY(0, 0, alphaAngle);
+        tagTransform.setOrigin(tf::Vector3(value[0], value[1], value[2]));
+        tagTransform.setRotation(q);
+        landmarks[tag_name] = tagTransform;
+    }
+
+
+    ROS_INFO_STREAM("[ApriltagLandmarks] initialized");
     auto pub = nh.advertise<nav_msgs::Odometry>("apriltag/state", 10);
 
-    auto stateSensor = std::make_shared<ApriltagLandmarks>(nh);
+    auto stateSensor = std::make_shared<ApriltagLandmarks>(landmarks);
     auto stateFilter = std::make_shared<ComplementaryFilter>(alpha);
     auto stateObserver = std::make_shared<bebop2::StateObserver>(stateFilter, stateSensor);
 
+    auto sub = nh.subscribe("/tag_detections", 10,  &ApriltagLandmarks::apriltag_callback, stateSensor.get());
 
     ros::AsyncSpinner spinner(4);
     spinner.start();

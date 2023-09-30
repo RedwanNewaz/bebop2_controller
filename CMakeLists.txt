@@ -91,11 +91,21 @@ add_executable(bebop2_state_estimator_lpf
 target_link_libraries(bebop2_controller_node airlibBebop2 -pthread)
 target_link_libraries(bebop2_state_estimator_lpf airlibBebop2 -pthread)
 
-option(BUILD_TESTS  "build unittest executables" OFF )
-
-if(BUILD_TESTS)
- add_subdirectory(unittest)
-endif()
+#option(BUILD_TESTS  "build unittest executables" OFF )
+#
+#if(BUILD_TESTS)
+# add_subdirectory(unittest)
+#endif()
 
 #add_subdirectory(bebop2_controller_gui)
+include_directories(include/catch2-2.7.0)
+add_library(Catch INTERFACE)
+add_executable( bebop2_controller_test
+    test/test_apriltag_landmark.cpp ${SOURCE_FILES} ${HEADER_FILES}
+    test/test.cpp
+)
+target_link_libraries(bebop2_controller_test Catch Eigen3::Eigen ${catkin_LIBRARIES} -pthread)
+
+enable_testing()
+add_test( NAME bebop2_controller_test COMMAND bebop2_controller_test )
 

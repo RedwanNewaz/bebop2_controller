@@ -18,7 +18,7 @@ namespace bebop2{
         *   @param mGetState This parameter givs the current state of the robot.
         *   @param nh Used to setup publishers, subscribers and deals with various messages.
         */
-        QuadControllerPID(StateObserverPtr mGetState, ros::NodeHandle& nh);
+        QuadControllerPID(ros::NodeHandle& nh);
     private:
         bebop2::PID _quadController[NUM_CONTROLLER];
         /// @brief Sets all the proportional, integral, and derivative constants along with the maximum and minimum output values.

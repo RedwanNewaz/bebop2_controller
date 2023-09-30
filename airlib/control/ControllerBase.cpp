@@ -9,22 +9,21 @@
 namespace bebop2
 {
     
-    ControllerBase::ControllerBase(StateObserverPtr  mGetState, ros::NodeHandle& nh) :
-    m_get_state(mGetState), m_nh(nh){
+    ControllerBase::ControllerBase(ros::NodeHandle& nh) :
+    m_nh(nh){
 
-        ros::param::get("~dt", dt_);
-        ros::param::get("~goal_thres", m_goal_thres);
+        ros::param::get("/dt", dt_);
+        ros::param::get("/goal_thres", m_goal_thres);
 
         joystick_sub_ = m_nh.subscribe("/joy", 10, &bebop2::ControllerBase::joystick_callback, this);
         drone_takeoff_pub_ = m_nh.advertise<std_msgs::Empty>("takeoff", 1);
         drone_land_pub_ = m_nh.advertise<std_msgs::Empty>("land", 1);
         cmd_vel_pub_ = m_nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
         joystick_timer_ = m_nh.createTimer(ros::Duration(0.05), &bebop2::ControllerBase::joystick_timer_callback, this);
-//        controller_timer_ = m_nh.createTimer(ros::Duration(dt_), &bebop2::ControllerBase::control_loop, this);
-        state_sub_ = m_nh.subscribe("/apriltag/state", 10, &ControllerBase::state_callback, this);
+
+        state_sub_ = m_nh.subscribe("apriltag/state", 10, &ControllerBase::state_callback, this);
         viz_ = std::make_unique<ControlViz>(m_nh);
         m_buttonState = ENGAGE;
-
 
         ROS_INFO("[ControllerBase] Initialization complete ...");
 

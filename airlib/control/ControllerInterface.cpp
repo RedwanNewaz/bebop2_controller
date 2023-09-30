@@ -138,6 +138,11 @@ namespace bebop2
 //                ROS_INFO("[PositionController] vx = %lf, vy = %lf, vz = %lf, wz = %lf", U[0], U[1], U[2], U[3]);
                 publish_cmd_vel(U);
             }
+            else
+            {
+                std::vector<double>U(4, 0);
+                publish_cmd_vel(U);
+            }
 
         }
 

@@ -60,10 +60,10 @@ namespace bebop2
         Eigen::Vector3d p;
 
         // parrot bebop2 moves left for (+) linear.y and vice versa
-        p <<  DT * msg->linear.x,
-              DT * msg->linear.y,
-              DT * msg->linear.z;
-        states_[3] -= DT * msg->angular.z;
+        p <<  msg->linear.x / DT ,
+              msg->linear.y / DT ,
+              msg->linear.z / DT ;
+        states_[3] -= msg->angular.z / DT;
 
         Eigen::Matrix3d q;
         q.setIdentity();

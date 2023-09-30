@@ -9,6 +9,7 @@
 #include <geometry_msgs/Twist.h>
 #include "SensorBase.h"
 #include <queue>
+#include <chrono>
 
 namespace bebop2{
     /** 
@@ -26,49 +27,54 @@ namespace bebop2{
     class DummyState: public SensorBase{
 
     public:
+        using TIMEPOINT = std::chrono::time_point<std::chrono::high_resolution_clock>;
         /**
          * @brief Construct a new Dummy State object
          * To simulate desired behavior from a sensor so that we can develop accurate control module 
          * @param nh ros NodeHandle to deal with various messages
          * @param noisy_reading an option to make a realistic sensor reading: if true white noise will be added to the output 
          */
-        DummyState(ros::NodeHandle& nh, bool noisy_reading);
+        DummyState(const std::vector<double>& noise);
+
+        ///@brief set initial state if needed otherwise default is zeros
+        void set(std::vector<double>& state);
+
         /** @brief Populates the requested state vector.
         *   @param state Gives the current position of the drone.
         */
         void operator()(std::vector<double>& state);
-        bool empty();
+        ///@brief check if state vec is empty
+        bool empty() override;
 
     private:
-        ros::NodeHandle nh_;
-        // Timer to call the updateState() method.
-        ros::Timer dummy_timer_;
+        /// @brief white noise amplitude
+        std::vector<double> noise_;
         /// @brief internal states must contain at least four vairables [x, y, z, yaw] for the position control module
         std::vector<double> states_;
-        /// @brief bebop_autonomy messages for basic maneuvers 
-        ros::Subscriber sub_takeoff_, sub_land_, sub_cmd_vel_;
         /// @brief to generate Gaussian white noise we need random device
         std::random_device rd_;
-        bool noisy_reading_;
+
         
         const size_t STATE_DIM = 4;
         /// @brief discrete sample time is determined by control frequence
         const double DT = 0.03; // 30 Hz
-        /// @brief white noise amplitude 
-        const double NOISE = 0.2;
-        std::queue<std::vector<double>> queue_;
-    protected:
+
+        ///@brief keep track of time
+        TIMEPOINT last_update_;
+
+
+    public:
         /**
          * @brief Joystic command to takeoff the bebop2 
          * @param msg  publish empty message to the topic ```takeoff```
         */
-        void takeoff_callback(const std_msgs::Empty::ConstPtr& msg);
+        void takeoff_callback();
         /**
          * @brief @brief Joystic command to land the bebop2 
          * 
          * @param msg publish empty message to the topic ```land```
          */
-        void land_callback(const std_msgs::Empty::ConstPtr& msg);
+        void land_callback();
         /**
          * @brief Joystic command to move the bebop2 
          * 
@@ -79,7 +85,7 @@ namespace bebop2{
         /**
         * @brief Updates the state of the dummy drone.
         */
-        void updateState(const ros::TimerEvent& event);
+        void updateState();
 
     };
 }

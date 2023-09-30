@@ -88,15 +88,15 @@ add_executable(bebop2_controller_node src/bebop2_controller_node.cpp ${SOURCE_FI
 
 add_executable(bebop2_state_estimator_lpf
         src/bebop2_state_estimator_lpf.cpp)
+
+add_executable(bebop2_sim src/bebop2_sim_node.cpp ${SOURCE_FILES} ${HEADER_FILES})
+
 ## Specify libraries to link a library or executable target against
 target_link_libraries(bebop2_controller_node airlibBebop2 -pthread)
 target_link_libraries(bebop2_state_estimator_lpf airlibBebop2 -pthread)
+target_link_libraries(bebop2_sim airlibBebop2 -pthread)
 
-#option(BUILD_TESTS  "build unittest executables" OFF )
-#
-#if(BUILD_TESTS)
-# add_subdirectory(unittest)
-#endif()
+
 
 #add_subdirectory(bebop2_controller_gui)
 include_directories(include/catch2-2.7.0)

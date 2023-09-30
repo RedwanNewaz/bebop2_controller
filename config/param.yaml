@@ -34,5 +34,7 @@ dt: 0.03
 goal_thres: 0.25
 
 # trajectory param
-max_vel: 2
-max_acc: 3
+#max_vel: 2
+#max_acc: 3
+max_vel: 1
+max_acc: 1.5

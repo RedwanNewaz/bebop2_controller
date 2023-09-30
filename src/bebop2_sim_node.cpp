@@ -102,6 +102,9 @@ int main(int argc, char* argv[])
     spinner.start();
     std::vector<double> wp_x, wp_y;
     auto wps = calcInput();
+
+
+
     std::vector<double>x0{wps[0][0], wps[0][1], wps[0][2], 0.0};
     stateSensor->set(x0);
 

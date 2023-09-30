@@ -18,7 +18,7 @@ public:
     waypoint_trajectory(double max_vel, double max_acc, std::shared_ptr<MessageQueue> msg)
     :max_acc_(max_acc), max_vel_(max_vel), msg_(msg)
     {
-
+        this->wp_size_ = 0;
     }
     ~waypoint_trajectory() {
 
@@ -32,6 +32,11 @@ public:
     {
         convert_waypoints(wp);
         worker_thread_ = std::thread(&waypoint_trajectory::run, this);
+    }
+
+    size_t size()
+    {
+        return wp_size_;
     }
 
 private:
@@ -64,6 +69,7 @@ private:
 //        auto trajectory = path_to_trajectory(waypoints, N - 1, max_vel, max_acc);
         auto trajectory = path_to_trajectory(waypoints_, wp_size_ - 1, max_vel_, max_acc_);
 
+        wp_size_ = (int) trajectory.size();
         double start_time = trajectory[0][0];
 
         for (int k = 0; k < trajectory.size(); ++k)
@@ -73,10 +79,14 @@ private:
 
             std::vector<double>x{trajectory[k][1], trajectory[k][2], trajectory[k][3], M_PI_2};
             //interface.set_goal_state(x);
+            if(msg_->isTerminated())
+                break;
+            while (msg_->isPaused())
+                std::this_thread::sleep_for(std::chrono::milliseconds(nap_time));
             // Set the message using the promise
             msg_->push(x);
 
-            std::cout << x[0] << ", " << x[1] << std::endl;
+//            std::cout << x[0] << ", " << x[1] << std::endl;
 
             start_time = trajectory[k][0];
         }

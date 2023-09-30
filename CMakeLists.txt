@@ -113,6 +113,7 @@ add_executable( bebop2_controller_test
     test/test.cpp
         test/test_quad_pids.cpp
         test/helper.h
+        test/test_waypoint_trajectory.cpp
 )
 target_link_libraries(bebop2_controller_test Catch Eigen3::Eigen ${catkin_LIBRARIES} -pthread)
 

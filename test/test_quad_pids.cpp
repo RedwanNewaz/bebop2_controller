@@ -6,8 +6,16 @@
 #include "catch2-2.7.0/catch.hpp"
 #include "airlib/control/controller.h"
 
-
-
+/**
+#   linear.x  (+)      Translate forward
+#             (-)      Translate backward
+#   linear.y  (+)      Translate to left -> (NEGATIVE gain)
+#             (-)      Translate to right
+#   linear.z  (+)      Ascend
+#             (-)      Descend
+#   angular.z (+)      Rotate counter clockwise -> (NEGATIVE gain)
+#             (-)      Rotate clockwise
+**/
 
 TEST_CASE("quad_pids::compute_control::north", "[move::north]")
 {

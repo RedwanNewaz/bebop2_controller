@@ -4,37 +4,37 @@
 
 #include <numeric>
 #include <utility>
-#include "airlib/control/ControllerBase.h"
+#include "airlib/control/ControllerInterface.h"
 
 namespace bebop2
 {
     
-    ControllerBase::ControllerBase(ros::NodeHandle& nh) :
+    ControllerInterface::ControllerInterface(ros::NodeHandle& nh) :
     m_nh(nh){
 
         ros::param::get("/dt", dt_);
         ros::param::get("/goal_thres", m_goal_thres);
 
-        joystick_sub_ = m_nh.subscribe("/joy", 10, &bebop2::ControllerBase::joystick_callback, this);
+        joystick_sub_ = m_nh.subscribe("/joy", 10, &bebop2::ControllerInterface::joystick_callback, this);
         drone_takeoff_pub_ = m_nh.advertise<std_msgs::Empty>("takeoff", 1);
         drone_land_pub_ = m_nh.advertise<std_msgs::Empty>("land", 1);
         cmd_vel_pub_ = m_nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-        joystick_timer_ = m_nh.createTimer(ros::Duration(0.05), &bebop2::ControllerBase::joystick_timer_callback, this);
+        joystick_timer_ = m_nh.createTimer(ros::Duration(0.05), &bebop2::ControllerInterface::joystick_timer_callback, this);
 
-        state_sub_ = m_nh.subscribe("apriltag/state", 10, &ControllerBase::state_callback, this);
+        state_sub_ = m_nh.subscribe("apriltag/state", 10, &ControllerInterface::state_callback, this);
         viz_ = std::make_unique<ControlViz>(m_nh);
         m_buttonState = ENGAGE;
 
-        ROS_INFO("[ControllerBase] Initialization complete ...");
+        ROS_INFO("[ControllerInterface] Initialization complete ...");
 
     }
-    ControllerBase::~ControllerBase()
+    ControllerInterface::~ControllerInterface()
     {
 
     }
 
     
-    void ControllerBase::joystick_callback(const sensor_msgs::Joy_<std::allocator<void>>::ConstPtr &msg) {
+    void ControllerInterface::joystick_callback(const sensor_msgs::Joy_<std::allocator<void>>::ConstPtr &msg) {
 
         std::lock_guard<std::mutex> lk(m_mu);
         auto it = std::find(msg->buttons.begin(), msg->buttons.end(), 1);
@@ -78,7 +78,7 @@ namespace bebop2
     }
 
     
-    void ControllerBase::joystick_timer_callback(const ros::TimerEvent &event) {
+    void ControllerInterface::joystick_timer_callback(const ros::TimerEvent &event) {
         if(axes_values_.empty() || std::accumulate(axes_values_.begin(), axes_values_.end(), 0.0) == 0.0)
             return;
 
@@ -113,10 +113,10 @@ namespace bebop2
 
 
     
-    void ControllerBase::control_loop(const std::vector<double>& state) {
+    void ControllerInterface::control_loop(const std::vector<double>& state) {
 
 
-//        ROS_INFO_STREAM("[ControllerBase] state size" << state.size());
+//        ROS_INFO_STREAM("[ControllerInterface] state size" << state.size());
 
         if(m_buttonState == ENGAGE)
         {
@@ -149,7 +149,7 @@ namespace bebop2
 
 
     
-    void ControllerBase::publish_cmd_vel(const std::vector<double> &U) {
+    void ControllerInterface::publish_cmd_vel(const std::vector<double> &U) {
 
         std::lock_guard<std::mutex> lk(m_mu);
         assert(U.size() == 4 && "4 commands must be sent");
@@ -164,7 +164,7 @@ namespace bebop2
     }
 
     
-    double ControllerBase::goal_distance(const std::vector<double> &X, const std::vector<double> &setPoints) {
+    double ControllerInterface::goal_distance(const std::vector<double> &X, const std::vector<double> &setPoints) {
         double error = 0;
         for (int i = 0; i < X.size(); ++i) {
             double e = X[i] - setPoints[i];
@@ -175,7 +175,7 @@ namespace bebop2
 
 
     
-    tf::Transform ControllerBase::getStateVecToTransform(const std::vector<double> &state) {
+    tf::Transform ControllerInterface::getStateVecToTransform(const std::vector<double> &state) {
         tf::Transform pose;
         tf::Quaternion q;
         q.setRPY(0, 0, state[3]);
@@ -184,7 +184,7 @@ namespace bebop2
         return pose;
     }
 
-    void ControllerBase::state_callback(const nav_msgs::Odometry::ConstPtr &msg) {
+    void ControllerInterface::state_callback(const nav_msgs::Odometry::ConstPtr &msg) {
         auto p = msg->pose.pose.position;
         auto q = msg->pose.pose.orientation;
         tf::Matrix3x3 m(tf::Quaternion(q.x, q.y, q.z, q.w));

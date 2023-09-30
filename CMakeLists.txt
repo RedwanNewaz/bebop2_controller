@@ -48,18 +48,19 @@ set(SOURCE_FILES
         airlib/localization/Sensors/ApriltagLandmarks.cpp
         airlib/localization/Sensors/DummyState.cpp
         airlib/control/ControlViz.cpp
-        airlib/control/PID.cpp
-        airlib/control/ControllerBase.cpp
+        airlib/control/PID/PID.cpp
+        airlib/control/ControllerInterface.cpp
         airlib/control/QuadControllerPID.cpp
         airlib/localization/Filters/RobotLocalization.cpp
         airlib/localization/Sensors/ApriltagLandmarksExtended.cpp
+        airlib/control/PID/quad_pids.cpp
         )
 
 set(HEADER_FILES
         include/airlib/robot_defs.h
         include/airlib/control/ControlViz.h
-        include/airlib/control/ControllerBase.h
-        include/airlib/control/PID.h
+        include/airlib/control/ControllerInterface.h
+        include/airlib/control/pid/PID.h
         include/airlib/control/QuadControllerPID.h
 
         include/airlib/localization/StateObserver.h
@@ -75,9 +76,14 @@ set(HEADER_FILES
         include/airlib/localization/Sensors/ApriltagLandmarksExtended.h
         include/airlib/localization/Filters/RobotLocalization.h
 
+        include/airlib/control/pid/quad_pids.h
+        include/airlib/control/controller.h
+
         )
 
-add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES} )
+add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES}
+
+   )
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES} -pthread)
 ## Declare a C++ executables
 ## With catkin_make all packages are built within a single CMake context
@@ -103,6 +109,8 @@ add_library(Catch INTERFACE)
 add_executable( bebop2_controller_test
     test/test_apriltag_landmark.cpp ${SOURCE_FILES} ${HEADER_FILES}
     test/test.cpp
+        test/test_quad_pids.cpp
+        test/helper.h
 )
 target_link_libraries(bebop2_controller_test Catch Eigen3::Eigen ${catkin_LIBRARIES} -pthread)
 

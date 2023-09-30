@@ -6,7 +6,7 @@
 
 namespace bebop2
 {
-    QuadControllerPID::QuadControllerPID(ros::NodeHandle &nh): ControllerBase(nh) {
+    QuadControllerPID::QuadControllerPID(ros::NodeHandle &nh): ControllerInterface(nh) {
         std::vector<double> gains;
         ros::param::get("/pid_gains", gains);
         assert(gains.size() == NUM_GAINS * NUM_CONTROLLER && "inaccurate PID gains");
@@ -19,13 +19,13 @@ namespace bebop2
 
         for (int i = 0; i < NUM_CONTROLLER; ++i) {
             int j = i * NUM_GAINS;
-            controller[i].init(ControllerBase::dt_, MAX_OUT, MIN_OUT, gains[j], gains[j + 1], gains[j + 2]);
+            controller[i].init(ControllerInterface::dt_, MAX_OUT, MIN_OUT, gains[j], gains[j + 1], gains[j + 2]);
         }
     }
 
     void QuadControllerPID::compute_control(const std::vector<double> &X, const std::vector<double> &setPoints,
                                             std::vector<double> &control) {
-        std::lock_guard<std::mutex> lk(ControllerBase::m_mu);
+        std::lock_guard<std::mutex> lk(ControllerInterface::m_mu);
         for (int i = 0; i < NUM_CONTROLLER; ++i) {
             //        ROS_INFO("[PositionController]: control axis = %d setpoint = %lf X = %lf", i, setPoints[i], X[i] );
             bool normalized = (i == NUM_CONTROLLER - 1);

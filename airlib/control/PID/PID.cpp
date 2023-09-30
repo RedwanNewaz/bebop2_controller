@@ -2,7 +2,7 @@
 // Created by redwan on 12/15/22.
 //
 
-#include "airlib/control/PID.h"
+#include "airlib/control/pid/PID.h"
 
 namespace bebop2 {
     PID::PID() {

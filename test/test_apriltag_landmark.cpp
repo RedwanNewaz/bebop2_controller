@@ -5,23 +5,8 @@
 #include <iostream>
 #include <cmath>
 #include "catch2-2.7.0/catch.hpp"
-
+#include "helper.h"
 #include "airlib/localization/sensors.h"
-
-
-// Define a custom matcher for comparing floating-point vectors with a tolerance
-template <typename T>
-bool vectorsApprox(const std::vector<T>& v1, const std::vector<T>& v2, T epsilon) {
-    if (v1.size() != v2.size()) {
-        return false;
-    }
-    for (size_t i = 0; i < v1.size(); ++i) {
-        if (!(Approx(v1[i]).epsilon(epsilon) == v2[i])) {
-            return false;
-        }
-    }
-    return true;
-}
 
 
 TEST_CASE("ApriltagLandmarks::operator()(tag2)", "[sensors::tag2]")

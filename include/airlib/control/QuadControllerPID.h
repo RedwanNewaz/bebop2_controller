@@ -5,14 +5,14 @@
 #ifndef airlib_QUADCONTROLLERPID_H
 #define airlib_QUADCONTROLLERPID_H
 
-#include "airlib/control/PID.h"
+#include "airlib/control/pid/PID.h"
 #include "airlib/localization/StateObserver.h"
-#include "airlib/control/ControllerBase.h"
+#include "airlib/control/ControllerInterface.h"
 #include <vector>
 
 namespace bebop2{
     /// @brief Responsible to find the error values every second whenever the position of the quadrators of the drone is updated.
-    class QuadControllerPID : public ControllerBase{
+    class QuadControllerPID : public ControllerInterface{
     public:
         /** @brief The QuadControllerPID constructor initializes a vector of type double that is responsible for populating the PID Gains, maximum and minimum threshold values.
         *   @param mGetState This parameter givs the current state of the robot.

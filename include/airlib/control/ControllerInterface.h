@@ -47,7 +47,7 @@ namespace bebop2
     * @brief Responsible to control the position, state and rotation of the drone and also provides the code to make the robot hover. It publishes the takeoff, landing commands along with the current position of the drone and the state of the axes and buttons of the joystick controller.
     * It also updates the state of the robot in RVIZ which is used for visaulation. 
     */
-    class ControllerBase{
+    class ControllerInterface{
     public:
 
         /** @brief Subscribes to sensor_msgs/joy which reports the state of a joystick's axes and buttons.
@@ -55,11 +55,11 @@ namespace bebop2
          * The constructor is also responsible to call the appropriate functions at specifc rates that plays a role in setting the set-point at a current location.
          * Lastly it contructs an object to send the updated pose to the RVIZ for visualization and also sets the state of the controller's button.
          * @param mGetState Obtains the current state of the robot 
-         * @param nh Used to create publishers and subscribes. For eg: The ControllerBase constructor publishes messages during takeoff and landing with the help of the **ros::NodeHandle** aka nh parameter. 
+         * @param nh Used to create publishers and subscribes. For eg: The ControllerInterface constructor publishes messages during takeoff and landing with the help of the **ros::NodeHandle** aka nh parameter.
         */ 
-        explicit ControllerBase(ros::NodeHandle& nh);
+        explicit ControllerInterface(ros::NodeHandle& nh);
 
-        virtual ~ControllerBase();
+        virtual ~ControllerInterface();
 
     private:
         /// Array of four real numbers in which the first three numbers most commonly represented by x,y,z are vectors and the last number is w which represents the rotation of the robot about the vectors.

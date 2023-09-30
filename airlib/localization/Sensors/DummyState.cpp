@@ -7,6 +7,7 @@ namespace bebop2
     {
         states_.resize(STATE_DIM);
         std::fill(states_.begin(), states_.end(), 0.0);
+//        states_[STATE_DIM - 1] = M_PI_2;
 
     }
     void DummyState::set(std::vector<double>& state)
@@ -50,11 +51,36 @@ namespace bebop2
     }
     void DummyState::cmd_vel_callback(const geometry_msgs::Twist::ConstPtr& msg)
     {
-        states_[1] += DT * msg->linear.x;
+
+        double theta = states_[3] + M_PI_2;
+
+        double c = cos(theta);
+        double s = sin(theta);
+
+        Eigen::Vector3d p;
+
         // parrot bebop2 moves left for (+) linear.y and vice versa
-        states_[0] -= DT * msg->linear.y;
-        states_[2] += DT * msg->linear.z;
-        states_[3] += DT * msg->angular.z;
+        p <<  DT * msg->linear.x,
+              DT * msg->linear.y,
+              DT * msg->linear.z;
+        states_[3] -= DT * msg->angular.z;
+
+        Eigen::Matrix3d q;
+        q.setIdentity();
+        q(0, 0) = c;
+        q(0, 1) = -s;
+        q(1, 0) = s;
+        q(1, 1) = c;
+
+        Eigen::Vector3d T = q * p ;
+
+        states_[0] += T(0);
+        states_[1] += T(1);
+        states_[2] += T(2);
+        states_[3] = (fmod(states_[3] + M_PI, 2 * M_PI) - M_PI);
+
+
+
 
     }
 

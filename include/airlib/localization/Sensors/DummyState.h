@@ -10,6 +10,7 @@
 #include "SensorBase.h"
 #include <queue>
 #include <chrono>
+#include <Eigen/Dense>
 
 namespace bebop2{
     /** 

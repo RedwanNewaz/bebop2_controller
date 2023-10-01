@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
+cmake_policy(SET CMP0058 NEW)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-dev")
+
 project(bebop2_controller)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
@@ -18,12 +21,24 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   tf
-
+  genmsg
+  actionlib
+  actionlib_msgs
 )
 
 find_package(Eigen3 REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system)
+
+add_action_files(
+        DIRECTORY action
+        FILES Waypoints.action
+)
+generate_messages(
+        DEPENDENCIES actionlib_msgs std_msgs  # Or other packages containing msgs
+)
 
 catkin_package(
+        CATKIN_DEPENDS actionlib_msgs
 #  INCLUDE_DIRS include
 #  LIBRARIES airlib
 #  CATKIN_DEPENDS cv_bridge geometry_msgs image_geometry image_transport nodelet roscpp rospy sensor_msgs std_msgs tf visp_bridge
@@ -40,6 +55,7 @@ include_directories(
  include
   ${EIGEN3_INCLUDE_DIR}
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
   include/traj
 )
 
@@ -78,6 +94,7 @@ set(HEADER_FILES
         include/traj/traj_min_jerk.hpp
         include/traj/traj_min_snap.hpp
         include/traj/waypoint_trajectory.h
+        include/traj/rapidcsv.h
 
 
         )
@@ -102,6 +119,16 @@ add_executable(bebop2_sim src/bebop2_sim_node.cpp ${SOURCE_FILES} ${HEADER_FILES
 target_link_libraries(bebop2_controller_node airlibBebop2 -pthread)
 target_link_libraries(bebop2_state_estimator_lpf airlibBebop2 -pthread)
 target_link_libraries(bebop2_sim airlibBebop2 -pthread)
+
+## ACTION SERVER
+
+add_executable(waypoint_control_server src/waypoint_control_server.cpp ${SOURCE_FILES} ${HEADER_FILES})
+
+target_link_libraries(
+        waypoint_control_server
+        ${catkin_LIBRARIES}
+        ${Boost_LIBRARIES}
+)
 
 
 

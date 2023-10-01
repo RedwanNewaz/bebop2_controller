@@ -21,7 +21,7 @@ public:
         this->wp_size_ = 0;
     }
     ~waypoint_trajectory() {
-
+        msg_->setTerminate(true);
         // Wait for the worker thread to finish
         if (worker_thread_.joinable()) {
             worker_thread_.join();
@@ -90,6 +90,8 @@ private:
 
             start_time = trajectory[k][0];
         }
+
+
     }
 
     TRAJECTORY path_to_trajectory(const Eigen::MatrixXd& waypoints, int num_points, double max_vel, double max_acc)

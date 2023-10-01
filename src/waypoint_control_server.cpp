@@ -69,35 +69,44 @@ public:
             return;
         }
 
+        feedback_.time_sequence.clear();
+        feedback_.time_sequence.push_back(0);
+
+
         // read csv file values
         rapidcsv::Document doc(path, rapidcsv::LabelParams(-1, -1));
         std::vector<float> xValues = doc.GetColumn<float>(0);
         std::vector<float> yValues = doc.GetColumn<float>(1);
         std::vector<float> zValues = doc.GetColumn<float>(2);
         int N = xValues.size();
-
+        feedback_.time_sequence.push_back(1);
         //convert it to a path: vector of waypoints
         std::vector<point> path_points(N);
         WAYPOINTS demo;
         for (int i = 0; i < N; ++i) {
-//            path_points[i] = point{xValues[i], yValues[i], zValues[i]};
+            path_points[i] = point{xValues[i], yValues[i], zValues[i]};
 
             demo.push_back({xValues[i], yValues[i], zValues[i]});
         }
+        feedback_.time_sequence.push_back(3);
 
 //        // interpolate the path based on a fixed distance
-//        double m_resolution = 2;
+//        double m_resolution = 0.1;
 //        auto final_path = interpolateWaypoints(path_points, m_resolution);
 //
-//        for(const auto& point:final_path)
-//        {
-//            ROS_INFO("[Waypoints] next point = (%lf, %lf, %lf)", point[0], point[1], point[2]);
-//        }
+////        for(const auto& point:final_path)
+////        {
+////            ROS_INFO("[Waypoints] next point = (%lf, %lf, %lf)", point[0], point[1], point[2]);
+////        }
+        feedback_.time_sequence.push_back(4);
 
         // generate trajectory
         auto messageQueue = std::make_shared<MessageQueue>();
         waypoint_trajectory communicator(max_vel, max_acc, messageQueue);
         communicator.start(demo);
+        feedback_.time_sequence.push_back(5);
+//
+//        ROS_INFO("[path length] %zu", final_path.size());
 
 
 
@@ -117,6 +126,9 @@ public:
             std::this_thread::sleep_for(2ms);
             terminated = messageQueue->isTerminated();
         }
+        feedback_.time_sequence.push_back(6);
+
+        result_.tracking_sequence = feedback_.time_sequence;
 
 
     }

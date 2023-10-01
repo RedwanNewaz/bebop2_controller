@@ -5,9 +5,9 @@
 #include "helper.h"
 #include "catch2-2.7.0/catch.hpp"
 #include "airlib/control/controller.h"
-#include "waypoint_trajectory.h"
+#include "trajectory_planner.h"
 
-TEST_CASE("waypoint_trajectory::size", "[wp::rectangle]")
+TEST_CASE("traj_planner::constant_velocity::size", "[wp::rectangle]")
 {
     WAYPOINTS  wps{
         {0.0, 0.0, 1.2},
@@ -17,10 +17,42 @@ TEST_CASE("waypoint_trajectory::size", "[wp::rectangle]")
     };
 
     auto messageQueue = std::make_shared<MessageQueue>();
-    waypoint_trajectory communicator(2, 3, messageQueue);
-    communicator.start(wps);
-    std::this_thread::sleep_for(1s);
-    messageQueue->setTerminate(true);
+    traj_planner::constant_velocity communicator(2, 3, messageQueue);
+    communicator.convert_waypoints(wps);
+    size_t expected = 183;
+    REQUIRE(communicator.size() == expected);
+
+}
+
+TEST_CASE("traj_planner::minimum_snap::size", "[wp::rectangle]")
+{
+    WAYPOINTS  wps{
+            {0.0, 0.0, 1.2},
+            {0.0, 6.0, 1.2},
+            {6.0, 6.0, 1.2},
+            {6.0, 0.0, 1.2}
+    };
+
+    auto messageQueue = std::make_shared<MessageQueue>();
+    traj_planner::minimum_snap communicator(2, 3, messageQueue);
+    communicator.convert_waypoints(wps);
+    size_t expected = 111;
+    REQUIRE(communicator.size() == expected);
+
+}
+
+TEST_CASE("traj_planner::minimum_jerk::size", "[wp::rectangle]")
+{
+    WAYPOINTS  wps{
+            {0.0, 0.0, 1.2},
+            {0.0, 6.0, 1.2},
+            {6.0, 6.0, 1.2},
+            {6.0, 0.0, 1.2}
+    };
+
+    auto messageQueue = std::make_shared<MessageQueue>();
+    traj_planner::minimum_jerk communicator(2, 3, messageQueue);
+    communicator.convert_waypoints(wps);
     size_t expected = 111;
     REQUIRE(communicator.size() == expected);
 

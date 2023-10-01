@@ -1,15 +1,16 @@
 #include <ros/ros.h>
 #include <filesystem>
-
+#include <chrono>
 #include <actionlib/server/simple_action_server.h>
 #include <bebop2_controller/WaypointsAction.h>
 
 #include "rapidcsv.h"
 #include "airlib/control/controller.h"
-#include "traj_constant_velocity.h"
+#include "trajectory_planner.h"
 
 class WaypointController
 {
+
 protected:
     ros::NodeHandle nh_;
     std::string action_name_;
@@ -21,17 +22,19 @@ protected:
     double max_vel, max_acc;
 
 
-
-
-
 public:
     WaypointController(std::string name) :
-            as_(nh_, name, boost::bind(&WaypointController::executeCB, this, _1), false), // Use the provided name for the action server
+            as_(nh_, name,
+                boost::bind(&WaypointController::executeCB, this, _1),
+                true), // Use the provided name for the action server
             action_name_(name)
     {
-        as_.start();
+
+
         ros::param::get("/max_vel", max_vel);
         ros::param::get("/max_acc", max_acc);
+
+
 
         std::vector<double> gains;
         double dt;
@@ -41,11 +44,14 @@ public:
         interface_ = std::make_shared<bebop2::ControllerInterface>(nh_, controller);
 
         ROS_INFO("[ros] param = (%lf, %lf, %lf)", max_vel, max_acc, dt);
+        as_.start();
     }
 
     ~WaypointController(void)
     {
+
     }
+
 
     void executeCB(const bebop2_controller::WaypointsGoalConstPtr &goal)
     {
@@ -57,58 +63,92 @@ public:
             return;
         }
 
-        feedback_.time_sequence.clear();
-        feedback_.time_sequence.push_back(0);
-
-
         // read csv file values
         rapidcsv::Document doc(path, rapidcsv::LabelParams(-1, -1));
         std::vector<float> xValues = doc.GetColumn<float>(0);
         std::vector<float> yValues = doc.GetColumn<float>(1);
         std::vector<float> zValues = doc.GetColumn<float>(2);
         int N = xValues.size();
-        feedback_.time_sequence.push_back(1);
 
         WAYPOINTS demo;
         for (int i = 0; i < N; ++i)
             demo.push_back({xValues[i], yValues[i], zValues[i]});
 
-        feedback_.time_sequence.push_back(3);
-
-        feedback_.time_sequence.push_back(4);
 
         // generate trajectory
+        std::vector<std::string> debug_msg;
+
         auto messageQueue = std::make_shared<MessageQueue>();
-        traj_constant_velocity communicator(max_vel, max_acc, messageQueue);
-        communicator.start(demo);
-        feedback_.time_sequence.push_back(5);
-//
-//        ROS_INFO("[path length] %zu", final_path.size());
 
+        std::unique_ptr<waypoint_trajectory_interface> wp_inf;
 
+        auto planner = static_cast<PlannerType>(goal->method);
+        std::string selected_planner;
+        switch (planner) {
+            case CV:
+                selected_planner = "[planner typer]: constant velocity";
+                wp_inf = std::make_unique<traj_planner::constant_velocity>(max_vel, max_acc, messageQueue);
+                break;
+            case SNAP:
 
+                selected_planner = "[planner typer]: minimum snap";
+                wp_inf = std::make_unique<traj_planner::minimum_snap>(max_vel, max_acc, messageQueue);
+                break;
+            case JERK:
+                selected_planner = "[planner typer]: minimum jerk";
+                wp_inf = std::make_unique<traj_planner::minimum_jerk>(max_vel, max_acc, messageQueue);
+                break;
+        }
+
+        debug_msg.emplace_back(selected_planner);
+        ROS_INFO_STREAM(selected_planner);
+        wp_inf->start(demo);
 
         // execute trajectory
         bool terminated = false;
+        int num_setpoints = 0;
+        auto start_exec = std::chrono::high_resolution_clock::now();
+
         while(!terminated)
         {
             std::vector<double> received_message;
             if(messageQueue->pop(received_message))
             {
                 ROS_INFO("[TrajController] next point = (%lf, %lf, %lf)", received_message[0], received_message[1], received_message[2]);
+                feedback_.setpoint.clear();
+                feedback_.setpoint.push_back(received_message[0]);
+                feedback_.setpoint.push_back(received_message[1]);
+                feedback_.setpoint.push_back(received_message[2]);
+                as_.publishFeedback(feedback_);
                 interface_->set_goal_state(received_message);
-
+                ++num_setpoints;
             }
-
             std::this_thread::sleep_for(2ms);
             terminated = messageQueue->isTerminated();
         }
-        feedback_.time_sequence.push_back(6);
 
-        result_.tracking_sequence = feedback_.time_sequence;
+        auto end_exec = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end_exec - start_exec;
+
+
+        debug_msg.emplace_back("[Total setpoints]: " + std::to_string(num_setpoints));
+        debug_msg.emplace_back("[Elapsed time]: " + std::to_string(elapsed_seconds.count()) + " sec");
+
+        std::cout <<"TrajController terminated " << std::endl;
+        for(const auto& msg: debug_msg)
+            result_.result += msg + " \n";
+
+        as_.setSucceeded(result_);
 
 
     }
+private:
+    enum PlannerType
+    {
+        CV = 0,
+        JERK,
+        SNAP
+    };
 
 
 

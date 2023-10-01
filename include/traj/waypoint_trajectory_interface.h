@@ -2,54 +2,32 @@
 // Created by redwan on 9/30/23.
 //
 
-#ifndef BEBOP2_CONTROLLER_WAYPOINT_TRAJECTORY_H
-#define BEBOP2_CONTROLLER_WAYPOINT_TRAJECTORY_H
+#ifndef BEBOP2_CONTROLLER_WAYPOINT_TRAJECTORY_INTERFACE_H
+#define BEBOP2_CONTROLLER_WAYPOINT_TRAJECTORY_INTERFACE_H
 #include <Eigen/Dense>
 #include <utility>
-#include "traj_min_jerk.hpp"
-#include "traj_min_snap.hpp"
 #include "message_queue.h"
 
 typedef std::vector<std::vector<double>> WAYPOINTS;
 
-class waypoint_trajectory
+class waypoint_trajectory_interface
 {
     using TRAJECTORY = std::vector<std::vector<double>>;
 public:
-    waypoint_trajectory(double max_vel, double max_acc, std::shared_ptr<MessageQueue> msg)
+    waypoint_trajectory_interface(double max_vel, double max_acc, std::shared_ptr<MessageQueue> msg)
     :max_acc_(max_acc), max_vel_(max_vel), msg_(std::move(msg))
     {
         this->wp_size_ = 0;
     }
-    ~waypoint_trajectory() {
+    ~waypoint_trajectory_interface() {
         msg_->setTerminate(true);
         // Wait for the worker thread to finish
         if (worker_thread_.joinable()) {
             worker_thread_.join();
         }
+//        std::cout <<"thread terminated " << std::endl;
     }
 
-    void start(const WAYPOINTS& wp)
-    {
-        convert_waypoints(wp);
-        worker_thread_ = std::thread(&waypoint_trajectory::run, this);
-    }
-
-    size_t size()
-    {
-        return wp_size_;
-    }
-
-protected:
-    Eigen::MatrixXd waypoints_;
-    double max_vel_, max_acc_;
-    int wp_size_;
-    std::thread worker_thread_;
-    std::shared_ptr<MessageQueue> msg_;
-    TRAJECTORY traj_;
-
-
-protected:
     virtual void convert_waypoints(const WAYPOINTS& wp)
     {
         int count = 0;
@@ -63,12 +41,30 @@ protected:
             waypoints_(2, count ) = wp[j % wp.size()][2];
             count++;
         }
-
-        //        auto trajectory = path_to_trajectory(waypoints, N - 1, max_vel, max_acc);
-        traj_ = path_to_trajectory(waypoints_, wp_size_ - 1, max_vel_, max_acc_);
-        wp_size_ = (int) traj_.size();
-
     }
+
+    void start(const WAYPOINTS& wp)
+    {
+        convert_waypoints(wp);
+        worker_thread_ = std::thread(&waypoint_trajectory_interface::run, this);
+    }
+
+    size_t size()
+    {
+        return wp_size_;
+    }
+
+protected:
+    Eigen::MatrixXd waypoints_;
+    double max_vel_, max_acc_;
+    size_t wp_size_;
+    std::thread worker_thread_;
+    std::shared_ptr<MessageQueue> msg_;
+    TRAJECTORY traj_;
+
+
+protected:
+
 
     void run()
     {
@@ -93,38 +89,19 @@ protected:
 
             start_time = traj_[k][0];
         }
+        msg_->setTerminate(true);
 
+        std::cout <<"execution terminated " << std::endl;
 
     }
 
-    TRAJECTORY path_to_trajectory(const Eigen::MatrixXd& waypoints, int num_points, double max_vel, double max_acc)
+    template<class T>
+    TRAJECTORY path_to_trajectory(const T& raw_trajectory)
     {
-        Eigen::VectorXd ts;
-        Eigen::Matrix3d iS, fS;
-        Eigen::Matrix<double, 3, 4> iSS, fSS;
-
-        min_snap::SnapOpt snapOpt;
-        min_snap::Trajectory minSnapTraj;
-        iS.setZero();
-        fS.setZero();
-
-        iS.col(0) << waypoints.leftCols<1>();
-        fS.col(0) << waypoints.rightCols<1>();
-        ts = allocateTime(waypoints, max_vel, max_acc);
-
-        iSS << iS, Eigen::MatrixXd::Zero(3, 1);
-        fSS << fS, Eigen::MatrixXd::Zero(3, 1);
-
-        snapOpt.reset(iSS, fSS, waypoints.cols() - 1);
-        snapOpt.generate(waypoints.block(0, 1, 3, num_points - 1), ts);
-        snapOpt.getTraj(minSnapTraj);
-
-
-
         //            populate trajectory
         TRAJECTORY trajectory;
         float total_time = 0;
-        for(auto traj:minSnapTraj)
+        for(auto traj:raw_trajectory)
         {
             float time = 0;
             while( time <= traj.getDuration())
@@ -182,8 +159,56 @@ protected:
         return durations;
     }
 
+    struct point {
+        double x;
+        double y;
+        double z;
+
+        double operator -(const point&other) const
+        {
+            double dx = this->x - other.x;
+            double dy = this->y - other.y;
+
+            return std::sqrt(dx * dx + dy * dy);
+        }
+    };
+
+    // interpolation
+    WAYPOINTS interpolateWaypoints(const std::vector<point>& waypoints, double resolution) {
+        WAYPOINTS interpolatedWaypoints;
+
+        // Iterate through each pair of waypoints
+        for (size_t i = 0; i < waypoints.size() - 1; ++i) {
+            const point& start = waypoints[i];
+            const point& end = waypoints[i + 1];
+
+            // Calculate the distance between start and end waypoints
+            double dx = end.x - start.x;
+            double dy = end.y - start.y;
+            double dz = end.z - start.z;
+            double distance = std::sqrt(dx * dx + dy * dy + dz * dz);
+
+            // Calculate the number of interpolated points between start and end waypoints
+            int numInterpolatedPoints = std::ceil(distance / resolution);
+
+            // Calculate the step size for interpolation
+            double stepSize = 1.0 / numInterpolatedPoints;
+
+            // Interpolate and add the waypoints
+            for (int j = 0; j <= numInterpolatedPoints; ++j) {
+                double t = stepSize * j;
+                double interpolatedX = start.x + t * dx;
+                double interpolatedY = start.y + t * dy;
+                double interpolatedZ = start.z + t * dz;
+                interpolatedWaypoints.push_back({interpolatedX, interpolatedY, interpolatedZ});
+            }
+        }
+
+        return interpolatedWaypoints;
+    }
+
 
 
 };
 
-#endif //BEBOP2_CONTROLLER_WAYPOINT_TRAJECTORY_H
+#endif //BEBOP2_CONTROLLER_WAYPOINT_TRAJECTORY_INTERFACE_H

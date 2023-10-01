@@ -10,4 +10,5 @@ goal_id:
   id: 'goal1'
 goal:
   csv_path: '/home/redwan/catkin_ws/src/bebop2_controller/test/wps.csv'
+  method: 1
 "

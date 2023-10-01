@@ -1,5 +1,6 @@
 string csv_path
+int16 method
 ---
-float32[] tracking_sequence
+string result
 ---
-float32[] time_sequence
+float32[] setpoint

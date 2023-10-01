@@ -93,7 +93,7 @@ set(HEADER_FILES
         include/traj/root_finder.hpp
         include/traj/traj_min_jerk.hpp
         include/traj/traj_min_snap.hpp
-        include/traj/waypoint_trajectory.h
+        include/traj/waypoint_trajectory_interface.h
         include/traj/rapidcsv.h
 
 
@@ -101,7 +101,7 @@ set(HEADER_FILES
 
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES}
         include/airlib/control/ControllerBase.h
-        include/traj/traj_constant_velocity.h
+        include/traj/trajectory_planner.h
 
 )
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES} -pthread)

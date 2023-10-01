@@ -10,7 +10,7 @@
 #include "airlib/localization/sensors.h"
 #include "airlib/localization/filters.h"
 #include "airlib/control/controller.h"
-#include "waypoint_trajectory.h"
+#include "waypoint_trajectory_interface.h"
 
 const double DT = 0.1; // Define your time step value here
 
@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
     std::thread stateThread(state_publisher, std::ref(stateObserver), std::ref(pub));
 
     auto messageQueue = std::make_shared<MessageQueue>();
-    waypoint_trajectory communicator(max_vel, max_acc, messageQueue);
+    waypoint_trajectory_interface communicator(max_vel, max_acc, messageQueue);
     communicator.start(wps);
 
 

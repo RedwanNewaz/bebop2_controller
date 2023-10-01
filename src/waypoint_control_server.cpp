@@ -6,7 +6,7 @@
 
 #include "rapidcsv.h"
 #include "airlib/control/controller.h"
-#include "waypoint_trajectory.h"
+#include "traj_constant_velocity.h"
 
 class WaypointController
 {
@@ -20,19 +20,7 @@ protected:
     std::shared_ptr<bebop2::ControllerInterface> interface_;
     double max_vel, max_acc;
 
-    struct point {
-        double x;
-        double y;
-        double z;
 
-        double operator -(const point&other) const
-        {
-            double dx = this->x - other.x;
-            double dy = this->y - other.y;
-
-            return std::sqrt(dx * dx + dy * dy);
-        }
-    };
 
 
 
@@ -80,29 +68,18 @@ public:
         std::vector<float> zValues = doc.GetColumn<float>(2);
         int N = xValues.size();
         feedback_.time_sequence.push_back(1);
-        //convert it to a path: vector of waypoints
-        std::vector<point> path_points(N);
-        WAYPOINTS demo;
-        for (int i = 0; i < N; ++i) {
-            path_points[i] = point{xValues[i], yValues[i], zValues[i]};
 
+        WAYPOINTS demo;
+        for (int i = 0; i < N; ++i)
             demo.push_back({xValues[i], yValues[i], zValues[i]});
-        }
+
         feedback_.time_sequence.push_back(3);
 
-//        // interpolate the path based on a fixed distance
-//        double m_resolution = 0.1;
-//        auto final_path = interpolateWaypoints(path_points, m_resolution);
-//
-////        for(const auto& point:final_path)
-////        {
-////            ROS_INFO("[Waypoints] next point = (%lf, %lf, %lf)", point[0], point[1], point[2]);
-////        }
         feedback_.time_sequence.push_back(4);
 
         // generate trajectory
         auto messageQueue = std::make_shared<MessageQueue>();
-        waypoint_trajectory communicator(max_vel, max_acc, messageQueue);
+        traj_constant_velocity communicator(max_vel, max_acc, messageQueue);
         communicator.start(demo);
         feedback_.time_sequence.push_back(5);
 //
@@ -133,39 +110,8 @@ public:
 
     }
 
-    // interpolation
-    WAYPOINTS interpolateWaypoints(const std::vector<point>& waypoints, double resolution) {
-        WAYPOINTS interpolatedWaypoints;
 
-        // Iterate through each pair of waypoints
-        for (size_t i = 0; i < waypoints.size() - 1; ++i) {
-            const point& start = waypoints[i];
-            const point& end = waypoints[i + 1];
 
-            // Calculate the distance between start and end waypoints
-            double dx = end.x - start.x;
-            double dy = end.y - start.y;
-            double dz = end.z - start.z;
-            double distance = std::sqrt(dx * dx + dy * dy + dz * dz);
-
-            // Calculate the number of interpolated points between start and end waypoints
-            int numInterpolatedPoints = std::ceil(distance / resolution);
-
-            // Calculate the step size for interpolation
-            double stepSize = 1.0 / numInterpolatedPoints;
-
-            // Interpolate and add the waypoints
-            for (int j = 0; j <= numInterpolatedPoints; ++j) {
-                double t = stepSize * j;
-                double interpolatedX = start.x + t * dx;
-                double interpolatedY = start.y + t * dy;
-                double interpolatedZ = start.z + t * dz;
-                interpolatedWaypoints.push_back({interpolatedX, interpolatedY, interpolatedZ});
-            }
-        }
-
-        return interpolatedWaypoints;
-    }
 };
 
 int main(int argc, char** argv)

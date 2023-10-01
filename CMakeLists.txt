@@ -101,6 +101,7 @@ set(HEADER_FILES
 
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES}
         include/airlib/control/ControllerBase.h
+        include/traj/traj_constant_velocity.h
 
 )
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES} -pthread)

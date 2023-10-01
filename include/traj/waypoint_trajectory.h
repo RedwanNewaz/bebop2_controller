@@ -5,6 +5,7 @@
 #ifndef BEBOP2_CONTROLLER_WAYPOINT_TRAJECTORY_H
 #define BEBOP2_CONTROLLER_WAYPOINT_TRAJECTORY_H
 #include <Eigen/Dense>
+#include <utility>
 #include "traj_min_jerk.hpp"
 #include "traj_min_snap.hpp"
 #include "message_queue.h"
@@ -16,7 +17,7 @@ class waypoint_trajectory
     using TRAJECTORY = std::vector<std::vector<double>>;
 public:
     waypoint_trajectory(double max_vel, double max_acc, std::shared_ptr<MessageQueue> msg)
-    :max_acc_(max_acc), max_vel_(max_vel), msg_(msg)
+    :max_acc_(max_acc), max_vel_(max_vel), msg_(std::move(msg))
     {
         this->wp_size_ = 0;
     }
@@ -39,16 +40,17 @@ public:
         return wp_size_;
     }
 
-private:
+protected:
     Eigen::MatrixXd waypoints_;
     double max_vel_, max_acc_;
     int wp_size_;
     std::thread worker_thread_;
     std::shared_ptr<MessageQueue> msg_;
+    TRAJECTORY traj_;
 
 
-private:
-    void convert_waypoints(const WAYPOINTS& wp)
+protected:
+    virtual void convert_waypoints(const WAYPOINTS& wp)
     {
         int count = 0;
         wp_size_ = wp.size() + (wp.size() % 2);
@@ -62,22 +64,23 @@ private:
             count++;
         }
 
+        //        auto trajectory = path_to_trajectory(waypoints, N - 1, max_vel, max_acc);
+        traj_ = path_to_trajectory(waypoints_, wp_size_ - 1, max_vel_, max_acc_);
+        wp_size_ = (int) traj_.size();
+
     }
 
     void run()
     {
-//        auto trajectory = path_to_trajectory(waypoints, N - 1, max_vel, max_acc);
-        auto trajectory = path_to_trajectory(waypoints_, wp_size_ - 1, max_vel_, max_acc_);
 
-        wp_size_ = (int) trajectory.size();
-        double start_time = trajectory[0][0];
+        double start_time = traj_[0][0];
 
-        for (int k = 0; k < trajectory.size(); ++k)
+        for (int k = 0; k < traj_.size(); ++k)
         {
-            int nap_time = (trajectory[k][0] - start_time) * 1000;
+            int nap_time = (traj_[k][0] - start_time) * 1000;
             std::this_thread::sleep_for(std::chrono::milliseconds(nap_time));
 
-            std::vector<double>x{trajectory[k][1], trajectory[k][2], trajectory[k][3], M_PI_2};
+            std::vector<double>x{traj_[k][1], traj_[k][2], traj_[k][3], M_PI_2};
             //interface.set_goal_state(x);
             if(msg_->isTerminated())
                 break;
@@ -88,7 +91,7 @@ private:
 
 //            std::cout << x[0] << ", " << x[1] << std::endl;
 
-            start_time = trajectory[k][0];
+            start_time = traj_[k][0];
         }
 
 

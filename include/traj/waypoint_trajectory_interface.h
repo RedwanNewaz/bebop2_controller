@@ -20,11 +20,13 @@ public:
         this->wp_size_ = 0;
     }
     ~waypoint_trajectory_interface() {
-        msg_->setTerminate(true);
+
         // Wait for the worker thread to finish
         if (worker_thread_.joinable()) {
             worker_thread_.join();
         }
+
+        msg_->setQuit(true);
 //        std::cout <<"thread terminated " << std::endl;
     }
 

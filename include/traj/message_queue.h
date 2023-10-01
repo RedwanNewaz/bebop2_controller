@@ -16,7 +16,7 @@ class MessageQueue {
 public:
     MessageQueue()
     {
-        isTerminated_ = isPaused_ = false;
+        isTerminated_ = isPaused_ = isQuit_ = false;
     }
     void push(const std::vector<double>& message) {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -26,12 +26,20 @@ public:
 
     void setTerminate(bool status)
     {
+        std::lock_guard<std::mutex> lock(mutex_);
         isTerminated_ = status;
     }
 
     void setPause(bool status)
     {
+        std::lock_guard<std::mutex> lock(mutex_);
         isPaused_ = status;
+    }
+
+    void setQuit(bool status)
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        isQuit_ = status;
     }
 
     bool isTerminated() const
@@ -42,6 +50,11 @@ public:
     bool isPaused() const
     {
         return isPaused_;
+    }
+
+    bool isQuit() const
+    {
+        return isQuit_;
     }
 
     bool pop(std::vector<double>& message) {
@@ -61,7 +74,7 @@ private:
     std::queue<std::vector<double>> messageQueue_;
     std::mutex mutex_;
     std::condition_variable cv_;
-    bool isTerminated_, isPaused_;
+    bool isTerminated_, isPaused_, isQuit_;
 };
 
 #endif //BEBOP2_CONTROLLER_MESSAGE_QUEUE_H

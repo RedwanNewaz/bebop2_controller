@@ -62,13 +62,13 @@ TEST_CASE("traj_planner::minimum_jerk::size", "[wp::rectangle]")
 WAYPOINTS calcInput() {
     // Define a parameter t
     int numPoints = 50;
-    double xScale = 3.5;
-    double yScale = 2.5;
+    double xScale = 2.5;
+    double yScale = 3.5;
     WAYPOINTS wps;
 
     for (int i = 0; i < numPoints; ++i) {
         double t = 2 * M_PI * i / numPoints;
-        double xx = xScale + xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
+        double xx = 1.0 + xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
         double yy = yScale + yScale * sin(t); // You can adjust the vertical offset (+1) for position
         wps.push_back({xx, yy, 1.2});
     }
@@ -80,21 +80,21 @@ TEST_CASE("traj_planner::eight_path", "[wp::eight]")
 {
     WAYPOINTS  wps = calcInput();
 
-//    std::string output = "/home/airlab/catkin_ws/src/bebop2_controller/test";
-//    LoggerCSV loggerCsv;
-//    loggerCsv.setOutputFolder(output);
-//
-//    for(const auto& row: wps)
-//    {
-//        std::vector<std::string> data;
-//        for(const auto& item : row)
-//            data.emplace_back(std::to_string(item));
-//        loggerCsv.addRow(data);
-//    }
+    std::string output = "/home/airlab/catkin_ws/src/bebop2_controller/test";
+    LoggerCSV loggerCsv;
+    loggerCsv.setOutputFolder(output);
+
+    for(const auto& row: wps)
+    {
+        std::vector<std::string> data;
+        for(const auto& item : row)
+            data.emplace_back(std::to_string(item));
+        loggerCsv.addRow(data);
+    }
     auto messageQueue = std::make_shared<MessageQueue>();
     traj_planner::minimum_jerk communicator(2, 3, messageQueue);
     communicator.convert_waypoints(wps);
-    size_t expected = 363;
+    size_t expected = 373;
     REQUIRE(communicator.size() == expected);
 
 }

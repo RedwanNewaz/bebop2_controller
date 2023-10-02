@@ -120,22 +120,22 @@ public:
 
         auto messageQueue = std::make_shared<MessageQueue>();
 
-        std::shared_ptr<waypoint_trajectory_interface> wp_inf;
+        std::unique_ptr<waypoint_trajectory_interface> wp_inf;
         auto planner = static_cast<PlannerType>(goal->method);
         std::string selected_planner;
         switch (planner) {
             case CV:
                 selected_planner = "[planner typer]: constant velocity";
-                wp_inf = std::make_shared<traj_planner::constant_velocity>(max_vel, max_acc, messageQueue);
+                wp_inf = std::make_unique<traj_planner::constant_velocity>(max_vel, max_acc, messageQueue);
                 break;
             case SNAP:
 
                 selected_planner = "[planner typer]: minimum snap";
-                wp_inf = std::make_shared<traj_planner::minimum_snap>(max_vel, max_acc, messageQueue);
+                wp_inf = std::make_unique<traj_planner::minimum_snap>(max_vel, max_acc, messageQueue);
                 break;
             case JERK:
                 selected_planner = "[planner typer]: minimum jerk";
-                wp_inf = std::make_shared<traj_planner::minimum_jerk>(max_vel, max_acc, messageQueue);
+                wp_inf = std::make_unique<traj_planner::minimum_jerk>(max_vel, max_acc, messageQueue);
                 break;
         }
 

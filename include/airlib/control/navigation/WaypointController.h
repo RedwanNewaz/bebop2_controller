@@ -19,9 +19,11 @@
 
 class WaypointController
 {
+
+public:
     using WPI = std::unique_ptr<waypoint_trajectory_interface>;
     using MQ = std::shared_ptr<MessageQueue>;
-public:
+
     WaypointController(std::string name);
 
     virtual ~WaypointController();

@@ -64,7 +64,7 @@ namespace bebop2
         p <<  msg->linear.x * factor ,
               msg->linear.y * factor ,
               msg->linear.z * factor ;
-        states_[3] -= msg->angular.z * factor;
+        states_[3] += msg->angular.z * factor;
 
         Eigen::Matrix3d q;
         q.setIdentity();

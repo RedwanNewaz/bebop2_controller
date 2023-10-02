@@ -30,7 +30,7 @@ namespace traj_planner
                 path_points[i] = point{wp[i][0], wp[i][1], wp[i][2]};
 
             // interpolate the path based on a fixed distance
-            double m_resolution = 0.1;
+            double m_resolution = 0.15;
             auto final_path = interpolateWaypoints(path_points, m_resolution);
             this->wp_size_ = final_path.size();
 

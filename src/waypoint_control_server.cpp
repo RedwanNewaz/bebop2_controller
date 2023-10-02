@@ -1,7 +1,6 @@
 #include <ros/ros.h>
 #include <filesystem>
 #include <chrono>
-#include <atomic>
 #include <actionlib/server/simple_action_server.h>
 #include <bebop2_controller/WaypointsAction.h>
 
@@ -22,7 +21,9 @@ protected:
 
     std::shared_ptr<bebop2::ControllerInterface> interface_;
     double max_vel, max_acc;
-    std::atomic_bool force_terminate_, isAlive_;
+    bool force_terminate_, isAlive_;
+    std::mutex mtx_;
+    std::condition_variable cv_;
 
 
 public:
@@ -31,8 +32,6 @@ public:
                 false), // Use the provided name for the action server
             action_name_(name)
     {
-
-
         ros::param::get("/max_vel", max_vel);
         ros::param::get("/max_acc", max_acc);
 
@@ -62,14 +61,12 @@ public:
     {
         ROS_INFO("%s: Preempted", action_name_.c_str());
         // Set the action state to preempted
-
         as_.setPreempted();
-
     }
 
     void executeCB()
     {
-        if (as_.isActive() || isAlive_)
+        if (isAlive_)
         {
             ROS_WARN("%s: Received a new goal while the previous goal is still active. Preempting the previous goal.", action_name_.c_str());
             if(as_.isActive())
@@ -77,24 +74,20 @@ public:
             force_terminate_ = true;
         }
 
-        while (isAlive_)
-        {
-            std::this_thread::sleep_for(2s);
-            ROS_INFO_STREAM("waiting to force terminate to be false " << isAlive_ << " " << force_terminate_);
-        }
+        std::unique_lock lk(mtx_);
+        cv_.wait(lk, [&]{return !isAlive_ && !force_terminate_;});
 
         ROS_INFO_STREAM("accept new goal");
         auto goal = as_.acceptNewGoal();
         std::thread{std::bind(&WaypointController::execute, this, std::placeholders::_1), goal}.detach();
         isAlive_ = true;
-
-
+        lk.unlock();
     }
 
 
     void execute(const bebop2_controller::WaypointsGoalConstPtr &goal)
     {
-
+        std::unique_lock lk(mtx_);
 
         const std::string path = goal->csv_path;
         if(!std::filesystem::exists(path))
@@ -184,7 +177,9 @@ public:
         else
             as_.setSucceeded(result_);
         ROS_INFO_STREAM( "\n\n" << result_.result);
-        WaypointController::force_terminate_ = WaypointController::isAlive_ = false;
+        force_terminate_ = isAlive_ = false;
+        lk.unlock();
+        cv_.notify_all();
     }
 private:
     enum PlannerType
@@ -202,7 +197,6 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "waypoint_controller");
     WaypointController controller("waypoint_action"); // Use a meaningful name for your action server
 
-    // Your ROS node logic here
     ros::AsyncSpinner spinner(4);
     spinner.start();
     ros::waitForShutdown();

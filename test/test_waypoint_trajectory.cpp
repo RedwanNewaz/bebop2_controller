@@ -78,17 +78,19 @@ WAYPOINTS calcInput() {
 
 TEST_CASE("traj_planner::eight_path", "[wp::eight]")
 {
-    std::string output = "/home/airlab/catkin_ws/src/bebop2_controller/test";
-    LoggerCSV loggerCsv;
-    loggerCsv.setOutputFolder(output);
     WAYPOINTS  wps = calcInput();
-    for(const auto& row: wps)
-    {
-        std::vector<std::string> data;
-        for(const auto& item : row)
-            data.emplace_back(std::to_string(item));
-        loggerCsv.addRow(data);
-    }
+
+//    std::string output = "/home/airlab/catkin_ws/src/bebop2_controller/test";
+//    LoggerCSV loggerCsv;
+//    loggerCsv.setOutputFolder(output);
+//
+//    for(const auto& row: wps)
+//    {
+//        std::vector<std::string> data;
+//        for(const auto& item : row)
+//            data.emplace_back(std::to_string(item));
+//        loggerCsv.addRow(data);
+//    }
     auto messageQueue = std::make_shared<MessageQueue>();
     traj_planner::minimum_jerk communicator(2, 3, messageQueue);
     communicator.convert_waypoints(wps);

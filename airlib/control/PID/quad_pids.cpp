@@ -50,7 +50,7 @@ namespace controller
         control.push_back(u(0));
         control.push_back(u(1));
         control.push_back(u(2));
-        control.push_back(-rawControl[3]);
+        control.push_back(rawControl[3]);
 
     }
 

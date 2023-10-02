@@ -132,7 +132,7 @@ TEST_CASE("quad_pids::compute_control::ccw", "[rotate::ccw]")
 
     quadPids.compute_control(X0, Xg, result);
 
-    std::vector<double> expected{0.0, 0.0, 0.0, -0.5864306287 };
+    std::vector<double> expected{0.0, 0.0, 0.0, 0.5864306287 };
 
     double epsilon = 0.001;
     REQUIRE(areArraysEqualWithTolerance(expected, result, epsilon));
@@ -155,7 +155,7 @@ TEST_CASE("quad_pids::compute_control::cw", "[rotate::cw]")
 
     quadPids.compute_control(X0, Xg, result);
 
-    std::vector<double> expected{0.0, 0.0, 0.0, 0.5864306287 };
+    std::vector<double> expected{0.0, 0.0, 0.0, -0.5864306287 };
 
     double epsilon = 0.001;
     REQUIRE(areArraysEqualWithTolerance(expected, result, epsilon));

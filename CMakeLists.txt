@@ -31,14 +31,14 @@ find_package(Boost REQUIRED COMPONENTS system)
 
 add_action_files(
         DIRECTORY action
-        FILES Waypoints.action
+        FILES Waypoints.action Setpoints.action
 )
 generate_messages(
-        DEPENDENCIES actionlib_msgs std_msgs  # Or other packages containing msgs
+        DEPENDENCIES actionlib_msgs std_msgs  geometry_msgs # Or other packages containing msgs
 )
 
 catkin_package(
-        CATKIN_DEPENDS actionlib_msgs
+        CATKIN_DEPENDS actionlib_msgs geometry_msgs
 #  INCLUDE_DIRS include
 #  LIBRARIES airlib
 #  CATKIN_DEPENDS cv_bridge geometry_msgs image_geometry image_transport nodelet roscpp rospy sensor_msgs std_msgs tf visp_bridge
@@ -69,6 +69,7 @@ set(SOURCE_FILES
         airlib/control/ControllerInterface.cpp
         airlib/control/PID/quad_pids.cpp
         airlib/control/navigation/WaypointController.cpp
+        airlib/control/navigation/P2PNav.cpp
         )
 
 set(HEADER_FILES
@@ -101,6 +102,7 @@ set(HEADER_FILES
         include/traj/trajectory_planner.h
 
         include/airlib/control/navigation/WaypointController.h
+        include/airlib/control/navigation/P2PNav.h
 
 
         )
@@ -108,6 +110,7 @@ set(HEADER_FILES
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES}
 
 )
+
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES} -pthread)
 ## Declare a C++ executables
 ## With catkin_make all packages are built within a single CMake context
@@ -135,6 +138,14 @@ target_link_libraries(
         ${Boost_LIBRARIES}
 )
 
+
+add_executable(p2p_navigation_server src/p2p_navigation_server.cpp ${SOURCE_FILES} ${HEADER_FILES})
+
+target_link_libraries(
+        p2p_navigation_server
+        ${catkin_LIBRARIES}
+        ${Boost_LIBRARIES}
+)
 
 
 #add_subdirectory(bebop2_controller_gui)

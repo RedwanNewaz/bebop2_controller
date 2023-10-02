@@ -9,5 +9,6 @@
 #include "pid/quad_pids.h"
 #include "ControllerInterface.h"
 #include "navigation/WaypointController.h"
+#include "navigation/P2PNav.h"
 
 #endif //BEBOP2_CONTROLLER_CONTROLLER_H

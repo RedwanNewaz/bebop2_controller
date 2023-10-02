@@ -95,6 +95,7 @@ public:
     void execute(const bebop2_controller::WaypointsGoalConstPtr &goal)
     {
 
+
         const std::string path = goal->csv_path;
         if(!std::filesystem::exists(path))
         {
@@ -171,6 +172,7 @@ public:
         std::chrono::duration<double> elapsed_seconds = end_exec - start_exec;
         debug_msg.emplace_back("[Total setpoints]: " + std::to_string(num_setpoints));
         debug_msg.emplace_back("[Elapsed time]: " + std::to_string(elapsed_seconds.count()) + " sec");
+        result_.result = "";
         for(const auto& msg: debug_msg)
             result_.result += msg + " \n";
 

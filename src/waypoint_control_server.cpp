@@ -1,12 +1,14 @@
 #include <ros/ros.h>
 #include <filesystem>
 #include <chrono>
+#include <atomic>
 #include <actionlib/server/simple_action_server.h>
 #include <bebop2_controller/WaypointsAction.h>
 
 #include "rapidcsv.h"
 #include "airlib/control/controller.h"
 #include "trajectory_planner.h"
+
 
 class WaypointController
 {
@@ -20,13 +22,12 @@ protected:
 
     std::shared_ptr<bebop2::ControllerInterface> interface_;
     double max_vel, max_acc;
-    bool force_terminate_, isAlive_;
+    static std::atomic_bool force_terminate_, isAlive_;
 
 
 public:
     WaypointController(std::string name) :
             as_(nh_, name,
-//                boost::bind(&WaypointController::executeCB, this, _1),
                 false), // Use the provided name for the action server
             action_name_(name)
     {
@@ -49,7 +50,7 @@ public:
 
         ROS_INFO("[ros] param = (%lf, %lf, %lf)", max_vel, max_acc, dt);
         as_.start();
-        force_terminate_ = isAlive_ = false;
+
     }
 
     ~WaypointController(void)
@@ -68,32 +69,26 @@ public:
 
     void executeCB()
     {
-
-        // this needs to return quickly to avoid blocking the executor, so spin up a new thread
-
-//        if (as_.isActive())
-//        {
-//            ROS_WARN("%s: Received a new goal while the previous goal is still active. Preempting the previous goal.", action_name_.c_str());
-//             preemptCB();
-//            force_terminate_ = true;
-//
-//        }
-
-        if(isAlive_)
+        if (as_.isActive() || isAlive_)
         {
+            ROS_WARN("%s: Received a new goal while the previous goal is still active. Preempting the previous goal.", action_name_.c_str());
+            if(as_.isActive())
+                preemptCB();
             force_terminate_ = true;
+        }
 
-            preemptCB();
-            as_.setAborted(result_);
+        while (isAlive_)
+        {
             std::this_thread::sleep_for(2s);
-
+            ROS_INFO_STREAM("waiting to force terminate to be false " << isAlive_ << " " << force_terminate_);
         }
 
         ROS_INFO_STREAM("accept new goal");
         auto goal = as_.acceptNewGoal();
-//        execute(goal);
         std::thread{std::bind(&WaypointController::execute, this, std::placeholders::_1), goal}.detach();
         isAlive_ = true;
+
+
     }
 
 
@@ -123,23 +118,23 @@ public:
         std::vector<std::string> debug_msg;
 
         auto messageQueue = std::make_shared<MessageQueue>();
-        waypoint_trajectory_interface *wp_inf;
 
+        std::shared_ptr<waypoint_trajectory_interface> wp_inf;
         auto planner = static_cast<PlannerType>(goal->method);
         std::string selected_planner;
         switch (planner) {
             case CV:
                 selected_planner = "[planner typer]: constant velocity";
-                wp_inf = new traj_planner::constant_velocity(max_vel, max_acc, messageQueue);
+                wp_inf = std::make_shared<traj_planner::constant_velocity>(max_vel, max_acc, messageQueue);
                 break;
             case SNAP:
 
                 selected_planner = "[planner typer]: minimum snap";
-                wp_inf = new traj_planner::minimum_snap(max_vel, max_acc, messageQueue);
+                wp_inf = std::make_shared<traj_planner::minimum_snap>(max_vel, max_acc, messageQueue);
                 break;
             case JERK:
                 selected_planner = "[planner typer]: minimum jerk";
-                wp_inf = new traj_planner::minimum_jerk(max_vel, max_acc, messageQueue);
+                wp_inf = std::make_shared<traj_planner::minimum_jerk>(max_vel, max_acc, messageQueue);
                 break;
         }
 
@@ -152,7 +147,7 @@ public:
         int num_setpoints = 0;
         auto start_exec = std::chrono::high_resolution_clock::now();
 
-        while(!terminated || !force_terminate_)
+        while(!terminated)
         {
             std::vector<double> received_message;
             if(messageQueue->pop(received_message))
@@ -172,39 +167,22 @@ public:
             messageQueue->setTerminate(force_terminate_);
         }
 
-        messageQueue->setTerminate(true);
-        delete wp_inf;
-
-
         auto end_exec = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed_seconds = end_exec - start_exec;
-
-
         debug_msg.emplace_back("[Total setpoints]: " + std::to_string(num_setpoints));
         debug_msg.emplace_back("[Elapsed time]: " + std::to_string(elapsed_seconds.count()) + " sec");
-
-
         for(const auto& msg: debug_msg)
             result_.result += msg + " \n";
 
-
-        as_.setSucceeded(result_);
-
-
-
-        while (!messageQueue->isQuit())
+        if(force_terminate_)
         {
-            std::cout <<"waiting to quit thread " << std::endl;
-            std::this_thread::sleep_for(100ms);
+            result_.result += "[!!! Thread !!!] status: Force terminated";
+            messageQueue->setTerminate(true);
         }
-
-        isAlive_ = false;
-        std::cout <<"TrajController terminated " << std::endl;
-//        preemptCB();
-
-
-
-
+        else
+            as_.setSucceeded(result_);
+        ROS_INFO_STREAM(result_.result);
+        WaypointController::force_terminate_ = WaypointController::isAlive_ = false;
     }
 private:
     enum PlannerType
@@ -214,9 +192,10 @@ private:
         SNAP
     };
 
-
-
 };
+
+std::atomic_bool WaypointController::force_terminate_ =  false;
+std::atomic_bool WaypointController::isAlive_ =  false;
 
 int main(int argc, char** argv)
 {

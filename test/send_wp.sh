@@ -21,7 +21,7 @@ rostopic pub --once /waypoint_action/goal bebop2_controller/WaypointsActionGoal 
     nsecs: 0
   frame_id: ''
 goal_id:
-  id: 'goal3'
+  id: 'goal4'
 goal:
   csv_path: '/home/redwan/catkin_ws/src/bebop2_controller/test/wps.csv'
   method: 0

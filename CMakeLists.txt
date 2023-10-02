@@ -68,6 +68,7 @@ set(SOURCE_FILES
         airlib/control/PID/PID.cpp
         airlib/control/ControllerInterface.cpp
         airlib/control/PID/quad_pids.cpp
+        airlib/control/navigation/WaypointController.cpp
         )
 
 set(HEADER_FILES
@@ -96,12 +97,15 @@ set(HEADER_FILES
         include/traj/waypoint_trajectory_interface.h
         include/traj/rapidcsv.h
 
+        include/airlib/control/ControllerBase.h
+        include/traj/trajectory_planner.h
+
+        include/airlib/control/navigation/WaypointController.h
+
 
         )
 
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES}
-        include/airlib/control/ControllerBase.h
-        include/traj/trajectory_planner.h
 
 )
 target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES} -pthread)

@@ -17,6 +17,8 @@
   <arg name="BAG_ROOT" default="/home/airlab/catkin_ws/bags" />
 
     <node pkg="bebop2_controller" type="bebop2_sim" name="bebop2_sim" output="screen"/>
+  <node pkg="bebop2_controller" type="waypoint_control_server" name="waypoint_control_server" output="screen"/>
+  <node pkg="bebop2_controller" type="p2p_navigation_server" name="p2p_navigation_server" output="screen"/>
 <!--    <node pkg="bebop2_controller" type="bebop2_state_estimator_pf.py" name="apriltag_test" output="screen"/>-->
 
   <node pkg="bebop2_controller" type="bebop2_controller_node" name="controller_test" output="screen">

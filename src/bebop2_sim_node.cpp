@@ -10,7 +10,7 @@
 #include "airlib/localization/sensors.h"
 #include "airlib/localization/filters.h"
 #include "airlib/control/controller.h"
-#include "waypoint_trajectory_interface.h"
+
 
 const double DT = 0.1; // Define your time step value here
 
@@ -108,22 +108,23 @@ int main(int argc, char* argv[])
     std::vector<double>x0{wps[0][0], wps[0][1], wps[0][2], 0.0};
     stateSensor->set(x0);
 
-    std::thread stateThread(state_publisher, std::ref(stateObserver), std::ref(pub));
+    state_publisher(stateObserver, pub);
+//    std::thread stateThread(state_publisher, std::ref(stateObserver), std::ref(pub));
 
-    auto messageQueue = std::make_shared<MessageQueue>();
-    waypoint_trajectory_interface communicator(max_vel, max_acc, messageQueue);
-    communicator.start(wps);
-
-
-
-
-    while(ros::ok())
-    {
-        std::vector<double> received_message;
-        if(messageQueue->pop(received_message))
-            interface.set_goal_state(received_message);
-        std::this_thread::sleep_for(2ms);
-    }
+//    auto messageQueue = std::make_shared<MessageQueue>();
+//    traj_planner::minimum_snap communicator(max_vel, max_acc, messageQueue);
+//    communicator.start(wps);
+//
+//
+//
+//
+//    while(ros::ok())
+//    {
+//        std::vector<double> received_message;
+//        if(messageQueue->pop(received_message))
+//            interface.set_goal_state(received_message);
+//        std::this_thread::sleep_for(2ms);
+//    }
 
 
 //    for (int i = 0; i < wp_x.size(); ++i) {

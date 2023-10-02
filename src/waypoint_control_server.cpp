@@ -183,7 +183,7 @@ public:
         }
         else
             as_.setSucceeded(result_);
-        ROS_INFO_STREAM(result_.result);
+        ROS_INFO_STREAM( "\n\n" << result_.result);
         WaypointController::force_terminate_ = WaypointController::isAlive_ = false;
     }
 private:

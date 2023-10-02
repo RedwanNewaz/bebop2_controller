@@ -22,7 +22,7 @@ protected:
 
     std::shared_ptr<bebop2::ControllerInterface> interface_;
     double max_vel, max_acc;
-    static std::atomic_bool force_terminate_, isAlive_;
+    std::atomic_bool force_terminate_, isAlive_;
 
 
 public:
@@ -38,7 +38,7 @@ public:
 
         as_.registerGoalCallback(boost::bind(&WaypointController::executeCB, this));
         as_.registerPreemptCallback(boost::bind(&WaypointController::preemptCB, this));
-
+        force_terminate_ = isAlive_ = false;
 
 
         std::vector<double> gains;
@@ -196,8 +196,6 @@ private:
 
 };
 
-std::atomic_bool WaypointController::force_terminate_ =  false;
-std::atomic_bool WaypointController::isAlive_ =  false;
 
 int main(int argc, char** argv)
 {

@@ -29,7 +29,7 @@ rostopic pub --once /waypoint_action/goal bebop2_controller/WaypointsActionGoal 
 goal_id:
   id: 'goalMinJerk'
 goal:
-  csv_path: '/home/airlab/catkin_ws/src/bebop2_controller/test/eight1.csv'
+  csv_path: '/home/redwan/catkin_ws/src/bebop2_controller/test/eight1.csv'
   method: 1
 "
 }

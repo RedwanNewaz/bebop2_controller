@@ -121,7 +121,7 @@ $(function() {
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        std::unique_ptr&lt;ControlViz&gt; viz_;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        ros::Subscriber joystick_sub_;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        ros::Publisher drone_takeoff_pub_,  drone_land_pub_,cmd_vel_pub_;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        std::vector&lt;double&gt; setPoints_;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        std::vector&lt;double&gt; setPose_;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classbebop2_1_1_controller_base.html#add1eb5b349b755bdad661697bb184f2a">   60</a></span>        ros::NodeHandle <a class="code hl_variable" href="classbebop2_1_1_controller_base.html#add1eb5b349b755bdad661697bb184f2a">m_nh</a>; <span class="comment">// if you need to create some publisher and subscriber</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classbebop2_1_1_controller_base.html#a419cc93fc0637717522429e67b63f8dd">   61</a></span>        std::mutex <a class="code hl_variable" href="classbebop2_1_1_controller_base.html#a419cc93fc0637717522429e67b63f8dd">m_mu</a>; <span class="comment">// if you need to lock some function for safe operations</span></div>

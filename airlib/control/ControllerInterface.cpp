@@ -22,6 +22,7 @@ namespace bebop2
         joystick_timer_ = m_nh.createTimer(ros::Duration(0.05), &bebop2::ControllerInterface::joystick_timer_callback, this);
 
         state_sub_ = m_nh.subscribe("apriltag/state", 10, &ControllerInterface::state_callback, this);
+        set_pose_sub_ = m_nh.subscribe("set_pose", 10, &ControllerInterface::set_goal_state, this);
         viz_ = std::make_unique<ControlViz>(m_nh);
         m_buttonState = ENGAGE;
 
@@ -59,9 +60,9 @@ namespace bebop2
             }
 
 
-            if(!setPoints_.empty())
+            if(!setPose_.empty())
             {
-                auto pose = getStateVecToTransform(setPoints_);
+                auto pose = getStateVecToTransform(setPose_);
                 switch (m_buttonState) {
                     case TAKEOFF: viz_->update(pose, GREEN); break;
                     case IDLE:    viz_->update(pose, BLUE); break;
@@ -92,12 +93,12 @@ namespace bebop2
         float dy = filter(axes_values_[Y_AXIS_INDEX]);
 
         //  update_setpoint with (dx, dy, dz);
-        if(!setPoints_.empty())
-        {   setPoints_[0] += dx;
-            setPoints_[1] += dy;
-            setPoints_[2] += dz;
+        if(!setPose_.empty())
+        { setPose_[0] += dx;
+            setPose_[1] += dy;
+            setPose_[2] += dz;
 
-            auto pose = getStateVecToTransform(setPoints_);
+            auto pose = getStateVecToTransform(setPose_);
             switch (m_buttonState) {
                 case TAKEOFF: viz_->update(pose, GREEN); break;
                 case IDLE:    viz_->update(pose, BLUE); break;
@@ -121,20 +122,20 @@ namespace bebop2
         if(m_buttonState == ENGAGE)
         {
             // set setpoint at current position
-            setPoints_.clear();
-            std::copy(state.begin(), state.end(), std::back_inserter(setPoints_));
+            setPose_.clear();
+            std::copy(state.begin(), state.end(), std::back_inserter(setPose_));
             // visualize your state with sphere
-            auto pose = getStateVecToTransform(setPoints_);
+            auto pose = getStateVecToTransform(setPose_);
             viz_->update(pose, YELLOW);
 
         }
         else if(m_buttonState == CONTROL)
         {
-            if(goal_distance(state, setPoints_) > m_goal_thres)
+            if(goal_distance(state, setPose_) > m_goal_thres)
             {
                 // actively control position
                 std::vector<double>U;
-                drone_controller_->compute_control(state, setPoints_, U);
+                drone_controller_->compute_control(state, setPose_, U);
 //                ROS_INFO("[PositionController] vx = %lf, vy = %lf, vz = %lf, wz = %lf", U[0], U[1], U[2], U[3]);
                 publish_cmd_vel(U);
             }
@@ -218,10 +219,27 @@ namespace bebop2
 
     }
 
-    void ControllerInterface::set_goal_state(const std::vector<double> &Xg) {
-        m_buttonState = CONTROL;
-        setPoints_.clear();
-        std::copy(Xg.begin(), Xg.end(), std::back_inserter(setPoints_));
+    void ControllerInterface::set_goal_state(const geometry_msgs::PoseStamped::ConstPtr & msg) {
+        if(m_buttonState != CONTROL)
+            m_buttonState = CONTROL;
+
+        setPose_.clear();
+        auto qq = msg->pose.orientation;
+        tf::Quaternion q(qq.x, qq.y, qq.z, qq.w);
+        tf::Matrix3x3 m(q);
+        double roll, pitch, yaw;
+        m.getRPY(roll, pitch, yaw);
+
+        auto pp = msg->pose.position;
+        setPose_.push_back(pp.x);
+        setPose_.push_back(pp.y);
+        setPose_.push_back(pp.z);
+        setPose_.push_back(yaw);
+
+        tf::Transform pose;
+        pose.setOrigin(tf::Vector3(pp.x, pp.y, pp.z));
+        pose.setRotation(q);
+        viz_->update(pose, CYAN);
     }
 
 

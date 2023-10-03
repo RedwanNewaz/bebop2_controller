@@ -16,6 +16,8 @@
 #include "airlib/control/controller.h"
 #include "trajectory_planner.h"
 #include <nav_msgs/Odometry.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <tf/transform_datatypes.h>
 
 class P2PNav {
     using WPI = std::unique_ptr<waypoint_trajectory_interface>;
@@ -32,13 +34,14 @@ public:
 private:
     // Declare private member variables and methods here
     ros::NodeHandle nh_;
+    ros::Publisher pub_;
     ros::Subscriber state_sub_;
     std::string action_name_;
     actionlib::SimpleActionServer<bebop2_controller::SetpointsAction> as_;
     bebop2_controller::SetpointsFeedback feedback_;
     bebop2_controller::SetpointsResult result_;
 
-    std::shared_ptr<bebop2::ControllerInterface> interface_;
+
     std::vector<double> current_state_;
     double max_vel, max_acc;
     bool force_terminate_, isAlive_, isStateValid_;

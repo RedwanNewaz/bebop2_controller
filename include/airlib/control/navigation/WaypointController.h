@@ -17,6 +17,9 @@
 #include "airlib/control/controller.h"
 #include "trajectory_planner.h"
 
+#include <geometry_msgs/PoseStamped.h>
+#include <tf/transform_datatypes.h>
+
 class WaypointController
 {
     using WPI = std::unique_ptr<waypoint_trajectory_interface>;
@@ -37,12 +40,13 @@ public:
 private:
     // Declare private member variables and methods here
     ros::NodeHandle nh_;
+    ros::Publisher pub_;
     std::string action_name_;
     actionlib::SimpleActionServer<bebop2_controller::WaypointsAction> as_;
     bebop2_controller::WaypointsFeedback feedback_;
     bebop2_controller::WaypointsResult result_;
 
-    std::shared_ptr<bebop2::ControllerInterface> interface_;
+
     double max_vel, max_acc;
     bool force_terminate_, isAlive_;
     std::mutex mtx_;

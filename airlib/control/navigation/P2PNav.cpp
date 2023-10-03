@@ -22,7 +22,8 @@ P2PNav::P2PNav(std::string name) :
     ros::param::get("/pid_gains", gains);
     ros::param::get("/dt", dt);
     auto controller = std::make_shared<controller::quad_pids>(gains, dt);
-    interface_ = std::make_shared<bebop2::ControllerInterface>(nh_, controller);
+    pub_ = nh_.advertise<geometry_msgs::PoseStamped>("set_pose", 10);
+
 
     // subscrobe state topic
     state_sub_ = nh_.subscribe("apriltag/state", 10, &P2PNav::state_callback, this);
@@ -103,7 +104,21 @@ void P2PNav::control_loop(const std::string &selected_planner, P2PNav::MQ messag
             feedback_.feedback.push_back(received_message[1]);
             feedback_.feedback.push_back(received_message[2]);
             as_.publishFeedback(feedback_);
-            interface_->set_goal_state(received_message);
+            // convert pose message
+            tf::Quaternion q;
+            q.setRPY(0, 0, M_PI_2);
+
+            geometry_msgs::PoseStamped msg;
+            msg.header.stamp = ros::Time::now();
+            msg.header.frame_id = "map";
+            msg.pose.position.x = received_message[0];
+            msg.pose.position.y = received_message[1];
+            msg.pose.position.z = received_message[2];
+            msg.pose.orientation.x = q.x();
+            msg.pose.orientation.y = q.y();
+            msg.pose.orientation.z = q.z();
+            msg.pose.orientation.w = q.w();
+            pub_.publish(msg);
             ++num_setpoints;
         }
         std::this_thread::sleep_for(2ms);

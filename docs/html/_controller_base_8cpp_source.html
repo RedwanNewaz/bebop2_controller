@@ -130,9 +130,9 @@ $(function() {
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            }</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">if</span>(!setPoints_.empty())</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">if</span>(!setPose_.empty())</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <span class="keyword">auto</span> pose = getStateVecToTransform(setPoints_);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <span class="keyword">auto</span> pose = getStateVecToTransform(setPose_);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                <span class="keywordflow">switch</span> (<a class="code hl_variable" href="classbebop2_1_1_controller_base.html#a587d4539796276947acfceedd74daf2c">m_buttonState</a>) {</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classbebop2_1_1_controller_base.html#a76352e69566212036f3d7207ce4b6cc0a034f3ebd64c6dedc4232ea246cb82f0a">TAKEOFF</a>: viz_-&gt;update(pose, <a class="code hl_enumvalue" href="namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa60ee5eacf4c977d6bb56b14d659b4acb">GREEN</a>); <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classbebop2_1_1_controller_base.html#a76352e69566212036f3d7207ce4b6cc0a2eb4f2f58d711bb2fc7cf6443830e41b">IDLE</a>:    viz_-&gt;update(pose, <a class="code hl_enumvalue" href="namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa3ba9d75b5521ab4bf2c90492a734c244">BLUE</a>); <span class="keywordflow">break</span>;</div>
@@ -163,12 +163,12 @@ $(function() {
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">float</span> dy = filter(axes_values_[<a class="code hl_variable" href="namespacebebop2.html#ace37141259c7e75b0ffbfb6234da5cf8">Y_AXIS_INDEX</a>]);</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="comment">//  update_setpoint with (dx, dy, dz);</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span>(!setPoints_.empty())</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        {   setPoints_[0] += dx;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            setPoints_[1] += dy;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            setPoints_[2] += dz;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span>(!setPose_.empty())</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        {   setPose_[0] += dx;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            setPose_[1] += dy;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            setPose_[2] += dz;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keyword">auto</span> pose = getStateVecToTransform(setPoints_);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keyword">auto</span> pose = getStateVecToTransform(setPose_);</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="keywordflow">switch</span> (<a class="code hl_variable" href="classbebop2_1_1_controller_base.html#a587d4539796276947acfceedd74daf2c">m_buttonState</a>) {</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classbebop2_1_1_controller_base.html#a76352e69566212036f3d7207ce4b6cc0a034f3ebd64c6dedc4232ea246cb82f0a">TAKEOFF</a>: viz_-&gt;update(pose, <a class="code hl_enumvalue" href="namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa60ee5eacf4c977d6bb56b14d659b4acb">GREEN</a>); <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="classbebop2_1_1_controller_base.html#a76352e69566212036f3d7207ce4b6cc0a2eb4f2f58d711bb2fc7cf6443830e41b">IDLE</a>:    viz_-&gt;update(pose, <a class="code hl_enumvalue" href="namespacebebop2.html#a5db54b5dbc3283ac2d156b317597b5bfa3ba9d75b5521ab4bf2c90492a734c244">BLUE</a>); <span class="keywordflow">break</span>;</div>
@@ -194,17 +194,17 @@ $(function() {
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="classbebop2_1_1_controller_base.html#a587d4539796276947acfceedd74daf2c">m_buttonState</a> == <a class="code hl_enumvalue" href="classbebop2_1_1_controller_base.html#a76352e69566212036f3d7207ce4b6cc0aa78035010c11ea80cefb7f54823d5083">ENGAGE</a>)</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        {</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="comment">// set setpoint at current position</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            setPoints_.clear();</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            std::copy(state.begin(), state.end(), std::back_inserter(setPoints_));</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            setPose_.clear();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            std::copy(state.begin(), state.end(), std::back_inserter(setPose_));</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code hl_variable" href="classbebop2_1_1_controller_base.html#a587d4539796276947acfceedd74daf2c">m_buttonState</a> == <a class="code hl_enumvalue" href="classbebop2_1_1_controller_base.html#a76352e69566212036f3d7207ce4b6cc0a9e134b87d5f808d52d03c5f982da417a">CONTROL</a>)</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="classbebop2_1_1_controller_base.html#adcc0fee29e5f7b7f6a19a640955eb652">goal_distance</a>(state, setPoints_) &gt; <a class="code hl_variable" href="classbebop2_1_1_controller_base.html#a405dcc08256f764191275e542d37a955">m_goal_thres</a>)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="classbebop2_1_1_controller_base.html#adcc0fee29e5f7b7f6a19a640955eb652">goal_distance</a>(state, setPose_) &gt; <a class="code hl_variable" href="classbebop2_1_1_controller_base.html#a405dcc08256f764191275e542d37a955">m_goal_thres</a>)</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            {</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                <span class="comment">// actively control position</span></div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                std::vector&lt;double&gt;U(<a class="code hl_variable" href="namespacebebop2.html#ad130bb29243bfa4b86a561fee67cdade">NUM_CONTROLS</a>);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                <a class="code hl_function" href="classbebop2_1_1_controller_base.html#a0619e69c4759098a59a2bdae5c503501">compute_control</a>(state, setPoints_, U);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                <a class="code hl_function" href="classbebop2_1_1_controller_base.html#a0619e69c4759098a59a2bdae5c503501">compute_control</a>(state, setPose_, U);</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                ROS_INFO(<span class="stringliteral">&quot;[PositionController] vx = %lf, vy = %lf, vz = %lf&quot;</span>, U[0], U[1], U[2]);</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                <a class="code hl_function" href="classbebop2_1_1_controller_base.html#a644d91e6e4bc12977deff541165a6b8c">publish_cmd_vel</a>(U);</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            }</div>

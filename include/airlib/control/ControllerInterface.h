@@ -27,6 +27,7 @@
 #include "airlib/control/ControlViz.h"
 #include "airlib/control/ControllerBase.h"
 #include <nav_msgs/Odometry.h>
+#include <geometry_msgs/PoseStamped.h>
 
 
 
@@ -59,7 +60,7 @@ namespace bebop2
 
         virtual ~ControllerInterface();
 
-        void set_goal_state(const std::vector<double>& Xg);
+        void set_goal_state(const geometry_msgs::PoseStamped::ConstPtr & msg);
 
     private:
         /// Array of four real numbers in which the first three numbers most commonly represented by x,y,z are vectors and the last number is w which represents the rotation of the robot about the vectors.
@@ -76,7 +77,7 @@ namespace bebop2
         /// Publishes the takeoff, landing and velocity information respectively.      
         ros::Publisher drone_takeoff_pub_,  drone_land_pub_,cmd_vel_pub_;
         /// @brief Co-ordinates of the points set by the controller.
-        std::vector<double> setPoints_;
+        std::vector<double> setPose_;
     protected:
         /// This ROS Handle attribute is used to create various publishers and subscribers which also deals with messages.
         ros::NodeHandle m_nh;
@@ -104,7 +105,7 @@ namespace bebop2
         double m_goal_thres;
 
         ///State callback
-        ros::Subscriber state_sub_;
+        ros::Subscriber state_sub_, set_pose_sub_;
         void state_callback(const nav_msgs::Odometry::ConstPtr& msg);
 
 

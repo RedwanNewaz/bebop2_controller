@@ -22,7 +22,7 @@ WaypointController::WaypointController(std::string name)
     ros::param::get("/pid_gains", gains);
     ros::param::get("/dt", dt);
     auto controller = std::make_shared<controller::quad_pids>(gains, dt);
-    interface_ = std::make_shared<bebop2::ControllerInterface>(nh_, controller);
+    pub_ = nh_.advertise<geometry_msgs::PoseStamped>("set_pose", 10);
 
     ROS_INFO("[ros] param = (%lf, %lf, %lf)", max_vel, max_acc, dt);
     as_.start();
@@ -145,7 +145,22 @@ void WaypointController::control_loop(const std::string &selected_planner, Waypo
             feedback_.setpoint.push_back(received_message[1]);
             feedback_.setpoint.push_back(received_message[2]);
             as_.publishFeedback(feedback_);
-            interface_->set_goal_state(received_message);
+            // convert pose message
+            tf::Quaternion q;
+            q.setRPY(0, 0, M_PI_2);
+
+            geometry_msgs::PoseStamped msg;
+            msg.header.stamp = ros::Time::now();
+            msg.header.frame_id = "map";
+            msg.pose.position.x = received_message[0];
+            msg.pose.position.y = received_message[1];
+            msg.pose.position.z = received_message[2];
+            msg.pose.orientation.x = q.x();
+            msg.pose.orientation.y = q.y();
+            msg.pose.orientation.z = q.z();
+            msg.pose.orientation.w = q.w();
+            pub_.publish(msg);
+
             ++num_setpoints;
         }
         std::this_thread::sleep_for(2ms);

@@ -35,8 +35,8 @@ namespace bebop2
 {
     const float STEP_INCR = 0.02;
     const float DEAD_ZONE = 0.3;
-    const int X_AXIS_INDEX = 3;
-    const int Y_AXIS_INDEX = 2;
+    const int X_AXIS_INDEX = 2;
+    const int Y_AXIS_INDEX = 3;
     const int Z_AXIS_INDEX = 5;
     const int NUM_CONTROLS = 4;
 

@@ -97,6 +97,7 @@ namespace bebop2
         { setPose_[0] += dx;
             setPose_[1] += dy;
             setPose_[2] += dz;
+            setPose_[3] = M_PI_2;
 
             auto pose = getStateVecToTransform(setPose_);
             switch (m_buttonState) {

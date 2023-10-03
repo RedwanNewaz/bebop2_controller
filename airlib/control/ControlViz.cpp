@@ -9,6 +9,7 @@ namespace bebop2 {
         pub_marker_ = nh_.advertise<visualization_msgs::Marker>("/bebop2/goal", 10);
         std::vector<std::string>header{"x", "y", "z", "yaw"};
         logger_ = std::make_unique<LoggerCSV>(header, LOGGER_FQ);
+        sub_goal_ = nh_.subscribe("/set_new_goal", 10, &ControlViz::clear_marker_points, this);
 
         std::vector<int>tagIds;
         ros::param::get("/apriltags", tagIds);
@@ -241,5 +242,9 @@ namespace bebop2 {
         rotation_matrix << std::cos(angle), -std::sin(angle),
                 std::sin(angle),  std::cos(angle);
         return rotation_matrix;
+    }
+
+    void ControlViz::clear_marker_points(const std_msgs::Empty::ConstPtr &msg) {
+        traj_.clear();
     }
 } // bebop2

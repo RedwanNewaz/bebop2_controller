@@ -19,6 +19,7 @@
 
 #include <geometry_msgs/PoseStamped.h>
 #include <tf/transform_datatypes.h>
+#include <std_msgs/Empty.h>
 
 class WaypointController
 {
@@ -40,7 +41,7 @@ public:
 private:
     // Declare private member variables and methods here
     ros::NodeHandle nh_;
-    ros::Publisher pub_;
+    ros::Publisher pub_, pub_clear_traj_;
     std::string action_name_;
     actionlib::SimpleActionServer<bebop2_controller::WaypointsAction> as_;
     bebop2_controller::WaypointsFeedback feedback_;

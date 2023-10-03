@@ -23,7 +23,7 @@ WaypointController::WaypointController(std::string name)
     ros::param::get("/dt", dt);
     auto controller = std::make_shared<controller::quad_pids>(gains, dt);
     pub_ = nh_.advertise<geometry_msgs::PoseStamped>("set_pose", 10);
-
+    pub_clear_traj_ = nh_.advertise<std_msgs::Empty>("/set_new_goal", 10);
     ROS_INFO("[ros] param = (%lf, %lf, %lf)", max_vel, max_acc, dt);
     as_.start();
 }
@@ -56,6 +56,9 @@ void WaypointController::executeCB()
     cv_.wait(lk, [&]{return !isAlive_ && !force_terminate_;});
 
     ROS_INFO_STREAM("accept new goal");
+
+    std_msgs::Empty msg;
+    pub_clear_traj_.publish(msg);
     auto goal = as_.acceptNewGoal();
     std::thread{std::bind(&WaypointController::execute, this, std::placeholders::_1), goal}.detach();
     isAlive_ = true;

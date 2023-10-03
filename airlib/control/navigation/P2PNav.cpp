@@ -23,7 +23,7 @@ P2PNav::P2PNav(std::string name) :
     ros::param::get("/dt", dt);
     auto controller = std::make_shared<controller::quad_pids>(gains, dt);
     pub_ = nh_.advertise<geometry_msgs::PoseStamped>("set_pose", 10);
-
+    pub_clear_traj_ = nh_.advertise<std_msgs::Empty>("/set_new_goal", 10);
 
     // subscrobe state topic
     state_sub_ = nh_.subscribe("apriltag/state", 10, &P2PNav::state_callback, this);
@@ -59,6 +59,9 @@ void P2PNav::executeCB() {
     cv_.wait(lk, [&]{return !isAlive_ && !force_terminate_;});
 
     ROS_INFO_STREAM("accept new goal");
+
+    std_msgs::Empty msg;
+    pub_clear_traj_.publish(msg);
     auto goal = as_.acceptNewGoal();
     std::thread{std::bind(&P2PNav::execute, this, std::placeholders::_1), goal}.detach();
     isAlive_ = true;

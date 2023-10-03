@@ -10,6 +10,7 @@
 #include <tf/transform_broadcaster.h>
 #include "airlib/utility/LoggerCSV.h"
 #include <Eigen/Dense>
+#include <std_msgs/Empty.h>
 
 namespace bebop2 {
     enum MARKER_COLOR
@@ -55,6 +56,7 @@ namespace bebop2 {
     private:
         /// ROS NodeHandle for dealing with various messages.
         ros::NodeHandle nh_;
+        ros::Subscriber sub_goal_;
         /// ROS Publisher to advertise various visualization messages to /bebop2/goal.
         ros::Publisher pub_marker_;
         std::unique_ptr<LoggerCSV> logger_;
@@ -75,7 +77,7 @@ namespace bebop2 {
         */
         void set_marker_color(const MARKER_COLOR& color, visualization_msgs::Marker& msg);
 
-
+        void clear_marker_points(const std_msgs::Empty::ConstPtr &msg);
     };
 
 } // bebop2

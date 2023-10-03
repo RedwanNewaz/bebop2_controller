@@ -18,6 +18,7 @@
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <tf/transform_datatypes.h>
+#include <std_msgs/Empty.h>
 
 class P2PNav {
     using WPI = std::unique_ptr<waypoint_trajectory_interface>;
@@ -34,7 +35,7 @@ public:
 private:
     // Declare private member variables and methods here
     ros::NodeHandle nh_;
-    ros::Publisher pub_;
+    ros::Publisher pub_, pub_clear_traj_;
     ros::Subscriber state_sub_;
     std::string action_name_;
     actionlib::SimpleActionServer<bebop2_controller::SetpointsAction> as_;

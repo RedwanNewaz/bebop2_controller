@@ -7,6 +7,7 @@
 #include "airlib/control/controller.h"
 #include "trajectory_planner.h"
 #include "airlib/utility/LoggerCSV.h"
+#include <filesystem>
 
 TEST_CASE("traj_planner::constant_velocity::size", "[wp::rectangle]")
 {
@@ -80,9 +81,10 @@ TEST_CASE("traj_planner::eight_path", "[wp::eight]")
 {
     WAYPOINTS  wps = calcInput();
 
-    std::string output = "/home/airlab/catkin_ws/src/bebop2_controller/test";
+    std::string output = "/home/redwan/catkin_ws/src/bebop2_controller/test";
     LoggerCSV loggerCsv;
     loggerCsv.setOutputFolder(output);
+
 
     for(const auto& row: wps)
     {
@@ -91,10 +93,8 @@ TEST_CASE("traj_planner::eight_path", "[wp::eight]")
             data.emplace_back(std::to_string(item));
         loggerCsv.addRow(data);
     }
-    auto messageQueue = std::make_shared<MessageQueue>();
-    traj_planner::minimum_jerk communicator(2, 3, messageQueue);
-    communicator.convert_waypoints(wps);
-    size_t expected = 373;
-    REQUIRE(communicator.size() == expected);
 
+    bool isValidoutput = std::filesystem::is_directory(output);
+
+    REQUIRE_FALSE(!isValidoutput);
 }

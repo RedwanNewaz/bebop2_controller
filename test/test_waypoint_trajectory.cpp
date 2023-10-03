@@ -61,27 +61,45 @@ TEST_CASE("traj_planner::minimum_jerk::size", "[wp::rectangle]")
 }
 
 WAYPOINTS calcInput() {
-    // Define a parameter t
-    int numPoints = 50;
-    double xScale = 2.5;
-    double yScale = 3.5;
+// Define a parameter t
+    int numPoints = 300;
+    double xScale = 1.5;
+    double yScale = 1.5;
     WAYPOINTS wps;
 
-    for (int i = 0; i < numPoints; ++i) {
-        double t = 2 * M_PI * i / numPoints;
-        double xx = 1.0 + xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
-        double yy = yScale + yScale * sin(t); // You can adjust the vertical offset (+1) for position
-        wps.push_back({xx, yy, 1.2});
+    for (double i = 0; i < M_PI * 2; i+= 0.1) {
+        double a = 0.5;
+        double Y =  5.2 + 2 * a * (1 - cos(i)) * cos(i); // You can adjust the scaling factor (2) for size
+        double X =  2.5 + 2 * a * (1 - cos(i)) * sin(i);; // You can adjust the vertical offset (+1) for position
+        wps.push_back({X, Y, 1.2});
     }
     return wps;
 }
 
+WAYPOINTS calcEight() {
+//    // Define a parameter t
+    int numPoints = 50;
+    double xScale = 2.5;
+    double yScale = 1.8;
+    WAYPOINTS wps;
+
+    for (int i = 0; i < numPoints; ++i) {
+        double t = 2 * M_PI * i / numPoints;
+        double xx = 2.5 + xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
+        double yy = 4.0 + yScale * sin(t); // You can adjust the vertical offset (+1) for position
+        wps.push_back({xx, yy, 1.0});
+    }
+
+    return wps;
+}
+
+
 
 TEST_CASE("traj_planner::eight_path", "[wp::eight]")
 {
-    WAYPOINTS  wps = calcInput();
+    WAYPOINTS  wps = calcEight();
 
-    std::string output = "/home/redwan/catkin_ws/src/bebop2_controller/test";
+    std::string output = "/home/roboticslab/catkin_ws/src/bebop2_controller/test";
     LoggerCSV loggerCsv;
     loggerCsv.setOutputFolder(output);
 

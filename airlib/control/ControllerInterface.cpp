@@ -89,7 +89,7 @@ namespace bebop2
         };
 
         float dz = filter(axes_values_[Z_AXIS_INDEX]);
-        float dx = filter(axes_values_[X_AXIS_INDEX]);
+        float dx = -filter(axes_values_[X_AXIS_INDEX]);
         float dy = filter(axes_values_[Y_AXIS_INDEX]);
 
         //  update_setpoint with (dx, dy, dz);

@@ -22,13 +22,4 @@
     </node>
 
 
-    <node pkg="rviz" type="rviz" name="tagView" args="-d  $(find bebop2_controller)/config/tag.rviz" />
-
-    <node pkg="joy" type="joy_node" name="joy_node" />
-    <!--    static frames-->
-    <include file="$(find bebop2_controller)/launch/bebop_frames.launch" />
-    <include file="$(find bebop2_controller)/launch/unittest/ekf.launch" />
-
-
-
 </launch>

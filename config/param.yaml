@@ -28,16 +28,16 @@ alpha: 0.95
 #]0.000625
 
 pid_gains: [
-  0.07, 0.002, 0.000625,
-  0.07, 0.002, 0.000625,
-  0.07, 0.002, 0.000625,
-  0.08, 0.002, 0.000625
+  0.050, -0.001, -0.0003,
+  0.090, 0.000, -0.0001,
+  0.085, -0.001, -0.0001,
+  0.08, -0.002, 0.0
 ]
 
 # set the control loop duration default 30 Hz -> 0.03
 dt: 0.03
 # set hovering region
-goal_thres: 0.35
+goal_thres: 0.4
 
 # trajectory param
 #max_vel: 2

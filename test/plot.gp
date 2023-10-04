@@ -8,4 +8,4 @@ set xlabel 'X-Axis Label'
 set ylabel 'Y-Axis Label'
 
 # Plot the data from the CSV file
-plot 'logger_2023-10-04_12:23:22.csv' using 1:2 with linespoints title 'Data Series'
+plot 'logger_2023-10-04_15:21:28.csv' using 1:2 with linespoints title 'Data Series'

@@ -7,9 +7,12 @@
 #define NUM_CONTROLLER  4
 #define NUM_GAINS 3
 #include <cmath>
+#include <chrono>
 namespace bebop2 {
     /// @brief Calculates an error value as the difference between desired output and the current output and applies a correction based on proportional, integral and derivative terms(denoted by P, I, D respectively).
     class PID {
+        using TIMEPOINT = std::chrono::time_point<std::chrono::high_resolution_clock>;
+
 
     public:
         /// @brief A default Constuctor.
@@ -28,7 +31,7 @@ namespace bebop2 {
         /** @note PID Gains identifiers.
         *          - Kp = Proportionality Constant
         *          - Kd = Derivative Constant
-        *          - Ki = Intergration Constant
+        *          - Ki = Integration Constant
         */      
         double calculate( double setpoint, double pv, bool normalized = false );
 
@@ -43,6 +46,8 @@ namespace bebop2 {
         double _Ki;
         double _pre_error;
         double _integral;
+        TIMEPOINT _lastAntiWindup;
+        const double WINDUP_TIMELIMIT = 20.0;
 
     };
 

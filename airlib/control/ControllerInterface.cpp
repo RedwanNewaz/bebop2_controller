@@ -132,7 +132,13 @@ namespace bebop2
         }
         else if(m_buttonState == CONTROL)
         {
-            if(goal_distance(state, setPose_) > m_goal_thres)
+            // check setPose_ with in ellipse or not
+            if(isPointInRotatedEllipse(setPose_[0], setPose_[1], uncertaintyEllipse_))
+            {
+                std::vector<double>U(4, 0);
+                publish_cmd_vel(U);
+            }
+            else if(goal_distance(state, setPose_) > m_goal_thres)
             {
                 // actively control position
                 std::vector<double>U;
@@ -216,7 +222,7 @@ namespace bebop2
             }
         }
 
-        viz_->plot_covariance_ellipse(xEst, PEst);
+        uncertaintyEllipse_ = viz_->plot_covariance_ellipse(xEst, PEst);
 
     }
 
@@ -241,6 +247,24 @@ namespace bebop2
         pose.setOrigin(tf::Vector3(pp.x, pp.y, pp.z));
         pose.setRotation(q);
         viz_->update(pose, CYAN);
+    }
+
+    bool ControllerInterface::isPointInRotatedEllipse(double x, double y, const COV_ELLIPSE &ellipse) {
+        // Translate point to the ellipse's local coordinate system
+        double dx = x - ellipse.center_x;
+        double dy = y - ellipse.center_y;
+
+        // Rotate the point back to the unrotated coordinate system
+        double angleRad = -ellipse.angle * M_PI / 180.0;
+        double xRotated = dx * cos(angleRad) - dy * sin(angleRad);
+        double yRotated = dx * sin(angleRad) + dy * cos(angleRad);
+
+        // Check if the point satisfies the equation of the unrotated ellipse
+        double normalizedX = xRotated / ellipse.major_axis;
+        double normalizedY = yRotated / ellipse.minor_axis;
+
+        // Equation of an unrotated ellipse: (x/a)^2 + (y/b)^2 <= 1, where a and b are semi-axes lengths
+        return (normalizedX * normalizedX + normalizedY * normalizedY) <= 1.0;
     }
 
 

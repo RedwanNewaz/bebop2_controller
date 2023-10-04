@@ -23,8 +23,10 @@ namespace bebop2 {
             p.x = value[0];
             p.y = value[1];
             p.z = value[2];
-            landmarks_.emplace_back(p);
+            landmarks_[tagId]= p;
         }
+
+        sub_tag_detections_ = nh.subscribe("/tag_detections", 10,  &ControlViz::tag_detection_callback, this);
 
     }
 
@@ -122,7 +124,8 @@ namespace bebop2 {
         landmarkMsg.header.frame_id = "map";
         landmarkMsg.header.stamp = ros::Time::now();
         landmarkMsg.id = 254;
-        std::copy(landmarks_.begin(), landmarks_.end(), std::back_inserter(landmarkMsg.points));
+        for(auto &landmark:landmarks_)
+            landmarkMsg.points.emplace_back(landmark.second);
         pub_marker_.publish(landmarkMsg);
 
     }
@@ -155,10 +158,35 @@ namespace bebop2 {
         traj_msg.id = 102;
         pub_marker_.publish(traj_msg);
 
+        //show detected Landmarks
+        if(detectedLandmarks_.empty())
+            return;
+        visualization_msgs::Marker detection_msg;
+        detection_msg.header.frame_id = "map";
+        detection_msg.ns = "landmarkDetection";
+        detection_msg.header.stamp = ros::Time::now();
+        detection_msg.type = visualization_msgs::Marker::LINE_STRIP;
+        detection_msg.action=visualization_msgs::Marker::ADD;
+        detection_msg.id = 30;
+        detection_msg.pose.position.x = detection_msg.pose.position.y = detection_msg.pose.position.z = 0;
+        detection_msg.scale.x = detection_msg.scale.y = detection_msg.scale.z = 0.05;
+        detection_msg.color.r = detection_msg.color.b = 1;
+        for(auto& detection:detectedLandmarks_)
+        {
+            auto index = detection.first;
+            auto landmark = landmarks_[index];
+            auto robot = msg.pose.position;
+
+            detection_msg.points.push_back(robot);
+            detection_msg.points.push_back(landmark);
+            detection_msg.points.push_back(landmark);
+            detection_msg.points.push_back(robot);
+        }
+        pub_marker_.publish(detection_msg);
 
     }
 
-    void ControlViz::plot_covariance_ellipse(const Eigen::MatrixXd &xEst, const Eigen::MatrixXd &PEst) {
+    COV_ELLIPSE ControlViz::plot_covariance_ellipse(const Eigen::MatrixXd &xEst, const Eigen::MatrixXd &PEst) {
 
         Eigen::MatrixXd Pxy = PEst.block<2, 2>(0, 0);
         Eigen::EigenSolver<Eigen::MatrixXd> eig_solver(Pxy);
@@ -235,6 +263,7 @@ namespace bebop2 {
         }
 
         pub_marker_.publish(ellipse);
+        return COV_ELLIPSE{xEst(0, 0), xEst(1, 0), a, b, angle};
     }
 
     Eigen::Matrix2d ControlViz::rot_mat_2d(double angle) {
@@ -246,5 +275,16 @@ namespace bebop2 {
 
     void ControlViz::clear_marker_points(const std_msgs::Empty::ConstPtr &msg) {
         traj_.clear();
+    }
+
+    void ControlViz::tag_detection_callback(const apriltag_ros::AprilTagDetectionArray::ConstPtr &msg) {
+
+        detectedLandmarks_.clear();
+        for (auto &detection: msg->detections)
+        {
+            auto tag_index = detection.id[0];
+            auto point = detection.pose.pose.pose.position;
+            detectedLandmarks_[tag_index] = point;
+        }
     }
 } // bebop2

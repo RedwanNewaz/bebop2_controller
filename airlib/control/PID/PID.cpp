@@ -17,6 +17,7 @@ namespace bebop2 {
         _Kp = Kp;
         _Kd = Kd;
         _Ki = Ki;
+        _lastAntiWindup = std::chrono::high_resolution_clock::now();
     }
 
     double PID::calculate(double setpoint, double pv, bool normalized) {
@@ -33,6 +34,7 @@ namespace bebop2 {
         _integral += error * _dt;
         double Iout = _Ki * _integral;
 
+
         // Derivative term
         double derivative = (error - _pre_error) / _dt;
         double Dout = _Kd * derivative;
@@ -48,6 +50,18 @@ namespace bebop2 {
 
         // Save error to previous error
         _pre_error = error;
+
+        // check whether anti-windup is necessary
+        // Get the current time after the operation
+        auto current = std::chrono::high_resolution_clock::now();
+        // Calculate the elapsed time
+        std::chrono::duration<double> elapsed_seconds = current - _lastAntiWindup;
+        if(elapsed_seconds.count() > WINDUP_TIMELIMIT)
+        {
+            _lastAntiWindup = current;
+            _integral = 0.0;
+        }
+
 
         return output;
     }

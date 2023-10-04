@@ -78,6 +78,8 @@ namespace bebop2
         ros::Publisher drone_takeoff_pub_,  drone_land_pub_,cmd_vel_pub_;
         /// @brief Co-ordinates of the points set by the controller.
         std::vector<double> setPose_;
+        /// @brief state uncertainty
+        COV_ELLIPSE uncertaintyEllipse_;
     protected:
         /// This ROS Handle attribute is used to create various publishers and subscribers which also deals with messages.
         ros::NodeHandle m_nh;
@@ -107,6 +109,8 @@ namespace bebop2
         ///State callback
         ros::Subscriber state_sub_, set_pose_sub_;
         void state_callback(const nav_msgs::Odometry::ConstPtr& msg);
+
+        bool isPointInRotatedEllipse(double x, double y, const COV_ELLIPSE& ellipse);
 
 
 

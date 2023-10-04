@@ -124,10 +124,10 @@ def particle_filter_worker(ip, px, pw, z, u, dt):
         pre_z = math.hypot(dx, dy, dz)
 
         delta_z = pre_z - y[0]
-        phi = pi_2_pi(np.arctan2(dy, dx) - x[3, 0])
-        phi_z = pi_2_pi(phi - y[1]) + np.pi / 2.0
-
         p_dz = gauss_likelihood(delta_z, math.sqrt(Q[0, 0]))
+
+        # phi = pi_2_pi(np.arctan2(dy, dx) - x[3, 0])
+        # phi_z = pi_2_pi(phi - y[1]) + np.pi / 2.0
         # p_dphi = gauss_likelihood(phi_z, math.sqrt(Q[1, 1]))
         # w = w * (p_dz + p_dphi)
         w = w * (p_dz)

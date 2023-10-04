@@ -15,7 +15,8 @@ def pi_2_pi(angle):
 class StateEstimator:
     def __init__(self) -> None:
         self.tf_listener = tf.TransformListener()
-        self.timer = rospy.Timer(rospy.Duration(0.03), self.listen_transformation)
+        self.sub = rospy.Subscriber('apriltag/state',Odometry, self.state_callback, queue_size=10)
+        # self.timer = rospy.Timer(rospy.Duration(0.03), self.listen_transformation)
 
     def listen_transformation(self, event):
         z0 = self.get_transformation("camera_base_link", "tag3")
@@ -33,12 +34,20 @@ class StateEstimator:
                 result.append(zz)
         self.get_observation(result)
 
-     
+    def state_callback(self, msg:Odometry):
+        p = msg.pose.pose.position
+        o = msg.pose.pose.orientation
+        (roll, pitch, yaw) = euler_from_quaternion((o.x, o.y, o.z, o.w))
+        # yaw = fmod(yaw + M_PI, 2 * M_PI) - M_PI;
+        yaw = (yaw + np.pi / 2) % 2 * np.pi - np.pi
+        x = np.array([p.x, p.y, p.z, yaw])
+        self.robot_state_observation(x)
 
     def get_observation(self, z):
         raise NotImplementedError
 
-        
+    def robot_state_observation(self, x):
+        raise NotImplementedError
     
     def get_transformation(self, parent_frame, child_frame):
         try:
@@ -70,7 +79,7 @@ class Bebop2StateEstimator(StateEstimator):
         self.h_angle = None 
         self.coord = []
 
-        self.state_pub = rospy.Publisher('apriltag/state', Odometry, queue_size=1)
+        self.state_pub = rospy.Publisher('/apriltag/state/filtered', Odometry, queue_size=1)
 
     def rotation_matrix_yaw(self, yaw):
         # Create a 3x3 identity matrix
@@ -100,9 +109,29 @@ class Bebop2StateEstimator(StateEstimator):
 
         return heading
 
+    def robot_state_observation(self, x):
+
+        z_meas = np.zeros((0, 5))
+        for i, landmark in enumerate(self.landmarks):
+            x0 = self.landmarks[i, 0]
+            y0 = self.landmarks[i, 1]
+            z0 = self.landmarks[i, 2]
+
+            xx, yy, zz = x0 - x[0], y0 - x[1], z0 - x[2]
+            # convert it to spherical coordinate
+            d = math.hypot(xx, yy, zz)
+            theta = np.arccos(zz / d)
+
+            phi = np.sign(yy) * np.arccos(xx / np.sqrt(xx**2 + yy**2))
+
+            zi = np.array([d, phi, theta, i, x[-1] ])
+            z_meas = np.vstack((z_meas, zi))
+
+        self.map_observation(z_meas)
+
+
+
     def get_observation(self, z):
-
-
       
         z_meas = np.zeros((0, 5))
         h_angle = self.compute_heading_mindist(z)
@@ -144,6 +173,7 @@ class Bebop2StateEstimator(StateEstimator):
             self.map_observation(z_meas)
 
 
+
     def map_observation(self, z):
 
         # print(z.shape)
@@ -160,7 +190,7 @@ class Bebop2StateEstimator(StateEstimator):
         self.pf(z, u)
         self.xEst = self.pf.getState()
         # self.viz(np.squeeze(self.xEst))
-
+        # print('[Bebop2StateEstimator] robot_state_observation ', self.xEst)
         # self.viz.estimated_landmarks(z, self.xEst)
 
         pEst = self.pf.getCovariance()

@@ -7,10 +7,11 @@
   <arg name="BAG_FILE" default="exp7.bag" />
 
   <!--  <arg name="BAG_FILE" default="exp1/2023-08-29-11-56-32.bag" />-->
-  <arg name="BAG_ROOT" default="/media/redwan/REDWAN" />
-  <node pkg="bebop2_controller" type="bebop2_state_estimator_lpf" name="apriltag_lpf" output="screen"/>
+  <arg name="BAG_ROOT" default="/media/roboticslab/Storege/bebob2_bag" />
+  <node pkg="bebop2_controller" type="bebop2_state_estimator_lpf" name="apriltag_lpf"/>
 
-  <node pkg="bebop2_controller" type="bebop2_state_estimator_pf.py" name="apriltag_pf" output="screen"/>
+  <node pkg="bebop2_controller" type="bebop2_state_estimator_pf.py" name="apriltag_pf"/>
+
 
   <node pkg="bebop2_controller" type="bebop2_controller_node" name="controller_test" output="screen">
     <remap from="/apriltag/state" to="/apriltag/state/filtered"/>

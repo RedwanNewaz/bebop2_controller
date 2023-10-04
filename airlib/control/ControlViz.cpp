@@ -9,6 +9,7 @@ namespace bebop2 {
         pub_marker_ = nh_.advertise<visualization_msgs::Marker>("/bebop2/goal", 10);
         std::vector<std::string>header{"x", "y", "z", "yaw"};
         logger_ = std::make_unique<LoggerCSV>(header, LOGGER_FQ);
+        sub_tag_detections_  = nh.subscribe("/tag_detections", 10,  &ControlViz::tag_detection_callback, this);
         sub_goal_ = nh_.subscribe("/set_new_goal", 10, &ControlViz::clear_marker_points, this);
 
         std::vector<int>tagIds;
@@ -25,8 +26,8 @@ namespace bebop2 {
             p.z = value[2];
             landmarks_[tagId]= p;
         }
+        ROS_INFO("[ControlViz] Initialization complete ...");
 
-        sub_tag_detections_ = nh.subscribe("/tag_detections", 10,  &ControlViz::tag_detection_callback, this);
 
     }
 
@@ -159,30 +160,38 @@ namespace bebop2 {
         pub_marker_.publish(traj_msg);
 
         //show detected Landmarks
-        if(detectedLandmarks_.empty())
-            return;
-        visualization_msgs::Marker detection_msg;
-        detection_msg.header.frame_id = "map";
-        detection_msg.ns = "landmarkDetection";
-        detection_msg.header.stamp = ros::Time::now();
-        detection_msg.type = visualization_msgs::Marker::LINE_STRIP;
-        detection_msg.action=visualization_msgs::Marker::ADD;
-        detection_msg.id = 30;
-        detection_msg.pose.position.x = detection_msg.pose.position.y = detection_msg.pose.position.z = 0;
-        detection_msg.scale.x = detection_msg.scale.y = detection_msg.scale.z = 0.05;
-        detection_msg.color.r = detection_msg.color.b = 1;
-        for(auto& detection:detectedLandmarks_)
+//        ROS_INFO_STREAM("[ControlViz] show detected Landmarks");
+        if(!detectedLandmarks_.empty())
         {
-            auto index = detection.first;
-            auto landmark = landmarks_[index];
-            auto robot = msg.pose.position;
+            visualization_msgs::Marker detection_msg;
+            detection_msg.header.frame_id = "map";
+            detection_msg.ns = "landmarkDetection";
+            detection_msg.header.stamp = ros::Time::now();
+            detection_msg.type = visualization_msgs::Marker::LINE_STRIP;
+            detection_msg.action=visualization_msgs::Marker::ADD;
+            detection_msg.id = 30;
+            detection_msg.pose.position.x = detection_msg.pose.position.y = detection_msg.pose.position.z = 0;
+            detection_msg.pose.orientation.x = detection_msg.pose.orientation.y = detection_msg.pose.orientation.z = 0;
+            detection_msg.pose.orientation.w = 1;
+            detection_msg.scale.x = detection_msg.scale.y = detection_msg.scale.z = 0.05;
+            detection_msg.color.r = detection_msg.color.b = detection_msg.color.a = 1;
+            for(auto& detection:detectedLandmarks_)
+            {
+                auto index = detection.first;
+                auto landmark = landmarks_[index];
+                auto robot = msg.pose.position;
 
-            detection_msg.points.push_back(robot);
-            detection_msg.points.push_back(landmark);
-            detection_msg.points.push_back(landmark);
-            detection_msg.points.push_back(robot);
+                detection_msg.points.push_back(robot);
+                detection_msg.points.push_back(landmark);
+                detection_msg.points.push_back(landmark);
+                detection_msg.points.push_back(robot);
+            }
+            pub_marker_.publish(detection_msg);
+            detectedLandmarks_.clear();
         }
-        pub_marker_.publish(detection_msg);
+
+
+
 
     }
 
@@ -277,14 +286,15 @@ namespace bebop2 {
         traj_.clear();
     }
 
-    void ControlViz::tag_detection_callback(const apriltag_ros::AprilTagDetectionArray::ConstPtr &msg) {
-
-        detectedLandmarks_.clear();
+    void ControlViz::tag_detection_callback(const apriltag_ros::AprilTagDetectionArray::ConstPtr &msg)
+    {
+//        ROS_INFO_STREAM("[ControlViz] tag_detection_callback");
         for (auto &detection: msg->detections)
         {
             auto tag_index = detection.id[0];
             auto point = detection.pose.pose.pose.position;
             detectedLandmarks_[tag_index] = point;
+//            ROS_INFO("[ControlViz] detected tag %d", tag_index);
         }
     }
 } // bebop2

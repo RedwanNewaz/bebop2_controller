@@ -97,7 +97,7 @@ WAYPOINTS calcEight() {
 
 TEST_CASE("traj_planner::eight_path", "[wp::eight]")
 {
-    WAYPOINTS  wps = calcEight();
+    WAYPOINTS  wps = calcInput();
 
     std::string output = "/home/roboticslab/catkin_ws/src/bebop2_controller/test";
     LoggerCSV loggerCsv;

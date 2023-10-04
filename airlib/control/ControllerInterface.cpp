@@ -23,7 +23,7 @@ namespace bebop2
 
         state_sub_ = m_nh.subscribe("apriltag/state", 10, &ControllerInterface::state_callback, this);
         set_pose_sub_ = m_nh.subscribe("set_pose", 10, &ControllerInterface::set_goal_state, this);
-        viz_ = std::make_unique<ControlViz>(m_nh);
+        viz_ = std::make_unique<ControlViz>(nh);
         m_buttonState = ENGAGE;
 
         ROS_INFO("[ControllerInterface] Initialization complete ...");

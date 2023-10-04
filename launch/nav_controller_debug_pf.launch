@@ -1,0 +1,24 @@
+<launch>
+  <!-- Load URDF model -->
+<!--   <include file="$(find bebop_description)/launch/description.launch" /> -->
+
+  <node pkg="bebop2_controller" type="bebop2_state_estimator_pf.py" name="apriltag_pf" output="screen"/>
+
+  <!-- Start state estimator node -->
+  <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
+  <arg name="BAG_FILE" default="exp7.bag" />
+
+<!--    <arg name="BAG_FILE" default="exp1/2023-08-29-11-56-32.bag" />-->
+  <arg name="BAG_ROOT" default="/home/airlab/catkin_ws/bags" />
+
+    <node pkg="bebop2_controller" type="bebop2_sim" name="bebop2_sim" output="screen"/>
+  <node pkg="bebop2_controller" type="waypoint_control_server" name="waypoint_control_server" output="screen"/>
+  <node pkg="bebop2_controller" type="p2p_navigation_server" name="p2p_navigation_server" output="screen"/>
+<!--    <node pkg="bebop2_controller" type="bebop2_state_estimator_pf.py" name="apriltag_test" output="screen"/>-->
+
+  <node pkg="bebop2_controller" type="bebop2_controller_node" name="controller_test" output="screen">
+    <remap from="/apriltag/state" to="/apriltag/state/filtered"/>
+  </node>
+  <node pkg="joy" type="joy_node" name="joy_node" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bebop2_controller)/config/tag.rviz"/>
+</launch>

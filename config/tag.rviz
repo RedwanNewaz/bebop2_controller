@@ -75,16 +75,6 @@ Visualization Manager:
           Value: true
         odom:
           Value: true
-        robot:
-          Value: true
-        tag2:
-          Value: true
-        tag3:
-          Value: true
-        tag4:
-          Value: true
-        tag7:
-          Value: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -98,17 +88,9 @@ Visualization Manager:
               camera_pan_link:
                 camera_tilt_link:
                   camera_optical:
-                    tag2:
-                      {}
-                    tag3:
-                      {}
-                    tag4:
-                      {}
-                    tag7:
-                      {}
+                    {}
           map:
-            robot:
-              {}
+            {}
       Update Interval: 0
       Value: true
     - Class: rviz/Image
@@ -128,10 +110,7 @@ Visualization Manager:
       Marker Topic: /bebop2/goal
       Name: Marker
       Namespaces:
-        "": true
-        drone: true
-        target: true
-        traj: true
+        {}
       Queue Size: 100
       Value: true
     - Alpha: 1

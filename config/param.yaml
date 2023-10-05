@@ -8,7 +8,7 @@ tag7: [3.11, 7.0, 1.2]
 tag4: [4.26, 7.0, 1.2]
 
 # complimentary filter gain. Higher value slower update, less noisy
-alpha: 0.95
+alpha: 0.94
 
 #   linear.x  (+)      Translate forward
 #             (-)      Translate backward
@@ -28,8 +28,8 @@ alpha: 0.95
 #]0.000625
 
 pid_gains: [
-  0.050, -0.001, -0.0003,
-  0.090, 0.000, -0.0001,
+  0.065, -0.001, -0.0003,
+  0.065, 0.0007, -0.0001,
   0.085, -0.001, -0.0001,
   0.08, -0.002, 0.0
 ]

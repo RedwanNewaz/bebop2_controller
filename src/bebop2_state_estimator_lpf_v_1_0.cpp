@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
     auto pub = nh.advertise<nav_msgs::Odometry>("apriltag/state", 10);
 
     auto stateSensor = std::make_shared<ApriltagLandmarks>(landmarks);
-    auto stateFilter = std::make_shared<ComplementaryFilterWithCov>(alpha);
+    auto stateFilter = std::make_shared<ComplementaryFilter>(alpha);
     auto stateObserver = std::make_shared<bebop2::StateObserver>(stateFilter, stateSensor);
 
     auto sub = nh.subscribe("/tag_detections", 10,  &ApriltagLandmarks::apriltag_callback, stateSensor.get());
@@ -56,12 +56,10 @@ int main(int argc, char* argv[])
             // code that may throw
             while(ros::ok())
             {
-                std::promise<std::vector<double>> mean, cov;
-                stateObserver->getStateWithCov(std::ref(mean), std::ref(cov));
-                auto xEst = mean.get_future();
-                auto pEst = cov.get_future();
+                std::promise<std::vector<double>> promise;
+                stateObserver->getState(std::ref(promise));
+                auto xEst = promise.get_future();
                 auto state = xEst.get();
-                auto covariance = pEst.get();
                 ROS_INFO("[State] (%lf, %lf, %lf, %lf)", state[0], state[1], state[2], state[3]);
 
                 nav_msgs::Odometry odom;
@@ -78,9 +76,6 @@ int main(int argc, char* argv[])
                 odom.pose.pose.orientation.y = q.y();
                 odom.pose.pose.orientation.z = q.z();
                 odom.pose.pose.orientation.w = q.w();
-
-                if(!covariance.empty())
-                    std::copy(covariance.begin(), covariance.end(), odom.pose.covariance.begin());
 
                 pub.publish(odom);
 

@@ -40,6 +40,12 @@ public:
     /// @param obs A vector of measured values
     /// @param result A vector to store the update state estimate
     virtual void update(const std::vector<double>& obs, std::vector<double>& result) = 0;
+
+    virtual std::vector<double> getCovVec() const
+    {
+        return {};
+    }
+
 protected:
     /// @brief Estimated state of the system.
     std::vector<double> X_;

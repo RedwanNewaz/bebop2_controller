@@ -30,6 +30,8 @@ public:
         result.clear();
         std::copy(X_.begin(), X_.end(),std::back_inserter(result));
     }
+
+
 private:
     double m_alpha;
 };

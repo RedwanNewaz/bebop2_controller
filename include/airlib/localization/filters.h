@@ -6,6 +6,7 @@
 #define airlib_FILTERS_H
 #include "airlib/localization/Filters/FilterBase.h"
 #include "airlib/localization/Filters/ComplementaryFilter.h"
+#include "airlib/localization/Filters/ComplementaryFilterWithCov.h"
 #include "airlib/localization/Filters/ExtendedKalmanFilter.h"
 #include "airlib/localization/Filters/particle_filter.h"
 #include "StateObserver.h"

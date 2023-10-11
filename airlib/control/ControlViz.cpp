@@ -264,6 +264,10 @@ namespace bebop2 {
 
 
         for (int i = 0; i < fx.rows(); ++i) {
+
+            if(std::isnan(fx(i, 0)) || std::isnan(fx(i, 1)))
+                continue;
+
             geometry_msgs::Point p;
             p.x = fx(i, 0) + xEst(0, 0);
             p.y = fx(i, 1) + xEst(1, 0);

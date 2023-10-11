@@ -214,6 +214,7 @@ namespace bebop2
         Eigen::MatrixXd xEst(3, 1);
         xEst << p.x, p.y, p.z;
 
+
         Eigen::MatrixXd PEst(6, 6);
         for (int i = 0; i < 6; ++i) {
             for (int j = 0; j < 6; ++j) {

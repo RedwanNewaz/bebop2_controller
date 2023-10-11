@@ -103,9 +103,10 @@ set(HEADER_FILES
 
         include/airlib/control/navigation/WaypointController.h
         include/airlib/control/navigation/P2PNav.h
+        include/airlib/localization/Filters/ComplementaryFilterWithCov.h
 
 
-        )
+)
 
 add_library(airlibBebop2 ${SOURCE_FILES} ${HEADER_FILES}
 

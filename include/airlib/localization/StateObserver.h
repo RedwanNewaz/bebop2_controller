@@ -32,6 +32,8 @@ namespace bebop2 {
         /// @param result
         void getState(std::promise<std::vector<double>>& promise);
 
+        void getStateWithCov(std::promise<std::vector<double>>& promiseState, std::promise<std::vector<double>>& promiseCov);
+
 
 
 
@@ -53,6 +55,7 @@ namespace bebop2 {
         *           - w ---> yaw (Rotation about z-axis).
         */  
         std::vector<double> m_state;
+        std::vector<double> m_cov;
         /// @brief Shared pointer that provides the address to the FilterBase.h class
         FilterPtr m_filter;
         /// @brief Shared pointer that provides the addreess to the SensorBase.h class

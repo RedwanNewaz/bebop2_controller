@@ -148,6 +148,7 @@ target_link_libraries(
         ${Boost_LIBRARIES}
 )
 
+add_subdirectory(airlib/control/LQR)
 
 #add_subdirectory(bebop2_controller_gui)
 include_directories(include/catch2-2.7.0)

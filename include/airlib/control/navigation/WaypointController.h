@@ -8,18 +8,25 @@
 
 #include <string>
 #include <memory>
-#include <ros/ros.h>
-#include <actionlib/server/simple_action_server.h>
-#include "bebop2_controller/WaypointsAction.h"
 #include <filesystem>
 #include <chrono>
-#include "rapidcsv.h"
-#include "airlib/control/controller.h"
-#include "trajectory_planner.h"
+
+#include <ros/ros.h>
+#include <actionlib/server/simple_action_server.h>
+#include <actionlib/client/simple_action_client.h>
 
 #include <geometry_msgs/PoseStamped.h>
 #include <tf/transform_datatypes.h>
 #include <std_msgs/Empty.h>
+
+#include "rapidcsv.h"
+#include "airlib/control/controller.h"
+#include "trajectory_planner.h"
+#include "bebop2_controller/WaypointsAction.h"
+#include "bebop2_controller/SetpointsAction.h"
+
+
+
 
 class WaypointController
 {
@@ -46,6 +53,8 @@ private:
     actionlib::SimpleActionServer<bebop2_controller::WaypointsAction> as_;
     bebop2_controller::WaypointsFeedback feedback_;
     bebop2_controller::WaypointsResult result_;
+    std::unique_ptr<actionlib::SimpleActionClient<bebop2_controller::SetpointsAction>> ac_;
+    int goalCounter_;
 
 
     double max_vel, max_acc;

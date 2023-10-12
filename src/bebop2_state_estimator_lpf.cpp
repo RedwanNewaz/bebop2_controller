@@ -79,6 +79,14 @@ int main(int argc, char* argv[])
                 odom.pose.pose.orientation.z = q.z();
                 odom.pose.pose.orientation.w = q.w();
 
+                if(state.size() == 8)
+                {
+                    odom.twist.twist.linear.x = state[5];
+                    odom.twist.twist.linear.y = state[6];
+                    odom.twist.twist.linear.z = state[7];
+                    odom.twist.twist.angular.z = state[8];
+                }
+
                 if(!covariance.empty())
                     std::copy(covariance.begin(), covariance.end(), odom.pose.covariance.begin());
 

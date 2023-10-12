@@ -223,14 +223,20 @@ namespace bebop2
             }
         }
 
-        uncertaintyEllipse_ = viz_->plot_covariance_ellipse(xEst, PEst);
+        viz_->plot_covariance_ellipse(xEst, PEst, uncertaintyEllipse_);
 
     }
 
     void ControllerInterface::set_goal_state(const geometry_msgs::PoseStamped::ConstPtr & msg) {
+
+        // don't fly once land button is pressed
+        if(m_buttonState == LAND)
+            return;
+        // enable control mode
         if(m_buttonState != CONTROL)
             m_buttonState = CONTROL;
 
+        // continuously update the setPose
         setPose_.clear();
         auto qq = msg->pose.orientation;
         tf::Quaternion q(qq.x, qq.y, qq.z, qq.w);

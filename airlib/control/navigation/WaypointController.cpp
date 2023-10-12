@@ -16,6 +16,10 @@ WaypointController::WaypointController(std::string name)
     as_.registerPreemptCallback(boost::bind(&WaypointController::preemptCB, this));
     force_terminate_ = isAlive_ = false;
 
+    // related to P2PNav action client
+    goalCounter_ = 0;
+    ac_ = std::make_unique<actionlib::SimpleActionClient<bebop2_controller::SetpointsAction>>("move_p2p", true);
+
 
     std::vector<double> gains;
     double dt;
@@ -79,6 +83,16 @@ void WaypointController::execute(const bebop2_controller::WaypointsGoalConstPtr 
     }
     // generate trajectory
     auto demo = getPath(csv_path);
+    // TODO move to the first point of the trajectory using P2PNav
+    bebop2_controller::SetpointsGoal target;
+    target.setpoint.x = demo[0][0];
+    target.setpoint.y = demo[0][1];
+    target.setpoint.z = demo[0][2];
+    target.method = 0;
+    ac_->sendGoal(target);
+    ac_->waitForResult();
+
+    // start trajectory tracking
     auto messageQueue = std::make_shared<MessageQueue>();
     std::string selected_planner;
     auto wp_inf = getPlanner(method, messageQueue, selected_planner);

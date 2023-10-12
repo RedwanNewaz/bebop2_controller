@@ -195,7 +195,7 @@ namespace bebop2 {
 
     }
 
-    COV_ELLIPSE ControlViz::plot_covariance_ellipse(const Eigen::MatrixXd &xEst, const Eigen::MatrixXd &PEst) {
+    void ControlViz::plot_covariance_ellipse(const Eigen::MatrixXd &xEst, const Eigen::MatrixXd &PEst, COV_ELLIPSE& covEllipse) {
 
         Eigen::MatrixXd Pxy = PEst.block<2, 2>(0, 0);
         Eigen::EigenSolver<Eigen::MatrixXd> eig_solver(Pxy);
@@ -262,11 +262,11 @@ namespace bebop2 {
         ellipse.header.stamp = ros::Time::now();
         ellipse.id = 255;
 
-
+        bool invalidEllipse = false;
         for (int i = 0; i < fx.rows(); ++i) {
-
-            if(std::isnan(fx(i, 0)) || std::isnan(fx(i, 1)))
-                continue;
+            invalidEllipse = std::isnan(fx(i, 0)) || std::isnan(fx(i, 1));
+            if(invalidEllipse)
+                break;
 
             geometry_msgs::Point p;
             p.x = fx(i, 0) + xEst(0, 0);
@@ -274,9 +274,10 @@ namespace bebop2 {
             p.z = xEst(2, 0);
             ellipse.points.emplace_back(p);
         }
-
-        pub_marker_.publish(ellipse);
-        return COV_ELLIPSE{xEst(0, 0), xEst(1, 0), a, b, angle};
+        if(!invalidEllipse) {
+            pub_marker_.publish(ellipse);
+            covEllipse = COV_ELLIPSE{xEst(0, 0), xEst(1, 0), a, b, angle};
+        }
     }
 
     Eigen::Matrix2d ControlViz::rot_mat_2d(double angle) {

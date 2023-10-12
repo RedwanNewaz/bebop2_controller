@@ -6,14 +6,18 @@
 #define BEBOP2_CONTROLLER_COMPLEMENTARYFILTERWITHCOV_H
 #include "ComplementaryFilter.h"
 #include <Eigen/Dense>
+#include <chrono>
+#include <algorithm>
 
 class ComplementaryFilterWithCov: public FilterBase
 {
+    using TIMEPOINT = std::chrono::time_point<std::chrono::high_resolution_clock>;
 public:
     ComplementaryFilterWithCov(double alpha)
     {
         m_mean = std::make_unique<ComplementaryFilter>(alpha);
         m_std = std::make_unique<ComplementaryFilter>(1 - alpha);
+
     }
     void init(const std::vector<double>& X0)
     {
@@ -34,6 +38,31 @@ public:
         }
 
         m_std->update(std, std_);
+
+        // during initialization phase velocity is zero
+        if(last_state_.empty())
+        {
+            std::copy(result.begin(), result.end(), std::back_inserter(last_state_));
+            last_update_ = std::chrono::high_resolution_clock::now();
+        }
+
+        // keep track of previous state to compute velocity
+        std::vector<double>velocity(result.size());
+        auto current = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed_seconds = current - last_update_;
+        double dt = elapsed_seconds.count();
+        for (size_t i = 0; i < velocity.size(); ++i) {
+            velocity[i] = (result[i] - last_state_[i]) / dt;
+            velocity[i] = std::clamp(velocity[i], -1.0, 1.0);
+        }
+
+        last_update_ = std::chrono::high_resolution_clock::now();
+        std::copy(result.begin(), result.end(), last_state_.begin());
+
+        // append velocity information at the end of result vector
+        // such that (x, y, z, theta, x_dot, y_dot, z_dot, theta_dot)
+        std::copy(velocity.begin(), velocity.end(), std::back_inserter(result));
+
     }
 
     std::vector<double> getCovVec() const override
@@ -56,7 +85,10 @@ public:
 private:
     std::unique_ptr<ComplementaryFilter> m_mean;
     std::unique_ptr<ComplementaryFilter> m_std;
-    std::vector<double> std_;
+    std::vector<double> last_state_, std_;
+    ///@brief keep track of time
+    TIMEPOINT last_update_;
+
 
 };
 

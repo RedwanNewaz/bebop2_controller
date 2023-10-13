@@ -34,7 +34,7 @@ public:
         return shared_from_this();
     }
 
-    virtual void setObsNoise(const boost::array<double, 36>& obs)
+    virtual void setObsNoise(const std::array<double, 36>& obs)
     {
 
     }

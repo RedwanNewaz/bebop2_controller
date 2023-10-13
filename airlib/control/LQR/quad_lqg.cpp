@@ -82,7 +82,7 @@ namespace controller {
         return velocity;
     }
 
-    void quad_lqg::setObsNoise(const boost::array<double, 36> &noise) {
+    void quad_lqg::setObsNoise(const std::array<double, 36> &noise) {
         std::vector<double> obsNoise;
         for (int k = 0; k < noise.size(); ++k) {
             int row = k / 4;

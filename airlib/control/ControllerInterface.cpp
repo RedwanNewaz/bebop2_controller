@@ -227,7 +227,11 @@ namespace bebop2
         viz_->plot_covariance_ellipse(xEst, PEst, uncertaintyEllipse_);
 
         if(m_buttonState == CONTROL)
-            drone_controller_->setObsNoise(msg->pose.covariance);
+        {
+            std::array<double, 36> cov;
+            std::copy(msg->pose.covariance.begin(), msg->pose.covariance.end(), cov.begin());
+            drone_controller_->setObsNoise(cov);
+        }
 
     }
 

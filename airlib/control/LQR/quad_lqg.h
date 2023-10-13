@@ -18,7 +18,7 @@ namespace controller {
         void compute_control(const std::vector<double> &X, const std::vector<double> &setPoints,
                              std::vector<double> &control) override;
 
-        void setObsNoise(const boost::array<double, 36>& obs) override;
+        void setObsNoise(const std::array<double, 36>& obs) override;
 
     private:
         double dt_;

@@ -4,7 +4,7 @@
 
 #ifndef BEBOP2_CONTROLLER_PID_H
 #define BEBOP2_CONTROLLER_PID_H
-#define NUM_CONTROLLER  4
+
 #define NUM_GAINS 3
 #include <cmath>
 #include <chrono>

@@ -68,6 +68,9 @@ set(SOURCE_FILES
         airlib/control/PID/PID.cpp
         airlib/control/ControllerInterface.cpp
         airlib/control/PID/quad_pids.cpp
+        airlib/control/LQR/LQRController.cpp
+        airlib/control/LQR/quad_lqg.cpp
+
         airlib/control/navigation/WaypointController.cpp
         airlib/control/navigation/P2PNav.cpp
         )
@@ -91,6 +94,9 @@ set(HEADER_FILES
 
         include/airlib/control/pid/quad_pids.h
         include/airlib/control/controller.h
+        airlib/control/LQR/LQRController.h
+        airlib/control/LQR/quad_lqg.h
+
 
         include/traj/root_finder.hpp
         include/traj/traj_min_jerk.hpp
@@ -151,7 +157,7 @@ target_link_libraries(
         ${Boost_LIBRARIES}
 )
 
-add_subdirectory(airlib/control/LQR)
+#add_subdirectory(airlib/control/LQR)
 
 #add_subdirectory(bebop2_controller_gui)
 include_directories(include/catch2-2.7.0)

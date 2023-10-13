@@ -226,6 +226,9 @@ namespace bebop2
 
         viz_->plot_covariance_ellipse(xEst, PEst, uncertaintyEllipse_);
 
+        if(m_buttonState == CONTROL)
+            drone_controller_->setObsNoise(msg->pose.covariance);
+
     }
 
     void ControllerInterface::set_goal_state(const geometry_msgs::PoseStamped::ConstPtr & msg) {

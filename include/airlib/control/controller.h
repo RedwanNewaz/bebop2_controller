@@ -10,5 +10,6 @@
 #include "ControllerInterface.h"
 #include "navigation/WaypointController.h"
 #include "navigation/P2PNav.h"
+#include "../airlib/control/LQR/quad_lqg.h"
 
 #endif //BEBOP2_CONTROLLER_CONTROLLER_H

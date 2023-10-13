@@ -7,6 +7,8 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#define NUM_CONTROLLER  4
+
 class ControllerBase;
 
 typedef std::shared_ptr<ControllerBase> ControllerPtr;
@@ -30,6 +32,11 @@ public:
     ControllerPtr getPtr()
     {
         return shared_from_this();
+    }
+
+    virtual void setObsNoise(const boost::array<double, 36>& obs)
+    {
+
     }
 
 

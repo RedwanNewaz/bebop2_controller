@@ -7,7 +7,7 @@ namespace bebop2
     {
         states_.resize(STATE_DIM);
         std::fill(states_.begin(), states_.end(), 0.0);
-//        states_[STATE_DIM - 1] = M_PI_2;
+        states_[STATE_DIM - 1] = M_PI_2;
 
     }
     void DummyState::set(std::vector<double>& state)
@@ -52,7 +52,8 @@ namespace bebop2
     void DummyState::cmd_vel_callback(const geometry_msgs::Twist::ConstPtr& msg)
     {
 
-        double theta = states_[3] + M_PI_2;
+//        double theta = states_[3] + M_PI_2;
+        double theta = states_[3];
 
         double c = cos(theta);
         double s = sin(theta);

@@ -32,9 +32,9 @@ namespace controller {
             // update position
             _quadController[i].updateState(X[i], i);
             // update velocity
-//            _quadController[i].updateState(velocities[i], i + 4);
+//            _quadController[i].updateState(std::min(velocities[i],  vel_[i]), i + 4);
 //            _quadController[i].updateState(0.0, i + 4);
-            _quadController[i].updateGoal(velocities[i], i + 4);
+            _quadController[i].updateGoal(std::max(velocities[i], vel_[i]), i + 4);
 
             //update goal
             _quadController[i].updateGoal(setPoints[i], i);

@@ -23,7 +23,7 @@ namespace controller {
     private:
         double dt_;
         std::vector<double> gains_;
-        std::vector<double> prev_x_;
+        std::vector<double> prev_x_, vel_;
         LQRController _quadController[NUM_CONTROLLER];
 
     protected:

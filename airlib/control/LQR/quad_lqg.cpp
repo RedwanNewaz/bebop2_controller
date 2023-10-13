@@ -16,7 +16,10 @@ namespace controller {
 
         for (int i = 0; i < NUM_CONTROLLER; ++i) {
             _quadController[i].set(dt, 0.1, gains, obsNoise);
+            vel_.push_back(0.0);
         }
+
+
     }
 
     void quad_lqg::compute_control(const std::vector<double> &X, const std::vector<double> &setPoints,
@@ -43,6 +46,8 @@ namespace controller {
             {
                 rawControl[i] = fmod((rawControl[i] + M_PI) , (2 * M_PI)) - M_PI ; //# Normalize between -π and π
             }
+
+            vel_[i] = rawControl[i];
 
         }
         // calculate orientation

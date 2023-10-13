@@ -8,7 +8,7 @@ namespace bebop2 {
     ControlViz::ControlViz( ros::NodeHandle &nh) : nh_(nh) {
         pub_marker_ = nh_.advertise<visualization_msgs::Marker>("/bebop2/goal", 10);
         std::vector<std::string>header{"x", "y", "z", "yaw"};
-        logger_ = std::make_unique<LoggerCSV>(header, LOGGER_FQ);
+
         sub_tag_detections_  = nh.subscribe("/tag_detections", 10,  &ControlViz::tag_detection_callback, this);
         sub_goal_ = nh_.subscribe("/set_new_goal", 10, &ControlViz::clear_marker_points, this);
 
@@ -57,8 +57,7 @@ namespace bebop2 {
         msg.pose.orientation.w = pose.getRotation().w();
 
         yaw = tf::getYaw(pose.getRotation());
-        //TODO add logger enable flag
-        logger_->addRow(std::vector<double>{x, y, z, yaw});
+
 
     }
 

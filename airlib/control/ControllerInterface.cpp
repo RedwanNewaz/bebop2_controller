@@ -236,6 +236,16 @@ namespace bebop2
         if(m_buttonState != CONTROL)
             m_buttonState = CONTROL;
 
+        //TODO adptively change goal threshold
+        static double defaultGoalThres = m_goal_thres;
+        if (msg->header.frame_id == "last")
+        {
+            m_goal_thres = defaultGoalThres;
+            ROS_INFO("[ControllerInterface] tracking terminated: changing back goal threshold to %lf", m_goal_thres);
+        }
+        else
+            m_goal_thres = 0.2;
+
         // continuously update the setPose
         setPose_.clear();
         auto qq = msg->pose.orientation;

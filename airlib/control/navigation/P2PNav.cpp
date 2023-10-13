@@ -113,7 +113,10 @@ void P2PNav::control_loop(const std::string &selected_planner, P2PNav::MQ messag
 
             geometry_msgs::PoseStamped msg;
             msg.header.stamp = ros::Time::now();
-            msg.header.frame_id = "map";
+            // if msg frame_id affect controller how to reason about the goal threshold
+            // smaller threshold is chosen when frame_id is map and bigger for the last
+            std::string frame_id = messageQueue->isQuitting() ? "last" : "map";
+            msg.header.frame_id = frame_id;
             msg.pose.position.x = received_message[0];
             msg.pose.position.y = received_message[1];
             msg.pose.position.z = received_message[2];

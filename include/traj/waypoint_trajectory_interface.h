@@ -75,6 +75,10 @@ protected:
 
         for (int k = 0; k < traj_.size(); ++k)
         {
+            //let action server know that it is last element in the trajectory
+            // action server then change msg frame_id which will affect controller how to
+            // reason about the goal threshold
+            msg_->setQuit(k == (traj_.size() - 1));
             int nap_time = (traj_[k][0] - start_time) * 1000;
             std::this_thread::sleep_for(std::chrono::milliseconds(nap_time));
 

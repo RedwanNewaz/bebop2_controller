@@ -52,7 +52,7 @@ public:
         return isPaused_;
     }
 
-    bool isQuit() const
+    bool isQuitting() const
     {
         return isQuit_;
     }

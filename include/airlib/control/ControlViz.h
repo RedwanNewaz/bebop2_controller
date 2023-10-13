@@ -76,8 +76,7 @@ namespace bebop2 {
         ros::Subscriber sub_goal_;
         /// ROS Publisher to advertise various visualization messages to /bebop2/goal.
         ros::Publisher pub_marker_;
-        std::unique_ptr<LoggerCSV> logger_;
-        const int LOGGER_FQ = 10; // Hz
+
         /// show robot's trajectory
         std::vector<geometry_msgs::Point> traj_;
         /// For visualizing all the landmarks

@@ -84,10 +84,10 @@ odom0: bebop/apriltag/state
 # has no pose information, so the first six values would be meaningless in that case. Each vector defaults to all false
 # if unspecified, effectively making this parameter required for each sensor.
 odom0_config: [true,  true,  true,
-               false, false, true,
+               false, false, false,
                true, true, true,
-               false, false, true,
-               true,  true,  true]
+               false, false, false,
+               true,  true,  false]
 
 # If you have high-frequency data or are running with a low frequency parameter value, then you may want to increase
 # the size of the subscription queue so that more measurements are fused.
@@ -121,7 +121,7 @@ odom0_relative: false
 # For messages that have both pose and twist data, the parameter specifies to which part of the message we are applying
 # the thresholds.
 odom0_pose_rejection_threshold: 4.5
-odom0_twist_rejection_threshold: 9.0
+odom0_twist_rejection_threshold: 1
 
 use_control: false
 # Whether the input (assumed to be cmd_vel) is a geometry_msgs/Twist or geometry_msgs/TwistStamped message. Defaults to

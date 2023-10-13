@@ -119,11 +119,11 @@ target_link_libraries(airlibBebop2 Eigen3::Eigen ${catkin_LIBRARIES} -pthread)
 add_executable(bebop2_controller_node src/bebop2_controller_node.cpp ${SOURCE_FILES} ${HEADER_FILES}
         )
 
-#add_executable(bebop2_state_estimator_lpf
-#        src/bebop2_state_estimator_lpf.cpp)
-
 add_executable(bebop2_state_estimator_lpf
-        src/bebop2_state_estimator_lpf_v_1_0.cpp)
+        src/bebop2_state_estimator_lpf.cpp)
+
+#add_executable(bebop2_state_estimator_lpf
+#        src/bebop2_state_estimator_lpf_v_1_0.cpp)
 
 add_executable(bebop2_sim src/bebop2_sim_node.cpp ${SOURCE_FILES} ${HEADER_FILES})
 

@@ -205,8 +205,9 @@ namespace bebop2
         tf::Matrix3x3 m(tf::Quaternion(q.x, q.y, q.z, q.w));
         double roll, pitch, yaw;
         m.getRPY(roll,pitch, yaw);
-        yaw = yaw + M_PI_2;
-        yaw = fmod(yaw + M_PI, 2 * M_PI) - M_PI;
+        //FIXME add 90 deg to heading angle
+//        yaw = yaw + M_PI_2;
+//        yaw = fmod(yaw + M_PI, 2 * M_PI) - M_PI;
 
         std::vector<double>state{p.x, p.y, p.z, yaw};
         control_loop(state);

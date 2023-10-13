@@ -14,6 +14,9 @@
 #include "airlib/localization/sensors.h"
 #include "airlib/localization/filters.h"
 
+
+
+
 int main(int argc, char* argv[])
 {
     ros::init(argc, argv, "airlib_bebop2");
@@ -51,6 +54,8 @@ int main(int argc, char* argv[])
     ros::AsyncSpinner spinner(4);
     spinner.start();
 
+    bool isAdaptiveFilter = true;
+
     std::thread stateThread = std::thread ([&]{
         try {
             // code that may throw
@@ -79,16 +84,34 @@ int main(int argc, char* argv[])
                 odom.pose.pose.orientation.z = q.z();
                 odom.pose.pose.orientation.w = q.w();
 
-//                if(state.size() == 8)
-//                {
-//                    odom.twist.twist.linear.x = state[5];
-//                    odom.twist.twist.linear.y = state[6];
-//                    odom.twist.twist.linear.z = state[7];
-//                    odom.twist.twist.angular.z = 0;
-//                }
+//                isAdaptiveFilter = state[1] > 3.0;
+                if (isAdaptiveFilter)
+                {
+                    if(state.size() == 8)
+                    {
 
-                if(!covariance.empty())
-                    std::copy(covariance.begin(), covariance.end(), odom.pose.covariance.begin());
+                        double theta = state[3];
+                        double c = cos(theta);
+                        double s = sin(theta);
+                        Eigen::Matrix3d q;
+                        q.setIdentity();
+                        q(0, 0) = c;
+                        q(0, 1) = -s;
+                        q(1, 0) = s;
+                        q(1, 1) = c;
+
+                        Eigen::Vector3d p(state[5], state[6], state[7]);
+                        Eigen::Vector3d T = q * p;
+
+
+                        odom.twist.twist.linear.x = T(0);
+                        odom.twist.twist.linear.y = T(1);
+                        odom.twist.twist.linear.z = T(2);
+                        odom.twist.twist.angular.z = 0;
+                    }
+//                    if(!covariance.empty())
+//                        std::copy(covariance.begin(), covariance.end(), odom.pose.covariance.begin());
+                }
 
                 pub.publish(odom);
 

@@ -8,7 +8,7 @@ tag7: [3.11, 7.0, 1.2]
 tag4: [4.26, 7.0, 1.2]
 
 # complimentary filter gain. Higher value slower update, less noisy
-alpha: 0.94
+alpha: 0.95 #0.94
 
 #   linear.x  (+)      Translate forward
 #             (-)      Translate backward

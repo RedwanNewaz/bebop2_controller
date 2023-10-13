@@ -20,7 +20,7 @@ goal:
 
 send_trajectory()
 {
-rostopic pub --once /waypoint_action/goal bebop2_controller/WaypointsActionGoal "header:
+rostopic pub --once /bebop/waypoint_action/goal bebop2_controller/WaypointsActionGoal "header:
   seq: 0
   stamp:
     secs: 0

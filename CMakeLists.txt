@@ -61,7 +61,7 @@ include_directories(
 ## Declare a C++ executables
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-
+add_subdirectory(model)
 add_subdirectory(perception)
 add_subdirectory(controller)
 
@@ -71,9 +71,13 @@ option(ENABLE_TEST "Enable test feature" ON)
 
 if (ENABLE_NAVIGATION)
  add_subdirectory(navigation)
+else()
+ message(WARNING "Disable navigation feature")
 endif ()
 
 if (ENABLE_NAVIGATION)
  add_subdirectory(test)
+else()
+ message(WARNING "Disable test feature")
 endif ()
 

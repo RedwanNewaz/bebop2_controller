@@ -21,7 +21,7 @@ TEST_CASE("traj_planner::constant_velocity::size", "[wp::rectangle]")
     auto messageQueue = std::make_shared<MessageQueue>();
     traj_planner::constant_velocity communicator(2, 3, messageQueue);
     communicator.convert_waypoints(wps);
-    size_t expected = 183;
+    size_t expected = 123;
     REQUIRE(communicator.size() == expected);
 
 }

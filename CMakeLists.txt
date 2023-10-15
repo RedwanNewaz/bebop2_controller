@@ -64,8 +64,16 @@ include_directories(
 
 add_subdirectory(perception)
 add_subdirectory(controller)
-add_subdirectory(navigation)
 
-#add_subdirectory(bebop2_controller_gui)
-add_subdirectory(test)
+
+option(ENABLE_NAVIGATION "Enable navigation feature" ON)
+option(ENABLE_TEST "Enable test feature" ON)
+
+if (ENABLE_NAVIGATION)
+ add_subdirectory(navigation)
+endif ()
+
+if (ENABLE_NAVIGATION)
+ add_subdirectory(test)
+endif ()
 

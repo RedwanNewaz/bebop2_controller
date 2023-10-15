@@ -6,7 +6,7 @@
 #include <cmath>
 #include "catch2-2.7.0/catch.hpp"
 #include "helper.h"
-#include "airlib/localization/sensors.h"
+#include "../perception/sensor/landmark/ApriltagLandmarks.h"
 
 
 TEST_CASE("ApriltagLandmarks::operator()(tag2)", "[sensors::tag2]")

@@ -29,3 +29,9 @@ target_link_libraries(
         ${catkin_LIBRARIES}
         ${Boost_LIBRARIES}
 )
+
+add_library(airlib_nav ${navigation_HEADER_FILES} ${navigation_SRC_FILES})
+target_link_libraries(airlib_nav
+        ${catkin_LIBRARIES}
+        Eigen3::Eigen
+        -pthread)

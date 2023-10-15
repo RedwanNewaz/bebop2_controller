@@ -30,4 +30,10 @@ target_link_libraries(bebop2_sim
         Eigen3::Eigen
         -pthread)
 
+add_library(airlib_percept ${perception_HEADER_FILES} ${perception_SRC_FILES})
+target_link_libraries(airlib_percept
+        ${catkin_LIBRARIES}
+        Eigen3::Eigen
+        -pthread)
+
 

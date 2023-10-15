@@ -7,7 +7,7 @@
 
 #include <boost/array.hpp>
 #include "LQRController.h"
-#include "airlib/control/ControllerBase.h"
+#include "../ControllerBase.h"
 
 namespace controller {
 

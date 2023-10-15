@@ -1,5 +1,5 @@
 #include <ros/ros.h>
-#include "airlib/control/controller.h"
+#include "../waypoints/WaypointController.h"
 
 
 int main(int argc, char** argv)

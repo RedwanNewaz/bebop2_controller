@@ -24,3 +24,9 @@ target_link_libraries(bebop2_controller_node
         ${catkin_LIBRARIES}
         Eigen3::Eigen
         -pthread)
+
+add_library(airlib_control ${controller_HEADER_FILES} ${controller_SRC_FILES})
+target_link_libraries(airlib_control
+        ${catkin_LIBRARIES}
+        Eigen3::Eigen
+        -pthread)

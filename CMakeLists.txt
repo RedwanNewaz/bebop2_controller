@@ -67,5 +67,5 @@ add_subdirectory(controller)
 add_subdirectory(navigation)
 
 #add_subdirectory(bebop2_controller_gui)
-#add_subdirectory(test)
+add_subdirectory(test)
 

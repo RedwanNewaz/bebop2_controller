@@ -6,7 +6,7 @@
 #include "catch2-2.7.0/catch.hpp"
 #include "../navigation/trajectory/rapidcsv.h"
 #include "../navigation/trajectory/trajectory_planner.h"
-#include "airlib/utility/LoggerCSV.h"
+#include "LoggerCSV.h"
 #include <filesystem>
 
 TEST_CASE("traj_planner::constant_velocity::size", "[wp::rectangle]")

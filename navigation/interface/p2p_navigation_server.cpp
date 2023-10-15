@@ -2,7 +2,7 @@
 // Created by airlab on 10/2/23.
 //
 #include <ros/ros.h>
-#include "airlib/control/controller.h"
+#include "../ptp_move/P2PNav.h"
 
 
 int main(int argc, char** argv)

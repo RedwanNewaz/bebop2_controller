@@ -55,8 +55,10 @@ def getFolderHierarchy():
 
     test = Tree('test')
 
+    simulation = Tree('simulation')
+
     # add connections
-    navigation.addChildren([trajectory, waypoints, ptp_move])
+    navigation.addChildren([trajectory, waypoints, ptp_move, interface])
 
     filter.addChildren([LPF, EKF, PF])
 
@@ -70,7 +72,7 @@ def getFolderHierarchy():
 
     root.addChildren([
         model, perception, controller, navigation, launch, conf, action, src,
-        include, test
+        include, test, simulation
     ])
     return root
 

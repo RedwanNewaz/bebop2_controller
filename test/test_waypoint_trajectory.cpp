@@ -4,8 +4,8 @@
 #include <cmath>
 #include "helper.h"
 #include "catch2-2.7.0/catch.hpp"
-#include "airlib/control/controller.h"
-#include "trajectory_planner.h"
+#include "../navigation/trajectory/rapidcsv.h"
+#include "../navigation/trajectory/trajectory_planner.h"
 #include "airlib/utility/LoggerCSV.h"
 #include <filesystem>
 

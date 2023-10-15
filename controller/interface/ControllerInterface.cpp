@@ -4,7 +4,8 @@
 
 #include <numeric>
 #include <utility>
-#include "airlib/control/ControllerInterface.h"
+#include "ControllerInterface.h"
+
 namespace bebop2
 {
     

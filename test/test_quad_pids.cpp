@@ -4,7 +4,7 @@
 #include <cmath>
 #include "helper.h"
 #include "catch2-2.7.0/catch.hpp"
-#include "airlib/control/controller.h"
+#include "../controller/PID/quad_pids.h"
 
 /**
 #   linear.x  (+)      Translate forward

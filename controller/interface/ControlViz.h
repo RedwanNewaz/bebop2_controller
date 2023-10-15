@@ -60,7 +60,7 @@ namespace bebop2 {
          * @param xEst robot state
          * @param PEst covariance matrix
          */
-        void plot_covariance_ellipse(const Eigen::MatrixXd& xEst, const Eigen::MatrixXd& PEst, COV_ELLIPSE& covEllipse);
+        bool plot_covariance_ellipse(const Eigen::MatrixXd& xEst, const Eigen::MatrixXd& PEst, COV_ELLIPSE& covEllipse);
         /**
          * @brief convert ellipse rotation (yaw) angle to 2D rotation matrix
          * This function is needed to compute rotation of covariance ellipse

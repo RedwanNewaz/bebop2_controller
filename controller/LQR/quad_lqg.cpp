@@ -34,7 +34,7 @@ namespace controller {
             // update velocity
 //            _quadController[i].updateState(std::min(velocities[i],  vel_[i]), i + 4);
 //            _quadController[i].updateState(0.0, i + 4);
-            _quadController[i].updateGoal(std::max(velocities[i], vel_[i]), i + 4);
+            _quadController[i].updateGoal(-velocities[i], i + 4);
 
             //update goal
             _quadController[i].updateGoal(setPoints[i], i);
@@ -90,14 +90,14 @@ namespace controller {
     void quad_lqg::setObsNoise(const std::array<double, 36> &noise) {
         std::vector<double> obsNoise;
         for (int k = 0; k < noise.size(); ++k) {
-            int row = k / 4;
-            int col = k % 4;
+            int row = k / 6;
+            int col = k % 6;
             // x, y, z, r, p, y
             if(row == 3 || row == 4 || col == 3 || col == 4)
                 continue;
             obsNoise.push_back(noise[k]);
         }
-        
+//        std::cout << obsNoise.size() << std::endl;
         for (size_t i = 0; i < NUM_CONTROLLER; ++i) {
             _quadController[i].set(dt_, 0.1, gains_, obsNoise);
         }

@@ -224,14 +224,17 @@ namespace bebop2
             }
         }
 
-        viz_->plot_covariance_ellipse(xEst, PEst, uncertaintyEllipse_);
+        bool ellipseUpdated = viz_->plot_covariance_ellipse(xEst, PEst, uncertaintyEllipse_);
 
-//        if(m_buttonState == CONTROL)
-//        {
-//            std::array<double, 36> cov;
-//            std::copy(msg->pose.covariance.begin(), msg->pose.covariance.end(), cov.begin());
-//            drone_controller_->setObsNoise(cov);
-//        }
+        if(m_buttonState == CONTROL && ellipseUpdated)
+        {
+            std::array<double, 36> cov;
+            std::copy(msg->pose.covariance.begin(), msg->pose.covariance.end(), cov.begin());
+//            std::transform(cov.begin(), cov.end(), cov.begin(),
+//                           [](double val){return std::isnan(val)?0.0: std::clamp(val, 0.0, 0.01); });
+
+            drone_controller_->setObsNoise(cov);
+        }
 
     }
 

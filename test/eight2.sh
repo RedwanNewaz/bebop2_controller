@@ -35,6 +35,23 @@ goal:
 }
 
 
+send_unittest()
+{
+rostopic pub --once /waypoint_action/goal bebop2_controller/WaypointsActionGoal "header:
+ seq: 0
+ stamp:
+   secs: 0
+   nsecs: 0
+ frame_id: ''
+goal_id:
+ id: 'goalMinJerk4'
+goal:
+ csv_path: '/home/redwan/catkin_ws/src/bebop2_controller/test/logger_2023-10-03_16:43:44.csv'
+ method: 1
+"
+
+}
+
 #roslaunch bebop2_controller nav_controller_debug.launch
 
 case $1 in

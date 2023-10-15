@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 
 
 
-    std::vector<double>x0{0.0, 0.0, 0.0, 0.0};
+    std::vector<double>x0{0.0, 0.0, 0.0, M_PI_2};
     stateSensor->set(x0);
 
     state_publisher(stateObserver, pub);

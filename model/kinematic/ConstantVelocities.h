@@ -26,8 +26,10 @@ namespace airlib {
          * @return state at t+1 timestamp
          */
         Eigen::MatrixXd predict(const Eigen::MatrixXd& x, const Eigen::MatrixXd& u) const;
+        /// @brief sensor observation y = cx
+        Eigen::MatrixXd observe(const Eigen::MatrixXd& x) const;
     private:
-        Eigen::MatrixXd A_, B_;
+        Eigen::MatrixXd A_, B_, C_;
         double dt_;
 
     };

@@ -9,9 +9,9 @@
 
 // LQRController.h
 #pragma once
-
+#include <memory>
 #include <Eigen/Dense>
-
+#include "airlib/model.hpp"
 using namespace Eigen;
 
 class LQRController {
@@ -19,6 +19,7 @@ private:
     MatrixXd A, B, Q, R, P, K;
     MatrixXd x_, xg_;
     double goalThres_;
+    std::unique_ptr<airlib::ConstantVelocities> sys_;
 
 public:
     LQRController();

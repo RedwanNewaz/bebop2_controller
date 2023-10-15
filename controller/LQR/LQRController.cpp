@@ -18,23 +18,6 @@ LQRController::LQRController() {
     x_.resize(8, 1);
     xg_.resize(8, 1);
 
-
-    // Set system matrices
-    // ... (set A matrix: aka transition matrix)
-
-    // Define system dynamics (example values)
-    A <<    1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0;
-
-
-
-
     x_ << 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0;
     xg_ << 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0;
 //    cout << K << endl;
@@ -76,7 +59,7 @@ MatrixXd LQRController::computeControlInput(const MatrixXd &x, const MatrixXd &x
 
 MatrixXd LQRController::predict(const MatrixXd &u) {
 
-    return A * x_ + B * u;
+    return sys_->predict(x_, u);
 }
 
 void LQRController::updateState(double val, int index) {
@@ -101,14 +84,10 @@ bool LQRController::isTerminated() const{
 }
 
 void LQRController::set(double dt, double goalThres, const std::vector<double>& gain, const std::vector<double>& obsNoise ) {
-    B <<    dt, 0.0, 0.0, 0.0,
-            0.0, dt, 0.0, 0.0,
-            0.0, 0.0, dt, 0.0,
-            0.0, 0.0, 0.0, dt,
-            1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0,
-            0.0, 0.0, 0.0, 1.0;
+
+    sys_ = std::make_unique<airlib::ConstantVelocities>(dt);
+    A = sys_->getA();
+    B = sys_->getB();
     this->goalThres_ = goalThres;
 
     // Set cost matrices

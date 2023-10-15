@@ -3,6 +3,7 @@
 #include "ros/ros.h"
 #include <iostream>
 #include "../LQR/quad_lqg.h"
+#include "../PID/quad_pids.h"
 #include "ControllerInterface.h"
 
 
@@ -14,25 +15,31 @@ int main(int argc, char* argv[])
 
 //    std::vector<double> gains;
     double dt;
-//    ros::param::get("/pid_gains", gains);
     ros::param::get("/dt", dt);
 
-    std::vector<double>gains{
-            0.075, 0.0, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0,
-            0.0, 0.075, 0.0, 0.0, 0.0, 0.00075, 0.0, 0.0,
-            0.0, 0.0, 0.085, 0.0, 0.0, 0.0, 0.001, 0.0,
-            0.0, 0.0, 0.0, 0.08, 0.0, 0.0, 0.0, 0.002,
-            0.0, 0.0, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.00075, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.002
-    };
+    std::vector<double>gains;
+    std::string controllerType;
+    ros::param::get("/controller", controllerType);
+    if(controllerType == "lqr")
+    {
+        ros::param::get("/lqr_gains", gains);
+        auto controller = std::make_shared<controller::quad_lqg>(gains, dt);
+        bebop2::ControllerInterface interface(nh, controller);
 
-    auto controller = std::make_shared<controller::quad_lqg>(gains, dt);
-    bebop2::ControllerInterface interface(nh, controller);
+        ros::AsyncSpinner spinner(4);
+        spinner.start();
 
-    ros::AsyncSpinner spinner(4);
-    spinner.start();
+    } else
+    {
+        ros::param::get("/pid_gains", gains);
+        auto controller = std::make_shared<controller::quad_pids>(gains, dt);
+        bebop2::ControllerInterface interface(nh, controller);
+
+        ros::AsyncSpinner spinner(4);
+        spinner.start();
+    }
+
+
 
     ros::waitForShutdown();
 

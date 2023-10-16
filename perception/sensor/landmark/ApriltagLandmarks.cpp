@@ -64,13 +64,14 @@ bool ApriltagLandmarks::empty() {
     return measurements_.empty();
 }
 
-double ApriltagLandmarks::calc_heading_mindist(const ApriltagLandmarks::MEAS_VEC &z_vec) {
+std::pair<int, double> ApriltagLandmarks::calc_heading_mindist(const ApriltagLandmarks::MEAS_VEC &z_vec) {
     double heading = 0.0;
     const tf2::Vector3 origin(0, 0, 0);
     double maxDist = std::numeric_limits<double>::max();
+    int index = 0;
+    int minIndex = index;
     for(const auto&z :z_vec)
     {
-
         auto node = z.second.getOrigin();
         const tf2::Vector3 tagOrigin(node.x(),node.y(), node.z());
         double dist = tf2::tf2Distance(origin, tagOrigin);
@@ -79,10 +80,11 @@ double ApriltagLandmarks::calc_heading_mindist(const ApriltagLandmarks::MEAS_VEC
             maxDist = dist;
             auto euler = getEulerFromQuat(z.second.getRotation());
             heading = euler[2];
+            minIndex = index;
         }
-
+        ++index;
     }
-    return heading;
+    return std::make_pair(minIndex, heading);
 }
 
 double ApriltagLandmarks::calc_heading_avg(const ApriltagLandmarks::MEAS_VEC &z_vec) {
@@ -122,21 +124,27 @@ void ApriltagLandmarks::detect_tag(const apriltag_ros::AprilTagDetectionArray &m
         baseLink.setRotation(q);
         z_vec.emplace_back(tagName, baseLink);
 
-//        static tf::TransformBroadcaster br;
-//        br.sendTransform(tf::StampedTransform(mapToRobot, ros::Time::now(), "map", "map_" + tagName));
+        //debug this on rviz
+        //static tf::TransformBroadcaster br;
+        //br.sendTransform(tf::StampedTransform(mapToRobot, ros::Time::now(), "map", "map_" + tagName));
     }
 
-    double heading = calc_heading_mindist(z_vec);
-
+    auto heading = calc_heading_mindist(z_vec);
+    int index = 0;
     for(const auto&z :z_vec)
     {
+        // uncomment this condition if measurement needs to be averaged over all detected tags
+        // otherwise the measurement is selected based on the nearest detected tag information
+        if(index++ != heading.first)
+            continue;
+
         tf::Transform mapToRobot(z.second);
         auto coord = transformToGlobalFrame(mapToRobot, z.first);
         mapToRobot.setOrigin(tf::Vector3(coord.x, coord.y, coord.z));
 
         auto q = mapToRobot.getRotation();
 //        double theta = heading / (double) z_vec.size();
-        double theta = heading;
+        double theta = heading.second;
         q.setRPY(0, 0, theta);
         auto ori = getEulerFromQuat(q);
         auto pos = mapToRobot.getOrigin();

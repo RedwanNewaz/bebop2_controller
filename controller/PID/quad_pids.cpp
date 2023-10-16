@@ -23,34 +23,15 @@ namespace controller
     void quad_pids::compute_control(const std::vector<double> &X, const std::vector<double> &setPoints,
                                             std::vector<double> &control) {
 
-        std::vector<double> rawControl(NUM_CONTROLLER);
+        control.resize(NUM_CONTROLLER);
         for (int i = 0; i < NUM_CONTROLLER; ++i) {
             //        ROS_INFO("[PositionController]: control axis = %d setpoint = %lf X = %lf", i, setPoints[i], X[i] );
             bool normalized = (i == NUM_CONTROLLER - 1);
-            rawControl[i] = _quadController[i].calculate(setPoints[i], X[i], normalized);
+            control[i] = _quadController[i].calculate(setPoints[i], X[i], normalized);
             //yaw_error = (yaw_error + np.pi) % (2 * np.pi) - np.pi  # Normalize between -π and π
         }
-
-        // calculate orientation
-        double theta = -X[3];
-        double c = cos(theta);
-        double s = sin(theta);
-        Eigen::Matrix3d q;
-        q.setIdentity();
-        q(0, 0) = c;
-        q(0, 1) = -s;
-        q(1, 0) = s;
-        q(1, 1) = c;
-
-        // fix control axis
-        Eigen::Vector3d p(rawControl[0], rawControl[1], rawControl[2]);
-        Eigen::Vector3d u = q * p;
-
-        // update final control
-        control.push_back(u(0));
-        control.push_back(u(1));
-        control.push_back(u(2));
-        control.push_back(rawControl[3]);
+        // transform control to body frame
+        ControllerBase::compute_control(X, setPoints, control);
 
     }
 

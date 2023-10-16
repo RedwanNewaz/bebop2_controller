@@ -26,7 +26,7 @@ namespace controller {
                                    std::vector<double> &control) {
 
 
-        std::vector<double> rawControl(NUM_CONTROLLER);
+        control.resize(NUM_CONTROLLER);
         auto velocities = estimate_velocity(X);
         for (int i = 0; i < NUM_CONTROLLER; ++i) {
             // update position
@@ -38,38 +38,20 @@ namespace controller {
 
             //update goal
             _quadController[i].updateGoal(setPoints[i], i);
-            rawControl[i] =(_quadController[i].isTerminated())? 0.0 : _quadController[i].getControl()(i, 0);
+            control[i] =(_quadController[i].isTerminated())? 0.0 : _quadController[i].getControl()(i, 0);
 
-            rawControl[i] = std::clamp(rawControl[i], -1.0, 1.0);
+            control[i] = std::clamp(control[i], -1.0, 1.0);
             bool normalized = (i == NUM_CONTROLLER - 1);
             if(normalized)
             {
-                rawControl[i] = fmod((rawControl[i] + M_PI) , (2 * M_PI)) - M_PI ; //# Normalize between -π and π
+                control[i] = fmod((control[i] + M_PI) , (2 * M_PI)) - M_PI ; //# Normalize between -π and π
             }
 
-            vel_[i] = rawControl[i];
+            vel_[i] = control[i];
 
         }
-        // calculate orientation
-        double theta = -X[3];
-        double c = cos(theta);
-        double s = sin(theta);
-        Eigen::Matrix3d q;
-        q.setIdentity();
-        q(0, 0) = c;
-        q(0, 1) = -s;
-        q(1, 0) = s;
-        q(1, 1) = c;
-
-        // fix control axis
-        Eigen::Vector3d p(rawControl[0], rawControl[1], rawControl[2]);
-        Eigen::Vector3d u = q * p;
-
-        // update final control
-        control.push_back(u(0));
-        control.push_back(u(1));
-        control.push_back(u(2));
-        control.push_back(rawControl[3]);
+        // transform control to body frame
+        ControllerBase::compute_control(X, setPoints, control);
 
     }
 

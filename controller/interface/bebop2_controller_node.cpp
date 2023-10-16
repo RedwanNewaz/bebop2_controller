@@ -20,26 +20,26 @@ int main(int argc, char* argv[])
     std::vector<double>gains;
     std::string controllerType;
     ros::param::get("/controller", controllerType);
+
+    std::shared_ptr<ControllerBase> controller;
     if(controllerType == "lqr")
     {
+        ROS_INFO_STREAM("LQR controller selected");
         ros::param::get("/lqr_gains", gains);
-        auto controller = std::make_shared<controller::quad_lqg>(gains, dt);
-        bebop2::ControllerInterface interface(nh, controller);
-
-        ros::AsyncSpinner spinner(4);
-        spinner.start();
+        controller = std::make_shared<controller::quad_lqg>(gains, dt);
 
     } else
     {
+        ROS_INFO_STREAM("PID controller selected");
         ros::param::get("/pid_gains", gains);
-        auto controller = std::make_shared<controller::quad_pids>(gains, dt);
-        bebop2::ControllerInterface interface(nh, controller);
+        controller = std::make_shared<controller::quad_pids>(gains, dt);
 
-        ros::AsyncSpinner spinner(4);
-        spinner.start();
     }
 
+    bebop2::ControllerInterface interface(nh, controller);
 
+    ros::AsyncSpinner spinner(4);
+    spinner.start();
 
     ros::waitForShutdown();
 

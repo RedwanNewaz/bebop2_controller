@@ -65,7 +65,8 @@ protected:
     FieldLocation transformToGlobalFrame(const tf::Transform& tagTransform, const std::string& tagName);
 
     /// @brief calculate heading angle based on the nearest landmark
-    double calc_heading_mindist(const MEAS_VEC& z_vec);
+    /// @return pair<min index, min heading value>
+    std::pair<int, double> calc_heading_mindist(const MEAS_VEC& z_vec);
 
     /// @brief calculate heading angle by averaging all the detected heading angles
     double calc_heading_avg(const MEAS_VEC& z_vec);

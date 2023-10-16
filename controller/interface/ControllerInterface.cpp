@@ -200,6 +200,7 @@ namespace bebop2
     }
 
     void ControllerInterface::state_callback(const nav_msgs::Odometry::ConstPtr &msg) {
+//        ROS_INFO_STREAM(*msg);
         auto p = msg->pose.pose.position;
         auto q = msg->pose.pose.orientation;
         tf::Matrix3x3 m(tf::Quaternion(q.x, q.y, q.z, q.w));

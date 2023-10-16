@@ -20,10 +20,10 @@
 TEST_CASE("quad_pids::compute_control::north", "[move::north]")
 {
     std::vector<double>gains{
-            0.08, 0.20, 0,
-            0.08, 0.20, 0,
-            0.08, 0.20, 0,
-            0.08, 0.20, 0
+            0.075, -0.001, -0.0003,
+            0.075, 0.00075, -0.0001,
+            0.085, -0.001, -0.0001,
+            0.08, -0.002, 0.0
     };
     controller::quad_pids quadPids(gains, 0.3);
 
@@ -33,7 +33,7 @@ TEST_CASE("quad_pids::compute_control::north", "[move::north]")
 
     quadPids.compute_control(X0, Xg, result);
 
-    std::vector<double> expected{0.7466666667, 0.0, 0.0, 0.0 };
+    std::vector<double> expected{0.077470, 0.0, 0.0, 0.0 };
 
     double epsilon = 0.001;
 

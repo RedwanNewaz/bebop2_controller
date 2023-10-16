@@ -10,6 +10,7 @@ add_executable( bebop2_controller_test
         ${perception_HEADER_FILES} ${perception_SRC_FILES}
         ${navigation_HEADER_FILES} ${navigation_SRC_FILES}
         ${controller_HEADER_FILES} ${controller_SRC_FILES}
+        test_quad_lqg.cpp
 )
 target_link_libraries(bebop2_controller_test Catch Eigen3::Eigen
         ${catkin_LIBRARIES}

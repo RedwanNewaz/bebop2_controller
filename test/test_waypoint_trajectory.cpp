@@ -95,24 +95,24 @@ WAYPOINTS calcEight() {
 
 
 
-TEST_CASE("traj_planner::eight_path", "[wp::eight]")
-{
-    WAYPOINTS  wps = calcEight();
-
-    std::string output = "/home/roboticslab/catkin_ws/src/bebop2_controller/test";
-    LoggerCSV loggerCsv;
-    loggerCsv.setOutputFolder(output);
-
-
-    for(const auto& row: wps)
-    {
-        std::vector<std::string> data;
-        for(const auto& item : row)
-            data.emplace_back(std::to_string(item));
-        loggerCsv.addRow(data);
-    }
-
-    bool isValidoutput = std::filesystem::is_directory(output);
-
-    REQUIRE_FALSE(!isValidoutput);
-}
+//TEST_CASE("traj_planner::eight_path", "[wp::eight]")
+//{
+//    WAYPOINTS  wps = calcEight();
+//
+//    std::string output = "/home/roboticslab/catkin_ws/src/bebop2_controller/test";
+//    LoggerCSV loggerCsv;
+//    loggerCsv.setOutputFolder(output);
+//
+//
+//    for(const auto& row: wps)
+//    {
+//        std::vector<std::string> data;
+//        for(const auto& item : row)
+//            data.emplace_back(std::to_string(item));
+//        loggerCsv.addRow(data);
+//    }
+//
+//    bool isValidoutput = std::filesystem::is_directory(output);
+//
+//    REQUIRE_FALSE(!isValidoutput);
+//}

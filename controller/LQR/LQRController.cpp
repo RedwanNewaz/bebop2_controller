@@ -51,10 +51,12 @@ MatrixXd LQRController::computeControlInput(const MatrixXd &x, const MatrixXd &x
     // Compute control input based on current state and goal state
     MatrixXd error = xg - x;
     MatrixXd u0 = x_.block<4, 1>(4, 0);
-    MatrixXd u = u0 + K * error;
+    MatrixXd u =  K * error;
     MatrixXd uDefault(4, 1);
     uDefault.setZero();
-    return isTerminated()? uDefault : u;
+//    std::cout << u << std::endl;
+//    return isTerminated()? uDefault : u;
+    return u;
 }
 
 MatrixXd LQRController::predict(const MatrixXd &u) {

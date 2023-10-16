@@ -21,16 +21,16 @@
 #   ]
 standalone_tags:
   [
-    {id: 0, size: 0.2, name: tag0, frame_id: "robot" },
-    {id: 1, size: 0.2, name: tag1, frame_id: "robot" },
-    {id: 2, size: 0.2, name: tag2, frame_id: "robot" },
-    {id: 3, size: 0.2, name: tag3, frame_id: "robot" },
-    {id: 4, size: 0.2, name: tag4, frame_id: "robot" },
-    {id: 5, size: 0.2, name: tag5, frame_id: "robot" },
-    {id: 6, size: 0.2, name: tag6, frame_id: "robot" },
-    {id: 7, size: 0.2, name: tag7, frame_id: "robot" },
-    {id: 8, size: 0.2, name: tag8, frame_id: "robot" },
-    {id: 9, size: 0.2, name: tag9, frame_id: "robot" }
+    {id: 0, size: 0.16, name: tag0, frame_id: "robot" },
+    {id: 1, size: 0.16, name: tag1, frame_id: "robot" },
+    {id: 2, size: 0.16, name: tag2, frame_id: "robot" },
+    {id: 3, size: 0.16, name: tag3, frame_id: "robot" },
+    {id: 4, size: 0.16, name: tag4, frame_id: "robot" },
+    {id: 5, size: 0.16, name: tag5, frame_id: "robot" },
+    {id: 6, size: 0.16, name: tag6, frame_id: "robot" },
+    {id: 7, size: 0.16, name: tag7, frame_id: "robot" },
+    {id: 8, size: 0.16, name: tag8, frame_id: "robot" },
+    {id: 9, size: 0.16, name: tag9, frame_id: "robot" }
   ]
 # ## Tag bundle definitions
 # ### Remarks

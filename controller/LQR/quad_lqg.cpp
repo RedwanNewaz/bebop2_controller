@@ -15,7 +15,12 @@ namespace controller {
         };
 
         for (int i = 0; i < NUM_CONTROLLER; ++i) {
-            _quadController[i].set(dt, 0.1, gains, obsNoise);
+            if(i < NUM_CONTROLLER - 1)
+                _quadController[i].set(dt, 0.1, gains, obsNoise);
+            else
+            {
+                _quadController[i].set(dt, 0.0872665, gains, obsNoise);
+            }
             vel_.push_back(0.0);
         }
 
@@ -32,13 +37,14 @@ namespace controller {
             // update position
             _quadController[i].updateState(X[i], i);
             // update velocity
-//            _quadController[i].updateState(std::min(velocities[i],  vel_[i]), i + 4);
-//            _quadController[i].updateState(0.0, i + 4);
-            _quadController[i].updateGoal(-velocities[i], i + 4);
+
+            _quadController[i].updateState(velocities[i], i + 4);
+            _quadController[i].updateGoal(vel_[i], i + 4);
 
             //update goal
             _quadController[i].updateGoal(setPoints[i], i);
-            control[i] =(_quadController[i].isTerminated())? 0.0 : _quadController[i].getControl()(i, 0);
+//            control[i] =(_quadController[i].isTerminated())? 0.0 : _quadController[i].getControl()(i, 0);
+            control[i] = _quadController[i].getControl()(i, 0);
 
             control[i] = std::clamp(control[i], -1.0, 1.0);
             bool normalized = (i == NUM_CONTROLLER - 1);

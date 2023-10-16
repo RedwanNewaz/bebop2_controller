@@ -135,8 +135,8 @@ void ApriltagLandmarks::detect_tag(const apriltag_ros::AprilTagDetectionArray &m
     {
         // uncomment this condition if measurement needs to be averaged over all detected tags
         // otherwise the measurement is selected based on the nearest detected tag information
-        if(index++ != heading.first)
-            continue;
+//        if(index++ != heading.first)
+//            continue;
 
         tf::Transform mapToRobot(z.second);
         auto coord = transformToGlobalFrame(mapToRobot, z.first);

@@ -12,7 +12,7 @@ tag4: [4.48, 7.0, 1.2]
 tag64: [5.11, 7.0, 1.2]
 
 # complimentary filter gain. Higher value slower update, less noisy
-alpha: 0.965 #0.94
+alpha: 0.955 #0.94
 
 #   linear.x  (+)      Translate forward
 #             (-)      Translate backward
@@ -58,5 +58,5 @@ goal_thres: 0.6
 # trajectory param
 #max_vel: 2
 #max_acc: 3
-max_vel: 1.1
-max_acc: 1
+max_vel: 0.9
+max_acc: 0.8

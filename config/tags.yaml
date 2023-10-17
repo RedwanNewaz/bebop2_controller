@@ -31,7 +31,12 @@ standalone_tags:
     {id: 6, size: 0.2, name: tag6, frame_id: "robot" },
     {id: 7, size: 0.2, name: tag7, frame_id: "robot" },
     {id: 8, size: 0.2, name: tag8, frame_id: "robot" },
-    {id: 9, size: 0.2, name: tag9, frame_id: "robot" }
+    {id: 9, size: 0.2, name: tag9, frame_id: "robot" },
+    {id: 62, size: 0.1, name: tag62, frame_id: "robot" },
+    {id: 63, size: 0.1, name: tag63, frame_id: "robot" },
+    {id: 64, size: 0.1, name: tag64, frame_id: "robot" },
+    {id: 67, size: 0.1, name: tag67, frame_id: "robot" }
+
   ]
 # ## Tag bundle definitions
 # ### Remarks

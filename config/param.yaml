@@ -1,14 +1,18 @@
 # make sure you define tag index before defining tag coordinates
-apriltags: [3, 2, 7, 4]
+apriltags: [3, 62, 2, 63, 7, 67, 4, 64]
 
 # the program will look for the tag index first to read each tag coordinate
-tag3: [0.81, 7.0, 1.2]
-tag2: [1.96, 7.0, 1.2]
-tag7: [3.11, 7.0, 1.2]
-tag4: [4.26, 7.0, 1.2]
+tag3: [0.78, 7.0, 1.2]
+tag62: [1.44, 7.0, 1.2]
+tag2: [2.06, 7.0, 1.2]
+tag63: [2.66, 7.0, 1.2]
+tag7: [3.26, 7.0, 1.2]
+tag67: [3.88, 7.0, 1.2]
+tag4: [4.48, 7.0, 1.2]
+tag64: [5.11, 7.0, 1.2]
 
 # complimentary filter gain. Higher value slower update, less noisy
-alpha: 0.95 #0.94
+alpha: 0.96 #0.94
 
 #   linear.x  (+)      Translate forward
 #             (-)      Translate backward
@@ -36,8 +40,8 @@ pid_gains: [
 ]
 
 lqr_gains: [
-  0.065, 0.0, 0.0, 0.0, 0.0016, 0.0, 0.0, 0.0,
-  0.0, 0.065, 0.0, 0.0, 0.0, 0.0016, 0.0, 0.0,
+  0.0655, 0.0, 0.0, 0.0, 0.0016, 0.0, 0.0, 0.0,
+  0.0, 0.0655, 0.0, 0.0, 0.0, 0.0016, 0.0, 0.0,
   0.0, 0.0, 0.085, 0.0, 0.0, 0.0, 0.001, 0.0,
   0.0, 0.0, 0.0, 0.060, 0.0, 0.0, 0.0, 0.003,
   0.0, 0.0, 0.0, 0.0, 0.0016, 0.0, 0.0, 0.0,

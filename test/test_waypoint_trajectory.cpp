@@ -79,13 +79,13 @@ WAYPOINTS calcInput() {
 WAYPOINTS calcEight() {
 //    // Define a parameter t
     int numPoints = 50;
-    double xScale = 2.5;
+    double xScale = 2.4;
     double yScale = 1.8;
     WAYPOINTS wps;
 
     for (int i = 0; i < numPoints; ++i) {
         double t = 2 * M_PI * i / numPoints;
-        double xx = 2.5 + xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
+        double xx = 2.9 + xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
         double yy = 3.8 + yScale * sin(t); // You can adjust the vertical offset (+1) for position
         wps.push_back({xx, yy, 1.0});
     }

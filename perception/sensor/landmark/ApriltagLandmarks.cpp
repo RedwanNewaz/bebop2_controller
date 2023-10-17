@@ -105,7 +105,7 @@ void ApriltagLandmarks::detect_tag(const apriltag_ros::AprilTagDetectionArray &m
     camBaseLink.setRotation(tf::Quaternion(0.5, -0.5, 0.5, -0.5));
 
 
-    MEAS_VEC z_vec;
+    MEAS_VEC z_vec, z_vec_large, z_ulimate;
 
     for(auto detection: msg.detections)
     {
@@ -124,14 +124,21 @@ void ApriltagLandmarks::detect_tag(const apriltag_ros::AprilTagDetectionArray &m
         baseLink.setRotation(q);
         z_vec.emplace_back(tagName, baseLink);
 
+        if(detection.size[0] > 0.1)
+        {
+            z_vec_large.emplace_back(tagName, baseLink);
+        }
+
         //debug this on rviz
         //static tf::TransformBroadcaster br;
         //br.sendTransform(tf::StampedTransform(mapToRobot, ros::Time::now(), "map", "map_" + tagName));
     }
 
-    auto heading = calc_heading_mindist(z_vec);
+    z_ulimate = z_vec.empty() ? z_vec_large : z_vec;
+
+    auto heading = calc_heading_mindist(z_ulimate);
     int index = 0;
-    for(const auto&z :z_vec)
+    for(const auto&z :z_ulimate)
     {
         // uncomment this condition if measurement needs to be averaged over all detected tags
         // otherwise the measurement is selected based on the nearest detected tag information

@@ -92,12 +92,26 @@ WAYPOINTS calcEight() {
 
     return wps;
 }
+Waypoints calcSquare() {
+    int numPoints = 4; // For a square, you need only 4 points
+    double sideLength = 2.0; // Adjust the side length as needed
+    Waypoints wps;
+
+    for (int i = 0; i < numPoints; ++i) {
+        double angle = 2 * M_PI * i / numPoints;
+        double x = 1.5 + sideLength * cos(angle); // Adjust the horizontal offset (2.9) as needed
+        double y = 3 + sideLength * sin(angle); // Adjust the vertical offset (3.8) as needed
+        wps.push_back({xx, yy, 1.0});
+    }
+
+    return wps;
+}
 
 
 
 TEST_CASE("traj_planner::eight_path", "[wp::eight]")
 {
-    WAYPOINTS  wps = calcEight();
+    WAYPOINTS  wps = calcSquare();
 
     std::string output = "/home/roboticslab/catkin_ws/src/bebop2_controller/test";
     LoggerCSV loggerCsv;

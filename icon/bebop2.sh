@@ -5,4 +5,5 @@ LD_LIBRARY_PATH=~/catkin_ws/devel/lib/parrot_arsdk:$LD_LIBRARY_PATH &&source ~/c
 #launch roscore in separate thread
 coproc(roscore)
 #launch the main program
-rosrun bebop2_controller bebop2_controller_gui
+# rosrun bebop2_controller bebop2_controller_gui
+roslaunch bebop2_controller nav_controller_exp.launch

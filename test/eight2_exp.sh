@@ -8,7 +8,7 @@ rostopic pub --once /bebop/move_p2p/goal bebop2_controller/SetpointsActionGoal "
     nsecs: 0
   frame_id: ''
 goal_id:
-  id: 'wps1'
+  id: 'goal1'
 goal:
   setpoint:
     x: 2.5
@@ -27,7 +27,7 @@ rostopic pub --once /bebop/waypoint_action/goal bebop2_controller/WaypointsActio
     nsecs: 0
   frame_id: ''
 goal_id:
-  id: 'goalMinJerk4'
+  id: 'goal2'
 goal:
   csv_path: '/home/roboticslab/catkin_ws/src/bebop2_controller/test/logger_2023-10-03_16:43:44.csv'
   method: 1

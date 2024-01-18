@@ -13,7 +13,6 @@
   <!-- Start state estimator node -->
   <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
 
-
 <!--    <node pkg="bebop2_controller" type="bebop2_state_estimator_pf.py" name="apriltag_test" output="screen"/>-->
 
   <node pkg="joy" type="joy_node" name="joy_node" />

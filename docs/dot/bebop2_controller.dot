@@ -1,0 +1,16 @@
+digraph G {
+
+  bebop2_autonomy -> bebop2_controller;
+  bebop2_autonomy -> apriltag_ros; 
+  apriltag_ros -> bebop2_state_estimator_lpf;
+  bebop2_state_estimator_lpf -> ekf_localization_node;
+  ekf_localization_node->bebop2_controller;
+  joystick_controller -> bebop2_controller;
+  waypoint_control_server -> bebop2_controller;
+  ekf_localization_node -> p2p_navigation_server;
+  p2p_navigation_server -> waypoint_control_server;
+  p2p_navigation_server -> bebop2_controller;
+  bebop2_controller -> rviz;
+  bebop2_controller -> bebop2_autonomy;
+  
+}

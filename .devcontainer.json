@@ -1,0 +1,10 @@
+{
+    "name": "drone_ws",
+    "service": "drone_ws",
+    "dockerComposeFile": "./docker-compose.yml",
+    "extensions":[
+        "ms-iot.vscode-ros"
+    ],
+    "workspaceFolder": "/home/airlab/drone_ws",
+    "shutdownAction": "stopCompose"
+}

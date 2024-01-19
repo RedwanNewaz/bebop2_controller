@@ -1,1 +1,7 @@
 .idea
+.catkin_tools
+.config
+build
+devel
+logs
+src

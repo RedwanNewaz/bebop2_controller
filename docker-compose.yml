@@ -1,0 +1,17 @@
+version: '2.3'
+services:
+  drone_ws:
+    build: . 
+    container_name: noetic_drone_ws
+    privileged: true
+    runtime: nvidia
+    volumes:
+      - ".:/home/airlab/drone_ws"
+      - "./drone_ws:/home/airlab/drone_ws/src"
+      - "$HOME/.Xauthority:/root/.Xauthority:rw"
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    environment:
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+    network_mode: host 
+    command: /bin/sh -c "while sleep 1000; do :; done"

@@ -14,6 +14,8 @@ set(navigation_SRC_FILES
 add_executable(p2p_navigation_server interface/p2p_navigation_server.cpp
         ${navigation_HEADER_FILES} ${navigation_SRC_FILES})
 
+add_dependencies(p2p_navigation_server bebop2_controller_generate_messages_cpp)
+
 target_link_libraries(
         p2p_navigation_server
         ${catkin_LIBRARIES}
@@ -23,6 +25,9 @@ target_link_libraries(
 add_executable(waypoint_control_server interface/waypoint_control_server.cpp
         ${navigation_HEADER_FILES} ${navigation_SRC_FILES}
 )
+
+
+add_dependencies(waypoint_control_server p2p_navigation_server)
 
 target_link_libraries(
         waypoint_control_server

@@ -1,0 +1,35 @@
+<launch>
+  <!-- Load URDF model -->
+  <include file="$(find bebop2_controller)/launch/bebop_autonomy.launch" />
+  <!-- start vicon bridge -->
+  <include file="$(find vicon_bridge)/launch/vicon.launch" />
+
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se_exp" clear_params="true">
+    <rosparam command="load" file="$(find bebop2_controller)/config/ekfExp.yaml" />
+    <remap from="odometry/filtered" to="/apriltag/state/filtered"/>
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="laser" args="0 0 0 0 0 0 1  odom map   100"/>
+
+  <!-- Start state estimator node -->
+  <rosparam command="load" file="$(find bebop2_controller)/config/param.yaml" />
+
+  <!-- start joystick controller -->
+  <node pkg="joy" type="joy_node" name="joy_node" />
+
+  <!-- start bebop2 controller -->
+  <arg name="namespace" default="bebop" />
+  <group ns="$(arg namespace)">
+    <node pkg="bebop2_controller" type="bebop2_state_estimator_vicon" name="bebop2_vicon" output="screen">
+      <remap from="/vicon/bebop2/bebop2" to="/vicon/bebop2/bebop2"/>
+    </node>
+    <node pkg="bebop2_controller" type="bebop2_controller_node" name="controller_test" output="screen">
+      <remap from="/bebop/apriltag/state" to="/apriltag/state/filtered"/>
+    </node>
+    <node pkg="bebop2_controller" type="waypoint_control_server" name="waypoint_control_server" output="screen"/>
+    <node pkg="bebop2_controller" type="p2p_navigation_server" name="p2p_navigation_server" output="screen"/>
+  </group>
+
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bebop2_controller)/config/tag.rviz"/>
+</launch>

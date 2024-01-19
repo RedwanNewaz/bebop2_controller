@@ -1,0 +1,15 @@
+digraph G {
+
+  bebop2_autonomy -> bebop2_controller;
+  vicon_bridge -> bebop2_state_estimator_vicon;
+  bebop2_state_estimator_vicon -> ekf_localization_node;
+  ekf_localization_node->bebop2_controller;
+  joystick_controller -> bebop2_controller;
+  waypoint_control_server -> bebop2_controller;
+  ekf_localization_node -> p2p_navigation_server;
+  p2p_navigation_server -> waypoint_control_server;
+  p2p_navigation_server -> bebop2_controller;
+  bebop2_controller -> rviz;
+  bebop2_controller -> bebop2_autonomy;
+  
+}

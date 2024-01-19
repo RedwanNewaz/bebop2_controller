@@ -1,0 +1,11 @@
+version: '2.3'
+
+services:
+  bebop2_autonomy:
+    build: .
+    # image: bebop2_autonomy
+    container_name: bebop2_autonomy
+    network_mode: host 
+    volumes:
+      - ./src:/home/airlab/catkin_ws/src 
+    command: bash -c "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/airlab/catkin_ws/devel/lib/parrot_arsdk && source /home/airlab/catkin_ws/devel/setup.bash && roslaunch bebop_driver bebop_node.launch"

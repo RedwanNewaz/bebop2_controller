@@ -9,8 +9,9 @@ public:
     {
         pub_ = nh_.advertise<nav_msgs::Odometry>("apriltag/state", 10);
     }
-    void vicon_callback(const geometry_msgs::TransformStampedConstPtr& msg)
+    void vicon_callback(const geometry_msgs::TransformStamped::ConstPtr& msg)
     {
+        // ROS_INFO_STREAM(*msg);
         nav_msgs::Odometry odom;
         odom.header.stamp = ros::Time::now();
         odom.header.frame_id = "map";
@@ -25,6 +26,7 @@ public:
         odom.pose.pose.orientation.w = msg->transform.rotation.w;
 
         pub_.publish(odom);
+
     }
 
 private:
@@ -39,7 +41,7 @@ int main(int argc, char* argv[])
     ROS_INFO("bebop2_vicon_node INITIALIZED!");
     ros::NodeHandle nh; 
     ViconStateEstimator vicon(nh);
-    ros::Subscriber sub = nh.subscribe("/vicon/bebop2/bebop2", 10, &ViconStateEstimator::vicon_callback, &vicon);
+    ros::Subscriber sub = nh.subscribe("/vicon/Bebop/Bebop", 10, &ViconStateEstimator::vicon_callback, &vicon);
     ros::spin();
 
     return 0;

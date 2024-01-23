@@ -14,6 +14,25 @@ namespace bebop2 {
 
         std::vector<int>tagIds;
         ros::param::get("/apriltags", tagIds);
+        
+        // boundary has x, y, w, h
+        std::vector<double>boundary;
+        ros::param::get("/boundary", boundary);
+        double ox, oy, w, h; 
+        ox = boundary[0];
+        oy = boundary[1];
+        w = boundary[2];
+        h = boundary[3];
+        geometry_msgs::Point p1, p2, p3, p4;
+        p1.x = ox; p1.y = oy; p1.z = 0.0;
+        p2.x = ox + w; p2.y = oy; p2.z = 0.0;
+        p3.x = ox + w; p3.y = oy + h; p3.z = 0.0;
+        p4.x = ox; p4.y = oy + h; p4.z = 0.0;    
+        target_area_.push_back(p1);
+        target_area_.push_back(p2);
+        target_area_.push_back(p3);
+        target_area_.push_back(p4);
+
 
         for(auto tagId : tagIds)
         {
@@ -116,7 +135,19 @@ namespace bebop2 {
         pub_marker_.publish(msg);
 
         set_marker_color(CYAN, landmarkMsg);
-        landmarkMsg.type = visualization_msgs::Marker::CUBE_LIST;
+        // landmarkMsg.type = visualization_msgs::Marker::CUBE_LIST;
+        // landmarkMsg.pose.position.x = landmarkMsg.pose.position.y = landmarkMsg.pose.position.z = 0;
+        // landmarkMsg.pose.orientation.x = landmarkMsg.pose.orientation.y = landmarkMsg.pose.orientation.z = 0;
+        // landmarkMsg.pose.orientation.w = 1;
+        // landmarkMsg.scale.x = landmarkMsg.scale.y = landmarkMsg.scale.z = 0.2;
+        // landmarkMsg.header.frame_id = "map";
+        // landmarkMsg.header.stamp = ros::Time::now();
+        // landmarkMsg.id = 254;
+        // for(auto &landmark:landmarks_)
+        //     landmarkMsg.points.emplace_back(landmark.second);
+        // pub_marker_.publish(landmarkMsg);
+
+        landmarkMsg.type = visualization_msgs::Marker::LINE_LIST;
         landmarkMsg.pose.position.x = landmarkMsg.pose.position.y = landmarkMsg.pose.position.z = 0;
         landmarkMsg.pose.orientation.x = landmarkMsg.pose.orientation.y = landmarkMsg.pose.orientation.z = 0;
         landmarkMsg.pose.orientation.w = 1;
@@ -124,8 +155,23 @@ namespace bebop2 {
         landmarkMsg.header.frame_id = "map";
         landmarkMsg.header.stamp = ros::Time::now();
         landmarkMsg.id = 254;
-        for(auto &landmark:landmarks_)
-            landmarkMsg.points.emplace_back(landmark.second);
+        landmarkMsg.points.emplace_back(target_area_[0]);
+        landmarkMsg.points.emplace_back(target_area_[1]);
+
+        landmarkMsg.points.emplace_back(target_area_[1]);
+        landmarkMsg.points.emplace_back(target_area_[2]);
+
+        landmarkMsg.points.emplace_back(target_area_[2]);
+        landmarkMsg.points.emplace_back(target_area_[3]);
+
+        landmarkMsg.points.emplace_back(target_area_[3]);
+        landmarkMsg.points.emplace_back(target_area_[0]);
+        
+        
+        // for(auto &landmark:landmarks_)
+        // {
+        //     landmarkMsg.points.emplace_back(landmark.second);
+        // }
         pub_marker_.publish(landmarkMsg);
 
     }

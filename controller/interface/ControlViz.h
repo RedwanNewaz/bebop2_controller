@@ -9,7 +9,9 @@
 #include <visualization_msgs/Marker.h>
 #include <tf/transform_broadcaster.h>
 #include <Eigen/Dense>
+#include <unordered_map>
 #include <std_msgs/Empty.h>
+#include <geometry_msgs/Point.h>
 #include <apriltag_ros/AprilTagDetectionArray.h>
 
 namespace bebop2 {
@@ -82,6 +84,8 @@ namespace bebop2 {
         std::unordered_map<int, geometry_msgs::Point>landmarks_, detectedLandmarks_;
         /// For visualizing detected landamarks
         ros::Subscriber sub_tag_detections_;
+        /// vicon boundary 
+        std::vector<geometry_msgs::Point> target_area_;
 
     protected:
         /**

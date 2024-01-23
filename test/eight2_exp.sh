@@ -30,7 +30,7 @@ goal_id:
   id: 'goal2'
 goal:
   csv_path: '/home/roboticslab/catkin_ws/src/bebop2_controller/test/logger_2023-10-03_16:43:44.csv'
-  method: 1
+  method: 0
 "
 }
 

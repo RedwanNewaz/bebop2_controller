@@ -27,7 +27,7 @@ add_executable(waypoint_control_server interface/waypoint_control_server.cpp
 )
 
 
-add_dependencies(waypoint_control_server p2p_navigation_server)
+add_dependencies(waypoint_control_server bebop2_controller_generate_messages_cpp p2p_navigation_server)
 
 target_link_libraries(
         waypoint_control_server
@@ -35,7 +35,11 @@ target_link_libraries(
         ${Boost_LIBRARIES}
 )
 
+
 add_library(airlib_nav ${navigation_HEADER_FILES} ${navigation_SRC_FILES})
+
+add_dependencies(airlib_nav bebop2_controller_generate_messages_cpp p2p_navigation_server waypoint_control_server)
+
 target_link_libraries(airlib_nav
         ${catkin_LIBRARIES}
         Eigen3::Eigen

@@ -27,13 +27,29 @@ rostopic pub --once /bebop/waypoint_action/goal bebop2_controller/WaypointsActio
     nsecs: 0
   frame_id: ''
 goal_id:
-  id: 'goalMinJerk4'
+  id: 'constAcc04'
 goal:
-  csv_path: '/home/roboticslab/catkin_ws/src/bebop2_controller/test/logger_2023-10-17_13:52:34.csv'
-  method: 1
+  csv_path: '/home/roboticslab/CppDev/TrajViewer/vicon_eight_traj.csv'
+  method: 0
 "
 }
 
+
+send_trajectory2()
+{
+rostopic pub --once /bebop/waypoint_action/goal bebop2_controller/WaypointsActionGoal "header:
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+goal_id:
+  id: 'minSnap2'
+goal:
+  csv_path: '/home/roboticslab/CppDev/TrajViewer/vicon_eight_traj.csv'
+  method: 2
+"
+}
 
 send_unittest()
 {

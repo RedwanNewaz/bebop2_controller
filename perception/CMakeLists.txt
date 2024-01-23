@@ -22,6 +22,14 @@ target_link_libraries(bebop2_state_estimator_lpf
         -pthread)
 
 
+add_executable(bebop2_state_estimator_vicon ${perception_HEADER_FILES} ${perception_SRC_FILES}
+        interface/bebop2_state_estimator_vicon_node.cpp)
+
+target_link_libraries(bebop2_state_estimator_vicon
+        ${catkin_LIBRARIES}
+        Eigen3::Eigen
+        -pthread)
+
 add_executable(bebop2_sim ${perception_HEADER_FILES} ${perception_SRC_FILES}
         interface/bebop2_sim_state_node.cpp)
 

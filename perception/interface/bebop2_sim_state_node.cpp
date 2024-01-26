@@ -66,7 +66,9 @@ int main(int argc, char* argv[])
     ROS_INFO_STREAM("[Bebop2Sim] initialized");
     auto pub = nh.advertise<nav_msgs::Odometry>("apriltag/state", 10);
 
-    std::vector<double>noise{0.01, 0.01, 0.01, 0.001};
+    // std::vector<double>noise{0.01, 0.01, 0.01, 0.001};
+
+    std::vector<double>noise{0, 0, 0, 0};
     auto stateSensor = std::make_shared<bebop2::DummyState>(noise);
     auto stateFilter = std::make_shared<ComplementaryFilter>(alpha);
     auto stateObserver = std::make_shared<bebop2::StateObserver>(stateFilter, stateSensor);

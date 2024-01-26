@@ -51,6 +51,24 @@ goal:
 "
 }
 
+
+send_trajectory2()
+{
+rostopic pub --once /waypoint_action/goal bebop2_controller/WaypointsActionGoal "header:
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+goal_id:
+  id: 'minSnap2'
+goal:
+  csv_path: '/home/roboticslab/CppDev/TrajViewer/vicon_eight_traj.csv'
+  method: 2
+"
+}
+
+
 send_unittest()
 {
 rostopic pub --once /waypoint_action/goal bebop2_controller/WaypointsActionGoal "header:

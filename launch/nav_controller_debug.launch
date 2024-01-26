@@ -21,5 +21,5 @@
     <remap from="/apriltag/state" to="/apriltag/state/filtered"/>
   </node>
   <node pkg="joy" type="joy_node" name="joy_node" />
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bebop2_controller)/config/tag.rviz"/>
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bebop2_controller)/config/tag.rviz"/> -->
 </launch>

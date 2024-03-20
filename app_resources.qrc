@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>resources/bebop2.png</file>
+        <file>resources/save.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>resources/save.png</file>
+    </qresource>
+</RCC>

@@ -32,11 +32,11 @@ MainWindow::MainWindow(QWidget *parent)
              << "http://raspberrypi:3000/stop";
     model_->setStringList(urlNames);
 
-    ui->listView->setModel(model_);
-    ui->comboBox->setModel(model_);
-    ui->listView->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked);
-    auto selectionModel = ui->listView->selectionModel();
-    connect(selectionModel, &QItemSelectionModel::selectionChanged, this, &MainWindow::selectionChanged);
+//    ui->listView->setModel(model_);
+//    ui->comboBox->setModel(model_);
+//    ui->listView->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked);
+//    auto selectionModel = ui->listView->selectionModel();
+//    connect(selectionModel, &QItemSelectionModel::selectionChanged, this, &MainWindow::selectionChanged);
 
 
     on_radioButtonSpiral_clicked();
@@ -97,15 +97,15 @@ void MainWindow::on_pushButton_clicked()
         QStringList cmds;
 
         bool isSim = ui->radioButtonSim->isChecked();
-        bool isAnafi = ui->anafi->isChecked();
+        bool isBebop5 = ui->bebop5->isChecked();
 
         QString topic = "";
         if(isSim)
             topic = "/waypoint_action/goal";
-        else if(isAnafi)
-            topic = "/anafi/waypoint_action/goal";
+        else if(isBebop5)
+            topic = "/bebop5/waypoint_action/goal";
         else
-            topic = "/bebop/waypoint_action/goal";
+            topic = "/bebop7/waypoint_action/goal";
 //        QString topic = isSim ? "/waypoint_action/goal" : "/bebop/waypoint_action/goal";
 
 
@@ -161,47 +161,47 @@ void MainWindow::on_radioButtonRect_clicked()
 
 void MainWindow::on_httpResponse(QString response)
 {
-    qDebug() << "[MainWindow]: response received " << response;
-    auto id = ui->comboBox->currentIndex();
-    QString msg = ui->responseLabel->text() + "\n";
-    msg += "[" + QString::number(id) + "]: " + response;
-    ui->responseLabel->setText( msg);
+//    qDebug() << "[MainWindow]: response received " << response;
+//    auto id = ui->comboBox->currentIndex();
+//    QString msg = ui->responseLabel->text() + "\n";
+//    msg += "[" + QString::number(id) + "]: " + response;
+//    ui->responseLabel->setText( msg);
 }
 
 void MainWindow::on_requestBttn_clicked()
 {
-    auto txt = ui->comboBox->currentText();
-    http_->send(txt);
+//    auto txt = ui->comboBox->currentText();
+//    http_->send(txt);
 
 }
 
 void MainWindow::selectionChanged() {
-    auto index = ui->listView->currentIndex().row();
-    ui->comboBox->setCurrentIndex(index);
+//    auto index = ui->listView->currentIndex().row();
+//    ui->comboBox->setCurrentIndex(index);
 }
 
 
 void MainWindow::on_addButton_clicked()
 {
     // find the position where we want to edit in
-    int row = model_->rowCount();
-    model_->insertRows(row, 1);
-    //set up to edit mode
-    QModelIndex index = model_->index(row);
-    ui->listView->edit(index);
+//    int row = model_->rowCount();
+//    model_->insertRows(row, 1);
+//    //set up to edit mode
+//    QModelIndex index = model_->index(row);
+//    ui->listView->edit(index);
 }
 
 void MainWindow::on_insertButton_clicked()
 {
     // find the position where we want to edit in
-    int row = ui->listView->currentIndex().row();
-    model_->insertRows(row, 1);
-    //set up to edit mode
-    QModelIndex index = model_->index(row);
-    ui->listView->edit(index);
+//    int row = ui->listView->currentIndex().row();
+//    model_->insertRows(row, 1);
+//    //set up to edit mode
+//    QModelIndex index = model_->index(row);
+//    ui->listView->edit(index);
 }
 
 void MainWindow::on_deleteButton_clicked()
 {
-    model_->removeRows(ui->listView->currentIndex().row(), 1);
+//    model_->removeRows(ui->listView->currentIndex().row(), 1);
 }

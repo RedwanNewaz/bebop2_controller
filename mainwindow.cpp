@@ -87,8 +87,8 @@ void MainWindow::on_pushButton_clicked()
     on_saveButton_clicked();
     int method = ui->methodBox->currentIndex();
     sendCounter_ += 1;
-
-    int numRobots = 1;
+    bool isMultiRobot = ui->checkMultiRobot->isChecked();
+    int numRobots = (isMultiRobot) ? 2 : 1;
 
     qDebug() << methods_[method] << " trajectory sent";
 
@@ -102,6 +102,13 @@ void MainWindow::on_pushButton_clicked()
         QString topic = "";
         if(isSim)
             topic = "/waypoint_action/goal";
+        else if (isMultiRobot)
+        {
+            if (i ==0)
+                 topic = "/bebop5/waypoint_action/goal";
+            else
+                 topic = "/bebop7/waypoint_action/goal";
+        }
         else if(isBebop5)
             topic = "/bebop5/waypoint_action/goal";
         else
@@ -114,7 +121,7 @@ void MainWindow::on_pushButton_clicked()
         cmds << "bebop2_controller/WaypointsActionGoal";
         auto path = ui->savePathText->toPlainText() + "/" + QString::number(i+1) + ".csv";
 
-        cmds <<   "{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: map}, goal_id: {stamp: {secs: 0, nsecs: 0}, id: " + methods_[method] + QString::number(sendCounter_) + "}, goal: {csv_path: " + path + ", method: " + QString::number(method) + "}}";
+        cmds <<   "{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: map}, goal_id: {stamp: {secs: 0, nsecs: 0}, id: " + methods_[method] + QString::number(i * sendCounter_) + "}, goal: {csv_path: " + path + ", method: " + QString::number(method) + "}}";
 
 
         qDebug() << cmds;

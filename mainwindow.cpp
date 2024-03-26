@@ -20,24 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->methodBox->addItem(methods_[2]);
     ui->methodBox->setCurrentIndex(1);
     sendCounter_ = 0;
-    http_ = new HttpRequest(this);
-    connect(http_, SIGNAL(response(QString)), this, SLOT(on_httpResponse(QString)));
-
-    model_ = new QStringListModel(this);
-//    QStringList robotNames = settings->value("robotNames", QStringList()).toStringList();
-    QStringList urlNames;
-    urlNames << "http://192.168.42.160:3000/start"
-             << "http://192.168.42.160:3000/stop"
-             << "http://raspberrypi:3000/start"
-             << "http://raspberrypi:3000/stop";
-    model_->setStringList(urlNames);
-
-//    ui->listView->setModel(model_);
-//    ui->comboBox->setModel(model_);
-//    ui->listView->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked);
-//    auto selectionModel = ui->listView->selectionModel();
-//    connect(selectionModel, &QItemSelectionModel::selectionChanged, this, &MainWindow::selectionChanged);
-
 
     on_radioButtonSpiral_clicked();
 
@@ -164,51 +146,4 @@ void MainWindow::on_radioButtonRect_clicked()
 
     path_ = new Path::Eight::Rectangle(numRobots, ui->customPlot, 0.3, this);
     path_->generate(pathScaleX_+Xvalue, pathScaleY_+Yvalue);
-}
-
-void MainWindow::on_httpResponse(QString response)
-{
-//    qDebug() << "[MainWindow]: response received " << response;
-//    auto id = ui->comboBox->currentIndex();
-//    QString msg = ui->responseLabel->text() + "\n";
-//    msg += "[" + QString::number(id) + "]: " + response;
-//    ui->responseLabel->setText( msg);
-}
-
-void MainWindow::on_requestBttn_clicked()
-{
-//    auto txt = ui->comboBox->currentText();
-//    http_->send(txt);
-
-}
-
-void MainWindow::selectionChanged() {
-//    auto index = ui->listView->currentIndex().row();
-//    ui->comboBox->setCurrentIndex(index);
-}
-
-
-void MainWindow::on_addButton_clicked()
-{
-    // find the position where we want to edit in
-//    int row = model_->rowCount();
-//    model_->insertRows(row, 1);
-//    //set up to edit mode
-//    QModelIndex index = model_->index(row);
-//    ui->listView->edit(index);
-}
-
-void MainWindow::on_insertButton_clicked()
-{
-    // find the position where we want to edit in
-//    int row = ui->listView->currentIndex().row();
-//    model_->insertRows(row, 1);
-//    //set up to edit mode
-//    QModelIndex index = model_->index(row);
-//    ui->listView->edit(index);
-}
-
-void MainWindow::on_deleteButton_clicked()
-{
-//    model_->removeRows(ui->listView->currentIndex().row(), 1);
 }

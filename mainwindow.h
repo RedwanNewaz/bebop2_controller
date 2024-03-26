@@ -7,7 +7,7 @@
 #include <QProcess>
 #include <memory>
 #include "eight.h"
-#include "httprequest.h"
+//#include "httprequest.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -36,17 +36,7 @@ private slots:
 
     void on_radioButtonRect_clicked();
 
-    void on_httpResponse(QString response);
 
-    void on_requestBttn_clicked();
-
-    void selectionChanged();
-
-    void on_addButton_clicked();
-
-    void on_insertButton_clicked();
-
-    void on_deleteButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -56,7 +46,6 @@ private:
     QHash<int, QString> methods_;
     int sendCounter_;
     QProcess *proc;
-    HttpRequest *http_;
-    QStringListModel *model_;
+
 };
 #endif // MAINWINDOW_H

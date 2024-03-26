@@ -17,14 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     eight.cpp \
-    httprequest.cpp \
+#    httprequest.cpp \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp
 
 HEADERS += \
     eight.h \
-    httprequest.h \
+#    httprequest.h \
     mainwindow.h \
     qcustomplot.h \
     qcustomplot.h

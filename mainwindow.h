@@ -44,12 +44,12 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-//    QVector<GeomPath::Eight*> paths_;
     Path::Eight::Base *path_;
     double pathScaleX_, pathScaleY_;
     QHash<int, QString> methods_;
     int sendCounter_;
     QProcess *proc;
+    QVector<viz_traj*> display_trajs;
 
 };
 #endif // MAINWINDOW_H

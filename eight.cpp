@@ -139,7 +139,7 @@ namespace Path
         interpolateWaypoints(X2, Y2, 1);
 
         vizPath(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)], BLUE);
-        vizPath(waypoints_[std::make_pair(1, 0)], waypoints_[std::make_pair(1, 1)], Qt::red, true);
+        vizPath(waypoints_[std::make_pair(1, 0)], waypoints_[std::make_pair(1, 1)], BLACK, true);
 
         // set axes ranges, so we see all data:
         customPlot_->xAxis->setRange(xmin - 0.5, xmax + 0.5);

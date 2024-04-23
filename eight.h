@@ -52,12 +52,17 @@ namespace Path
                 {
                     animation = true;
                     robotIndex = customPlot_->graphCount();
-                    customPlot_->addGraph();
-                    customPlot_->graph(robotIndex)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 15));
-                    customPlot_->graph(robotIndex)->setPen(QColor(250, 0, 0, 255));
+                    for (int i = 0; i < numRobots_; ++i)
+                    {
+                        customPlot_->addGraph();
+                        customPlot_->graph(robotIndex + i)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 15));
+                        customPlot_->graph(robotIndex + i)->setPen(QColor(250, 0, 0, 255));
+                    }
                 }
+
                 QVector<double>x{point[0]}, y{point[1]};
-                customPlot_->graph(robotIndex)->setData(x, y);
+                int graphIndex = robotIndex + point[2];
+                customPlot_->graph(graphIndex)->setData(x, y);
                 customPlot_->replot();
 
             }

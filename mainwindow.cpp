@@ -159,16 +159,15 @@ void MainWindow::simulateTrajectory()
 
     double max_vel = 4;
     double max_acc = 2;
-
+    display_trajs.clear();
     for (int i=0; i<numRobots; ++i)
     {
         auto X = path_->getPointsAxis(i, 0);
         auto Y = path_->getPointsAxis(i, 1);
-        auto viz = new viz_traj (max_vel, max_acc, methods_[method]);
+        auto viz = new viz_traj (max_vel, max_acc, methods_[method], i);
         connect(viz, SIGNAL(setpoint(QVector<double>)), this, SLOT(setpoint(QVector<double>)));
         viz->setWaypoints(X, Y);
-
-
+        display_trajs.push_back(viz);
     }
 
 

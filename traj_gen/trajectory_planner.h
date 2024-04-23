@@ -36,7 +36,7 @@ namespace traj_planner
 
             traj_.clear();
             double time = 0;
-            double dt =  m_resolution / max_vel_;
+            double dt = 1.0 / max_vel_;
             for (auto & i : final_path) {
                 traj_.push_back({time, i[0], i[1], i[2]});
                 // printf("[CV %d] (%lf, %lf, %lf, %lf)\n", i, time, final_path[i][0], final_path[i][1], final_path[i][2]);

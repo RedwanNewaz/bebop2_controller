@@ -1,8 +1,8 @@
 #include "viz_traj.h"
 
 
-viz_traj::viz_traj(double max_vel, double max_acc, QString plannerType, QObject *parent)
-    : QObject{parent}
+viz_traj::viz_traj(double max_vel, double max_acc, QString plannerType, int robotIndex, QObject *parent)
+    : QObject{parent}, robotIndex_(robotIndex)
 {
     if (plannerType == "CV")
         planner_ = std::make_unique<traj_planner::constant_velocity>(max_vel, max_acc);
@@ -37,14 +37,15 @@ void viz_traj::run()
     {
         double dt = 0.0 + 1e-9;
         auto point = traj_[currentIndex_++];
-        QVector<double> elem(point.begin()+1, point.end());
+        QVector<double> elem(point.begin()+1, point.begin()+3);
+        elem.push_back(robotIndex_);
         emit setpoint(elem);
         if (currentIndex_ < traj_.size())
             dt = traj_[currentIndex_][0] - point[0];
         int nap_time = 1000 * dt;
         timer_->setInterval(nap_time);
         timer_->start();
-        qDebug() << "traj index " << currentIndex_ << " / " << traj_.size();
+        qDebug() << "[" << robotIndex_ << "] traj index " << currentIndex_ << " / " << traj_.size();
     }
 
 

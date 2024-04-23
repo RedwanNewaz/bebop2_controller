@@ -13,7 +13,7 @@ class viz_traj : public QObject
 {
     Q_OBJECT
 public:
-    explicit viz_traj(double max_vel, double max_acc, QString plannerType, QObject *parent = nullptr);
+    explicit viz_traj(double max_vel, double max_acc, QString plannerType, int robotIndex, QObject *parent = nullptr);
     void setWaypoints(const QVector<double>& X, const QVector<double>& Y);
 //    void setup(QThread& cThread);
     QTimer *timer_;
@@ -24,6 +24,7 @@ private:
     std::unique_ptr<waypoint_trajectory_interface> planner_;
     WAYPOINTS traj_;
     int currentIndex_;
+    int robotIndex_;
 
 
 public slots:

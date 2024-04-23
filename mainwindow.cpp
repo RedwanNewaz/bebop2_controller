@@ -116,7 +116,7 @@ void MainWindow::on_radioButtonSpiral_clicked()
     qDebug() << "Spiral Eight Selected";
     pathScaleX_ = 3.5;
     pathScaleY_ = 1.5;
-    ui->methodBox->setCurrentIndex(1);
+    ui->methodBox->setCurrentIndex(2);
     double Xvalue = (ui->horizontalSlider->value() - 50.0) / 90.0;
     double Yvalue = (ui->verticalSlider->value() - 50.0) / 90.0;
 

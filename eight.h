@@ -57,28 +57,8 @@ namespace Path
         public:
             explicit Spiral(int numRobots, QCustomPlot *customPlot, int numPoints, QObject *parent = nullptr);
             void generate(double xScale, double yScale) override;
-            inline void getSpiralEight(QVector<double>&X, QVector<double>&Y, double xScale, double yScale, int t0=0)
-            {
+            void getSpiralEight(QVector<double>&X, QVector<double>&Y, double xScale, double yScale, int t0=0);
 
-                xmin = ymin = std::numeric_limits<double>::max();
-                xmax = ymax = -std::numeric_limits<double>::max();
-
-                for (int i = 0; i < numPoints_ + 2; ++i)
-                {
-                        double t = 2 * M_PI * (i + t0) / (double) numPoints_;
-                        double x = xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
-                        double y = yScale * sin(t);
-                        X.push_back(x);
-                        Y.push_back(y);
-                        // keep track of axis
-                        xmin = std::min(xmin, x);
-                        xmax = std::max(xmax, x);
-
-                        ymin = std::min(ymin, y);
-                        ymax = std::max(ymax, y);
-
-                }
-            }
             void singleRobotPath(double xScale, double yScale) override;
             void multiRobotPath(double xScale, double yScale) override;
         private:

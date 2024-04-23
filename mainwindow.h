@@ -7,7 +7,7 @@
 #include <QProcess>
 #include <memory>
 #include "eight.h"
-
+#include "viz_traj.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,6 +35,10 @@ private slots:
     void on_radioButtonSpiral_clicked();
 
     void on_radioButtonRect_clicked();
+
+    void simulateTrajectory();
+
+    void setpoint(QVector<double> point);
 
 
 

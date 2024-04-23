@@ -19,13 +19,20 @@ SOURCES += \
     eight.cpp \
     main.cpp \
     mainwindow.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    viz_traj.cpp
 
 HEADERS += \
     eight.h \
     mainwindow.h \
     qcustomplot.h \
-    qcustomplot.h
+    qcustomplot.h \
+    traj_gen/root_finder.hpp \
+    traj_gen/traj_min_jerk.hpp \
+    traj_gen/traj_min_snap.hpp \
+    traj_gen/trajectory_planner.h \
+    traj_gen/waypoint_trajectory_interface.h \
+    viz_traj.h
 
 FORMS += \
     mainwindow.ui
@@ -35,9 +42,9 @@ INCLUDEPATH += /usr/local/include/fmt
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
+INCLUDEPATH += /usr/include/eigen3
 unix: CONFIG += link_pkgconfig
-unix: PKGCONFIG += fmt
+unix: PKGCONFIG += fmt eigen3
 
 
 RESOURCES += \

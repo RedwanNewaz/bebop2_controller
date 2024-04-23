@@ -10,6 +10,7 @@
 #include <fstream>
 #include <unordered_map>
 
+
 #define BLUE QColor(30, 40, 255, 150)
 #define BLACK QColor(50, 50, 50, 255)
 
@@ -40,12 +41,36 @@ namespace Path
             explicit Base(int numRobots, QCustomPlot *customPlot, QObject *parent);
             virtual void generate(double xScale, double yScale) = 0;
             void write(const char *filename);
+            QVector<double>getPointsAxis(int robotId, int j)
+            {
+                return waypoints_[std::make_pair(robotId, j)];
+            }
+
+            void movePoint(const QVector<double>& point)
+            {
+                if(!animation)
+                {
+                    animation = true;
+                    robotIndex = customPlot_->graphCount();
+                    customPlot_->addGraph();
+                    customPlot_->graph(robotIndex)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 15));
+                    customPlot_->graph(robotIndex)->setPen(QColor(250, 0, 0, 255));
+                }
+                QVector<double>x{point[0]}, y{point[1]};
+                customPlot_->graph(robotIndex)->setData(x, y);
+                customPlot_->replot();
+
+            }
 
         protected:
             virtual void singleRobotPath(double xScale, double yScale) = 0;
             virtual void multiRobotPath(double xScale, double yScale) = 0;
             void vizPath(const QVector<double>&X,const QVector<double>&Y, const QColor& color, bool holdOn=false);
         signals:
+
+        private:
+            bool animation;
+            int robotIndex;
 
         protected:
             int numRobots_;

@@ -67,6 +67,13 @@ void MainWindow::on_processStandardOutput()
 
 void MainWindow::on_pushButton_clicked()
 {
+    bool isSim = ui->radioButtonSim->isChecked();
+    if(isSim)
+    {
+        simulateTrajectory();
+        return;
+    }
+
     on_saveButton_clicked();
     int method = ui->methodBox->currentIndex();
     sendCounter_ += 1;
@@ -79,7 +86,7 @@ void MainWindow::on_pushButton_clicked()
     {
         QStringList cmds;
 
-        bool isSim = ui->radioButtonSim->isChecked();
+
         bool isBebop5 = ui->bebop5->isChecked();
 
         QString topic = "";
@@ -141,5 +148,36 @@ void MainWindow::on_radioButtonRect_clicked()
 
     path_ = new Path::Eight::Rectangle(numRobots, ui->customPlot, 0.3, this);
     path_->generate(pathScaleX_+Xvalue, pathScaleY_+Yvalue);
+}
+
+void MainWindow::simulateTrajectory()
+{
+    int method = ui->methodBox->currentIndex();
+    qDebug() << methods_[method] << " trajectory simulating";
+    int numRobots = ui->checkMultiRobot->isChecked()?2:1;
+
+
+    double max_vel = 4;
+    double max_acc = 2;
+
+    for (int i=0; i<numRobots; ++i)
+    {
+        auto X = path_->getPointsAxis(i, 0);
+        auto Y = path_->getPointsAxis(i, 1);
+        auto viz = new viz_traj (max_vel, max_acc, methods_[method]);
+        connect(viz, SIGNAL(setpoint(QVector<double>)), this, SLOT(setpoint(QVector<double>)));
+        viz->setWaypoints(X, Y);
+
+
+    }
+
+
+
+}
+
+void MainWindow::setpoint(QVector<double> point)
+{
+//    qDebug() << point.size() << " received";
+    path_->movePoint(point);
 }
 

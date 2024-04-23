@@ -6,7 +6,7 @@ namespace Path
     Eight::Base::Base(int numRobots, QCustomPlot *customPlot, QObject *parent) :
         numRobots_(numRobots), customPlot_(customPlot), QObject(parent)
     {
-
+        animation = false;
     }
 
     Eight::Spiral::Spiral(int numRobots, QCustomPlot *customPlot, int numPoints, QObject *parent)

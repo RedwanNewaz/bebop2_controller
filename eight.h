@@ -10,6 +10,9 @@
 #include <fstream>
 #include <unordered_map>
 
+#define BLUE QColor(30, 40, 255, 150)
+#define BLACK QColor(50, 50, 50, 255)
+
 // Only for pairs of std::hash-able types for simplicity.
 // You can of course template this struct to allow other hash functions
 struct pair_hash {
@@ -41,7 +44,7 @@ namespace Path
         protected:
             virtual void singleRobotPath(double xScale, double yScale) = 0;
             virtual void multiRobotPath(double xScale, double yScale) = 0;
-
+            void vizPath(const QVector<double>&X,const QVector<double>&Y, const QColor& color, bool holdOn=false);
         signals:
 
         protected:
@@ -54,10 +57,33 @@ namespace Path
         public:
             explicit Spiral(int numRobots, QCustomPlot *customPlot, int numPoints, QObject *parent = nullptr);
             void generate(double xScale, double yScale) override;
+            inline void getSpiralEight(QVector<double>&X, QVector<double>&Y, double xScale, double yScale, int t0=0)
+            {
+
+                xmin = ymin = std::numeric_limits<double>::max();
+                xmax = ymax = -std::numeric_limits<double>::max();
+
+                for (int i = 0; i < numPoints_ + 2; ++i)
+                {
+                        double t = 2 * M_PI * (i + t0) / (double) numPoints_;
+                        double x = xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
+                        double y = yScale * sin(t);
+                        X.push_back(x);
+                        Y.push_back(y);
+                        // keep track of axis
+                        xmin = std::min(xmin, x);
+                        xmax = std::max(xmax, x);
+
+                        ymin = std::min(ymin, y);
+                        ymax = std::max(ymax, y);
+
+                }
+            }
             void singleRobotPath(double xScale, double yScale) override;
             void multiRobotPath(double xScale, double yScale) override;
         private:
             int numPoints_;
+            double xmin, xmax, ymin, ymax;
         };
 
         class Rectangle: public Base{

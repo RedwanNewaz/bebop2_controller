@@ -1,30 +1,18 @@
 #include "eight.h"
 #include <QDebug>
+#include <cassert>
 namespace Path
 {
     Eight::Base::Base(int numRobots, QCustomPlot *customPlot, QObject *parent) :
         numRobots_(numRobots), customPlot_(customPlot), QObject(parent)
     {
-        // create graph and assign data to it:
-        customPlot_->addGraph();
-        customPlot_->graph(0)->setLineStyle(QCPGraph::lsNone);
-        customPlot_->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 10));
-        // create another graph and assign data to it:
-        customPlot_->addGraph();
-        customPlot->graph(1)->setPen(QPen(Qt::red));
-        customPlot_->graph(1)->setLineStyle(QCPGraph::lsNone);
-        customPlot_->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 10));
-        // give the axes some labels:
-        customPlot_->xAxis->setLabel("x");
-        customPlot_->yAxis->setLabel("y");
-
 
     }
 
     Eight::Spiral::Spiral(int numRobots, QCustomPlot *customPlot, int numPoints, QObject *parent)
         :Base(numRobots, customPlot, parent), numPoints_(numPoints)
     {
-
+        assert(numPoints_ % 2 == 0 && "number of points need to be even");
     }
 
 
@@ -37,31 +25,8 @@ namespace Path
     {
         waypoints_.clear();
 
-        double xmin, xmax, ymin, ymax;
-        xmin = ymin = std::numeric_limits<double>::max();
-        xmax = ymax = -std::numeric_limits<double>::max();
-
-        for (int i = 0; i <= numPoints_; ++i)
-        {
-                double t = 2 * M_PI * i / (double) numPoints_;
-                double x = xScale * cos(t) * sin(t); // You can adjust the scaling factor (2) for size
-                double y = yScale * sin(t);
-
-                waypoints_[std::make_pair(0, 0)].push_back(x);
-                waypoints_[std::make_pair(0, 1)].push_back(y);
-
-                // keep track of axis
-                xmin = std::min(xmin, x);
-                xmax = std::max(xmax, x);
-
-                ymin = std::min(ymin, y);
-                ymax = std::max(ymax, y);
-
-        }
-
-        customPlot_->graph(0)->setData(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)]);
-        customPlot_->graph(1)->setData({}, {});
-
+        getSpiralEight(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)], xScale, yScale);
+        vizPath(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)], BLUE);
 
         // set axes ranges, so we see all data:
         customPlot_->xAxis->setRange(xmin - 0.5, xmax + 0.5);
@@ -73,7 +38,20 @@ namespace Path
 
     void Eight::Spiral::multiRobotPath(double xScale, double yScale)
     {
-        //TODO implement it
+
+        int t0 = 31;
+        int t1 = 70;
+        getSpiralEight(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)], xScale, yScale, t0);
+        getSpiralEight(waypoints_[std::make_pair(1, 0)], waypoints_[std::make_pair(1, 1)], xScale, yScale, t1);
+
+        vizPath(waypoints_[std::make_pair(1, 0)], waypoints_[std::make_pair(1, 1)], BLACK);
+
+        // set axes ranges, so we see all data:
+        customPlot_->xAxis->setRange(xmin - 0.5, xmax + 0.5);
+        customPlot_->yAxis->setRange(ymin - 0.5, ymax + 0.5);
+
+        customPlot_->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+        customPlot_->replot();
     }
 
     Eight::Rectangle::Rectangle(int numRobots, QCustomPlot *customPlot, double resolution, QObject *parent)
@@ -106,10 +84,7 @@ namespace Path
         Y_[2] = Y_[3] = ymax;
         interpolateWaypoints(X_, Y_, 0);
 
-        customPlot_->graph(0)->setData(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)]);
-        customPlot_->graph(1)->setData({}, {});
-
-
+        vizPath(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)], BLUE);
 
         // set axes ranges, so we see all data:
         customPlot_->xAxis->setRange(xmin - 0.5, xmax + 0.5);
@@ -136,18 +111,14 @@ namespace Path
         Y1[3] = Y1[2] = ymax;
         interpolateWaypoints(X1, Y1, 0);
 
-
-
-
         X2[0] = X2[4] = X2[3] = xmin;
         X2[1] = X2[2] = xmax;
         Y2[4] = Y2[1] = 0;
         Y2[2] = Y2[3] = ymin;
         interpolateWaypoints(X2, Y2, 1);
 
-         customPlot_->graph(0)->setData(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)]);
-
-        customPlot_->graph(1)->setData(waypoints_[std::make_pair(1, 0)], waypoints_[std::make_pair(1, 1)]);
+        vizPath(waypoints_[std::make_pair(0, 0)], waypoints_[std::make_pair(0, 1)], BLUE);
+        vizPath(waypoints_[std::make_pair(1, 0)], waypoints_[std::make_pair(1, 1)], Qt::red, true);
 
         // set axes ranges, so we see all data:
         customPlot_->xAxis->setRange(xmin - 0.5, xmax + 0.5);
@@ -216,6 +187,27 @@ namespace Path
             myfile.close();
         }
 
+
+    }
+
+    void Eight::Base::vizPath(const QVector<double> &X, const QVector<double> &Y, const QColor& color, bool holdOn)
+    {
+        if(!holdOn)
+            customPlot_->clearGraphs();
+        int N = customPlot_->graphCount();
+
+        customPlot_->addGraph();
+        for (int i = 1; i < X.size(); ++i)
+        {
+            customPlot_->addGraph();
+            QPen pen;
+            pen.setColor(color);
+            pen.setWidthF(10);
+            customPlot_->graph(N + i)->setPen(pen);
+            QVector<double>xx{X[i-1], X[i]}, yy{Y[i-1], Y[i]};
+            customPlot_->graph(N + i)->setData(xx, yy);
+
+        }
 
     }
 

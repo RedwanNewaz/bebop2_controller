@@ -15,7 +15,6 @@ class viz_traj : public QObject
 public:
     explicit viz_traj(double max_vel, double max_acc, QString plannerType, int robotIndex, QObject *parent = nullptr);
     void setWaypoints(const QVector<double>& X, const QVector<double>& Y);
-//    void setup(QThread& cThread);
     QTimer *timer_;
 signals:
     void setpoint(QVector<double>);

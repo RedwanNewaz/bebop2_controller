@@ -20,8 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->methodBox->addItem(methods_[2]);
     ui->methodBox->setCurrentIndex(1);
     sendCounter_ = 0;
-
-
     on_radioButtonSpiral_clicked();
 
 }
@@ -61,7 +59,7 @@ void MainWindow::on_processStandardOutput()
     while(it.hasNext()){
         QString view = it.next();
         if (!view.isEmpty())
-            qDebug() << qUtf8Printable(view)<< endl;
+            qDebug() << qUtf8Printable(view)<< Qt::endl;
     }
 }
 
@@ -78,43 +76,52 @@ void MainWindow::on_pushButton_clicked()
     int method = ui->methodBox->currentIndex();
     sendCounter_ += 1;
 
-    int numRobots = 1;
+    int numRobots = ui->checkMultiRobot->isChecked()?2:1;
 
     qDebug() << methods_[method] << " trajectory sent";
+    QStringList topics;
+    topics << "/bebop5/waypoint_action/goal" << "/bebop7/waypoint_action/goal";
 
-    for(int i = 0; i < numRobots; ++i)
+    bool isBebop5 = ui->bebop5->isChecked();
+    auto sendCmd = [&](int i)
     {
         QStringList cmds;
-
-
-        bool isBebop5 = ui->bebop5->isChecked();
-
-        QString topic = "";
-        if(isSim)
-            topic = "/waypoint_action/goal";
-        else if(isBebop5)
-            topic = "/bebop5/waypoint_action/goal";
-        else
-            topic = "/bebop7/waypoint_action/goal";
-//        QString topic = isSim ? "/waypoint_action/goal" : "/bebop/waypoint_action/goal";
-
-
         cmds <<  "pub" << "--once";
-        cmds << topic;
+        cmds << topics[i];
         cmds << "bebop2_controller/WaypointsActionGoal";
         auto path = ui->savePathText->toPlainText() + "/" + QString::number(i+1) + ".csv";
+//        cmds <<   "{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: map}, goal_id: {stamp: {secs: 0, nsecs: 0}, id: " + methods_[method] + QString::number(sendCounter_) + "}, goal: {csv_path: " + path + ", method: " + QString::number(method) + "}}";
 
-        cmds <<   "{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: map}, goal_id: {stamp: {secs: 0, nsecs: 0}, id: " + methods_[method] + QString::number(sendCounter_) + "}, goal: {csv_path: " + path + ", method: " + QString::number(method) + "}}";
-
+        // Format the string
+        std::string formatted = fmt::format(
+              "{{"
+              "header: {{seq: 0, stamp: {{secs: 0, nsecs: 0}}, frame_id: map}}, "
+              "goal_id: {{stamp: {{secs: 0, nsecs: 0}}, id: {0}{1}}}, "
+              "goal: {{csv_path: {2}, method: {3}}}"
+              "}}",
+              methods_[method].toStdString(), sendCounter_, path.toStdString(), method
+        );
+        // Print or use the formatted string
+        std::cout << formatted << std::endl;
+        cmds <<  QString::fromStdString(formatted);
 
         qDebug() << cmds;
 
+
+
+
         proc = new QProcess(this);
         this->connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(on_processStandardOutput()));
-
         proc->start("rostopic", cmds);
+    };
 
-    }
+    if (numRobots > 1)
+        for(int i = 0; i < numRobots; ++i)
+            sendCmd(i);
+    else if (isBebop5)
+        sendCmd(0);
+    else
+        sendCmd(1);
 
 }
 
@@ -127,7 +134,6 @@ void MainWindow::on_radioButtonSpiral_clicked()
     double Xvalue = (ui->horizontalSlider->value() - 50.0) / 90.0;
     double Yvalue = (ui->verticalSlider->value() - 50.0) / 90.0;
 
-//    auto path_ = paths_[0];
     int numRobots = ui->checkMultiRobot->isChecked()?2:1;
     path_ = new Path::Eight::Spiral(numRobots, ui->customPlot, 150, this);
     path_->generate(pathScaleX_+Xvalue, pathScaleY_+Yvalue);
@@ -157,8 +163,8 @@ void MainWindow::simulateTrajectory()
     int numRobots = ui->checkMultiRobot->isChecked()?2:1;
 
 
-    double max_vel = 4;
-    double max_acc = 2;
+    double max_vel = ui->maxVel->text().toDouble();
+    double max_acc = ui->maxAcc->text().toDouble();
     display_trajs.clear();
     for (int i=0; i<numRobots; ++i)
     {
@@ -169,9 +175,6 @@ void MainWindow::simulateTrajectory()
         viz->setWaypoints(X, Y);
         display_trajs.push_back(viz);
     }
-
-
-
 }
 
 void MainWindow::setpoint(QVector<double> point)

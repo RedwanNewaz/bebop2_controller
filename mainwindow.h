@@ -42,6 +42,8 @@ private slots:
 
 
 
+    void on_checkMultiRobot_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     Path::Eight::Base *path_;

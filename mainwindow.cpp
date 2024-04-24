@@ -15,10 +15,10 @@ MainWindow::MainWindow(QWidget *parent)
     methods_[1] = "MinJerk";
     methods_[2] = "MinSnap";
 
-    ui->methodBox->addItem(methods_[0]);
-    ui->methodBox->addItem(methods_[1]);
-    ui->methodBox->addItem(methods_[2]);
-    ui->methodBox->setCurrentIndex(1);
+    ui->methodBox_2->addItem(methods_[0]);
+    ui->methodBox_2->addItem(methods_[1]);
+    ui->methodBox_2->addItem(methods_[2]);
+    ui->methodBox_2->setCurrentIndex(1);
     sendCounter_ = 0;
     on_radioButtonSpiral_clicked();
 
@@ -59,7 +59,7 @@ void MainWindow::on_processStandardOutput()
     while(it.hasNext()){
         QString view = it.next();
         if (!view.isEmpty())
-            qDebug() << qUtf8Printable(view)<< Qt::endl;
+            qDebug() << qUtf8Printable(view)<< endl;
     }
 }
 
@@ -73,7 +73,7 @@ void MainWindow::on_pushButton_clicked()
     }
 
     on_saveButton_clicked();
-    int method = ui->methodBox->currentIndex();
+    int method = ui->methodBox_2->currentIndex();
     sendCounter_ += 1;
 
     int numRobots = ui->checkMultiRobot->isChecked()?2:1;
@@ -130,7 +130,7 @@ void MainWindow::on_radioButtonSpiral_clicked()
     qDebug() << "Spiral Eight Selected";
     pathScaleX_ = 3.5;
     pathScaleY_ = 1.5;
-    ui->methodBox->setCurrentIndex(2);
+    ui->methodBox_2->setCurrentIndex(2);
     double Xvalue = (ui->horizontalSlider->value() - 50.0) / 90.0;
     double Yvalue = (ui->verticalSlider->value() - 50.0) / 90.0;
 
@@ -144,7 +144,7 @@ void MainWindow::on_radioButtonRect_clicked()
     qDebug() << "Rectangle Eight Selected";
     pathScaleX_ = 1.5;
     pathScaleY_ = 1.5;
-    ui->methodBox->setCurrentIndex(0);
+    ui->methodBox_2->setCurrentIndex(0);
 
     double Xvalue = (ui->horizontalSlider->value() - 50.0) / 90.0;
     double Yvalue = (ui->verticalSlider->value() - 50.0) / 90.0;
@@ -158,7 +158,7 @@ void MainWindow::on_radioButtonRect_clicked()
 
 void MainWindow::simulateTrajectory()
 {
-    int method = ui->methodBox->currentIndex();
+    int method = ui->methodBox_2->currentIndex();
     qDebug() << methods_[method] << " trajectory simulating";
     int numRobots = ui->checkMultiRobot->isChecked()?2:1;
 
@@ -183,3 +183,12 @@ void MainWindow::setpoint(QVector<double> point)
     path_->movePoint(point);
 }
 
+
+void MainWindow::on_checkMultiRobot_stateChanged(int arg1)
+{
+    qDebug() << "[multirobot]: option selected " << arg1;
+    if (ui->radioButtonSpiral->isChecked())
+        on_radioButtonSpiral_clicked();
+    else if(ui->radioButtonRect->isChecked())
+        on_radioButtonRect_clicked();
+}

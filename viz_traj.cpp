@@ -37,8 +37,9 @@ void viz_traj::run()
     {
         double dt = 0.0 + 1e-9;
         auto point = traj_[currentIndex_++];
-        QVector<double> elem(point.begin()+1, point.begin()+3);
-        elem.push_back(robotIndex_);
+//        QVector<double> elem(point.begin()+1, point.begin()+3);
+        QVector<double> elem{point[1], point[2], robotIndex_};
+//        elem.push_back(robotIndex_);
         emit setpoint(elem);
         if (currentIndex_ < traj_.size())
             dt = traj_[currentIndex_][0] - point[0];

@@ -207,8 +207,8 @@ namespace bebop2
         double roll, pitch, yaw;
         m.getRPY(roll,pitch, yaw);
         //FIXME add 90 deg to heading angle
-//        yaw = yaw + M_PI_2;
-//        yaw = fmod(yaw + M_PI, 2 * M_PI) - M_PI;
+    //    yaw = yaw + M_PI_2;
+    //    yaw = fmod(yaw + M_PI, 2 * M_PI) - M_PI;
 
         std::vector<double>state{p.x, p.y, p.z, yaw};
         control_loop(state);

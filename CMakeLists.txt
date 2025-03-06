@@ -24,6 +24,7 @@ find_package(catkin REQUIRED COMPONENTS
   genmsg
   actionlib
   actionlib_msgs
+  apriltag_ros 
 )
 
 find_package(Eigen3 REQUIRED)

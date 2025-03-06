@@ -9,6 +9,10 @@
   <!-- Start Vicon bridge -->
   <include file="$(find vicon_bridge)/launch/vicon.launch" />
 
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se_exp" clear_params="true">
+    <rosparam command="load" file="$(find bebop2_controller)/config/ekfExp.yaml" />
+    <remap from="odometry/filtered" to="/apriltag/state/filtered"/>
+  </node>
 
   <node pkg="tf" type="static_transform_publisher" name="laser" args="0 0 0 0 0 0 1 odom map 100"/>
 
@@ -24,7 +28,7 @@
       <remap from="/vicon/Bebop/Bebop" to="/vicon/Bebop5/Bebop5"/>
     </node>
     <node pkg="bebop2_controller" type="bebop2_controller_node" name="controller_test" output="screen">
-      <!-- <remap from="/bebop/apriltag/state" to="/bebop5/apriltag/state"/> -->
+      <remap from="/bebop/apriltag/state" to="/apriltag/state/filtered"/>
     </node>
     <node pkg="bebop2_controller" type="waypoint_control_server" name="waypoint_control_server" output="screen"/>
     <node pkg="bebop2_controller" type="p2p_navigation_server" name="p2p_navigation_server" output="screen"/>

@@ -55,7 +55,10 @@ Orientation controller needs yaw angle which could be directly obtained from beb
 Bebop_autonomy is a ROS driver for Parrot Bebop 2.0 drones (quadrocopters), based on Parrot’s official ARDroneSDK3. You can check out [this source code](https://github.com/AutonomyLab/bebop_autonomy) for the driver is for more understanding.
 
 ---------------------------------------------
-
+Install parrot arsdk from this [parrot_arsdk](https://github.com/larics/parrot_arsdk) github repo. Build it and then put this line to your .bashrc 
+```bash
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:<your_bebop_ws>/src/parrot_arsdk/build/arsdk/src/ARSDKBuildUtils/out/arsdk-native/staging/usr/lib
+```
 
 <img align="right" width="280" height="200" alt="Joystick Controller" src="/Images/f710-gallery-1.png">
 

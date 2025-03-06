@@ -64,18 +64,25 @@ namespace bebop2 {
         msg.scale.z = 0.35;
 
         // update position
-        double x, y, z, yaw;
+        double x, y, z;
         msg.pose.position.x = x = pose.getOrigin().x();
         msg.pose.position.y = y = pose.getOrigin().y();
         msg.pose.position.z = z = pose.getOrigin().z();
 
         // update orientation
-        msg.pose.orientation.x = pose.getRotation().x();
-        msg.pose.orientation.y = pose.getRotation().y();
-        msg.pose.orientation.z = pose.getRotation().z();
-        msg.pose.orientation.w = pose.getRotation().w();
+        tf::Matrix3x3 m(pose.getRotation());
+        double roll, pitch, yaw;
+        m.getRPY(roll,pitch, yaw);
+        //FIXME add 90 CW deg to heading angle
+       yaw = yaw - M_PI_2;
+       yaw = fmod(yaw + M_PI, 2 * M_PI) - M_PI;
 
-        yaw = tf::getYaw(pose.getRotation());
+       tf::Quaternion q;
+       q.setRPY(roll, pitch, yaw);
+       msg.pose.orientation.x = q.x();
+       msg.pose.orientation.y = q.y();
+       msg.pose.orientation.z = q.z();
+       msg.pose.orientation.w = q.w();
 
 
     }

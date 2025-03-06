@@ -79,7 +79,7 @@ protected:
             // action server then change msg frame_id which will affect controller how to
             // reason about the goal threshold
             msg_->setQuit(k == (traj_.size() - 1));
-            int nap_time = (traj_[k][0] - start_time) * 1000;
+            int nap_time = (traj_[k][0] - start_time) * 1000 / 4;
             std::this_thread::sleep_for(std::chrono::milliseconds(nap_time));
 
             std::vector<double>x{traj_[k][1], traj_[k][2], traj_[k][3], M_PI_2};

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialUI</class>
+ <widget class="QWidget" name="DialUI">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>365</width>
+    <height>355</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>TestWidget Window</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QWidget" name="widget" native="true">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="2" column="0">
+         <widget class="QRadioButton" name="bebop7">
+          <property name="text">
+           <string>bebop7</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QRadioButton" name="bebob5">
+          <property name="text">
+           <string>bebop5</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QRadioButton" name="multirobot">
+          <property name="text">
+           <string>multirobot</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Target Drone</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLCDNumber" name="lcd">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="smallDecimalPoint">
+        <bool>false</bool>
+       </property>
+       <property name="mode">
+        <enum>QLCDNumber::Hex</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDial" name="dial">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>10</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="wrapping">
+        <bool>false</bool>
+       </property>
+       <property name="notchTarget">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="notchesVisible">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>RVIZ Marker</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::PlainText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
+         </property>
+         <property name="openExternalLinks">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="line_edit">
+         <property name="text">
+          <string>/drone/path</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="placeholderText">
+          <string>rviz topic name</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Publish</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="orientationBox">
+     <property name="text">
+      <string>Orientation Control</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="executeBtn">
+     <property name="text">
+      <string>Execute Path </string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

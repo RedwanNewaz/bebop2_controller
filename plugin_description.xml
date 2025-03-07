@@ -1,0 +1,8 @@
+<library path="libwaypoints_sender_rviz">
+  <!-- Dial Panel -->
+  <class name="waypoints_sender_rviz/DialPanel" type="waypoints_sender_rviz::DialPanel" base_class_type="rviz::Panel">
+    <description>
+      Waypoint Sender Panel plugin.
+    </description>
+  </class>
+</library>

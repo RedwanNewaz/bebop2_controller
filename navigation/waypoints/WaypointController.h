@@ -55,6 +55,7 @@ private:
     bebop2_controller::WaypointsResult result_;
     std::unique_ptr<actionlib::SimpleActionClient<bebop2_controller::SetpointsAction>> ac_;
     int goalCounter_;
+    std::array<double, 3> last_point_;
 
 
     double max_vel, max_acc;
@@ -69,6 +70,7 @@ private:
     };
 
 protected:
+    bool orientation_;
     WAYPOINTS getPath(const std::string& path);
     WPI getPlanner(int method, MQ messageQueue, std::string& selected_planner);
     void control_loop(const std::string& selected_planner,  MQ messageQueue);

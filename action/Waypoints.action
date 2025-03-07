@@ -1,5 +1,7 @@
-string csv_path
+geometry_msgs/Point[] waypoints
 int16 method
+int16 gear
+bool orinetation_control
 ---
 string result
 ---

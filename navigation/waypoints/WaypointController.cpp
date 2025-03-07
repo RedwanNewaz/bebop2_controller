@@ -30,6 +30,7 @@ WaypointController::WaypointController(std::string name)
     pub_clear_traj_ = nh_.advertise<std_msgs::Empty>("/set_new_goal", 10);
     ROS_INFO("[ros] param = (%lf, %lf, %lf)", max_vel, max_acc, dt);
     as_.start();
+    ROS_INFO("%s: started", action_name_.c_str());
 }
 
 // Define the destructor
@@ -73,21 +74,21 @@ void WaypointController::execute(const bebop2_controller::WaypointsGoalConstPtr 
 {
     std::unique_lock lk(mtx_);
 
-    const std::string csv_path = goal->csv_path;
     int method = goal->method;
-    if(!std::filesystem::exists(csv_path))
+    int gear = goal->gear;
+    orientation_ = goal->orinetation_control;
+    WAYPOINTS demo;
+    for(auto& point: goal->waypoints)
     {
-        ROS_ERROR("csv file not found!");
-        lk.unlock();
-        return;
+        ROS_INFO("waypoint = (%lf, %lf, %lf)", point.x, point.y, point.z);
+        demo.push_back({point.x, point.y, point.z});
     }
-    // generate trajectory
-    auto demo = getPath(csv_path);
+    
     // TODO move to the first point of the trajectory using P2PNav
     bebop2_controller::SetpointsGoal target;
-    target.setpoint.x = demo[0][0];
-    target.setpoint.y = demo[0][1];
-    target.setpoint.z = demo[0][2];
+    target.setpoint.x = last_point_[0] = demo[0][0];
+    target.setpoint.y = last_point_[1] = demo[0][1];
+    target.setpoint.z = last_point_[2] = demo[0][2];
     target.method = 0;
     ac_->sendGoal(target);
     ac_->waitForResult();
@@ -96,6 +97,7 @@ void WaypointController::execute(const bebop2_controller::WaypointsGoalConstPtr 
     auto messageQueue = std::make_shared<MessageQueue>();
     std::string selected_planner;
     auto wp_inf = getPlanner(method, messageQueue, selected_planner);
+    wp_inf->setSpeedGear(gear);
     wp_inf->start(demo);
     control_loop(selected_planner, messageQueue);
 
@@ -162,9 +164,19 @@ void WaypointController::control_loop(const std::string &selected_planner, Waypo
             feedback_.setpoint.push_back(received_message[1]);
             feedback_.setpoint.push_back(received_message[2]);
             as_.publishFeedback(feedback_);
+
+            // desire heading 
+            double dx = received_message[0] - last_point_[0];
+            double dy = received_message[1] - last_point_[1];
+            double theta = atan2(dy, dx);
             // convert pose message
             tf::Quaternion q;
-            q.setRPY(0, 0, M_PI_2);
+            
+            if(orientation_)
+                q.setRPY(0, 0, theta);
+            else
+                q.setRPY(0, 0, M_PI_2);
+            
 
             geometry_msgs::PoseStamped msg;
             msg.header.stamp = ros::Time::now();
@@ -172,9 +184,9 @@ void WaypointController::control_loop(const std::string &selected_planner, Waypo
             // smaller threshold is chosen when frame_id is map and bigger for the last
             std::string frame_id = messageQueue->isQuitting() ? "last" : "map";
             msg.header.frame_id = frame_id;
-            msg.pose.position.x = received_message[0];
-            msg.pose.position.y = received_message[1];
-            msg.pose.position.z = received_message[2];
+            msg.pose.position.x = last_point_[0] = received_message[0];
+            msg.pose.position.y = last_point_[1] = received_message[1];
+            msg.pose.position.z = last_point_[2] = received_message[2];
             msg.pose.orientation.x = q.x();
             msg.pose.orientation.y = q.y();
             msg.pose.orientation.z = q.z();

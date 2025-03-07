@@ -56,6 +56,11 @@ public:
         return wp_size_;
     }
 
+    void setSpeedGear(int gear)
+    {
+        speed_gear_ = gear;
+    }
+
 protected:
     Eigen::MatrixXd waypoints_;
     double max_vel_, max_acc_;
@@ -63,6 +68,7 @@ protected:
     std::thread worker_thread_;
     std::shared_ptr<MessageQueue> msg_;
     TRAJECTORY traj_;
+    int speed_gear_{10};
 
 
 protected:
@@ -79,7 +85,7 @@ protected:
             // action server then change msg frame_id which will affect controller how to
             // reason about the goal threshold
             msg_->setQuit(k == (traj_.size() - 1));
-            int nap_time = (traj_[k][0] - start_time) * 1000 / 10;
+            int nap_time = (traj_[k][0] - start_time) * 1000 / speed_gear_;
             std::this_thread::sleep_for(std::chrono::milliseconds(nap_time));
 
             std::vector<double>x{traj_[k][1], traj_[k][2], traj_[k][3], M_PI_2};

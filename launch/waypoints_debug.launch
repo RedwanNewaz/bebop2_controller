@@ -1,0 +1,10 @@
+<launch>
+<arg name="namespace" default="bebop5" />
+
+<group ns="$(arg namespace)">
+  <node pkg="bebop2_controller" type="waypoint_control_server" name="waypoint_control_server" output="screen"/>
+  <!-- <node pkg="bebop2_controller" type="p2p_navigation_server" name="p2p_navigation_server" output="screen"/> -->
+</group>
+
+
+</launch>

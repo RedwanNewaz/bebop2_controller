@@ -1,9 +1,0 @@
-<launch>
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
-        <rosparam command="load" file="$(find bebop2_controller)/config/ekf.yaml" />
-
-        <remap from="odometry/filtered" to="/bebop/odometry/filtered"/>
-        <remap from="bebop/cmd_vel" to="/cmd_vel"/>
-    </node>
-    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1  mapDummy odomDummy  100"/>
-</launch>
